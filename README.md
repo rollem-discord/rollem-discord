@@ -23,12 +23,12 @@ X and Y are integers. A and B are arbitrary Expressions.
 | `XdY`            | Rolls X dice of Y size. `4d6` rolls 4 six-sided dice.                                                                                                    |
 | `dY`             | Rolls a single die of Y size.                                                                                                                            |
 | `dY!` `XdY!`     | Exploding dice. Rolly Y on a Y-sided die grants an additional die roll.                                                                                  |
-| `A + B` `A - B`  | Arbitrary chains of addition and subtraction.                                                                                                            |
-| `A * B` `A / B`  | Arbitrary chains of multiplication and division.                                                                                                         |
+| `A+B` `A-B`  | Arbitrary chains of addition and subtraction.                                                                                                            |
+| `A*B` `A/B`  | Arbitrary chains of multiplication and division.                                                                                                         |
 | `(E)`            | Parenthetic expressions                                                                                                                                  |
-| `A << B`         | Counts the quantity of values in A that are lower than or equal to the value B. `10d6 << 3` counts the number of dice at 3 or below.                     |
-| `A >> B`         | Counts the quantity of values in A that are greater than or equal to the value B. `10d6 >>4` counts the number of dice at 4 or above.                    |
-| `A < B` `A >= B` | Equality comparison on A and B. Must be the last operator (`(1 < 2) * 5` is invalid, `1 < (2 * 5)` is valid). Supported operators: `<` `<=` `>` `>=` `=` |
+| `A<<B`         | Counts the quantity of values in A that are lower than or equal to the value B. `10d6 << 3` counts the number of dice at 3 or below.                     |
+| `A>>B`         | Counts the quantity of values in A that are greater than or equal to the value B. `10d6 >>4` counts the number of dice at 4 or above.                    |
+| `A<B` `A>=B` | Equality comparison on A and B. Must be the last operator (`(1 < 2) * 5` is invalid, `1 < (2 * 5)` is valid). Supported operators: `<` `<=` `>` `>=` `=` |
 
 ## Limitations
 
