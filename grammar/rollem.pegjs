@@ -1,31 +1,4 @@
-/*
- * Die Roll Evaluator
- * By @Lemtzas September 2016
- * License: MIT. At bottom..
- *
- * Standard functions: XdY dY / * + - ()
- *
- * Special functions:
- * XdY! - exploding dice. If you roll max, the die will be rerolled and added to your total.
- * XdY << Z - Counts the number of dice lower than or equal to Z. Operates on the die list.
- * XdY >> Z - Counts the number of dice greater than or equal to Z. Operates on the die list.
- * 4d60 Anything you want - Labels the roll with "Anything you want"
- *
- * Comparison functions:
- * < <= > >= = ==
- * These operate on value totals and return a success/failure state.
- *
- * Some examples (Plug into http://pegjs.org/online for a quick test):
- * d20
- * 2d20
- * (8d6 + 4d3 / 4) * d2
- * d6 > 2
- * 20d6 >> 4 > 2
- * 20d6 > 20d6
- * 6d6!
- *
- **/
- {
+{
  	// Object Format:
     // {
     //   value = 27,
@@ -36,35 +9,35 @@
  	function maxEvaluator(size) { return size; }
  	function minEvaluator(size) { return 1; }
  	function rollEvaluator(size, explode) {
-      var all_rolls = [];
-      do {
-        var last_roll = Math.floor(Math.random() * size) + 1;
-        all_rolls.push(last_roll);
-      } while (last_roll == size && explode)
-      return all_rolls;
-    }
+    var all_rolls = [];
+    do {
+      var last_roll = Math.floor(Math.random() * size) + 1;
+      all_rolls.push(last_roll);
+    } while (last_roll == size && explode)
+    return all_rolls;
+  }
 
-    // This is used to configure how the dice calculations are performed.
-    var singleDieEvaluator = rollEvaluator;
+  // This is used to configure how the dice calculations are performed.
+  var singleDieEvaluator = rollEvaluator;
 
-    // This is used to configure stylization of the individual die results.
-    function dieFormatter(value, size) {
-      if (value == size)
-        return maxFormatter(value);
-      else if (value == 1)
-        return minFormatter(value);
-      else
-        return value;
-    }
+  // This is used to configure stylization of the individual die results.
+  function dieFormatter(value, size) {
+    if (value == size)
+      return maxFormatter(value);
+    else if (value == 1)
+      return minFormatter(value);
+    else
+      return value;
+  }
 
-    function minFormatter(value) {
-      return "**" + value + "**";
-    }
+  function minFormatter(value) {
+    return "**" + value + "**";
+  }
 
-    function maxFormatter(value) {
-      return "**" + value + "**";
-    }
- }
+  function maxFormatter(value) {
+    return "**" + value + "**";
+  }
+}
 
 start
   = result: Comparator _? label:(Garbage)?{
@@ -249,13 +222,3 @@ Garbage "any characters"
  = [^]* {
  	return text();
  }
-
-/**
- * Copyright (c) 2016 Lemtzas
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- **/
