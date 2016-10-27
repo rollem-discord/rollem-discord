@@ -51,20 +51,56 @@ X and Y are integers. A and B are arbitrary Expressions.
 4. From `/vagrant`, run `docker build -t rollem . && docker run -it --rm -e DISCORD_BOT_USER_TOKEN='<YOUR TOKEN>' --name rollem rollem`
     * You will need to replace `<YOUR TOKEN>` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
 
+## Deploying the Bot
+
+* [rollem-discord on docker hub](https://hub.docker.com/r/lemtzas/rollem-discord/).
+* Set the `DISCORD_BOT_USER_TOKEN` environment variable to your token from [discord's applications page](https://discordapp.com/developers/applications/me).
+* The docker hub will automatically update with the latest commits on `master`.
+
+## Publishing
+
+* Bump the version number. Follow [semver](http://semver.org/).
+* `npm publish .`
+
+## Using rollem.js as a library
+
+* npm install rollem-discord
+* `const Rollem = require ('rollem-discord');`
+* `var result = Rollem.parse(text)`
+
+* If `text` did not look like a valid roll, `result === null`.
+* If `text` looked like a roll, but was illegal. `typeof(result) === "string"`, where the value is the error message.
+* If `text` was a valid roll, `typeof(result) === "object"` and follows this format:
+
+```js
+{
+  "value": 27,
+  "values": [ value1, value2, value3 ],
+  "pretties": "[value1, value2, **value3**]",
+  "label": "Anything you want",
+  "depth" 5
+}
+```
+
+Breakdown:
+
+| Field      |                                                                                                                                                                                 |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `value`    | The final value. Usually a number. Will be `boolean` if the last statement was of the type `x < y`. If dice were involved, it will be the collapsed result of summing `values`. |
+| `values`   | The most recent array of results. `2d2 * 2` will result in an array of length 2 with values of either 2 or 4. Probably not useful.                                              |
+| `pretties` | The pretty-printed result. Markdown-compatible. Designed for use with discord. Min/max values are **bolded**.                                                                   |
+| `depth`    | The depth of the operations. Ex: `5` is 1. `5+5` is 2. `d5` is 2. `(d5+7)*3` is 4. Use this to avoid matching on `5`.                                                           |
+| `label`    | Any junk text that was passed after the parsed text. Ex: `5 And Some Junk` has `And Some Junk` for this value.                                                                  |
+
+
 ## Some useful links
 
-* [language-pegjs](https://github.com/atom/language-pegjs)  
+* [language-pegjs for atom](https://github.com/atom/language-pegjs)  
 * [pegjs online](http://pegjs.org/online)
 * [pegjs documentation](http://pegjs.org/documentation)
 * [discord.js](https://github.com/hydrabolt/discord.js/)
 * [discord.js docs](http://discord.js.org/#!/docs/tag/master)
 * [discord API docs](https://discordapp.com/developers/docs/intro)
-
-## Publishing
-
-* [rollem-discord on docker hub](https://hub.docker.com/r/lemtzas/rollem-discord/).
-* Set the `DISCORD_BOT_USER_TOKEN` environment variable to your token from [discord's applications page](https://discordapp.com/developers/applications/me).
-* The docker hub will automatically update with the latest commits on `master`.
 
 # License: MIT
 
