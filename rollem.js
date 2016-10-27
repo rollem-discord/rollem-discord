@@ -3,9 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 var grammarLocation = path.join(__dirname, '/grammar/rollem.pegjs');
-console.log(grammarLocation);
 var grammar = fs.readFileSync(grammarLocation, 'utf8');
-console.log(grammar);
 var parser = Peg.generate(grammar)
 
 exports.parse = function(input)
