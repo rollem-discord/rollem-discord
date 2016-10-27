@@ -60,7 +60,7 @@ X and Y are integers. A and B are arbitrary Expressions.
 ## Publishing
 
 * Bump the version number. Follow [semver](http://semver.org/).
-* `npm publish .`
+* `npm publish`
 
 ## Using rollem.js as a library
 
