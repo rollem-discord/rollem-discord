@@ -1,0 +1,16 @@
+{
+  "name": "rollem-discord",
+  "version": "0.1.0",
+  "description": "Rollem for Discord - A dicebot that aggressively matches rolls, and supports a variety of roll syntax",
+  "author": "Lemtzas <lemtzas@gmail.com>",
+  "main": "rollem.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "files": ["./"],
+  "dependencies": {
+    "discord.js": "^9.3.1",
+    "pegjs": "0.10.0"
+  },
+  "license": "MIT"
+}

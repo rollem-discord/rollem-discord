@@ -24,6 +24,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.provision 'docker', run: 'always' do |d|
+    d.pull_images 'node'
     # d.build_image '/vagrant/gdevspam', args: '-t gdevspam'
     # d.run 'gdevspam', args: '--name gdevspam'
     # d.run 'rabbitmq'
