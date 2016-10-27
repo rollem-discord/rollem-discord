@@ -39,8 +39,7 @@ X and Y are integers. A and B are arbitrary Expressions.
 
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
 * [@Lemtzas on Twitter](https://twitter.com/lemtzas)
-* @Lemtzas on Discord
-* [Charisma Bonus's #bot channel](https://discord.gg/7wVKcUs)
+* @Lemtzas on Discord. I can be found on [Charisma Bonus](https://discord.gg/7wVKcUs).
 
 # Development
 
@@ -51,6 +50,15 @@ X and Y are integers. A and B are arbitrary Expressions.
 3. Code will be in `/vagrant`.
 4. From `/vagrant`, run `docker build -t rollem . && docker run -it --rm -e DISCORD_BOT_USER_TOKEN='<YOUR TOKEN>' --name rollem rollem`
     * You will need to replace `<YOUR TOKEN>` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+
+## Some useful links
+
+* [language-pegjs](https://github.com/atom/language-pegjs)  
+* [pegjs online](http://pegjs.org/online)
+* [pegjs documentation](http://pegjs.org/documentation)
+* [discord.js](https://github.com/hydrabolt/discord.js/)
+* [discord.js docs](http://discord.js.org/#!/docs/tag/master)
+* [discord API docs](https://discordapp.com/developers/docs/intro)
 
 # License: MIT
 
