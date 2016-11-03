@@ -14,6 +14,22 @@ Just roll.
 > **@you:** 4d6 for glory  
 > **@rollem:** @you, 'for glory', 17 ⟵ [6, 5, 3, 3]4d6
 
+Inline rolls.
+
+> **@you:** Rolling [4d6] for glory  
+> **@rollem:** @you, 17 ⟵ [6, 5, 3, 3]4d6
+
+> **@you:** Rolling [4d6 for glory]  
+> **@rollem:** @you, 'for glory', 17 ⟵ [6, 5, 3, 3]4d6
+
+Math.
+
+> **@you:** &50+50
+> **@rollem:** @you, 100 ⟵ 50 + 50
+
+> **@you:** r50+50
+> **@rollem:** @you, 100 ⟵ 50 + 50
+
 ## Dice Syntax
 
 X and Y are integers. A and B are arbitrary Expressions.
@@ -34,6 +50,8 @@ X and Y are integers. A and B are arbitrary Expressions.
 
 * Rollem will not roll more than 100 dice.
 * Rollem will not roll "one-sided" dice.
+* Rollem will not roll single numbers.
+* Pure math must be prefixed with `&` or `r`.
 
 # Reporting Problems and Requesting Features
 
@@ -66,11 +84,12 @@ X and Y are integers. A and B are arbitrary Expressions.
 
 * npm install rollem-discord
 * `const Rollem = require ('rollem-discord');`
-* `var result = Rollem.parse(text)`
+* `var result = Rollem.tryParse(text)` (or `Rollem.parse(text)` to get the errors from valid rolls)
 
 * If `text` did not look like a valid roll, `result === null`.
 * If `text` looked like a roll, but was illegal. `typeof(result) === "string"`, where the value is the error message.
 * If `text` was a valid roll, `typeof(result) === "object"` and follows this format:
+
 
 ```js
 {
@@ -78,7 +97,8 @@ X and Y are integers. A and B are arbitrary Expressions.
   "values": [ value1, value2, value3 ],
   "pretties": "[value1, value2, **value3**]",
   "label": "Anything you want",
-  "depth" 5
+  "depth": 5,
+  "dice": 7
 }
 ```
 
@@ -91,6 +111,7 @@ Breakdown:
 | `pretties` | The pretty-printed result. Markdown-compatible. Designed for use with discord. Min/max values are **bolded**.                                                                   |
 | `depth`    | The depth of the operations. Ex: `5` is 1. `5+5` is 2. `d5` is 2. `(d5+7)*3` is 4. Use this to avoid matching on `5`.                                                           |
 | `label`    | Any junk text that was passed after the parsed text. Ex: `5 And Some Junk` has `And Some Junk` for this value.                                                                  |
+| `dice`     | The total number of dice used for this roll. Does not include explosions.                                                                                                       |
 
 
 ## Some useful links

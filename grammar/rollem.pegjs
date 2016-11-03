@@ -1,14 +1,15 @@
 {
- 	// Object Format:
+   // Object Format:
     // {
     //   value = 27,
     //   values = [ value1, value2, value3 ],
     //   pretties = "[value1, value2, **value3**]",
-    //   label = "Anything you want"
+    //   label = "Anything you want",
+    //   dice = 0
     // }
- 	function maxEvaluator(size) { return size; }
- 	function minEvaluator(size) { return 1; }
- 	function rollEvaluator(size, explode) {
+   function maxEvaluator(size) { return size; }
+   function minEvaluator(size) { return 1; }
+   function rollEvaluator(size, explode) {
     var all_rolls = [];
     do {
       var last_roll = Math.floor(Math.random() * size) + 1;
@@ -40,51 +41,52 @@
 }
 
 start
-  = result: Comparator _? label:(Garbage)?{
+  = result: Comparator label:Label?{
     result.label = label;
     result.values = [result.value];
     return result;
   }
 
+Label
+ = _____ label:(Garbage)? {
+   return label;
+ }
+
 Comparator
   = left:Counter _ expr:("<=" / ">=" / "==" / "=" / "<" / ">"  ) _ right:Counter {
       var wasSuccess = false;
       switch(expr) {
-      	case "<":
+        case "<":
           wasSuccess = left.value < right.value;
           break;
-      	case "<=":
+        case "<=":
           wasSuccess = left.value <= right.value;
           break;
-      	case ">":
+        case ">":
           wasSuccess = left.value > right.value;
           break;
-      	case ">=":
+        case ">=":
           wasSuccess = left.value >= right.value;
           break;
-      	case "=":
-      	case "==":
+        case "=":
+        case "==":
           wasSuccess = left.value == right.value;
           break;
       }
-  	  var withValue =
+      var withValue =
         left.value + " " + expr + " " + right.value +
         " ⟵ " + left.pretties + " " + expr + " " + right.pretties;
-      if (wasSuccess) {
-        return {
-          "value": true,
-          "values": [1],
+
+      var value = wasSuccess;
+      var values = wasSuccess ? [1] : [0];
+      console.log(left.dice, right.dice);
+      return {
+          "value": value,
+          "values": values,
           "pretties": withValue,
-          "depth": Math.max(left.depth, right.depth) + 1
-        };
-      } else {
-        return {
-          "value": false,
-          "values": [0],
-          "pretties": withValue,
-          "depth": Math.max(left.depth, right.depth) + 1
-        };
-      }
+          "depth": Math.max(left.depth, right.depth) + 1,
+          "dice": left.dice + right.dice
+      };
     }
     / Counter
     / Expression
@@ -93,10 +95,10 @@ Counter
   = left:Expression _ expr:( "<<" / ">>" ) _ right:Expression {
       var evaluator = null;
       switch(expr) {
-      	case "<<":
+        case "<<":
           evaluator = function(v) { return v <= right.value; }
           break;
-      	case ">>":
+        case ">>":
           evaluator = function(v) { return v >= right.value; }
           break;
       }
@@ -105,10 +107,11 @@ Counter
       left.values.forEach(function(v,i,arr) { if (evaluator(v)) { count++; } });
 
       return {
-    	"value": count,
+        "value": count,
         "values": [ count ],
         "pretties": left.pretties + " " + expr + " " + right.pretties,
-        "depth": Math.max(left.depth, right.depth) + 1
+        "depth": Math.max(left.depth, right.depth) + 1,
+        "dice": left.dice + right.dice
       };
     }
     / Expression
@@ -119,17 +122,18 @@ Expression
 
       for (i = 0; i < right.length; i++) {
         var current = right[i][3];
-        result.depth = Math.max(result.depth, current.depth + 1)
+        result.depth = Math.max(result.depth, current.depth + 1);
+        result.dice = result.dice + current.dice;
         if (right[i][1] === "+") {
           result.value += current.value;
           result.values = result.values.map(function(val) {
-          	return val + current.value;})
+            return val + current.value;})
           result.pretties = result.pretties + " + " + current.pretties;
         }
         if (right[i][1] === "-") {
           result.value -= current.value
           result.values = result.values.map(function(val) {
-          	return val - current.value; })
+            return val - current.value; })
           result.pretties = result.pretties + " - " + current.pretties;
         }
       }
@@ -143,17 +147,18 @@ Term
 
       for (i = 0; i < right.length; i++) {
         var current = right[i][3];
-        result.depth = Math.max(result.depth, current.depth + 1)
+        result.depth = Math.max(result.depth, current.depth + 1);
+        result.dice = result.dice + current.dice;
         if (right[i][1] === "*") {
           result.value *= current.value;
           result.values = result.values.map(function(val) {
-          	return val * current.value; })
+            return val * current.value; })
           result.pretties = result.pretties + " \\* " + current.pretties;
         }
         if (right[i][1] === "/") {
           result.value /= current.value
           result.values = result.values.map(function(val) {
-          	return val / current.value; })
+            return val / current.value; })
           result.pretties = result.pretties + " / " + current.pretties;
         }
       }
@@ -164,8 +169,8 @@ Term
 Factor
   = "(" _ expr:Expression _ ")"
   {
-  	expr.depth += 1;
-  	return expr;
+    expr.depth += 1;
+    return expr;
   }
   / Roll
   / Integer
@@ -196,29 +201,35 @@ Roll
 
       values_arr = values_arr.sort();
       var depth = left ? Math.max(left.depth, right.depth)+1 : right.depth+1;
+      var dice = left ? left.value : 1;
       return {
           "value": accumulator,
           "values": values_arr,
           "pretties": pretties,
-          "depth": depth
+          "depth": depth,
+          "dice": dice
       };
     }
 
 Integer "integer"
   = [0-9]+ {
-  		var value = parseInt(text(), 10);
-  		return {
-        	"value": value,
+      var value = parseInt(text(), 10);
+      return {
+          "value": value,
             "values": [ value ],
             "pretties": text(),
-            "depth": 1
+            "depth": 1,
+            "dice": 0
         };
-   	}
+     }
 
 _ "whitespace"
-  = [ \t\n\r]*
+  = [   \n\r]*
+
+_____ "forced whitespace"
+= [   \n\r]+
 
 Garbage "any characters"
  = [^]* {
- 	return text();
+   return text();
  }
