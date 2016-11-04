@@ -74,9 +74,11 @@ client.on('message', message => {
       return response;
     }).filter(function(x) { return x; });
     var fullMessage = messages.join('\n');
-    console.log('line parse | ' + message + " -> " + fullMessage);
-    message.reply(fullMessage);
-    return;
+    if (fullMessage) {
+      console.log('line parse | ' + message + " -> " + fullMessage);
+      message.reply(fullMessage);
+      return;
+    }
   }
 });
 
