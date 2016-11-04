@@ -5,6 +5,7 @@ const Rollem  = require('./rollem.js');
 const client = new Discord.Client();
 var token = process.env.DISCORD_BOT_USER_TOKEN
 
+var mentionRegex = /$<@999999999999999999>/i;
 var messageInterval = 60000;
 var restartMessage = "Hello, World!";
 var messages = [
@@ -29,6 +30,8 @@ client.on('ready', () => {
   console.log('username: ' + client.user.username);
   console.log('id: ' + client.user.id);
   setInterval(cycleMessage, messageInterval);
+  var mentionRegex_s = '^<@' + client.user.id + '>\\s+';
+  mentionRegex = new RegExp(mentionRegex_s);
 });
 
 client.on('message', message => {
@@ -52,6 +55,19 @@ client.on('message', message => {
   // ignore the dice requirement with prefixed strings
   if (message.content.startsWith('r') || message.content.startsWith('&')) {
     var subMessage = message.content.substring(1);
+    var result = Rollem.tryParse(subMessage);
+    var response = buildMessage(result, false);
+    if (response) {
+      console.log('hard parse | ' + message + " -> " + result);
+      message.reply(response);
+      return;
+    }
+  }
+
+  // ignore the dice requirement with name prefixed strings
+  var match = message.content.match(mentionRegex);
+  if (match) {
+    var subMessage = message.content.substring(match[0].length);
     var result = Rollem.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
