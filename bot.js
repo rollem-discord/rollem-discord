@@ -23,6 +23,10 @@ function cycleMessage()
   client.user.setStatus("online", message);
 }
 
+client.on('disconnect', () => {
+  client.login(token);
+});
+
 client.on('ready', () => {
   console.log('I am ready!');
   console.log('Set status to: ' + restartMessage);
