@@ -24,10 +24,10 @@ Inline rolls.
 
 Math.
 
-> **@you:** &50+50
+> **@you:** &50+50  
 > **@rollem:** @you, 100 ⟵ 50 + 50
 
-> **@you:** r50+50
+> **@you:** r50+50  
 > **@rollem:** @you, 100 ⟵ 50 + 50
 
 ## Dice Syntax
