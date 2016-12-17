@@ -3,6 +3,7 @@
 const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
 const client = new Discord.Client();
+
 var token = process.env.DISCORD_BOT_USER_TOKEN
 
 var mentionRegex = /$<@999999999999999999>/i;
@@ -54,6 +55,7 @@ client.on('message', message => {
   var response = buildMessage(result);
   if (response && result.depth > 1 && result.dice > 0) {
 //     console.log('soft parse | ' + message + " -> " + response);
+    process.stdout.write("r1");
     message.reply(response);
     return;
   }
@@ -65,6 +67,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
 //       console.log('hard parse | ' + message + " -> " + result);
+      process.stdout.write("r2");
       message.reply(response);
       return;
     }
@@ -78,6 +81,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
 //       console.log('hard parse | ' + message + " -> " + result);
+      process.stdout.write("r3");
       message.reply(response);
       return;
     }
@@ -98,6 +102,7 @@ client.on('message', message => {
     var fullMessage = messages.join('\n');
     if (fullMessage) {
 //       console.log('line parse | ' + message + " -> " + fullMessage);
+      process.stdout.write("r4");
       message.reply(fullMessage);
       return;
     }
