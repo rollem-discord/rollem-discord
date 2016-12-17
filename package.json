@@ -5,11 +5,15 @@
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
   "main": "rollem.js",
   "homepage": "https://github.com/lemtzas/rollem-discord",
-  "bugs": { "url": "https://github.com/lemtzas/rollem-discord/issues"},
+  "bugs": {
+    "url": "https://github.com/lemtzas/rollem-discord/issues"
+  },
   "scripts": {
     "start": "node bot.js"
   },
-  "files": ["./"],
+  "files": [
+    "./"
+  ],
   "dependencies": {
     "discord.js": "^9.3.1",
     "pegjs": "0.10.0"
