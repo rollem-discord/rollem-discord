@@ -10,10 +10,7 @@ var mentionRegex = /$<@999999999999999999>/i;
 var messageInterval = 60000;
 var restartMessage = "Hello, World!";
 var messages = [
-  "Docs at github.com/lemtzas/rollem-discord",
-  "Just roll to roll",
-  "r`2d20` for inline",
-  "r1+1 for math"
+  "http://rollem.rocks"
 ];
 
 function cycleMessage()
