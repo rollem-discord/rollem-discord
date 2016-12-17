@@ -12,7 +12,7 @@ exports.tryParse = function(input)
   try {
     return parser.parse(input)
   } catch (ex){
-    console.warn(input + " -> " + ex);
+//     console.warn(input + " -> " + ex);
     if (ex.location === "CUSTOM") {
       return ex.message;
     }
@@ -27,7 +27,7 @@ exports.parse = function(input)
   try {
     return parser.parse(input)
   } catch (ex){
-    console.warn(input + " -> " + ex);
+//     console.warn(input + " -> " + ex);
     return ex.message;
   }
 }

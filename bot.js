@@ -19,9 +19,15 @@ function cycleMessage()
 {
   var message = messages.shift();
   messages.push(message);
-  console.log('Set status to: ' + message);
+//   console.log('Set status to: ' + message);
   client.user.setStatus("online", message);
 }
+
+client.on('disconnect', () => {
+  console.log('logging back in');
+  client.login(token);
+  console.log('logged back in');
+});
 
 client.on('ready', () => {
   console.log('I am ready!');
@@ -47,7 +53,7 @@ client.on('message', message => {
   var result = Rollem.tryParse(message.content);
   var response = buildMessage(result);
   if (response && result.depth > 1 && result.dice > 0) {
-    console.log('soft parse | ' + message + " -> " + response);
+//     console.log('soft parse | ' + message + " -> " + response);
     message.reply(response);
     return;
   }
@@ -58,7 +64,7 @@ client.on('message', message => {
     var result = Rollem.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
-      console.log('hard parse | ' + message + " -> " + result);
+//       console.log('hard parse | ' + message + " -> " + result);
       message.reply(response);
       return;
     }
@@ -71,7 +77,7 @@ client.on('message', message => {
     var result = Rollem.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
-      console.log('hard parse | ' + message + " -> " + result);
+//       console.log('hard parse | ' + message + " -> " + result);
       message.reply(response);
       return;
     }
@@ -91,7 +97,7 @@ client.on('message', message => {
     }).filter(function(x) { return x; });
     var fullMessage = messages.join('\n');
     if (fullMessage) {
-      console.log('line parse | ' + message + " -> " + fullMessage);
+//       console.log('line parse | ' + message + " -> " + fullMessage);
       message.reply(fullMessage);
       return;
     }
