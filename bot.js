@@ -27,6 +27,7 @@ function newClient() {
 
   client.on('disconnect', () => {
     console.log(""+new Date()+" reconnecting");
+    rollemClient.destroy();
     rollemClient = newClient();
     console.log(""+new Date()+" reconnected");
   });
