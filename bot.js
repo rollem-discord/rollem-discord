@@ -156,6 +156,8 @@ function newClient() {
 
     return response;
   }
+
+  return client;
 }
 
 
