@@ -13,7 +13,7 @@ function newClient() {
 
   var mentionRegex = /$<@999999999999999999>/i;
   var messageInterval = 60000;
-  var restartMessage = "Hello, World!";
+  var restartMessage = "http://rollem.rocks !!!";
   var messages = [
     "http://rollem.rocks"
   ];
