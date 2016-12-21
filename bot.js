@@ -2,6 +2,7 @@
 
 const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
+const moment = require ('moment');
 
 var rollemClient = null;
 
@@ -47,6 +48,36 @@ function newClient() {
     if (message.guild) { return; }
     if (message.content === 'ping') {
       message.reply('pong');
+    }
+  });
+
+  client.on('message', message => {
+    if (message.author.bot) { return; }
+    let prefix = getPrefix(message);
+    let content = message.content.substring(prefix.length);
+
+    // ignore without prefix
+    var match = content.match(mentionRegex);
+    if (message.guild && !match) { return; }
+    if (match) {
+      content = content.substring(match[0].length).trim();
+    }
+
+    if (content.startsWith('stats')) {
+      process.stdout.write("s1");
+      let guilds = client.guilds.map((g) => g.name);
+      let uptime = moment.duration(client.uptime);
+      let stats = [
+        '',
+        '**guilds:** ' + client.guilds.size,
+        '**users:** '  + client.users.size,
+        '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
+        '',
+        '**guild-list:**',
+        guilds.join(', ')
+      ];
+      let response = stats.join('\n');
+      message.reply(stats);
     }
   });
 
