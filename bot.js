@@ -27,7 +27,7 @@ function newClient() {
 
   client.on('disconnect', () => {
     console.log(""+new Date()+" quitting");
-    process.exit();
+    process.exit(1);
   });
 
   client.on('ready', () => {
