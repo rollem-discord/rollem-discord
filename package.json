@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "discord.js": "^9.3.1",
+    "moment": "^2.17.1",
     "pegjs": "0.10.0"
   },
   "license": "MIT"
