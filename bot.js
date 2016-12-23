@@ -15,7 +15,7 @@ function newClient() {
   var messageInterval = 60000;
   var restartMessage = "http://rollem.rocks !!!";
   var messages = [
-    "http://rollem.rocks"
+    "http://rollem.rocks v1.0.0"
   ];
 
   function cycleMessage()
