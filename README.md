@@ -1,8 +1,10 @@
-# Rollem for Discord
+# Rollem for Discord v1.0.0
 
 A feature-filled dicebot that allows you to just roll.
 
 [Add this bot to your server.](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=0)
+
+[View the change log](CHANGELOG.md)
 
 # How to use this bot
 
