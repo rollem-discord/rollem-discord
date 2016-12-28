@@ -173,7 +173,9 @@ function shouldDefer(message) {
   if (!message.channel || !message.channel.members) { return false; }
 
   let members = message.channel.members;
-  let deferToUsers = members.filter(m => deferToClientIds.includes(m.id));
+  let deferToUsers = members
+    .filter(m => deferToClientIds.includes(m.id))
+    .filter(m => m.user.status == 'online');
   deferToUsers = deferToUsers.map(m => m.user.username);
 
   if (deferToUsers.length > 0) {
