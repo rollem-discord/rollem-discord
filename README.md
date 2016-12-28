@@ -10,7 +10,9 @@ A feature-filled dicebot that allows you to just roll.
 
 Changes will be vetted in the beta channel before being moved to the main bot.
 
-Both may exist in the same server. If both exist in the same channel, the main bot will defer to the Beta bot.
+It is recommended to also have the main bot on your server. The beta bot will only be online while changes are being vetted.
+
+If both exist, the main bot will defer to the beta bot.
 
 [Add the beta bot to your server.](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0)
 
