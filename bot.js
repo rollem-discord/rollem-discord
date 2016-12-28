@@ -35,6 +35,7 @@ client.on('ready', () => {
   console.log('I am ready!');
   console.log('Set status to: ' + restartMessage);
   client.user.setStatus("online", restartMessage);
+  console.log("will defer to " + deferToClientIds);
   console.log('username: ' + client.user.username);
   console.log('id: ' + client.user.id);
   setInterval(cycleMessage, messageInterval);
