@@ -13,9 +13,9 @@ function newClient() {
 
   var mentionRegex = /$<@999999999999999999>/i;
   var messageInterval = 60000;
-  var restartMessage = "http://rollem.rocks !!!";
+  var restartMessage = "v1.0.0 ! http://rollem.rocks";
   var messages = [
-    "http://rollem.rocks v1.0.0"
+    "v1.0.0 http://rollem.rocks"
   ];
 
   function cycleMessage()
