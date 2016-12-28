@@ -4,7 +4,15 @@ A feature-filled dicebot that allows you to just roll.
 
 [Add this bot to your server.](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=0)
 
-[View the change log](CHANGELOG.md)
+[View the change log.](CHANGELOG.md)
+
+## Beta Channel
+
+Changes will be vetted in the beta channel before being moved to the main bot.
+
+Both may exist in the same server. If both exist in the same channel, the main bot will defer to the Beta bot.
+
+[Add the beta bot to your server.](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0)
 
 # How to use this bot
 
@@ -115,7 +123,6 @@ Breakdown:
 | `label`    | Any junk text that was passed after the parsed text. Ex: `5 And Some Junk` has `And Some Junk` for this value.                                                                  |
 | `dice`     | The total number of dice used for this roll. Does not include explosions.                                                                                                       |
 
-
 ## Some useful links
 
 * [language-pegjs for atom](https://github.com/atom/language-pegjs)  
@@ -124,6 +131,14 @@ Breakdown:
 * [discord.js](https://github.com/hydrabolt/discord.js/)
 * [discord.js docs](http://discord.js.org/#!/docs/tag/master)
 * [discord API docs](https://discordapp.com/developers/docs/intro)
+
+## Some useful commands
+
+**Change image:**
+
+```sh
+curl --request PATCH --header "Authorization: Bot {TOKEN HERE}" -H "Content-Type: application/json" --data '{ "avatar": "{BASE-64 HTML EMBED HERE}" }' https://discordapp.com/api/users/@me
+```
 
 # License: MIT
 
