@@ -1,5 +1,11 @@
 # Rollem Changelog
 
+# 1.0.1
+## Add
+* Ability to defer to other bots.
+* Beta channel.
+* Dev channel.
+
 # 1.0.0
 ## Add
 * Dice. `XdY` `dY`

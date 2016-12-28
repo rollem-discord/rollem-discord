@@ -13,9 +13,9 @@ var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 var mentionRegex = /$<@999999999999999999>/i;
 var messageInterval = 60000;
-var restartMessage = "v1.0.0 ! http://rollem.rocks";
+var restartMessage = "v1.0.1 ! http://rollem.rocks";
 var messages = [
-  "v1.0.0 http://rollem.rocks"
+  "v1.0.1 http://rollem.rocks"
 ];
 
 function cycleMessage()
