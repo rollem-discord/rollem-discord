@@ -95,7 +95,7 @@ client.on('message', message => {
   var result = Rollem.tryParse(content);
   var response = buildMessage(result);
   if (!content.startsWith('D') && response && result.depth > 1 && result.dice > 0) {
-//     console.log('soft parse | ' + message + " -> " + response);
+    // console.log('soft parse | ' + message + " -> " + response);
     process.stdout.write("r1");
     message.reply(response);
     return;
@@ -107,7 +107,7 @@ client.on('message', message => {
     var result = Rollem.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
-//       console.log('hard parse | ' + message + " -> " + result);
+      // console.log('hard parse | ' + message + " -> " + result);
       process.stdout.write("r2");
       message.reply(response);
       return;
@@ -121,7 +121,7 @@ client.on('message', message => {
     var result = Rollem.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
-//       console.log('hard parse | ' + message + " -> " + result);
+      // console.log('hard parse | ' + message + " -> " + result);
       process.stdout.write("r3");
       message.reply(response);
       return;
@@ -142,7 +142,7 @@ client.on('message', message => {
     }).filter(function(x) { return x; });
     var fullMessage = messages.join('\n');
     if (fullMessage) {
-//       console.log('line parse | ' + message + " -> " + fullMessage);
+      // console.log('line parse | ' + message + " -> " + fullMessage);
       process.stdout.write("r4");
       message.reply(fullMessage);
       return;
@@ -173,8 +173,8 @@ function shouldDefer(message) {
   let members = message.channel.members;
   let deferToUsers = members.filter(m => deferToClientIds.includes(m.id));
   deferToUsers = deferToUsers.map(m => m.user.username);
-
-  if (deferToUsers.size > 0) {
+  debugger;
+  if (deferToUsers.length > 0) {
     console.log(messageWhereString(message) + "deferring to " + deferToUsers);
     return true;
   }
