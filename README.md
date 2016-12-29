@@ -1,4 +1,4 @@
-# Rollem for Discord v1.1.0
+# Rollem for Discord v1.2.0
 
 A feature-filled dicebot that allows you to just roll.
 
@@ -58,6 +58,7 @@ X and Y are integers. A and B are arbitrary Expressions.
 | `A>>B`         | Counts the quantity of values in A that are greater than or equal to the value B. `10d6 >>4` counts the number of dice at 4 or above.                    |
 | `A<B` `A>=B`   | Equality comparison on A and B. Must be the last operator (`(1 < 2) * 5` is invalid, `1 < (2 * 5)` is valid). Supported operators: `<` `<=` `>` `>=` `=` |
 | `BX` `GX` `WX` | Burning Wheel notation. Aliased to `Xd6 >> Y` where Y is determined by B/G/W. B=4, G=3, W=2.                                                             |
+| `dF` `XdF`     | Fate Dice notation. Rolls dice with values of -1, 0, 1. Represented by `-`, `0`, and `+`.                                                                |
 
 ## Limitations
 
