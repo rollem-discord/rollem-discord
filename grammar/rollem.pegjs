@@ -18,6 +18,77 @@
     return all_rolls;
   }
 
+  function makeCounter(left, expr, right) {
+    var evaluator = null;
+    switch(expr) {
+      case "<<":
+        evaluator = function(v) { return v <= right.value; }
+        break;
+      case ">>":
+        evaluator = function(v) { return v >= right.value; }
+        break;
+    }
+
+    var count = 0;
+    left.values.forEach(function(v,i,arr) { if (evaluator(v)) { count++; } });
+
+    debugger;
+
+    return {
+      "value": count,
+      "values": [ count ],
+      "pretties": left.pretties + " " + expr + " " + right.pretties,
+      "depth": Math.max(left.depth, right.depth) + 1,
+      "dice": left.dice + right.dice
+    };
+  }
+
+  function makeInteger(text) {
+    var value = parseInt(text, 10);
+    return {
+        "value": value,
+          "values": [ value ],
+          "pretties": text,
+          "depth": 1,
+          "dice": 0
+      };
+  }
+
+  function makeBasicRoll(left, right, explode) {
+    var size = right.value;
+    var count = left ? left.value : 1;
+    if (size <= 1) { error("Minimum die size is 2.", "CUSTOM"); }
+    if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
+    var values_arr = [];
+
+    for (var i=0; i < count; i++)
+    {
+      var newVals = singleDieEvaluator(size, explode);
+      Array.prototype.push.apply(values_arr, newVals);
+    }
+
+    var accumulator = 0;
+    values_arr.forEach(function(v,i,arr) { accumulator += v; });
+
+    var pretties_arr = values_arr.sort().reverse().map(function(v,i,arr) {
+      return dieFormatter(v, size);
+    });
+
+    var pretties = "[" + pretties_arr.join(", ") + "]" + count + "d" + size;
+    if (explode) { pretties = pretties + "!"; }
+
+    values_arr = values_arr.sort();
+    var depth = left ? Math.max(left.depth, right.depth)+1 : right.depth+1;
+    var dice = left ? left.value : 1;
+    return {
+        "value": accumulator,
+        "values": values_arr,
+        "pretties": pretties,
+        "depth": depth,
+        "dice": dice
+    };
+  }
+
   // This is used to configure how the dice calculations are performed.
   var singleDieEvaluator = rollEvaluator;
 
@@ -93,26 +164,7 @@ Comparator
 
 Counter
   = left:Expression _ expr:( "<<" / ">>" ) _ right:Expression {
-      var evaluator = null;
-      switch(expr) {
-        case "<<":
-          evaluator = function(v) { return v <= right.value; }
-          break;
-        case ">>":
-          evaluator = function(v) { return v >= right.value; }
-          break;
-      }
-
-      var count = 0;
-      left.values.forEach(function(v,i,arr) { if (evaluator(v)) { count++; } });
-
-      return {
-        "value": count,
-        "values": [ count ],
-        "pretties": left.pretties + " " + expr + " " + right.pretties,
-        "depth": Math.max(left.depth, right.depth) + 1,
-        "dice": left.dice + right.dice
-      };
+      return makeCounter(left, expr, right);
     }
     / Expression
 
@@ -172,56 +224,46 @@ Factor
     expr.depth += 1;
     return expr;
   }
-  / Roll
+  / BasicRoll
+  / BurningWheelRoll
   / Integer
 
-Roll
-  = left:Integer? [dD] right:Integer explode:"!"? {
-      var size = right.value;
-      var count = left ? left.value : 1;
-      if (size <= 1) { error("Minimum die size is 2.", "CUSTOM"); }
-      if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
-      var values_arr = [];
+BurningWheelRoll
+  = left:[BGW] right:Integer {
+      let rollLeft = right;
+      let rollRight = makeInteger("6");
+      let rollResult = makeBasicRoll(rollLeft, rollRight, null);
+      debugger;
+      let counterRight = null;
 
-      for (var i=0; i < count; i++)
-      {
-        var newVals = singleDieEvaluator(size, explode);
-        Array.prototype.push.apply(values_arr, newVals);
+      switch (left) {
+        case "B":
+          counterRight = makeInteger("4");
+          break;
+        case "G":
+          counterRight = makeInteger("3");
+          break;
+        case "W":
+          counterRight = makeInteger("2");
+          break;
       }
 
-      var accumulator = 0;
-      values_arr.forEach(function(v,i,arr) { accumulator += v; });
+      debugger;
+      let counterResult = makeCounter(rollResult, ">>", counterRight);
+      counterResult.pretties = `${left}${right.pretties} (${counterResult.pretties})`
 
-      var pretties_arr = values_arr.sort().reverse().map(function(v,i,arr) {
-        return dieFormatter(v, size);
-      });
+      return counterResult;
+    }
 
-      var pretties = "[" + pretties_arr.join(", ") + "]" + count + "d" + size;
-      if (explode) { pretties = pretties + "!"; }
-
-      values_arr = values_arr.sort();
-      var depth = left ? Math.max(left.depth, right.depth)+1 : right.depth+1;
-      var dice = left ? left.value : 1;
-      return {
-          "value": accumulator,
-          "values": values_arr,
-          "pretties": pretties,
-          "depth": depth,
-          "dice": dice
-      };
+BasicRoll
+  = left:Integer? [dD] right:Integer explode:"!"? {
+      return makeBasicRoll(left, right, explode);
     }
 
 Integer "integer"
   = [0-9]+ {
-      var value = parseInt(text(), 10);
-      return {
-          "value": value,
-            "values": [ value ],
-            "pretties": text(),
-            "depth": 1,
-            "dice": 0
-        };
-     }
+      return makeInteger(text());
+    }
 
 _ "whitespace"
   = [   \n\r]*
