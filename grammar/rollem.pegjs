@@ -88,7 +88,7 @@
     var pretties = "[" + pretties_arr.join(", ") + "]" + count + "dF";
 
     values_arr = values_arr.sort();
-    var depth = left ? left.depth+1 : 1;
+    var depth = left ? left.depth+1 : 2;
     var dice = left ? left.value : 1;
     return {
         "value": accumulator,
