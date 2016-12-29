@@ -54,6 +54,51 @@
       };
   }
 
+  // TODO: generalize roll structure
+  function makeFateRoll(left) {
+    var size = 3;
+    var count = left ? left.value : 1;
+    if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
+    var values_arr = [];
+
+    // roll
+    for (var i=0; i < count; i++)
+    {
+      var newVals = singleDieEvaluator(size);
+      Array.prototype.push.apply(values_arr, newVals);
+    }
+
+    // map d3 to -1 0 1
+    values_arr = values_arr.map(v => v - 2);
+
+    // total
+    var accumulator = 0;
+    values_arr.forEach(function(v,i,arr) { accumulator += v; });
+
+    // make pretties int - 0 +
+    var pretties_arr = values_arr.sort().reverse().map(function(v,i,arr) {
+      switch(v) {
+        case 0: return "0";
+        case 1: return "+";
+        case -1: return "-";
+        default: return "broken";
+      }
+    });
+
+    var pretties = "[" + pretties_arr.join(", ") + "]" + count + "dF";
+
+    values_arr = values_arr.sort();
+    var depth = left ? left.depth+1 : 1;
+    var dice = left ? left.value : 1;
+    return {
+        "value": accumulator,
+        "values": values_arr,
+        "pretties": pretties,
+        "depth": depth,
+        "dice": dice
+    };
+  }
+
   function makeBasicRoll(left, right, explode) {
     var size = right.value;
     var count = left ? left.value : 1;
@@ -61,20 +106,23 @@
     if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
     var values_arr = [];
 
+    // roll
     for (var i=0; i < count; i++)
     {
       var newVals = singleDieEvaluator(size, explode);
       Array.prototype.push.apply(values_arr, newVals);
     }
 
+    // total
     var accumulator = 0;
     values_arr.forEach(function(v,i,arr) { accumulator += v; });
 
+    // format
     var pretties_arr = values_arr.sort().reverse().map(function(v,i,arr) {
       return dieFormatter(v, size);
     });
 
-    var pretties = "[" + pretties_arr.join(", ") + "]" + count + "d" + size;
+    var pretties = "[" + pretties_arr.join(", ") + "]" + count + "d" + right.pretties;
     if (explode) { pretties = pretties + "!"; }
 
     values_arr = values_arr.sort();
@@ -226,7 +274,13 @@ Factor
   }
   / BasicRoll
   / BurningWheelRoll
+  / FateRoll
   / Integer
+
+FateRoll
+  = left:Integer? [dD] "F" {
+    return makeFateRoll(left);
+  }
 
 BurningWheelRoll
   = left:[BGW] right:Integer {
