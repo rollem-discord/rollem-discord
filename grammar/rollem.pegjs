@@ -283,10 +283,10 @@ FateRoll
   }
 
 BurningWheelRoll
-  = left:[BGW] right:Integer {
+  = left:[BGW] right:Integer explode:"!"? {
       let rollLeft = right;
       let rollRight = makeInteger("6");
-      let rollResult = makeBasicRoll(rollLeft, rollRight, null);
+      let rollResult = makeBasicRoll(rollLeft, rollRight, explode);
       debugger;
       let counterRight = null;
 
