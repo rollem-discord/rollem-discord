@@ -1,4 +1,16 @@
 # Rollem Changelog
+# 1.3.0
+* Add syntax for Burning Wheel Open Rolls `BX!` `GX!` `WX!` - aliased to `Xd6! >> Y` for Y in 2,3,4.
+
+# 1.2.1
+* Set depth on `dF` to 2, allowing non-explicit `dF` rolls.
+
+# 1.2.0
+* Add syntax for Fate Dice `dF` `XdF` - rolls dice with values of -1, 0, and 1.
+
+# 1.1.0
+* Add syntax for Burning Wheel `BX` `GX` `WX` - aliased to `Xd6 >> Y` for Y in 2,3,4.
+* Refactor rollem.pegjs to allow use of operations within other operations.
 
 # 1.0.1
 ## Add

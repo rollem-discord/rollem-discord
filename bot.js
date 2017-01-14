@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
 const moment = require ('moment');
 
-var rollemClient = null;
+const VERSION = "v1.3.0";
 
 let client = new Discord.Client();
 
@@ -13,9 +13,9 @@ var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 var mentionRegex = /$<@999999999999999999>/i;
 var messageInterval = 60000;
-var restartMessage = "v1.0.1 ! http://rollem.rocks";
+var restartMessage = `${VERSION} ! http://rollem.rocks`;
 var messages = [
-  "v1.0.1 http://rollem.rocks"
+  `${VERSION} http://rollem.rocks`
 ];
 
 function cycleMessage()
