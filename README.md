@@ -148,8 +148,6 @@ curl --request PATCH --header "Authorization: Bot {TOKEN HERE}" -H "Content-Type
 
 # Credits
 
-Code by Lemtzas.
-
 Avatar by Kagura on Charisma Bonus.
 
 ![](avatar/kagura1.jpg)
