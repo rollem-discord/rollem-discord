@@ -76,7 +76,9 @@ client.on('message', message => {
       '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
       '',
       '**guild-list:**',
-      guilds.join(', ')
+      guilds.join(', '),
+      '',
+      'Avatar by Kagura on Charisma Bonus.'
     ];
     let response = stats.join('\n');
     message.reply(stats);

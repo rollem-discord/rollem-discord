@@ -145,6 +145,13 @@ Breakdown:
 curl --request PATCH --header "Authorization: Bot {TOKEN HERE}" -H "Content-Type: application/json" --data '{ "avatar": "{BASE-64 HTML EMBED HERE}" }' https://discordapp.com/api/users/@me
 ```
 
+
+# Credits
+
+Avatar by Kagura on Charisma Bonus.
+
+![](avatar/kagura1.jpg)
+
 # License: MIT
 
 Copyright (c) 2016 Lemtzas
