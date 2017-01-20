@@ -152,7 +152,7 @@ Code by Lemtzas.
 
 Avatar by Kagura on Charisma Bonus.
 
-![](avatar/kagura1.png)
+![](avatar/kagura1.jpg)
 
 # License: MIT
 
