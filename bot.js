@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
 const moment = require ('moment');
 
-const VERSION = "v1.3.0";
+const VERSION = "v1.3.1";
 
 let client = new Discord.Client();
 
