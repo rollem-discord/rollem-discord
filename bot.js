@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
 const moment = require ('moment');
 
-const VERSION = "v1.3.1";
+const VERSION = "v1.3.2";
 
 let client = new Discord.Client();
 
@@ -65,7 +65,7 @@ client.on('message', message => {
     content = content.substring(match[0].length).trim();
   }
 
-  if (content.startsWith('stats')) {
+  if (content.startsWith('stats') || content.startsWith('help')) {
     process.stdout.write("s1");
     let guilds = client.guilds.map((g) => g.name);
     let uptime = moment.duration(client.uptime);
@@ -75,8 +75,7 @@ client.on('message', message => {
       '**users:** '  + client.users.size,
       '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
       '',
-      '**guild-list:**',
-      guilds.join(', '),
+      'Docs at http://rollem.rocks',
       '',
       'Avatar by Kagura on Charisma Bonus.'
     ];
