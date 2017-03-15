@@ -75,7 +75,7 @@ client.on('message', message => {
       '**users:** '  + client.users.size,
       '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
       '',
-      'Docs at http://rollem.rocks'
+      'Docs at http://rollem.rocks',
       '',
       'Avatar by Kagura on Charisma Bonus.'
     ];
