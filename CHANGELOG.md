@@ -1,4 +1,7 @@
 # Rollem Changelog
+# 1.3.2
+* Drop server list in `stats` listing.
+* 
 # 1.3.1
 * Correctly sort die values numerically, not lexicographically. gg js.
 
