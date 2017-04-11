@@ -76,7 +76,7 @@
     values_arr.forEach(function(v,i,arr) { accumulator += v; });
 
     // make pretties int - 0 +
-    var pretties_arr = values_arr.sort().reverse().map(function(v,i,arr) {
+    var pretties_arr = values_arr.sort((a,b) => a - b).reverse().map(function(v,i,arr) {
       switch(v) {
         case 0: return "0";
         case 1: return "+";
@@ -87,7 +87,7 @@
 
     var pretties = "[" + pretties_arr.join(", ") + "]" + count + "dF";
 
-    values_arr = values_arr.sort();
+    values_arr = values_arr.sort((a,b) => a - b);
     var depth = left ? left.depth+1 : 2;
     var dice = left ? left.value : 1;
     return {
@@ -118,14 +118,14 @@
     values_arr.forEach(function(v,i,arr) { accumulator += v; });
 
     // format
-    var pretties_arr = values_arr.sort().reverse().map(function(v,i,arr) {
+    var pretties_arr = values_arr.sort((a,b) => a - b).reverse().map(function(v,i,arr) {
       return dieFormatter(v, size);
     });
 
     var pretties = "[" + pretties_arr.join(", ") + "]" + count + "d" + right.pretties;
     if (explode) { pretties = pretties + "!"; }
 
-    values_arr = values_arr.sort();
+    values_arr = values_arr.sort((a,b) => a - b);
     var depth = left ? Math.max(left.depth, right.depth)+1 : right.depth+1;
     var dice = left ? left.value : 1;
     return {

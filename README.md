@@ -1,4 +1,4 @@
-# Rollem for Discord v1.3.0
+# Rollem for Discord v1.3.2
 
 A feature-filled dicebot that allows you to just roll.
 
@@ -145,6 +145,9 @@ Breakdown:
 curl --request PATCH --header "Authorization: Bot {TOKEN HERE}" -H "Content-Type: application/json" --data '{ "avatar": "{BASE-64 HTML EMBED HERE}" }' https://discordapp.com/api/users/@me
 ```
 
+```sh
+(echo -n '{ "avatar":"'; base64 -w 0 {FILENAME HERE}; echo '" }') | curl --request PATCH --header "Authorization: Bot {TOKEN HERE}" -H "Content-Type: application/json" -d @- https://discordapp.com/api/users/@me
+```
 
 # Credits
 
