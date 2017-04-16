@@ -48,8 +48,8 @@ client.on('message', message => {
   if (message.author == client.user) { return; }
   if (message.guild) { return; }
   if (shouldDefer(message)) { return; }
-  if (message.content === 'ping') {
-    message.reply('pong');
+  if (message.content === '@rollem d10') {
+    message.reply(' 8 ⟵ [8]1d10');
   }
 });
 
