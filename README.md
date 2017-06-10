@@ -1,10 +1,10 @@
-# Rollem for Discord v1.3.2
+# Rollem for Discord v1.4.0
 
 A feature-filled dicebot that allows you to just roll.
 
 [Add this bot to your server.](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=0)
 
-[View the change log.](CHANGELOG.md)
+[View the change log.](CHANGELOG.md) (or type `@rollem changelog` in chat)
 
 ## Beta Channel
 
@@ -77,6 +77,15 @@ With this role:
 * Rollem will still roll inline syntax `swing the sword [2d20 for justice]`
 * Rollem with not aggressively parse lines `2d20 for justice`
 * Rollem will aggressively parse lines prefixed with `<your prefix here>`
+
+## Commands
+
+All commands are performed by mentioning `@rollem` in server chat, and without prefix in private chat.
+
+| Command                                      | Example             | Purpose                                 |
+|----------------------------------------------|---------------------|-----------------------------------------|
+| `stats`, `help`                              | `@rollem stats`     | Dump stats, uptime and credit.          |
+| `changelog`, `changes`, `change log`, `diff` | `@rollem changelog` | View the most recent changelog entries. |
 
 # Reporting Problems and Requesting Features
 
