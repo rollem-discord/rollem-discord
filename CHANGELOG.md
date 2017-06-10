@@ -1,7 +1,11 @@
 # Rollem Changelog
+# 1.3.3
+* Fix `rollem:prefix:<your prefix here>` to actually do what it's supposed to.
+* Document `rollem:prefix:<your prefix here>`
+
 # 1.3.2
 * Drop server list in `stats` listing.
-* 
+
 # 1.3.1
 * Correctly sort die values numerically, not lexicographically. gg js.
 
