@@ -2,14 +2,43 @@
 
 const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
-const moment = require ('moment');
+const moment = require('moment');
+const fs = require('fs');
 
-const VERSION = "v1.3.3";
+const VERSION = "v1.4.0";
 
 let client = new Discord.Client();
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
+
+// read the changelog to the last major section that will fit
+const CHANGELOG_LINK = "https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md\n\n";
+var changelog = CHANGELOG_LINK + "(Sorry, we're still reading it from disk.)";
+fs.readFile("./CHANGELOG.md", 'utf8', (err, data) => {
+  const MAX_LENGTH = 2000-CHANGELOG_LINK.length;
+  const MAX_LINES = 15;
+  // error handling
+  if (err) {
+    console.error(err);
+    changelog = CHANGELOG_LINK +"(Sorry, there was an issue reading the file fom disk.) \n\n" + err;
+    return;
+  }
+
+  // don't go over the max discord message length
+  let maxLengthChangelog = data.substring(0,MAX_LENGTH);
+
+  // don't go over a reasonable number of lines
+  let reasonableLengthChangeLog = maxLengthChangelog.split("\n").slice(0,MAX_LINES).join("\n");
+
+  // don't show partial sections
+  let lastSectionIndex = reasonableLengthChangeLog.lastIndexOf("\n#");
+  let noPartialSectionsChangeLog = reasonableLengthChangeLog.substring(0,lastSectionIndex);
+
+  // set the changelog
+  changelog = CHANGELOG_LINK + noPartialSectionsChangeLog
+  console.log(changelog)
+});
 
 var mentionRegex = /$<@999999999999999999>/i;
 var messageInterval = 60000;
@@ -48,7 +77,7 @@ client.on('message', message => {
   if (message.author.bot) { return; }
   if (message.author == client.user) { return; }
   if (message.guild) { return; }
-  if (shouldDefer(message)) { return; }
+
   if (message.content === 'ping') {
     message.reply('pong');
   }
@@ -57,8 +86,7 @@ client.on('message', message => {
 // stats and help
 client.on('message', message => {
   if (message.author.bot) { return; }
-  let prefix = getPrefix(message);
-  let content = message.content.substring(prefix.length);
+  let content = message.content;
 
   // ignore without prefix
   var match = content.match(mentionRegex);
@@ -67,6 +95,7 @@ client.on('message', message => {
     content = content.substring(match[0].length).trim();
   }
 
+  // stats and basic help
   if (content.startsWith('stats') || content.startsWith('help')) {
     process.stdout.write("s1");
     let guilds = client.guilds.map((g) => g.name);
@@ -78,11 +107,21 @@ client.on('message', message => {
       '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
       '',
       'Docs at http://rollem.rocks',
+      'Try `@rollem changelog`',
       '',
       'Avatar by Kagura on Charisma Bonus.'
     ];
     let response = stats.join('\n');
     message.reply(stats);
+  }
+
+  // changelog
+  if (content.startsWith('changelog') ||
+      content.startsWith('change log') ||
+      content.startsWith('changes') ||
+      content.startsWith('diff')) {
+    process.stdout.write("c1");
+    message.reply(changelog);
   }
 });
 
