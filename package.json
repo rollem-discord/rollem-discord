@@ -24,6 +24,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
+    "gulp-pegjs": "^0.1.0",
     "gulp-watch": "^4.3.11",
     "mocha": "^3.2.0",
     "watchify": "^3.9.0"

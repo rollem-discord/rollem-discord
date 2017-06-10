@@ -2,18 +2,22 @@ const Peg = require("pegjs");
 const fs = require('fs');
 const path = require('path');
 
-var grammarLocation = path.join(__dirname, '/grammar/rollem.pegjs');
-var grammar = fs.readFileSync(grammarLocation, 'utf8');
+// var grammarLocation = path.join(__dirname, '/grammar/rollem.pegjs');
+// var grammar = fs.readFileSync(grammarLocation, 'utf8');
 
-var parser = Peg.generate(grammar)
+RollemHooks = require('./grammar/RollemHooks.js').configurations.default;
+
+// var parser = Peg.generate(grammar);
+
+let parser = require('./dist/rollem.js');
 
 // returns false if parsing failed due to grammar match failure
 exports.tryParse = function(input)
 {
   try {
-    return parser.parse(input)
+    let result = parser.parse(input);
+    return result;
   } catch (ex){
-//     console.warn(input + " -> " + ex);
     if (ex.location === "CUSTOM") {
       return ex.message;
     }
@@ -28,7 +32,6 @@ exports.parse = function(input)
   try {
     return parser.parse(input)
   } catch (ex){
-//     console.warn(input + " -> " + ex);
     return ex.message;
   }
 }
