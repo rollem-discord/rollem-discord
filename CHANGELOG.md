@@ -2,7 +2,7 @@
 * Add `@rollem changelog` command.
 
 # **1.3.3**
-* Fix `rollem:prefix:<your prefix here>` to actually do what it's supposed to.
+* Fix `rollem:prefix:<your prefix here>` to actually do what it's supposed to. Thanks RPGX!
 * Document `rollem:prefix:<your prefix here>`
 
 # **1.3.2**
