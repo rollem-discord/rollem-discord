@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const Rollem  = require('./rollem.js');
 const moment = require ('moment');
 
-const VERSION = "v1.3.2";
+const VERSION = "v1.3.3";
 
 let client = new Discord.Client();
 
@@ -43,6 +43,7 @@ client.on('ready', () => {
   mentionRegex = new RegExp(mentionRegex_s);
 });
 
+// ping pong in PMs
 client.on('message', message => {
   if (message.author.bot) { return; }
   if (message.author == client.user) { return; }
@@ -53,6 +54,7 @@ client.on('message', message => {
   }
 });
 
+// stats and help
 client.on('message', message => {
   if (message.author.bot) { return; }
   let prefix = getPrefix(message);
@@ -84,22 +86,43 @@ client.on('message', message => {
   }
 });
 
+// greedy rolling
 client.on('message', message => {
+  // avoid doing insane things
   if (message.author.bot) { return; }
   if (message.author == client.user) { return; }
+  if (shouldDefer(message)) { return; }
+  if (message.content.startsWith('D')) { return; } // apparently D8 is a common emote.
+
+  // honor the prefix
   let prefix = getPrefix(message);
+  if (!message.content.startsWith(prefix)) { return; }
+
+  // get our actual roll content
   let content = message.content.substring(prefix.length);
+  content = content.trim();
 
   // parse the whole string and check for dice
   var result = Rollem.tryParse(content);
   var response = buildMessage(result);
-  if (!content.startsWith('D') && response && result.depth > 1 && result.dice > 0) {
-    if (shouldDefer(message)) { return; }
+  var shouldReply = prefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+  if (response && shouldReply) {
     // console.log('soft parse | ' + message + " -> " + response);
     process.stdout.write("r1");
     message.reply(response);
     return;
   }
+});
+
+// TODO: Split this up. Combine common bail rules.
+// inline and convenience messaging
+client.on('message', message => {
+  // avoid doing insane things
+  if (message.author.bot) { return; }
+  if (message.author == client.user) { return; }
+  if (shouldDefer(message)) { return; }
+
+  var content = message.content.trim();
 
   // ignore the dice requirement with prefixed strings
   if (content.startsWith('r') || content.startsWith('&')) {
