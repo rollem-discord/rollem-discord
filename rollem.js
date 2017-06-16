@@ -4,6 +4,7 @@ const path = require('path');
 
 var grammarLocation = path.join(__dirname, '/grammar/rollem.pegjs');
 var grammar = fs.readFileSync(grammarLocation, 'utf8');
+
 var parser = Peg.generate(grammar)
 
 // returns false if parsing failed due to grammar match failure
