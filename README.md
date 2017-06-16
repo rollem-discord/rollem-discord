@@ -1,10 +1,10 @@
-# Rollem for Discord v1.3.2
+# Rollem for Discord v1.4.0
 
 A feature-filled dicebot that allows you to just roll.
 
 [Add this bot to your server.](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=0)
 
-[View the change log.](CHANGELOG.md)
+[View the change log.](CHANGELOG.md) (or type `@rollem changelog` in chat)
 
 ## Beta Channel
 
@@ -68,6 +68,25 @@ X and Y are integers. A and B are arbitrary Expressions.
 * Rollem will not roll single numbers.
 * Pure math must be prefixed with `&` or `r`.
 
+## Prefixing
+Give Rollem a role of `rollem:prefix:<your prefix here>` to disable aggressive rolling.
+
+With this role:
+* Rollem will still roll lines prefixed with `&` or `r`
+* Rollem will still roll lines addressed to him. `@Rollem 2d20`
+* Rollem will still roll inline syntax `swing the sword [2d20 for justice]`
+* Rollem with not aggressively parse lines `2d20 for justice`
+* Rollem will aggressively parse lines prefixed with `<your prefix here>`
+
+## Commands
+
+All commands are performed by mentioning `@rollem` in server chat, and without prefix in private chat.
+
+| Command                                      | Example             | Purpose                                 |
+|----------------------------------------------|---------------------|-----------------------------------------|
+| `stats`, `help`                              | `@rollem stats`     | Dump stats, uptime and credit.          |
+| `changelog`, `changes`, `change log`, `diff` | `@rollem changelog` | View the most recent changelog entries. |
+
 # Reporting Problems and Requesting Features
 
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
@@ -75,6 +94,11 @@ X and Y are integers. A and B are arbitrary Expressions.
 * @Lemtzas on Discord. I can be found on [Charisma Bonus](https://discord.gg/7wVKcUs).
 
 # Development
+
+## Running the bot directly from Node
+
+1. `DISCORD_BOT_USER_TOKEN=<YOUR TOKEN> node bot.js`
+  * You will need to replace `<YOUR TOKEN>` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
 
 ## Vagrant and Docker Setup
 

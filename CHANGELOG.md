@@ -1,30 +1,36 @@
-# Rollem Changelog
-# 1.3.2
+# **1.4.0**
+* Add `@rollem changelog` command.
+
+# **1.3.3**
+* Fix `rollem:prefix:<your prefix here>` to actually do what it's supposed to. Thanks RPGX!
+* Document `rollem:prefix:<your prefix here>`
+
+# **1.3.2**
 * Drop server list in `stats` listing.
-* 
-# 1.3.1
+
+# **1.3.1**
 * Correctly sort die values numerically, not lexicographically. gg js.
 
-# 1.3.0
+# **1.3.0**
 * Add syntax for Burning Wheel Open Rolls `BX!` `GX!` `WX!` - aliased to `Xd6! >> Y` for Y in 2,3,4.
 
-# 1.2.1
+# **1.2.1**
 * Set depth on `dF` to 2, allowing non-explicit `dF` rolls.
 
-# 1.2.0
+# **1.2.0**
 * Add syntax for Fate Dice `dF` `XdF` - rolls dice with values of -1, 0, and 1.
 
-# 1.1.0
+# **1.1.0**
 * Add syntax for Burning Wheel `BX` `GX` `WX` - aliased to `Xd6 >> Y` for Y in 2,3,4.
 * Refactor rollem.pegjs to allow use of operations within other operations.
 
-# 1.0.1
+# **1.0.1**
 ## Add
 * Ability to defer to other bots.
 * Beta channel.
 * Dev channel.
 
-# 1.0.0
+# **1.0.0**
 ## Add
 * Dice. `XdY` `dY`
 * Exploding dice. `dY!` `XdY!`
