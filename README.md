@@ -91,7 +91,7 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
 * [@Lemtzas on Twitter](https://twitter.com/lemtzas)
-* @Lemtzas on Discord. I can be found on [Charisma Bonus](https://discord.gg/7wVKcUs).
+* @Aiufia#8146 on Discord. I can be found on [Charisma Bonus](https://discord.gg/7wVKcUs).
 
 # Development
 
