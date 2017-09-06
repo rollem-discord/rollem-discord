@@ -237,7 +237,7 @@ Expression
             result.pretties = result.pretties + " - " + current.pretties;
             break;
           case "++":
-            result.value += current.value;
+            result.value += current.value * result.values.length;
             result.values = result.values.map(function(val) {
               return val + current.value;})
             var pretties_arr = result.values.sort((a,b) => a - b).reverse()
@@ -245,7 +245,7 @@ Expression
             result.pretties = joined + " ⟵ " + result.pretties + " ++ " + current.pretties;
             break;
           case "--":
-            result.value -= current.value
+            result.value -= current.value * result.values.length;
             result.values = result.values.map(function(val) {
               return val - current.value; })
             var pretties_arr = result.values.sort((a,b) => a - b).reverse()
