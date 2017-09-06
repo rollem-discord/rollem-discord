@@ -1,3 +1,6 @@
+# **1.5.0**
+* Add `++` and `--` operators.
+
 # **1.4.0**
 * Add `@rollem changelog` command.
 
