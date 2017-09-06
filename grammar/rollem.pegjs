@@ -296,7 +296,7 @@ Factor
   / Integer
 
 FateRoll
-  = left:Integer? [dD] "F" {
+  = left:Integer? [dD] [Ff] {
     return makeFateRoll(left);
   }
 

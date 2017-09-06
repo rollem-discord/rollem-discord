@@ -1,3 +1,6 @@
+# **1.5.1**
+* Fix Fate notation to allow lowercase `f`.
+
 # **1.5.0**
 * Add `++` and `--` operators.
 
