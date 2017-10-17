@@ -217,29 +217,47 @@ Counter
     / Expression
 
 Expression
-  = left:Term right:(_ ("+" / "-") _ Term)* {
+  = left:Term right:(_ ("++" / "--" / "+" / "-") _ Term)* {
       var result = left, i;
 
       for (i = 0; i < right.length; i++) {
         var current = right[i][3];
         result.depth = Math.max(result.depth, current.depth + 1);
         result.dice = result.dice + current.dice;
-        if (right[i][1] === "+") {
-          result.value += current.value;
-          result.values = result.values.map(function(val) {
-            return val + current.value;})
-          result.pretties = result.pretties + " + " + current.pretties;
-        }
-        if (right[i][1] === "-") {
-          result.value -= current.value
-          result.values = result.values.map(function(val) {
-            return val - current.value; })
-          result.pretties = result.pretties + " - " + current.pretties;
+        var symbol = right[i][1];
+        switch (symbol) {
+          case "+":
+            result.value += current.value;
+            result.values = [result.value];
+            result.pretties = result.pretties + " + " + current.pretties;
+            break;
+          case "-":
+            result.value -= current.value
+            result.values = [result.value];
+            result.pretties = result.pretties + " - " + current.pretties;
+            break;
+          case "++":
+            result.value += current.value * result.values.length;
+            result.values = result.values.map(function(val) {
+              return val + current.value;})
+            var pretties_arr = result.values.sort((a,b) => a - b).reverse()
+            var joined = "[" + pretties_arr.join(", ") + "]";
+            result.pretties = joined + " ⟵ " + result.pretties + " ++ " + current.pretties;
+            break;
+          case "--":
+            result.value -= current.value * result.values.length;
+            result.values = result.values.map(function(val) {
+              return val - current.value; })
+            var pretties_arr = result.values.sort((a,b) => a - b).reverse()
+            var joined = "[" + pretties_arr.join(", ") + "]";
+            result.pretties = joined + " ⟵ " + result.pretties + " -- " + current.pretties;
+            break;
         }
       }
 
       return result;
     }
+
 
 Term
   = left:Factor right:(_ ("*" / "/") _ Factor)* {
@@ -278,7 +296,7 @@ Factor
   / Integer
 
 FateRoll
-  = left:Integer? [dD] "F" {
+  = left:Integer? [dD] [Ff] {
     return makeFateRoll(left);
   }
 
