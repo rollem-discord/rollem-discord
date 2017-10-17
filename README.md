@@ -1,4 +1,4 @@
-# Rollem for Discord v1.5.1
+# Rollem for Discord v1.5.2
 
 A feature-filled dicebot that allows you to just roll.
 
@@ -91,7 +91,7 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 # Reporting Problems and Requesting Features
 
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
-* [@Lemtzas on Twitter](https://twitter.com/lemtzas)
+* [@Lemtzas on Twitter](https://twitter.com/lemtzas)npm up
 * @Lemtzas on Discord. I can be found on [Charisma Bonus](https://discord.gg/7wVKcUs).
 
 # Development
