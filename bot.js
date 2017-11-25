@@ -5,7 +5,7 @@ const Rollem  = require('./rollem.js');
 const moment = require('moment');
 const fs = require('fs');
 
-const VERSION = "v1.5.1";
+const VERSION = "v1.5.2";
 
 let client = new Discord.Client();
 
@@ -63,7 +63,8 @@ client.on('disconnect', () => {
 client.on('ready', () => {
   console.log('I am ready!');
   console.log('Set status to: ' + restartMessage);
-  client.user.setStatus("online", restartMessage);
+	client.user.setStatus("online");
+	client.user.setGame(restartMessage);
   console.log("will defer to " + deferToClientIds);
   console.log('username: ' + client.user.username);
   console.log('id: ' + client.user.id);

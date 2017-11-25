@@ -1,3 +1,6 @@
+# **1.5.2**
+* Update API version, restoring the missing 'Playing' message.
+
 # **1.5.1**
 * Fix Fate notation to allow lowercase `f`.
 
