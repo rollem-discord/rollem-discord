@@ -16,6 +16,12 @@ If both exist, the main bot will defer to the beta bot.
 
 [Add the beta bot to your server.](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0)
 
+## Support and Feature Requests
+
+* [Rollem Support Server](https://discord.gg/VhYX9u7)
+* [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
+* [@Lemtzas on Twitter](https://twitter.com/lemtzas)
+
 # How to use this bot
 
 Just roll.
@@ -87,12 +93,6 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 |----------------------------------------------|---------------------|-----------------------------------------|
 | `stats`, `help`                              | `@rollem stats`     | Dump stats, uptime and credit.          |
 | `changelog`, `changes`, `change log`, `diff` | `@rollem changelog` | View the most recent changelog entries. |
-
-# Reporting Problems and Requesting Features
-
-* [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
-* [@Lemtzas on Twitter](https://twitter.com/lemtzas)
-* @Lemtzas on Discord. I can be found on [Charisma Bonus](https://discord.gg/7wVKcUs).
 
 # Development
 
@@ -182,7 +182,7 @@ Avatar by Kagura on Charisma Bonus.
 
 # License: MIT
 
-Copyright (c) 2016 Lemtzas
+Copyright (c) 2018 Lemtzas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
