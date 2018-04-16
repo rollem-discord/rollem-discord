@@ -10,6 +10,7 @@ const VERSION = "v1.5.2";
 let client = new Discord.Client();
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
+console.log(token);
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 // read the changelog to the last major section that will fit
@@ -55,7 +56,11 @@ function cycleMessage()
   client.user.setStatus("online", message);
 }
 
-client.on('disconnect', () => {
+client.on('disconnect', (...f) => {
+  console.log(f[0]);
+  console.log(f[1]);
+  console.log(f[2]);
+  console.log(f[3]);
   console.log(""+new Date()+" quitting");
   process.exit(1);
 });
@@ -280,4 +285,5 @@ function buildMessage(result, requireDice = true)
   return response;
 }
 
-client.login(token);
+var output = client.login(token);
+console.log(output);
