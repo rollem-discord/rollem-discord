@@ -9,7 +9,7 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
-    "start": "node bot.js",
+    "start": "node sharder.js",
     "test": "mocha"
   },
   "files": [
