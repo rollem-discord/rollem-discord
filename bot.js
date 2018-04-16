@@ -14,7 +14,7 @@ console.log(token);
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 // read the changelog to the last major section that will fit
-const CHANGELOG_LINK = "https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md\n\n";
+const CHANGELOG_LINK = "<https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md>\n\n";
 var changelog = CHANGELOG_LINK + "(Sorry, we're still reading it from disk.)";
 fs.readFile("./CHANGELOG.md", 'utf8', (err, data) => {
   const MAX_LENGTH = 2000-CHANGELOG_LINK.length;
@@ -112,7 +112,7 @@ client.on('message', message => {
       '**users:** '  + client.users.size,
       '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
       '',
-      'Docs at http://rollem.rocks',
+      'Docs at <http://rollem.rocks>',
       'Try `@rollem changelog`',
       '',
       'Avatar by Kagura on Charisma Bonus.'

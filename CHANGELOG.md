@@ -1,8 +1,12 @@
+# **1.5.5**
+* Embed help links with `<link>` syntax, to avoid embedding URLs.
+* Rollem has a dedicated support server/channel now at <https://goo.gl/7qfUtG>.
+
 # **1.5.4**
-* Fix bot deferral mechanism - `Rollem` will now properly defer to `Rollem Beta`, and `Rollem Beta` to `Rollem Dev`
+* Fix bot deferral mechanism - `Rollem` will now properly defer to `Rollem Beta`/`Rollem Dev`, and `Rollem Beta` will defer to `Rollem Dev`.
 
 # **1.5.3**
-* Add sharding support. Required by Discord as 2500 servers.
+* Add sharding support. Sharding is required by Discord for bots on >2500 servers.
 * Sorry for the downtime.
 
 # **1.5.2**
