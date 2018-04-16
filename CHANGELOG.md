@@ -1,3 +1,6 @@
+# **1.5.4**
+* Fix bot deferral mechanism - `Rollem` will now properly defer to `Rollem Beta`, and `Rollem Beta` to `Rollem Dev`
+
 # **1.5.3**
 * Add sharding support. Required by Discord as 2500 servers.
 * Sorry for the downtime.

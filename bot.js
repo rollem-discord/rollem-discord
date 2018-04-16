@@ -5,7 +5,7 @@ const Rollem  = require('./rollem.js');
 const moment = require('moment');
 const fs = require('fs');
 
-const VERSION = "v1.5.3";
+const VERSION = "v1.5.4";
 
 let client = new Discord.Client();
 
@@ -241,14 +241,17 @@ function shouldDefer(message) {
   if (!message.guild) { return false; }
   if (!message.channel || !message.channel.members) { return false; }
 
-  let members = message.channel.members;
-  let deferToUsers = members
-    .filter(m => deferToClientIds.includes(m.id))
-    .filter(m => m.user.status == 'online');
-  deferToUsers = deferToUsers.map(m => m.user.username);
+  let presences = message.guild && message.guild.presences;
+  if (!presences) { return false; }
 
-  if (deferToUsers.length > 0) {
-    console.log(messageWhereString(message) + ": deferring to " + deferToUsers);
+  var onlineDeferrablePresences = deferToClientIds.filter(id => {
+    var presence = presences.get(id);
+    var isOnline = presence && presence.status == 'online';
+    return isOnline;
+  });
+
+  if (onlineDeferrablePresences.length > 0) {
+    console.log(messageWhereString(message) + ": deferring to " + onlineDeferrablePresences);
     return true;
   }
 
