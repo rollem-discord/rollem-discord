@@ -1,6 +1,4 @@
-**The main bot is currently down. Discord's API demands I enable sharding. Please use the Beta Bot until I can update it.**
-
-# Rollem for Discord v1.5.2
+# Rollem for Discord v1.5.3
 
 A feature-filled dicebot that allows you to just roll.
 

@@ -1,3 +1,7 @@
+# **1.5.3**
+* Add sharding support. Required by Discord as 2500 servers.
+* Sorry for the downtime.
+
 # **1.5.2**
 * Update API version, restoring the missing 'Playing' message.
 
