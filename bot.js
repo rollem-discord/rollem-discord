@@ -57,7 +57,8 @@ fs.readFile("./CHANGELOG.md", 'utf8', (err, data) => {
 });
 
 var mentionRegex = /$<@999999999999999999>/i;
-var messageInterval = 60000;
+var messageInterval = 60 * 1000; // every minute
+var heartbeatInterval = 60 * 60 * 1000; // every hour
 var restartMessage = `${VERSION} ! http://rollem.rocks`;
 var messages = [
   `${VERSION} http://rollem.rocks`
@@ -71,6 +72,20 @@ function cycleMessage() {
 }
 
 client.on('disconnect', (...f) => {
+  aiClient && aiClient.trackEvent({
+    name: 'disconnect',
+    tagOverrides: {
+      "userid": client.user.id,
+      "username": client.user.username,
+      "shard": client.shard ? client.shard.id + 1 : "only",
+      "shardCount": client.shard ? client.shard.count : 1,
+      "version": VERSION
+    },
+    contextObjects: {
+      deferToClientIds: deferToClientIds,
+    }
+  });
+
   console.log(f[0]);
   console.log(f[1]);
   console.log(f[2]);
@@ -80,6 +95,19 @@ client.on('disconnect', (...f) => {
 });
 
 client.on('ready', () => {
+  aiClient && aiClient.trackEvent({
+    name: 'ready',
+    tagOverrides: {
+      "userid": client.user.id,
+      "username": client.user.username,
+      "shard": client.shard ? client.shard.id + 1 : "only",
+      "shardCount": client.shard ? client.shard.count : 1,
+      "version": VERSION
+    },
+    contextObjects: {
+      deferToClientIds: deferToClientIds,
+    }
+  });
   console.log('I am ready!');
   console.log('Set status to: ' + restartMessage);
   client.user.setStatus("online");
@@ -90,7 +118,47 @@ client.on('ready', () => {
   setInterval(cycleMessage, messageInterval);
   var mentionRegex_s = '^<@' + client.user.id + '>\\s+';
   mentionRegex = new RegExp(mentionRegex_s);
+
+  sendHeartbeatToOwner("startup message");
+  sendHeartbeatToOwnerNextHour();
 });
+
+function sendHeartbeatToOwnerNextHour() {
+  const now = moment();
+  const nextHour = moment().endOf('h');
+  const msToNextHour = nextHour.diff(now);
+  setTimeout(
+    () => {
+      sendHeartbeatToOwner("heartbeat at " + nextHour.toString());
+      sendHeartbeatToOwnerNextHour();
+    },
+    msToNextHour,
+  );
+}
+
+/** Sends a single heartbeat-info message to owner confirming liveliness. */
+function sendHeartbeatToOwner(reason) {
+  const ownerId = process.env.OWNER_USER_ID
+  if (!ownerId) { return; }
+
+  client.fetchUser(ownerId)
+    .then(user => {
+      const shardText =
+        client.shard
+        ? `${client.shard.id+1}/${client.shard.count}`
+        : "only";
+
+      let uptime = moment.duration(client.uptime);
+
+      user.send(
+        `__${client.user.username} (${client.user.id})__\n` +
+        `**shard:** ${shardText}\n` +
+        `**reason:** ${reason}\n` +
+        `**servers:** ${client.guilds.size}\n` +
+        `**users:** ${client.users.size}\n` +
+        `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`);
+    });
+}
 
 // ping pong in PMs
 client.on('message', message => {

@@ -1,5 +1,6 @@
 # **1.7.0**
 * Connect logging to Application Insights. Hopefully now I'll be able to see when/why the bot is down for one shard but not others.
+* Add a heartbeat message from each shard. Messages me each hour to confirm the shard is up and connected.
 
 # **1.6.0**
 * Make bot deferral mechanism work on a per-channel basis, rather than per-server.
