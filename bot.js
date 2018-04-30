@@ -1,44 +1,42 @@
 'use strict';
 
 const Discord = require('discord.js');
-const Rollem  = require('./rollem.js');
+const Rollem = require('./rollem.js');
 const moment = require('moment');
 const fs = require('fs');
 
-const VERSION = "v1.5.4";
+const VERSION = "v1.5.5";
 
 let client = new Discord.Client();
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
-console.log(token);
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 // read the changelog to the last major section that will fit
 const CHANGELOG_LINK = "<https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md>\n\n";
 var changelog = CHANGELOG_LINK + "(Sorry, we're still reading it from disk.)";
 fs.readFile("./CHANGELOG.md", 'utf8', (err, data) => {
-  const MAX_LENGTH = 2000-CHANGELOG_LINK.length;
+  const MAX_LENGTH = 2000 - CHANGELOG_LINK.length;
   const MAX_LINES = 15;
   // error handling
   if (err) {
     console.error(err);
-    changelog = CHANGELOG_LINK +"(Sorry, there was an issue reading the file fom disk.) \n\n" + err;
+    changelog = CHANGELOG_LINK + "(Sorry, there was an issue reading the file fom disk.) \n\n" + err;
     return;
   }
 
   // don't go over the max discord message length
-  let maxLengthChangelog = data.substring(0,MAX_LENGTH);
+  let maxLengthChangelog = data.substring(0, MAX_LENGTH);
 
   // don't go over a reasonable number of lines
-  let reasonableLengthChangeLog = maxLengthChangelog.split("\n").slice(0,MAX_LINES).join("\n");
+  let reasonableLengthChangeLog = maxLengthChangelog.split("\n").slice(0, MAX_LINES).join("\n");
 
   // don't show partial sections
   let lastSectionIndex = reasonableLengthChangeLog.lastIndexOf("\n#");
-  let noPartialSectionsChangeLog = reasonableLengthChangeLog.substring(0,lastSectionIndex);
+  let noPartialSectionsChangeLog = reasonableLengthChangeLog.substring(0, lastSectionIndex);
 
   // set the changelog
   changelog = CHANGELOG_LINK + noPartialSectionsChangeLog
-  console.log(changelog)
 });
 
 var mentionRegex = /$<@999999999999999999>/i;
@@ -48,11 +46,10 @@ var messages = [
   `${VERSION} http://rollem.rocks`
 ];
 
-function cycleMessage()
-{
+function cycleMessage() {
   var message = messages.shift();
   messages.push(message);
-//   console.log('Set status to: ' + message);
+  //   console.log('Set status to: ' + message);
   client.user.setStatus("online", message);
 }
 
@@ -61,15 +58,15 @@ client.on('disconnect', (...f) => {
   console.log(f[1]);
   console.log(f[2]);
   console.log(f[3]);
-  console.log(""+new Date()+" quitting");
+  console.log("" + new Date() + " quitting");
   process.exit(1);
 });
 
 client.on('ready', () => {
   console.log('I am ready!');
   console.log('Set status to: ' + restartMessage);
-	client.user.setStatus("online");
-	client.user.setGame(restartMessage);
+  client.user.setStatus("online");
+  client.user.setGame(restartMessage);
   console.log("will defer to " + deferToClientIds);
   console.log('username: ' + client.user.username);
   console.log('id: ' + client.user.id);
@@ -108,9 +105,10 @@ client.on('message', message => {
     let uptime = moment.duration(client.uptime);
     let stats = [
       '',
-      '**guilds:** ' + client.guilds.size,
-      '**users:** '  + client.users.size,
-      '**uptime:** ' + `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
+      `**servers:** ${client.guilds.size}`,
+      `**users:** ${client.users.size}`,
+      `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
+      `**shard:** ${client.shard.id + 1}/${client.shard.count}`,
       '',
       'Docs at <http://rollem.rocks>',
       'Try `@rollem changelog`',
@@ -123,9 +121,9 @@ client.on('message', message => {
 
   // changelog
   if (content.startsWith('changelog') ||
-      content.startsWith('change log') ||
-      content.startsWith('changes') ||
-      content.startsWith('diff')) {
+    content.startsWith('change log') ||
+    content.startsWith('changes') ||
+    content.startsWith('diff')) {
     process.stdout.write("c1");
     message.reply(changelog);
   }
@@ -205,11 +203,11 @@ client.on('message', message => {
   while (last = regex.exec(content)) { matches.push(last[1]); }
 
   if (matches && matches.length > 0) {
-    var messages = matches.map(function(match) {
+    var messages = matches.map(function (match) {
       var result = Rollem.tryParse(match);
       var response = buildMessage(result);
       return response;
-    }).filter(function(x) { return x; });
+    }).filter(function (x) { return x; });
     var fullMessage = messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
@@ -241,17 +239,20 @@ function shouldDefer(message) {
   if (!message.guild) { return false; }
   if (!message.channel || !message.channel.members) { return false; }
 
-  let presences = message.guild && message.guild.presences;
-  if (!presences) { return false; }
+  let members = message.channel && message.channel.members;
+  console.log(members);
+  if (!members) { return false; }
 
-  var onlineDeferrablePresences = deferToClientIds.filter(id => {
-    var presence = presences.get(id);
-    var isOnline = presence && presence.status == 'online';
-    return isOnline;
-  });
+  let deferToMembers =
+    deferToClientIds.filter(id => {
+      let member = members.get(id);
+      let isOnline = member && member.presence && member.presence.status == 'online';
+      return isOnline;
+    }).map(id => members.get(id));
 
-  if (onlineDeferrablePresences.length > 0) {
-    console.log(messageWhereString(message) + ": deferring to " + onlineDeferrablePresences);
+  if (deferToMembers.length > 0) {
+    let names = deferToMembers.map(member => `${member.user.username} (${member.user.id})`).join(", ");
+    console.log(messageWhereString(message) + ": deferring to " + names);
     return true;
   }
 
@@ -266,20 +267,18 @@ function messageWhereString(message) {
   }
 }
 
-function buildMessage(result, requireDice = true)
-{
+function buildMessage(result, requireDice = true) {
   if (result === false) { return false; }
-  if (typeof(result) === "string") { return result; }
+  if (typeof (result) === "string") { return result; }
   if (result.depth <= 1) { return false; }
-  if (requireDice && result.dice < 1) { return false;}
+  if (requireDice && result.dice < 1) { return false; }
 
   var response = "";
 
   if (result.label && result.label != "") {
     response += "'" + result.label + "', ";
   }
-  if (typeof(result.value) === "boolean")
-  {
+  if (typeof (result.value) === "boolean") {
     result.value = result.value ? "**Success!**" : "**Failure!**";
   }
 
@@ -288,5 +287,4 @@ function buildMessage(result, requireDice = true)
   return response;
 }
 
-var output = client.login(token);
-console.log(output);
+client.login(token);
