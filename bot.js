@@ -1,11 +1,28 @@
 'use strict';
 
+// enable application insights if we have an instrumentation key set up
+const appInsights = require("applicationinsights");
+if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
+  // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.
+  appInsights.setup()
+      .setAutoDependencyCorrelation(true)
+      .setAutoCollectRequests(true)
+      .setAutoCollectPerformance(true)
+      .setAutoCollectExceptions(true)
+      .setAutoCollectDependencies(true)
+      .setAutoCollectConsole(true, true)
+      .setUseDiskRetryCaching(true)
+      .start();
+}
+/** Will be `undefined` unless appInsights successfully initialized. */
+const aiClient = appInsights.defaultClient;
+
 const Discord = require('discord.js');
 const Rollem = require('./rollem.js');
 const moment = require('moment');
 const fs = require('fs');
 
-const VERSION = "v1.5.5";
+const VERSION = "v1.7.0";
 
 let client = new Discord.Client();
 

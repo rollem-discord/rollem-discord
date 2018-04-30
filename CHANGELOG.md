@@ -1,3 +1,9 @@
+# **1.7.0**
+* Connect logging to Application Insights. Hopefully now I'll be able to see when/why the bot is down for one shard but not others.
+
+# **1.6.0**
+* Make bot deferral mechanism work on a per-channel basis, rather than per-server.
+
 # **1.5.5**
 * Embed help links with `<link>` syntax, to avoid embedding URLs.
 * Rollem has a dedicated support server/channel now at <https://goo.gl/7qfUtG>.
