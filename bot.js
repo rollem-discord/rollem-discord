@@ -146,10 +146,10 @@ client.on('message', message => {
     let uptime = moment.duration(client.uptime);
     let stats = [
       '',
-      `**servers:** ${client.guilds.size} (this shard)`,
-      `**users:** ${client.users.size}`,
-      `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
       `**shard:** ${shardName()}`,
+      `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
+      `**servers:** ${client.guilds.size}`,
+      `**users:** ${client.users.size}`,
       '',
       'Docs at <http://rollem.rocks>',
       'Try `@rollem changelog`',
