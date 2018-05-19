@@ -1,4 +1,4 @@
-# Rollem for Discord v1.5.5
+# Rollem for Discord v1.7.0
 
 A feature-filled dicebot that allows you to just roll.
 
@@ -12,7 +12,7 @@ Changes will be vetted in the beta channel before being moved to the main bot.
 
 It is recommended to also have the main bot on your server. The beta bot will only be online while changes are being vetted.
 
-If both exist, the main bot will defer to the beta bot.
+If both exist, the main bot will defer to the beta bot. This is per-channel.
 
 [Add the beta bot to your server.](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0)
 
@@ -96,12 +96,26 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 
 # Development
 
-## Running the bot directly from Node
+## Single Shard development
+### From the command line
+1. Rename and update `./sample-source.env` (DO NOT COMMIT THIS)
+2. `source source.env && node bot.js`
+  * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+  * The Application Insights line should be deleted to switch to console-logging.
 
-1. `DISCORD_BOT_USER_TOKEN=<YOUR TOKEN> node bot.js`
-  * You will need to replace `<YOUR TOKEN>` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+### From VSCode (with debugging)
+1. Rename and update `./sample-vscode.env` (DO NOT COMMIT THIS)
+2. Press F5 while the project folder is open. Launch configuration is in `./.vscode/launch.json`
 
-## Vagrant and Docker Setup
+## Multiple Shards
+1. Rename and update `./sample-source.env` (DO NOT COMMIT THIS)
+2. Run `source source.env && yarn start`
+  * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+  * The Application Insights line should be deleted to switch to console-logging.
+
+Unfortunately `discord.js` does not yet support debugging multiple shards.
+
+## ~~Vagrant and Docker Setup (old)~~
 
 1. Setup [Vagrant](https://www.vagrantup.com/) with `vagrant up`
 2. `vagrant ssh` to get into it.
