@@ -105,7 +105,7 @@ function sendHeartbeatNextHour() {
       sendHeartbeat("heartbeat at " + nextHour.toString());
       sendHeartbeatNextHour();
     },
-    msToNextHour,
+    msToNextHour
   );
 }
 
@@ -114,7 +114,7 @@ function sendHeartbeat(reason) {
   const disableHeartbeat = process.env.DISABLE_HEARTBEAT
   if (disableHeartbeat) { return; }
 
-  trackEvent(`heartbeat - shard ${shardText()}`, {reason: reason});
+  trackEvent(`heartbeat - shard ${shardName()}`, {reason: reason});
 }
 
 // ping pong in PMs
@@ -149,7 +149,7 @@ client.on('message', message => {
       `**servers:** ${client.guilds.size} (this shard)`,
       `**users:** ${client.users.size}`,
       `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
-      `**shard:** ${shardText()}`,
+      `**shard:** ${shardName()}`,
       '',
       'Docs at <http://rollem.rocks>',
       'Try `@rollem changelog`',
@@ -325,7 +325,7 @@ function buildMessage(result, requireDice = true) {
 }
 
 /** Constructs a human-readable string identifying this shard. */
-function shardText() {
+function shardName() {
   return client.shard
     ? `${client.shard.id+1} of ${client.shard.count}`
     : "only";
@@ -347,7 +347,7 @@ function shardCount() {
 
 /** Adds common AI properties to the given object (or creates one). Returns the given object. */
 function enrichAIProperties(object = {}) {
-  object["Shard ID"] = ''+shardId();
+  object["Shard Name"] = ''+shardName();
   object["Client ID"] = ''+client.user.id;
   object["Client Name"] = ''+client.user.username;
   object["Version"] = ''+VERSION;
