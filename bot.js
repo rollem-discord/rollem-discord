@@ -114,8 +114,6 @@ function sendHeartbeat(reason) {
   const disableHeartbeat = process.env.DISABLE_HEARTBEAT
   if (disableHeartbeat) { return; }
 
-  let uptime = moment.duration(client.uptime);
-
   trackEvent(`heartbeat - shard ${shardText()}`, {reason: reason});
 }
 
@@ -224,7 +222,7 @@ client.on('message', message => {
   }
 
   // ignore the dice requirement with name prefixed strings
-  var match = content.match(mentionRegex);
+  var match = content.match(mentionRegex); // TODO: This should override Deferral
   if (match) {
     var subMessage = content.substring(match[0].length);
     var result = Rollem.tryParse(subMessage);
@@ -337,7 +335,7 @@ function shardText() {
 function shardId() {
   return client.shard
     ? `${client.shard.id+1}`
-    : "only";
+    : 1;
 }
 
 /** Safely retrieves the shard count. */
@@ -349,25 +347,25 @@ function shardCount() {
 
 /** Adds common AI properties to the given object (or creates one). Returns the given object. */
 function enrichAIProperties(object = {}) {
-  object.shard = shardText();
-  object.clientId = client.user.id;
-  object.clientName = client.user.username;
-  object.deferToClientIds = deferToClientIds;
-  object.version = VERSION;
+  object["Shard ID"] = ''+shardId();
+  object["Client ID"] = ''+client.user.id;
+  object["Client Name"] = ''+client.user.username;
+  object["Version"] = ''+VERSION;
   return object;
 }
 
 /** Adds common AI metrics to the given object (or creates one). Returns the given object. */
 function enrichAIMetrics(object = {}) {
-  let uptime = moment.duration(client.uptime);
-  object.servers = ''+client.guilds.size;
-  object.users = ''+client.users.size;
-  object.uptime = `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`;
-  object.shardCount = shardCount();
-  object.shardId = shardId();
+  object['Servers (per shard)'] = client.guilds.size;
+  object['Users (per shard)'] = client.users.size;
+  object['Uptime (seconds)'] = client.uptime / 1000;
+  object['Shard Count'] = shardCount();
+  object['Shard ID'] = shardId();
   return object;
 }
 
+/** Tracks an event with AI using a console fallback. */
+// TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
 function trackEvent(name, properties = {}) {
   if (aiClient) {
     aiClient.trackEvent({
@@ -377,6 +375,18 @@ function trackEvent(name, properties = {}) {
     });
   } else {
     console.log(name, properties);
+  }
+}
+
+/** Tracks a metric with AI using a console fallback. */
+function trackMetric(name, value) {
+  if (aiClient) {
+    aiClient.trackMetric({
+      name: name,
+      value: value
+    });
+  } else {
+    // oblivion
   }
 }
 
