@@ -358,7 +358,7 @@ function enrichAIProperties(object = {}) {
 function enrichAIMetrics(object = {}) {
   object['Servers (per shard)'] = client.guilds.size;
   object['Users (per shard)'] = client.users.size;
-  object['Uptime (seconds)'] = client.uptime / 1000;
+  object['Uptime (minutes)'] = client.uptime / 1000 / 60;
   object['Shard Count'] = shardCount();
   object['Shard ID'] = shardId();
   return object;
