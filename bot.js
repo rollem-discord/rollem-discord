@@ -67,97 +67,56 @@ var messages = [
 function cycleMessage() {
   var message = messages.shift();
   messages.push(message);
-  //   console.log('Set status to: ' + message);
   client.user.setStatus("online", message);
 }
 
 client.on('disconnect', (...f) => {
-  aiClient && aiClient.trackEvent({
-    name: 'disconnect',
-    tagOverrides: {
-      "userid": client.user.id,
-      "username": client.user.username,
-      "shard": client.shard ? client.shard.id + 1 : "only",
-      "shardCount": client.shard ? client.shard.count : 1,
-      "version": VERSION
-    },
-    contextObjects: {
-      deferToClientIds: deferToClientIds,
-    }
-  });
-
-  console.log(f[0]);
-  console.log(f[1]);
-  console.log(f[2]);
-  console.log(f[3]);
-  console.log("" + new Date() + " quitting");
+  trackEvent("disconnect");
   process.exit(1);
 });
 
 client.on('ready', () => {
-  aiClient && aiClient.trackEvent({
-    name: 'ready',
-    tagOverrides: {
-      "userid": client.user.id,
-      "username": client.user.username,
-      "shard": client.shard ? client.shard.id + 1 : "only",
-      "shardCount": client.shard ? client.shard.count : 1,
-      "version": VERSION
-    },
-    contextObjects: {
-      deferToClientIds: deferToClientIds,
-    }
-  });
+  trackEvent("ready");
+
   console.log('I am ready!');
   console.log('Set status to: ' + restartMessage);
+
   client.user.setStatus("online");
   client.user.setGame(restartMessage);
+
   console.log("will defer to " + deferToClientIds);
   console.log('username: ' + client.user.username);
   console.log('id: ' + client.user.id);
+
   setInterval(cycleMessage, messageInterval);
   var mentionRegex_s = '^<@' + client.user.id + '>\\s+';
   mentionRegex = new RegExp(mentionRegex_s);
 
-  sendHeartbeatToOwner("startup message");
-  sendHeartbeatToOwnerNextHour();
+  sendHeartbeat("startup message");
+  sendHeartbeatNextHour();
 });
 
-function sendHeartbeatToOwnerNextHour() {
+function sendHeartbeatNextHour() {
   const now = moment();
   const nextHour = moment().endOf('h');
   const msToNextHour = nextHour.diff(now);
   setTimeout(
     () => {
-      sendHeartbeatToOwner("heartbeat at " + nextHour.toString());
-      sendHeartbeatToOwnerNextHour();
+      sendHeartbeat("heartbeat at " + nextHour.toString());
+      sendHeartbeatNextHour();
     },
     msToNextHour,
   );
 }
 
 /** Sends a single heartbeat-info message to owner confirming liveliness. */
-function sendHeartbeatToOwner(reason) {
-  const ownerId = process.env.OWNER_USER_ID
-  if (!ownerId) { return; }
+function sendHeartbeat(reason) {
+  const disableHeartbeat = process.env.DISABLE_HEARTBEAT
+  if (disableHeartbeat) { return; }
 
-  client.fetchUser(ownerId)
-    .then(user => {
-      const shardText =
-        client.shard
-        ? `${client.shard.id+1}/${client.shard.count}`
-        : "only";
+  let uptime = moment.duration(client.uptime);
 
-      let uptime = moment.duration(client.uptime);
-
-      user.send(
-        `__${client.user.username} (${client.user.id})__\n` +
-        `**shard:** ${shardText}\n` +
-        `**reason:** ${reason}\n` +
-        `**servers:** ${client.guilds.size}\n` +
-        `**users:** ${client.users.size}\n` +
-        `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`);
-    });
+  trackEvent(`heartbeat - shard ${shardText()}`, {reason: reason});
 }
 
 // ping pong in PMs
@@ -185,15 +144,14 @@ client.on('message', message => {
 
   // stats and basic help
   if (content.startsWith('stats') || content.startsWith('help')) {
-    process.stdout.write("s1");
     let guilds = client.guilds.map((g) => g.name);
     let uptime = moment.duration(client.uptime);
     let stats = [
       '',
-      `**servers:** ${client.guilds.size}`,
+      `**servers:** ${client.guilds.size} (this shard)`,
       `**users:** ${client.users.size}`,
       `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
-      `**shard:** ${client.shard.id + 1}/${client.shard.count}`,
+      `**shard:** ${shardText()}`,
       '',
       'Docs at <http://rollem.rocks>',
       'Try `@rollem changelog`',
@@ -202,6 +160,7 @@ client.on('message', message => {
     ];
     let response = stats.join('\n');
     message.reply(stats);
+    trackEvent("stats");
   }
 
   // changelog
@@ -209,8 +168,8 @@ client.on('message', message => {
     content.startsWith('change log') ||
     content.startsWith('changes') ||
     content.startsWith('diff')) {
-    process.stdout.write("c1");
     message.reply(changelog);
+    trackEvent("changelog");
   }
 });
 
@@ -235,9 +194,8 @@ client.on('message', message => {
   var response = buildMessage(result);
   var shouldReply = prefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
   if (response && shouldReply) {
-    // console.log('soft parse | ' + message + " -> " + response);
-    process.stdout.write("r1");
     message.reply(response);
+    trackEvent('soft parse');
     return;
   }
 });
@@ -259,9 +217,8 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      // console.log('hard parse | ' + message + " -> " + result);
-      process.stdout.write("r2");
       message.reply(response);
+      trackEvent('medium parse');
       return;
     }
   }
@@ -274,9 +231,8 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      // console.log('hard parse | ' + message + " -> " + result);
-      process.stdout.write("r3");
       message.reply(response);
+      trackEvent('hard parse');
       return;
     }
   }
@@ -296,9 +252,8 @@ client.on('message', message => {
     var fullMessage = messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
-      // console.log('line parse | ' + message + " -> " + fullMessage);
-      process.stdout.write("r4");
       message.reply(fullMessage);
+      trackEvent('inline parse');
       return;
     }
   }
@@ -325,7 +280,6 @@ function shouldDefer(message) {
   if (!message.channel || !message.channel.members) { return false; }
 
   let members = message.channel && message.channel.members;
-  console.log(members);
   if (!members) { return false; }
 
   let deferToMembers =
@@ -337,7 +291,7 @@ function shouldDefer(message) {
 
   if (deferToMembers.length > 0) {
     let names = deferToMembers.map(member => `${member.user.username} (${member.user.id})`).join(", ");
-    console.log(messageWhereString(message) + ": deferring to " + names);
+    trackEvent('deferral to ' + names);
     return true;
   }
 
@@ -370,6 +324,60 @@ function buildMessage(result, requireDice = true) {
   response += result.value + ' ⟵ ' + result.pretties;
 
   return response;
+}
+
+/** Constructs a human-readable string identifying this shard. */
+function shardText() {
+  return client.shard
+    ? `${client.shard.id+1} of ${client.shard.count}`
+    : "only";
+}
+
+/** Constructs a one-index string identifying this shard. */
+function shardId() {
+  return client.shard
+    ? `${client.shard.id+1}`
+    : "only";
+}
+
+/** Safely retrieves the shard count. */
+function shardCount() {
+  return client.shard
+    ? client.shard.count
+    : 1;
+}
+
+/** Adds common AI properties to the given object (or creates one). Returns the given object. */
+function enrichAIProperties(object = {}) {
+  object.shard = shardText();
+  object.clientId = client.user.id;
+  object.clientName = client.user.username;
+  object.deferToClientIds = deferToClientIds;
+  object.version = VERSION;
+  return object;
+}
+
+/** Adds common AI metrics to the given object (or creates one). Returns the given object. */
+function enrichAIMetrics(object = {}) {
+  let uptime = moment.duration(client.uptime);
+  object.servers = ''+client.guilds.size;
+  object.users = ''+client.users.size;
+  object.uptime = `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`;
+  object.shardCount = shardCount();
+  object.shardId = shardId();
+  return object;
+}
+
+function trackEvent(name, properties = {}) {
+  if (aiClient) {
+    aiClient.trackEvent({
+      name: name,
+      measurements: enrichAIMetrics(),
+      properties: enrichAIProperties(properties)
+    });
+  } else {
+    console.log(name, properties);
+  }
 }
 
 client.login(token);

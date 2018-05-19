@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}\\bot.js",
-            "envFile": "${workspaceFolder}/.env",
+            "envFile": "${workspaceFolder}/vscode.env",
             "cwd": "${workspaceFolder}"
         }
         
