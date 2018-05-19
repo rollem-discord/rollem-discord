@@ -334,7 +334,7 @@ function shardName() {
 /** Constructs a one-index string identifying this shard. */
 function shardId() {
   return client.shard
-    ? `${client.shard.id+1}`
+    ? client.shard.id + 1
     : 1;
 }
 
