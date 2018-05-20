@@ -1,4 +1,4 @@
-# Rollem for Discord v1.8.0
+# Rollem for Discord v1.9.0
 
 A feature-filled dicebot that allows you to just roll.
 
@@ -75,6 +75,7 @@ X and Y are integers. A and B are arbitrary Expressions.
 * Rollem will not roll "one-sided" dice.
 * Rollem will not roll single numbers.
 * Pure math must be prefixed with `&` or `r`.
+* Rolls prefixed with `N#` will be rolled `N` times. N > 100 will be ignored.
 
 ## Prefixing
 Give Rollem a role of `rollem:prefix:<your prefix here>` to disable aggressive rolling.

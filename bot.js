@@ -187,13 +187,39 @@ client.on('message', message => {
   let content = message.content.substring(prefix.length);
   content = content.trim();
 
-  // parse the whole string and check for dice
-  var result = Rollem.tryParse(content);
-  var response = buildMessage(result);
-  var shouldReply = prefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
-  if (response && shouldReply) {
+  let count = 1;
+  let match = content.match(/(?:(\d+)#\s*)?(.*)/);
+  let countRaw = match[1];
+  if (countRaw) {
+    count = parseInt(countRaw) || 1;
+    if (count > 100) { return; }
+    if (count < 1) { return; }
+  }
+
+  let contentAfterCount = match[2];
+
+  var lines = [];
+  for (let i = 0; i < count; i++) {
+    var result = Rollem.tryParse(contentAfterCount);
+    if (!result) { return; }
+
+    let shouldReply = prefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+    if (!shouldReply) { return; }
+
+    let response = buildMessage(result);
+
+    if (response && shouldReply) {
+      lines.push(response);
+    }
+  }
+
+  if (lines.length > 0) {
+    let response = "\n" + lines.join("\n");
     message.reply(response);
-    trackEvent('soft parse');
+
+    if (count === 1) { trackEvent('soft parse'); }
+    else { trackEvent('soft parse, repeated'); }
+
     return;
   }
 });
@@ -247,7 +273,7 @@ client.on('message', message => {
       var response = buildMessage(result);
       return response;
     }).filter(function (x) { return x; });
-    var fullMessage = messages.join('\n');
+    var fullMessage = '\n' + messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
       message.reply(fullMessage);

@@ -1,3 +1,7 @@
+# **1.9.0**
+* Add `N# XdY` prefix for rolls. Will roll `XdY` N times.
+* Adjust new-lining on `[XdY inline]` rolls to have them show up aligned.
+
 # **1.8.0**
 * Add `ns` suffix for standard `XdY` rolls. Use `XdYns` to disable sorting for that roll. Ex: `50d6ns`
 
