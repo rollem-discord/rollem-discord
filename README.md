@@ -1,4 +1,4 @@
-# Rollem for Discord v1.7.0
+# Rollem for Discord v1.8.0
 
 A feature-filled dicebot that allows you to just roll.
 
@@ -57,6 +57,7 @@ X and Y are integers. A and B are arbitrary Expressions.
 | `XdY`             | Rolls X dice of Y size. `4d6` rolls 4 six-sided dice.                                                                                                    |
 | `dY`              | Rolls a single die of Y size.                                                                                                                            |
 | `dY!` `XdY!`      | Exploding dice. Rolly Y on a Y-sided die grants an additional die roll.                                                                                  |
+| `XdYns` `XdY!ns`  | Disable dice sorting.                                                                                                                                    |
 | `A+B` `A-B`       | Arbitrary chains of addition and subtraction.                                                                                                            |
 | `A*B` `A/B`       | Arbitrary chains of multiplication and division.                                                                                                         |
 | `A++B` `A--B`     | Arbitrary chains of per-die addition and subtraction. Each value modifies each individual die roll. `4d6--2` rolls 4d6 with 2 subtracted from each.      |

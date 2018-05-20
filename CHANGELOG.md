@@ -1,3 +1,6 @@
+# **1.8.0**
+* Add `ns` suffix for standard `XdY` rolls. Use `XdYns` to disable sorting for that roll. Ex: `50d6ns`
+
 # **1.7.0**
 * Rework the structure of logging.
 * Tweak the launch method in the README. Should be easier to develop on. I suggest VSCode.

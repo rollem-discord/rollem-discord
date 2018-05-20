@@ -99,7 +99,7 @@
     };
   }
 
-  function makeBasicRoll(left, right, explode) {
+  function makeBasicRoll(left, right, explode, noSort) {
     var size = right.value;
     var count = left ? left.value : 1;
     if (size <= 1) { error("Minimum die size is 2.", "CUSTOM"); }
@@ -118,7 +118,8 @@
     values_arr.forEach(function(v,i,arr) { accumulator += v; });
 
     // format
-    var pretties_arr = values_arr.sort((a,b) => a - b).reverse().map(function(v,i,arr) {
+    var sorted_values_arr = noSort ? values_arr : values_arr.sort((a,b) => a - b).reverse();
+    var pretties_arr = sorted_values_arr.map(function(v,i,arr) {
       return dieFormatter(v, size);
     });
 
@@ -328,8 +329,8 @@ BurningWheelRoll
     }
 
 BasicRoll
-  = left:Integer? [dD] right:Integer explode:"!"? {
-      return makeBasicRoll(left, right, explode);
+  = left:Integer? [dD] right:Integer explode:"!"? noSort:"ns"? {
+      return makeBasicRoll(left, right, explode, noSort);
     }
 
 Integer "integer"
