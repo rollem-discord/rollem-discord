@@ -1,3 +1,6 @@
+# **1.9.1**
+* Fix roll limits for `[XdY inline]`.
+
 # **1.9.0**
 * Add `N# XdY` prefix for rolls. Will roll `XdY` N times.
 * Adjust new-lining on `[XdY inline]` rolls to have them show up aligned.

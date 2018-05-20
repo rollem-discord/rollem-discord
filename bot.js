@@ -191,11 +191,12 @@ client.on('message', message => {
   let match = content.match(/(?:(\d+)#\s*)?(.*)/);
   let countRaw = match[1];
   if (countRaw) {
-    count = parseInt(countRaw) || 1;
+    count = parseInt(countRaw);
     if (count > 100) { return; }
     if (count < 1) { return; }
   }
 
+  count = count || 1;
   let contentAfterCount = match[2];
 
   var lines = [];
