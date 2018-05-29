@@ -1,4 +1,4 @@
-# Rollem for Discord v1.9.1
+# Rollem for Discord v1.9.2
 
 A feature-filled dicebot that allows you to just roll.
 

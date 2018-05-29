@@ -22,7 +22,7 @@ const Rollem = require('./rollem.js');
 const moment = require('moment');
 const fs = require('fs');
 
-const VERSION = "v1.7.0";
+let VERSION = "v1.x.x";
 
 let client = new Discord.Client();
 
@@ -54,20 +54,31 @@ fs.readFile("./CHANGELOG.md", 'utf8', (err, data) => {
 
   // set the changelog
   changelog = CHANGELOG_LINK + noPartialSectionsChangeLog
+
+  // set the version
+  let firstLine = data.substring(0, data.indexOf("\n"));
+  let versionMatch = firstLine.match(/\d+(?:\.\d+){2}/i);
+  let versionText = versionMatch ? versionMatch[0] : null;
+  if (versionText) {
+    VERSION = `v${versionText}`;
+    cycleMessage();
+  }
 });
 
 var mentionRegex = /$<@999999999999999999>/i;
 var messageInterval = 60 * 1000; // every minute
-var heartbeatInterval = 60 * 60 * 1000; // every hour
-var restartMessage = `${VERSION} ! http://rollem.rocks`;
 var messages = [
-  `${VERSION} http://rollem.rocks`
+  () => `${VERSION} - http://rollem.rocks`
 ];
 
 function cycleMessage() {
-  var message = messages.shift();
-  messages.push(message);
-  client.user.setStatus("online", message);
+  if (client.user) {
+    let messageFunc = messages.shift();
+    messages.push(messageFunc);
+    let message = messageFunc();
+    client.user.setStatus("online");
+    client.user.setGame(message);
+  }
 }
 
 client.on('disconnect', (...f) => {
@@ -79,10 +90,7 @@ client.on('ready', () => {
   trackEvent("ready");
 
   console.log('I am ready!');
-  console.log('Set status to: ' + restartMessage);
-
-  client.user.setStatus("online");
-  client.user.setGame(restartMessage);
+  cycleMessage();
 
   console.log("will defer to " + deferToClientIds);
   console.log('username: ' + client.user.username);

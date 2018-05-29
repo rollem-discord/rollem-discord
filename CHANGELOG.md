@@ -1,3 +1,6 @@
+# **1.9.2**
+* Ensure the bot always displays an accurate version number.
+
 # **1.9.1**
 * Fix roll limits for `[XdY inline]`.
 
