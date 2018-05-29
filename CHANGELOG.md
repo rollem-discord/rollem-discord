@@ -1,3 +1,6 @@
+# **1.9.3**
+* Do not reply to messages with [bracketed] [text] that is not a roll.
+
 # **1.9.2**
 * Ensure the bot always displays an accurate version number.
 

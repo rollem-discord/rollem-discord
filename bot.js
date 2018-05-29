@@ -281,7 +281,10 @@ client.on('message', message => {
       var result = Rollem.tryParse(match);
       var response = buildMessage(result);
       return response;
-    }).filter(function (x) { return x; });
+    }).filter(x => !!x);
+
+    if (messages.length === 0) { return; }
+
     var fullMessage = '\n' + messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
