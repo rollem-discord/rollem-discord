@@ -16,8 +16,9 @@
     "./"
   ],
   "dependencies": {
+    "applicationinsights": "^1.0.2",
     "discord.js": "^11.2.1",
-    "moment": "^2.17.1",
+    "moment": "^2.22.1",
     "pegjs": "0.10.0"
   },
   "license": "MIT",

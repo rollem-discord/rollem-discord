@@ -1,3 +1,29 @@
+# **1.9.3**
+* Do not reply to messages with [bracketed] [text] that is not a roll.
+
+# **1.9.2**
+* Ensure the bot always displays an accurate version number.
+
+# **1.9.1**
+* Fix roll limits for `[XdY inline]`.
+
+# **1.9.0**
+* Add `N# XdY` prefix for rolls. Will roll `XdY` N times.
+* Adjust new-lining on `[XdY inline]` rolls to have them show up aligned.
+
+# **1.8.0**
+* Add `ns` suffix for standard `XdY` rolls. Use `XdYns` to disable sorting for that roll. Ex: `50d6ns`
+
+# **1.7.0**
+* Rework the structure of logging.
+* Tweak the launch method in the README. Should be easier to develop on. I suggest VSCode.
+* Connect logging to Application Insights. Improve logging (including source shard and human readable event type).
+* No messages, message IDs, user IDs, Guild IDs, etc are logged.
+* Add a heartbeat from each shard. Logs some metrics each hour to confirm the shard is up and connected.
+
+# **1.6.0**
+* Make bot deferral mechanism work on a per-channel basis, rather than per-server.
+
 # **1.5.5**
 * Embed help links with `<link>` syntax, to avoid embedding URLs.
 * Rollem has a dedicated support server/channel now at <https://goo.gl/7qfUtG>.

@@ -6,3 +6,7 @@ node_modules/
 *.iws
 .idea/workspace.xml
 .idea/tasks.xml
+
+# Ignore all .envs unless they start with sample-
+*.env
+!sample-*.env
