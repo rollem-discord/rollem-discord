@@ -81,8 +81,11 @@ function cycleMessage() {
   }
 }
 
-client.on('disconnect', (...f) => {
-  trackEvent("disconnect");
+client.on('disconnect', (f) => {
+  trackEvent("disconnect", { reason: JSON.stringify(f) });
+  if (aiClient) {
+    aiClient.flush();
+  }
   process.exit(1);
 });
 
