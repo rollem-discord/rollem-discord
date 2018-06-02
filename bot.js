@@ -16,6 +16,10 @@ if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
 }
 /** Will be `undefined` unless appInsights successfully initialized. */
 const aiClient = appInsights.defaultClient;
+// aiClient.addTelemetryProcessor((envelope, context) => {
+//   envelope.data.
+//   return true;
+// });
 
 const Discord = require('discord.js');
 const Rollem = require('./rollem.js');
@@ -135,7 +139,7 @@ client.on('message', message => {
   if (message.guild) { return; }
 
   if (message.content === 'ping') {
-    message.reply('pong');
+    message.reply('pong').catch(rejected => handleRejection(message));
   }
 });
 
@@ -168,7 +172,7 @@ client.on('message', message => {
       'Avatar by Kagura on Charisma Bonus.'
     ];
     let response = stats.join('\n');
-    message.reply(stats);
+    message.reply(stats).catch(rejected => handleRejection(message));
     trackEvent("stats");
   }
 
@@ -177,7 +181,7 @@ client.on('message', message => {
     content.startsWith('change log') ||
     content.startsWith('changes') ||
     content.startsWith('diff')) {
-    message.reply(changelog);
+    message.reply(changelog).catch(rejected => handleRejection(message));
     trackEvent("changelog");
   }
 });
@@ -227,7 +231,7 @@ client.on('message', message => {
 
   if (lines.length > 0) {
     let response = "\n" + lines.join("\n");
-    message.reply(response);
+    message.reply(response).catch(rejected => handleRejection(message));
 
     if (count === 1) { trackEvent('soft parse'); }
     else { trackEvent('soft parse, repeated'); }
@@ -253,7 +257,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      message.reply(response);
+      message.reply(response).catch(rejected => handleRejection(message));
       trackEvent('medium parse');
       return;
     }
@@ -267,7 +271,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      message.reply(response);
+      message.reply(response).catch(rejected => handleRejection(message));
       trackEvent('hard parse');
       return;
     }
@@ -291,7 +295,7 @@ client.on('message', message => {
     var fullMessage = '\n' + messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
-      message.reply(fullMessage);
+      message.reply(fullMessage).catch(rejected => handleRejection(message));
       trackEvent('inline parse');
       return;
     }
@@ -335,14 +339,6 @@ function shouldDefer(message) {
   }
 
   return false;
-}
-
-function messageWhereString(message) {
-  if (message.guild) {
-    return `${message.guild.name} # ${message.channel.name}`;
-  } else {
-    return `PM # ${message.author.username}`;
-  }
 }
 
 function buildMessage(result, requireDice = true) {
@@ -429,6 +425,14 @@ function trackMetric(name, value) {
   } else {
     // oblivion
   }
+}
+
+function handleRejection(message) {
+  // let guildId = message.guild ? message.guild.id : null;
+  // let channelId = message.channel ? message.channel.id : null;
+  // let messageId = message.id;
+  // let userId = message.userId;
+  trackEvent("Missing send permission");
 }
 
 client.login(token);

@@ -1,3 +1,6 @@
+# **1.9.4**
+* Avoid exceptions when the bot doesn't have send permissions.
+
 # **1.9.3**
 * Do not reply to messages with [bracketed] [text] that is not a roll.
 
