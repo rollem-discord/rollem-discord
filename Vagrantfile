@@ -23,4 +23,5 @@ Vagrant.configure('2') do |config|
   config.vm.provision "setup terraform ct provider", type: "shell", privileged: false, path: "vagrant/provision/002-terraform-provider-ct.sh"
   config.vm.provision "sync .terraformrc", type: "file", run: :always, source: "vagrant/.terraformrc", destination: "/home/vagrant/.terraformrc"
   config.vm.synced_folder "vagrant/.config", "/home/vagrant/.config"
+  config.vm.synced_folder "vagrant/infra", "/home/vagrant/infra"
 end

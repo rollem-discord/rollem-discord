@@ -1,0 +1,4 @@
+# recommendation by https://typhoon.psdn.io/architecture/concepts/
+*.tfstate
+*.tfstate.backup
+.terraform/
