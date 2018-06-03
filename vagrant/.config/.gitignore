@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# Not this
+!.gitignore
+
+# Not directories
+!*/
+
+# Not sample files
+!sample-*
