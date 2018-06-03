@@ -10,13 +10,13 @@ module "digital-ocean-nemo" {
   }
 
   # Digital Ocean
-  cluster_name = "nemo"
-  region       = "sfo1"
+  cluster_name = "omen"
+  region       = "sfo2"
   dns_zone     = "digital-ocean.lemtzas.com"
 
   # configuration
-  ssh_fingerprints = ["0b:d9:01:9d:42:78:66:3f:d8:d0:6d:51:e3:0a:2e:41"] # This was generated upon provisioning. Must be replaced.
-  asset_dir        = "/home/user/.secrets/clusters/nemo"
+  ssh_fingerprints = ["${chomp(file("~/.config/digital-ocean/id_rsa.pub.fingerprint"))}"]
+  asset_dir        = "/home/vagrant/.secrets/clusters/nemo"
 
   # optional
   worker_count = 1
