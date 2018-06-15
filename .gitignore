@@ -10,3 +10,6 @@ node_modules/
 # Ignore all .envs unless they start with sample-
 *.env
 !sample-*.env
+
+# Ignore logs
+*.log

@@ -1,3 +1,6 @@
+# **1.9.5**
+* Add `catch` section to all `Promise`s.
+
 # **1.9.4**
 * Avoid exceptions when the bot doesn't have send permissions.
 

@@ -80,8 +80,8 @@ function cycleMessage() {
     let messageFunc = messages.shift();
     messages.push(messageFunc);
     let message = messageFunc();
-    client.user.setStatus("online");
-    client.user.setGame(message);
+    client.user.setStatus("online").catch(error => handleRejection("setStatus", error));
+    client.user.setGame(message).catch(error => handleRejection("setGame", error));
   }
 }
 
@@ -139,7 +139,7 @@ client.on('message', message => {
   if (message.guild) { return; }
 
   if (message.content === 'ping') {
-    message.reply('pong').catch(rejected => handleRejection(message));
+    message.reply('pong').catch(rejected => handleSendRejection(message));
   }
 });
 
@@ -172,7 +172,7 @@ client.on('message', message => {
       'Avatar by Kagura on Charisma Bonus.'
     ];
     let response = stats.join('\n');
-    message.reply(stats).catch(rejected => handleRejection(message));
+    message.reply(stats).catch(rejected => handleSendRejection(message));
     trackEvent("stats");
   }
 
@@ -181,7 +181,7 @@ client.on('message', message => {
     content.startsWith('change log') ||
     content.startsWith('changes') ||
     content.startsWith('diff')) {
-    message.reply(changelog).catch(rejected => handleRejection(message));
+    message.reply(changelog).catch(rejected => handleSendRejection(message));
     trackEvent("changelog");
   }
 });
@@ -231,7 +231,7 @@ client.on('message', message => {
 
   if (lines.length > 0) {
     let response = "\n" + lines.join("\n");
-    message.reply(response).catch(rejected => handleRejection(message));
+    message.reply(response).catch(rejected => handleSendRejection(message));
 
     if (count === 1) { trackEvent('soft parse'); }
     else { trackEvent('soft parse, repeated'); }
@@ -257,7 +257,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      message.reply(response).catch(rejected => handleRejection(message));
+      message.reply(response).catch(rejected => handleSendRejection(message));
       trackEvent('medium parse');
       return;
     }
@@ -271,7 +271,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      message.reply(response).catch(rejected => handleRejection(message));
+      message.reply(response).catch(rejected => handleSendRejection(message));
       trackEvent('hard parse');
       return;
     }
@@ -295,7 +295,7 @@ client.on('message', message => {
     var fullMessage = '\n' + messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
-      message.reply(fullMessage).catch(rejected => handleRejection(message));
+      message.reply(fullMessage).catch(rejected => handleSendRejection(message));
       trackEvent('inline parse');
       return;
     }
@@ -427,7 +427,23 @@ function trackMetric(name, value) {
   }
 }
 
-function handleRejection(message) {
+function handleRejection(label, error) {
+  // let guildId = message.guild ? message.guild.id : null;
+  // let channelId = message.channel ? message.channel.id : null;
+  // let messageId = message.id;
+  // let userId = message.userId;
+  if (aiClient) {
+    aiClient.trackException({
+      exception: error,
+      properties: {
+        error: JSON.stringify(error),
+        label: label,
+      }
+    });
+  }
+}
+
+function handleSendRejection(message) {
   // let guildId = message.guild ? message.guild.id : null;
   // let channelId = message.channel ? message.channel.id : null;
   // let messageId = message.id;
