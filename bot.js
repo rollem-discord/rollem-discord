@@ -95,6 +95,10 @@ client.on('disconnect', (f) => {
   process.exit(1);
 });
 
+client.on('error', (error) => {
+  trackEvent("error", { reason: JSON.stringify(error) });
+});
+
 client.on('ready', () => {
   trackEvent("ready");
 
