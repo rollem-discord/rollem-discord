@@ -1,3 +1,6 @@
+# **1.9.6**
+* Update dependencies.
+
 # **1.9.5**
 * Add `catch` section to all `Promise`s.
 
