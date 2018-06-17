@@ -81,7 +81,9 @@ function cycleMessage() {
     messages.push(messageFunc);
     let message = messageFunc();
     client.user.setStatus("online").catch(error => handleRejection("setStatus", error));
-    client.user.setGame(message).catch(error => handleRejection("setGame", error));
+    client.user
+      .setActivity(message)
+      .catch(error => handleRejection("setActivity", error));
   }
 }
 
