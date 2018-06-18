@@ -1,3 +1,6 @@
+# **1.9.7**
+* Better error logging.
+
 # **1.9.6**
 * Update dependencies.
 

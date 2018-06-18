@@ -1,5 +1,7 @@
 'use strict';
 
+const util = require("util");
+
 // enable application insights if we have an instrumentation key set up
 const appInsights = require("applicationinsights");
 if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
@@ -88,7 +90,7 @@ function cycleMessage() {
 }
 
 client.on('disconnect', (f) => {
-  trackEvent("disconnect", { reason: JSON.stringify(f) });
+  trackEvent("disconnect", { reason: util.inspect(f) });
   if (aiClient) {
     aiClient.flush();
   }
@@ -96,7 +98,8 @@ client.on('disconnect', (f) => {
 });
 
 client.on('error', (error) => {
-  trackEvent("error", { reason: JSON.stringify(error) });
+  trackEvent("error", { reason: util.inspect(error) });
+  process.exit(1);
 });
 
 client.on('ready', () => {
@@ -442,7 +445,7 @@ function handleRejection(label, error) {
     aiClient.trackException({
       exception: error,
       properties: {
-        error: JSON.stringify(error),
+        error: util.inspect(error),
         label: label,
       }
     });
