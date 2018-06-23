@@ -1,5 +1,5 @@
 # **1.9.8**
-* Avoid `JSON.stringify` on recursive error structures.
+* Actually flush the errors.
 
 # **1.9.7**
 * Better error logging.

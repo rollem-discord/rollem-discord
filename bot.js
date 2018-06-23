@@ -99,6 +99,9 @@ client.on('disconnect', (f) => {
 
 client.on('error', (error) => {
   trackEvent("error", { reason: util.inspect(error) });
+  if (aiClient) {
+    aiClient.flush();
+  }
   process.exit(1);
 });
 
