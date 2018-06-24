@@ -1,3 +1,6 @@
+# **1.9.10**
+* Ignore WSS-closing events, as they are not terminal. Log and restart on all other errors.
+
 # **1.9.9**
 * Do not restart on error.
 
