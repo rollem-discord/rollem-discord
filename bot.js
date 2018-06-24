@@ -91,17 +91,23 @@ function cycleMessage() {
 
 client.on('disconnect', (f) => {
   trackEvent("disconnect", { reason: util.inspect(f) });
-  if (aiClient) {
-    aiClient.flush();
-  }
+  if (aiClient) { aiClient.flush(); }
   process.exit(1);
 });
 
 client.on('error', (error) => {
-  trackEvent("error", { reason: util.inspect(error) });
-  if (aiClient) {
-    aiClient.flush();
+  if (error && error.message) {
+    let ignoreError = error.message.contains('write EPIPE');
+    if (ignoreError) {
+      trackEvent("known error - " + error.message, { reason: util.inspect(error)});
+      return;
+    }
   }
+
+  trackEvent("unknown error", { reason: util.inspect(error) });
+  if (aiClient) { aiClient.flush(); }
+
+  process.exit(1);
 });
 
 client.on('ready', () => {
