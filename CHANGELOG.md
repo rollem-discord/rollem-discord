@@ -1,3 +1,6 @@
+# **1.9.9**
+* Do not restart on error.
+
 # **1.9.8**
 * Actually flush the errors.
 

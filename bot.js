@@ -102,7 +102,6 @@ client.on('error', (error) => {
   if (aiClient) {
     aiClient.flush();
   }
-  process.exit(1);
 });
 
 client.on('ready', () => {
