@@ -344,7 +344,7 @@ BurningWheelRoll
   = left:[BGW] right:Integer explode:"!"? {
       let rollLeft = right;
       let rollRight = makeInteger("6");
-      let rollResult = makeBasicRoll(rollLeft, rollRight, explode);
+      let rollResult = makeBasicRoll(rollLeft, rollRight, explode, {});
       debugger;
       let counterRight = null;
 
