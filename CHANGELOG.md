@@ -1,3 +1,12 @@
+# **1.10.0**
+* Add Keep-Drop dice
+* Keep Highest N `10d5k5` `10d5kh5` - `k` is a shortcut for `kh`
+* Drop Lowest N `10d5d5` `10d5dl5` - `d` is a shortcut for `dl`
+* Drop Highest N `10d5dh5`
+* Keep Lowest N `10d5kl5`
+* Disable sorting `10d3k5ns`
+* With exploding dice `10d3!k5`
+
 # **1.9.10**
 * Ignore WSS-closing events, as they are not terminal. Log and restart on all other errors.
 
