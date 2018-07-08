@@ -32,8 +32,6 @@
     var count = 0;
     left.values.forEach(function(v,i,arr) { if (evaluator(v)) { count++; } });
 
-    debugger;
-
     return {
       "value": count,
       "values": [ count ],
@@ -345,7 +343,7 @@ BurningWheelRoll
       let rollLeft = right;
       let rollRight = makeInteger("6");
       let rollResult = makeBasicRoll(rollLeft, rollRight, explode, {});
-      debugger;
+
       let counterRight = null;
 
       switch (left) {
