@@ -1,3 +1,6 @@
+# **1.10.1**
+* Fix Burning Wheel rolls.
+
 # **1.10.0**
 * Add Keep-Drop dice
 * Keep Highest N `10d5k5` `10d5kh5` - `k` is a shortcut for `kh`
