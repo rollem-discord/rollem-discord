@@ -121,6 +121,7 @@
     var sortedAugmentedValuesArr = Array.from(augmentedValuesArr).sort((a,b) => a.value - b.value).reverse();
     var keepRangeStart = 0;
     var keepRangeEndExclusive = sortedAugmentedValuesArr.length;
+    var critrange = size;
     switch (keepDropOperator) {
       case "kh":
         keepRangeEndExclusive = keepDropValue;
@@ -133,6 +134,9 @@
         break;
       case "dl":
         keepRangeEndExclusive = sortedAugmentedValuesArr.length - keepDropValue
+        break;
+      case "c":
+        critrange = configuration.value;
         break;
       default:
         // leave it at the default (keep everything)
@@ -148,7 +152,8 @@
     // format
     var formatOrder = noSort ? augmentedValuesArr : sortedAugmentedValuesArr;
     var prettiesArr = formatOrder.map((v,i,arr) => {
-      return dieFormatter(v.value, size, v.isKept);
+      //critrange is by default = to size 
+      return dieFormatter(v.value, critrange, v.isKept);
     });
 
     var pretties = "[" + prettiesArr.join(", ") + "]" + count + "d" + right.pretties;
@@ -173,7 +178,7 @@
   // This is used to configure stylization of the individual die results.
   function dieFormatter(value, size, isKept = true) {
     var formatted = value
-    if (value == size)
+    if (value >= size)
       formatted = maxFormatter(formatted);
     else if (value == 1)
       formatted = minFormatter(formatted);
@@ -375,10 +380,10 @@ BasicRollConfiguration
     configuration.noSort = noSort ? true: false;
     return configuration;
   }
-
+//Implementing Critrange here. Prevents user from doing drop/keeps and specifying a range at the same time. 
 KeepDropConfiguration
-  = which:(KeepConfiguration / DropConfiguration / KeepHighestConfiguration / KeepLowestConfiguration / DropHighestConfiguration / DropLowestConfiguration) {
-    return which; // these all return something of the format {operator: "kh"|"kl"|"dh"|"dl", value: integer}
+  = which:(KeepConfiguration / DropConfiguration / KeepHighestConfiguration / KeepLowestConfiguration / DropHighestConfiguration / DropLowestConfiguration / Critrangeconfiguration) {
+    return which; // these all return something of the format {operator: "kh"|"kl"|"dh"|"dl"|"c", value: integer}
   }
 
 KeepConfiguration
@@ -427,6 +432,15 @@ DropLowestConfiguration
       operator: "dl",
       value: value.value,
     }
+  }
+
+Critrangeconfiguration
+  = operator:"c" value:Integer {
+    return {
+      operator:"c",
+      value: value.value,
+    }
+    
   }
 
 Integer "integer"
