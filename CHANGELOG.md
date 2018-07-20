@@ -1,3 +1,6 @@
+# **1.11.0**
+* Critrange notation, bolding dice above the given value. `d20c18` Courtesy of zmon49.
+
 # **1.10.1**
 * Fix Burning Wheel rolls.
 
