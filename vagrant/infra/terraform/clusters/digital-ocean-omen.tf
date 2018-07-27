@@ -1,5 +1,5 @@
 resource "digitalocean_domain" "zone-for-clusters" {
-  name       = "digital-ocean.lemtzas.com"
+  name = "digital-ocean.lemtzas.com"
 
   # Digital Ocean oddly requires an IP here. You may have to delete the A record it makes. :(
   ip_address = "8.8.8.8"

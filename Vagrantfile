@@ -5,10 +5,11 @@
 # - `choco install vagrant`
 # - `choco install virtualbox`
 # - close elevated prompt
-# - open regular prompt in this window
+# - open regular prompt in this directory
 # - `vagrant up`
 # - `vagrant ssh`
-# - Some secrets will need to be populated in the ./vagrant/.config directory
+# - some secrets will need to be populated in the ./vagrant/.config directory
+# - look in provision-post for some command samples
 
 Vagrant.configure('2') do |config|
   config.vm.box = 'ubuntu/xenial64'
@@ -23,8 +24,12 @@ Vagrant.configure('2') do |config|
   config.vm.provision "setup terraform ct provider", type: "shell", privileged: false, path: "vagrant/provision/002-terraform-provider-ct.sh"
   config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "~/.ssh/id_rsa"
   config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/id_rsa.pub"
-  config.vm.provision "setup terraform ssh", type: "shell", privileged: false, path: "vagrant/provision/003-terraform-ssh.sh"
+  config.vm.provision "set up terraform ssh", type: "shell", privileged: false, path: "vagrant/provision/003-terraform-ssh.sh"
+  config.vm.provision "set up kubectl", type: "shell", privileged: false, path: "vagrant/provision/004-kubectl.sh"
   config.vm.provision "sync .terraformrc", type: "file", run: :always, source: "vagrant/.terraformrc", destination: "/home/vagrant/.terraformrc"
   config.vm.synced_folder "vagrant/.config", "/home/vagrant/.config"
   config.vm.synced_folder "vagrant/infra", "/home/vagrant/infra"
+
+  # check out provision-post/...terraform-setup for more instructions
+  # check out https://typhoon.psdn.io/cl/digital-ocean/
 end
