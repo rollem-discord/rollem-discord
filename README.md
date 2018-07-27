@@ -95,20 +95,20 @@ X/Y/Z are integers. A and B are arbitrary Expressions.
 | `dYkZ` `XdYkZ`    | Keep dice notation. Keeps the *highest* Z dice from the result of `XdY`. Alias for `XdYkhZ`. May be used with `ns` and `!`.                              |
 | `dYkZ` `XdYkZ`    | Keep dice notation. Keeps the *highest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                  |
 | `dYklZ` `XdYklZ`  | Keep dice notation. Keeps the *lowest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                   |
-| 'dYcZ 'XdYcZ'     | Critrange notation. Bolds all rolls greater than or equal to Z. Cannot be used with keep or drop notations.                                              |
+| `dYcZ 'XdYcZ`     | Critrange notation. Bolds all rolls greater than or equal to Z. Cannot be used with keep or drop notations.                                              |
 ## Limitations
 
 * Rollem will not roll more than 100 dice.
 * Rollem will not roll "one-sided" dice.
 * Rollem will not roll single numbers.
-* Pure math must be prefixed with `&` or `r`.
+* Pure math must be prefixed with `&` (can be changed per server).
 * Rolls prefixed with `N#` will be rolled `N` times. N > 100 will be ignored.
 
 ## Prefixing
 Give Rollem a role of `rollem:prefix:<your prefix here>` to disable no-prefix rolling.
 
 With this role:
-* Rollem will still roll lines prefixed with `&` or `r`
+* Rollem will still roll lines prefixed with `&` (can be changed per server).
 * Rollem will still roll lines addressed to him. `@Rollem 2d20`
 * Rollem will still roll inline syntax `swing the sword [2d20 for justice]`
 * Rollem with not aggressively parse lines `2d20 for justice`
@@ -122,6 +122,7 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 |----------------------------------------------|---------------------|-----------------------------------------|
 | `stats`, `help`                              | `@rollem stats`     | Dump stats, uptime and credit.          |
 | `changelog`, `changes`, `change log`, `diff` | `@rollem changelog` | View the most recent changelog entries. |
+| `set prefix, noSort, or adminRole`           | `&set prefix &`     | Change per server settings, such as prefix |
 
 # Development
 
