@@ -2,6 +2,7 @@
 
 const util = require("util");
 
+
 // enable application insights if we have an instrumentation key set up
 const appInsights = require("applicationinsights");
 if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
@@ -31,6 +32,17 @@ const fs = require('fs');
 let VERSION = "v1.x.x";
 
 let client = new Discord.Client();
+
+
+//enmap Config
+const Enmap = require('enmap');
+const Provider = require('enmap-mongo');
+const settings = new Enmap({provider: new Provider({name: "enmap"})});
+const defaultSettings = {
+  prefix: "&",
+  adminRole: "Moderator",
+  noSort: false
+}
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
@@ -89,6 +101,8 @@ function cycleMessage() {
   }
 }
 
+
+
 client.on('disconnect', (f) => {
   trackEvent("disconnect", { reason: util.inspect(f) });
   if (aiClient) { aiClient.flush(); }
@@ -127,6 +141,19 @@ client.on('ready', () => {
   sendHeartbeat("startup message");
   sendHeartbeatNextHour();
 });
+//Verify all guilds have a key. 
+client.on("ready", async () => {
+  await settings.defer
+  // We need to ensure that every single guild has a configuration when we boot. 
+  // First loop through all guilds
+  client.guilds.forEach(guild => {
+    // For this guild, check if enmap has its guild conf
+    if(!settings.has(guild.id)) {
+       // add it if it's not there, add it!
+       settings.set(guild.id, defaultSettings);
+    }
+  });
+});
 
 function sendHeartbeatNextHour() {
   const now = moment();
@@ -148,6 +175,7 @@ function sendHeartbeat(reason) {
 
   trackEvent(`heartbeat - shard ${shardName()}`, {reason: reason});
 }
+
 
 // ping pong in PMs
 client.on('message', message => {
@@ -266,9 +294,9 @@ client.on('message', message => {
   if (shouldDefer(message)) { return; }
 
   var content = message.content.trim();
-
+  var guildConf = settings.get(message.guild.id);
   // ignore the dice requirement with prefixed strings
-  if (content.startsWith('r') || content.startsWith('&')) {
+  if (content.startsWith(guildConf.prefix) ) {
     var subMessage = content.substring(1);
     var result = Rollem.tryParse(subMessage);
     var response = buildMessage(result, false);
@@ -317,6 +345,61 @@ client.on('message', message => {
       return;
     }
   }
+});
+
+client.on("guildCreate", guild => {
+  // Adding a new row to the collection uses `set(key, value)`
+  settings.set(guild.id, defaultSettings);
+});
+
+client.on("guildDelete", guild => {
+  // Removing an element uses `delete(key)`
+  settings.delete(guild.id);
+});
+//Commands for server based options
+client.on('message',message => {
+  const guildConf = settings.get(message.guild.id) || defaultSettings;
+  if(message.content.indexOf(guildConf.prefix) !== 0) return;
+  const args = message.content.split(/\s+/g);
+  const command = args.shift().slice(guildConf.prefix.length).toLowerCase();
+  //Commands
+  if(command === "set"){
+    const adminRole = message.guild.roles.find("name", guildConf.adminRole);
+    if(!adminRole) return message.reply("Administrator Role Not Found");
+    
+    // Exit if no mod
+    if(!message.member.roles.has(adminRole.id)) return message.reply("You're not an admin, sorry!")
+    
+    // Get key and value from args
+    var [key, ...value] = args;
+    //verify key is valid.
+        //Check for boolean if noSort key
+        if(key.toLowerCase() === "nosort" ){
+          //Sanity so user doesnt have to use correct casing
+          key = "noSort";
+          if(value.toString().toLowerCase() === 'true' || value.toString().toLowerCase() === 'false'){}
+          else {return message.reply(`\`${key}\` value must be true or false`); }
+        } 
+    if(!settings.hasProp(message.guild.id, key))  return message.reply("This key is not in the configuration.");
+    
+ 
+   
+    //Finally set the value.
+    settings.setProp(message.guild.id, key, value.join(" "));
+
+    //confirm to client.
+    message.channel.send(`Guild configuration item ${key} has been changed to:\n\`${value.join(" ")}\``);
+  }
+
+
+  if(command === "showconfig") {
+    let configKeys = "";
+    Object.keys(guildConf).forEach(key => {
+      configKeys += `${key}  :  ${guildConf[key]}\n`;
+    });
+    message.channel.send(`The following are the server's current configuration: \`\`\`${configKeys}\`\`\``);
+  }
+
 });
 
 function getRelevantRoleNames(message, prefix) {
@@ -467,5 +550,6 @@ function handleSendRejection(message) {
   // let userId = message.userId;
   trackEvent("Missing send permission");
 }
+
 
 client.login(token);
