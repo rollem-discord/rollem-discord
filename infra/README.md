@@ -2,6 +2,10 @@
 These are all the scripts, configs, snippets, and notes on making Rollem go.
 
 # Secret Setup
-1. Replace secrets in `infra/secrets/sample-source.env` (only)
-2. Run `infra/add-secrets-to-templates.sh` in a bash shell.
-  * This will copy all `*.template.*` files, replacing all instances of `${ENV_VARIABLE}` with the correct value.
+## One-time setup (repeat when updating secrets)
+1. Copy `infra/secrets/sample-source/` to `infra/secrets/<your-environment-here>/`
+2. Replace the secrets in all the files. Ignore `source.env`.
+3. Run `infra/scripts/build-environment-source-files.sh` to update all source files.
+
+## When switching environments
+1. (Optional) Run `infra/scripts/add-secrets-to-templates.sh <your-environment-here>`.

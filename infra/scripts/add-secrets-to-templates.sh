@@ -3,8 +3,22 @@
 # set current working directory to the root folder
 cd "${0%/*}/../.."
 
+# set current working directory to the root folder
+cd "${0%/*}/../.."
+
+# demand an environment be selected
+if [[ -z $1 ]]; then
+    echo need folder name
+    echo
+    echo options are:
+    ls -1d ./infra/secrets/*/ | xargs -L1 basename | xargs -L1 echo "- $1"
+    exit
+fi
+
+folder_name=$1
+
 # where to configure environment variables from
-ENV_SOURCE=infra/secrets/source.env
+ENV_SOURCE=infra/secrets/$folder_name/source.env
 
 # load the environment variables
 source $ENV_SOURCE

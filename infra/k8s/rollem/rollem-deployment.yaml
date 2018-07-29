@@ -17,6 +17,12 @@ spec:
         image: lemtzas/rollem-discord:latest
         env:
         - name: 'DISCORD_BOT_USER_TOKEN'
-          value: '${DISCORD_BOT_USER_TOKEN}'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-dev
+              key: user-token
         - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: '${APPINSIGHTS_INSTRUMENTATIONKEY}'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-dev
+              key: app-insights-instrumentation-key

@@ -7,13 +7,4 @@ node_modules/
 .idea/workspace.xml
 .idea/tasks.xml
 
-# Ignore all .envs unless they are samples or templates
-*.env
-!sample-*.env
-!*.template.env
-
-# Ignore all .yamls unless they are templates
-*.yaml
-!*.template.yaml
-
 *.log
