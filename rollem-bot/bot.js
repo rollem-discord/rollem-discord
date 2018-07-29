@@ -18,7 +18,7 @@ if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
 const aiClient = appInsights.defaultClient;
 
 const Discord = require('discord.js');
-const Rollem = require('./rollem.js');
+const Rollem = require('../rollem-language/rollem.js');
 const moment = require('moment');
 const fs = require('fs');
 

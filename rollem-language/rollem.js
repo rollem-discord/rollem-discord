@@ -2,7 +2,7 @@ const Peg = require("pegjs");
 const fs = require('fs');
 const path = require('path');
 
-var grammarLocation = path.join(__dirname, 'grammer/rollem.pegjs');
+var grammarLocation = path.join(__dirname, 'rollem.pegjs');
 var grammar = fs.readFileSync(grammarLocation, 'utf8');
 
 var parser = Peg.generate(grammar)

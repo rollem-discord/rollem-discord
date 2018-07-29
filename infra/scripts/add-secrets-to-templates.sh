@@ -11,6 +11,12 @@ ALL_INFRA_TEMPLATES=`find infra | grep '\.template\.'`
 
 for file in $ALL_INFRA_TEMPLATES; do
     target_file=$(sed 's/\.template\././' <<< $file)
-    echo $file to $target_file
+    if [[ $file == $target_file ]]; then
+        echo skipping $file
+        continue;
+    fi
+
+    echo $file + ENV = $target_file
+
     cat $file | envsubst > $target_file
 done
