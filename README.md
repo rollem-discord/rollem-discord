@@ -117,6 +117,18 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 
 Unfortunately `discord.js` does not yet support debugging multiple shards.
 
+## Local Kubernetes Development
+1. Setup Minkube
+  * [Windows-specific instructions](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers))
+  * [General instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+2. `minikube start` (may need to restart VSCode or your terminal first for it to find the command)
+3. `kubectl cluter-info` confirm it's working
+4. `minikube dashboard` open the dashboard
+5. `eval $(minikube docker-env)` to setup for local running
+6. `docker-machine create --driver virtualbox default` to get docker going on virtualbox
+6. `docker build -t rollem-discord .` to build the current docker image
+7. ``
+
 ## ~~Vagrant and Docker Setup (old)~~
 
 1. Setup [Vagrant](https://www.vagrantup.com/) with `vagrant up`

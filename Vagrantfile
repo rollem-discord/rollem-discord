@@ -12,9 +12,9 @@
 # - look in provision-post for some command samples
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'ubuntu/xenial64'
+  config.vm.box = 'bento/ubuntu-16.04'
 
-  config.vm.provider 'virtualbox' do |vb|
+  config.vm.provider 'hyperv' do |vb|
     vb.memory = '1024'
   end
 
@@ -27,8 +27,8 @@ Vagrant.configure('2') do |config|
   config.vm.provision "set up terraform ssh", type: "shell", privileged: false, path: "vagrant/provision/003-terraform-ssh.sh"
   config.vm.provision "set up kubectl", type: "shell", privileged: false, path: "vagrant/provision/004-kubectl.sh"
   config.vm.provision "sync .terraformrc", type: "file", run: :always, source: "vagrant/.terraformrc", destination: "/home/vagrant/.terraformrc"
-  config.vm.synced_folder "vagrant/.config", "/home/vagrant/.config"
-  config.vm.synced_folder "vagrant/infra", "/home/vagrant/infra"
+  config.vm.synced_folder "vagrant/.config", "/home/vagrant/.config", type: "smb"
+  config.vm.synced_folder "vagrant/infra", "/home/vagrant/infra", type: "smb"
 
   # check out provision-post/...terraform-setup for more instructions
   # check out https://typhoon.psdn.io/cl/digital-ocean/
