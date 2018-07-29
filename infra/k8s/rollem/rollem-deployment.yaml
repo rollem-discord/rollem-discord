@@ -20,9 +20,9 @@ spec:
           valueFrom:
             secretKeyRef:
               name: rollem-dev
-              key: user-token
+              key: DISCORD_BOT_USER_TOKEN
         - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
           valueFrom:
             secretKeyRef:
               name: rollem-dev
-              key: app-insights-instrumentation-key
+              key: APPINSIGHTS_INSTRUMENTATIONKEY
