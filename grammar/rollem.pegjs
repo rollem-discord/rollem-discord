@@ -440,7 +440,6 @@ Critrangeconfiguration
       operator:"c",
       value: value.value,
     }
-    
   }
 
 Integer "integer"
