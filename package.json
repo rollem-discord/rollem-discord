@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node rollem-bot/sharder.js",
     "test": "mocha",
-    "terraform": "docker run -i -t hashicorp/terraform:light"
+    "terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light"
   },
   "files": [
     "./"

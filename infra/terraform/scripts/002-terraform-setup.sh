@@ -4,7 +4,7 @@
 cd "${0%/*}/../../.." || exit
 
 # initialize terraform
-cd infra/terraform/clusters
-npm terraform init
-npm terraform plan
-npm terraform apply
+npm run terraform -- init infra/terraform/clusters
+exit
+npm run terraform -- plan
+npm run terraform -- apply

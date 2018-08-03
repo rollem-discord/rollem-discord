@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set current working directory to the root folder
-cd "${0%/*}/../.." || exit
+cd "${0%/*}/../../.." || exit
 source_file_name=source.env
 
 # generates source.env files for all sets of secrets
