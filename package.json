@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "node rollem-bot/sharder.js",
-    "test": "mocha"
+    "test": "mocha",
+    "terraform": "docker run -i -t hashicorp/terraform:light"
   },
   "files": [
     "./"
@@ -19,6 +20,7 @@
     "applicationinsights": "^1.0.2",
     "discord.js": "^11.2.1",
     "moment": "^2.22.1",
+    "npm": "^6.3.0",
     "pegjs": "0.10.0"
   },
   "license": "MIT",

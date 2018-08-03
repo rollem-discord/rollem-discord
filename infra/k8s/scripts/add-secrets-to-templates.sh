@@ -1,10 +1,7 @@
 #!/bin/bash
 
 # set current working directory to the root folder
-cd "${0%/*}/../.."
-
-# set current working directory to the root folder
-cd "${0%/*}/../.."
+cd "${0%/*}/../../.." || exit
 
 # demand an environment be selected
 if [[ -z $1 ]]; then

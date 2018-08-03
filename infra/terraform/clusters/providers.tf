@@ -1,7 +1,7 @@
 # from https://typhoon.psdn.io/cl/digital-ocean/
 provider "digitalocean" {
   version = "0.1.3"
-  token = "${chomp(file("~/.config/digital-ocean/token"))}"
+  token = "${chomp(file("infra/terraform/secrets/digital-ocean/token"))}"
   alias = "default"
 }
 

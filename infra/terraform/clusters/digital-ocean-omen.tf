@@ -22,7 +22,7 @@ module "digital-ocean-omen" {
   dns_zone     = "digital-ocean.lemtzas.com"
 
   # configuration
-  ssh_fingerprints = ["${chomp(file("~/.config/digital-ocean/id_rsa.pub.fingerprint"))}"]
+  ssh_fingerprints = ["${chomp(file("infra/terraform/secrets/digital-ocean/id_rsa.pub.fingerprint"))}"]
   asset_dir        = "/home/vagrant/.secrets/clusters/omen"
 
   # optional
