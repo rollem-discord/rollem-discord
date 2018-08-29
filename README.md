@@ -127,7 +127,6 @@ Unfortunately `discord.js` does not yet support debugging multiple shards.
 5. `eval $(minikube docker-env)` to setup for local running
 6. `docker-machine create --driver virtualbox default` to get docker going on virtualbox
 6. `docker build -t rollem-discord .` to build the current docker image
-7. ``
 
 ## ~~Vagrant and Docker Setup (old)~~
 
