@@ -1,7 +1,7 @@
 .vagrant
 npm-debug.log
 node_modules/
-dist/
+rollem-dist/
 
 # .idea
 *.iws

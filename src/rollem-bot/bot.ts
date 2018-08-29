@@ -271,7 +271,7 @@ client.on('message', message => {
   }
 
   // handle inline matches
-  var last = null;
+  let last: RegExpExecArray | null = null;
   var matches = [];
   var regex = /\[(.+?)\]/g;
   while (last = regex.exec(content)) { matches.push(last[1]); }

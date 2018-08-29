@@ -17,6 +17,7 @@
     "./"
   ],
   "dependencies": {
+    "@types/node": "^10.9.3",
     "applicationinsights": "^1.0.2",
     "discord.js": "^11.2.1",
     "moment": "^2.22.1",
