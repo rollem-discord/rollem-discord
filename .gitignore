@@ -1,6 +1,7 @@
 .vagrant
 npm-debug.log
 node_modules/
+dist/
 
 # .idea
 *.iws
