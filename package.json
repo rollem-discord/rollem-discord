@@ -9,7 +9,7 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
-    "start": "node rollem-bot/sharder.js",
+    "start": "node rollem-dist/rollem-bot/sharder.js",
     "test": "mocha",
     "terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light"
   },

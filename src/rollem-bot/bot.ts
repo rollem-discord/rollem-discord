@@ -212,7 +212,7 @@ client.on('message', message => {
   count = count || 1;
   let contentAfterCount = match ? match[2] : content;
 
-  var lines = [];
+  var lines: string[] = [];
   for (let i = 0; i < count; i++) {
     var result = rollemParser.tryParse(contentAfterCount);
     if (!result) { return; }
@@ -277,7 +277,7 @@ client.on('message', message => {
 
   // handle inline matches
   let last: RegExpExecArray | null = null;
-  var matches = [];
+  var matches: string[] = [];
   var regex = /\[(.+?)\]/g;
   while (last = regex.exec(content)) { matches.push(last[1]); }
 
@@ -319,7 +319,8 @@ function getPrefix(message: Discord.Message) {
 
 function shouldDefer(message: Discord.Message) {
   if (!message.guild) { return false; }
-  if (!message.channel || !message.channel.members) { return false; }
+  if (!message.channel) { return false; }
+  if (!(message.channel instanceof Discord.TextChannel)) { return false; }
 
   let members = message.channel && message.channel.members;
   if (!members) { return false; }
@@ -329,7 +330,7 @@ function shouldDefer(message: Discord.Message) {
       let member = members.get(id);
       let isOnline = member && member.presence && member.presence.status == 'online';
       return isOnline;
-    }).map(id => members.get(id));
+    }).map(id => members.get(id) as Discord.GuildMember);
 
   if (deferToMembers.length > 0) {
     let names = deferToMembers.map(member => `${member.user.username} (${member.user.id})`).join(", ");
@@ -338,14 +339,6 @@ function shouldDefer(message: Discord.Message) {
   }
 
   return false;
-}
-
-function messageWhereString(message: Discord.Message) {
-  if (message.guild) {
-    return `${message.guild.name} # ${message.channel.name}`;
-  } else {
-    return `PM # ${message.author.username}`;
-  }
 }
 
 // TODO: Handle response type of rollem parser
