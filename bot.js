@@ -470,4 +470,5 @@ function handleSendRejection(message) {
   trackEvent("Missing send permission");
 }
 
+console.log("Logging in using token: " + token);
 client.login(token);
