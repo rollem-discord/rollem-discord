@@ -8,8 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\bot.js",
-            "envFile": "${workspaceFolder}/vscode.env",
+            "program": "${workspaceFolder}/bot.js",
+            "envFile": "${workspaceFolder}/secrets/vscode.env",
             "cwd": "${workspaceFolder}"
         }
         

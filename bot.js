@@ -96,12 +96,14 @@ client.on('disconnect', (f) => {
 });
 
 client.on('error', (error) => {
-  if (error && error.message) {
-    let ignoreError = error.message.contains('write EPIPE');
-    if (ignoreError) {
-      trackEvent("known error - " + error.message, { reason: util.inspect(error)});
-      return;
-    }
+  if (error && typeof(error.message) === "string") {
+    try {
+      let ignoreError = error.message.includes('write EPIPE');
+      if (ignoreError) {
+        trackEvent("known error - " + error.message, { reason: util.inspect(error)});
+        return;
+      }
+    } catch { }
   }
 
   trackEvent("unknown error", { reason: util.inspect(error) });
