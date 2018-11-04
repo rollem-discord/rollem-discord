@@ -30,9 +30,10 @@ const fs = require('fs');
 
 let VERSION = "v1.x.x";
 
-let client = new Discord.Client();
+let client = new Discord.Client({});
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
+console.log("Logging in using token1: " + token);
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 // read the changelog to the last major section that will fit
@@ -470,5 +471,5 @@ function handleSendRejection(message) {
   trackEvent("Missing send permission");
 }
 
-console.log("Logging in using token: " + token);
+console.log("Logging in using token2: " + token);
 client.login(token);
