@@ -99,14 +99,20 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 # Development
 
 ## Single Shard development
+
+  * You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+  * You will need a locally running instance of mongodb 
+  * The Application Insights line in config should be deleted to switch to console-logging.
+
+### Start up MongoDB
+
+
 ### From the command line
-1. Rename and update `./sample-source.env` (DO NOT COMMIT THIS)
-2. `source source.env && node bot.js`
-  * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
-  * The Application Insights line should be deleted to switch to console-logging.
+1. Rename and update `./secrets/sample-source.env` (DO NOT COMMIT THIS)
+2. `source ./secrets/source.env && node bot.js`
 
 ### From VSCode (with debugging)
-1. Rename and update `./sample-vscode.env` (DO NOT COMMIT THIS)
+1. Rename and update `./secrets/sample-vscode.env` (DO NOT COMMIT THIS)
 2. Press F5 while the project folder is open. Launch configuration is in `./.vscode/launch.json`
 
 ## Multiple Shards
