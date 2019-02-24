@@ -3,7 +3,7 @@
 const util = require("util");
 
 // enable application insights if we have an instrumentation key set up
-const appInsights = require("applicationinsights");
+import * as appInsights from "applicationinsights";
 if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.
   appInsights.setup()
@@ -23,11 +23,32 @@ const aiClient = appInsights.defaultClient;
 //   return true;
 // });
 
-const Discord = require('discord.js');
-const Rollem = require('./rollem.js');
-const moment = require('moment');
-const fs = require('fs');
+import Discord from 'discord.js';
+import { RollemParser } from '../rollem-language/rollem.js';
+import moment from 'moment';
+import fs from 'fs';
+import { MongoClient } from 'mongodb';
+import * as assert from 'assert';
 
+const mongodbAddress = process.env.MONGODB_ADDRESS as string;
+const mongodbPassword = process.env.MONGODB_ROOT_PASSWORD as string;
+assert.ok(!!mongodbAddress, "no mongodb address");
+assert.ok(!!mongodbPassword, "no mongodb password");
+
+MongoClient.connect(
+  mongodbAddress,
+  { auth: { user: 'root', password: mongodbPassword } },
+  (err, client) => {
+    assert.equal(null, err);
+    
+    console.log("Mongo DB connection successful.");
+ 
+    const db = client.db("test");
+   
+    client.close();
+  })
+
+let rollemParser = new RollemParser();
 let VERSION = "v1.x.x";
 
 let client = new Discord.Client({});
@@ -81,6 +102,10 @@ var messages = [
 function cycleMessage() {
   if (client.user) {
     let messageFunc = messages.shift();
+    if (!messageFunc) {
+      throw new Error("No message found.");
+    }
+
     messages.push(messageFunc);
     let message = messageFunc();
     client.user.setStatus("online").catch(error => handleRejection("setStatus", error));
@@ -145,7 +170,7 @@ function sendHeartbeatNextHour() {
 }
 
 /** Sends a single heartbeat-info message to owner confirming liveliness. */
-function sendHeartbeat(reason) {
+function sendHeartbeat(reason: string) {
   const disableHeartbeat = process.env.DISABLE_HEARTBEAT
   if (disableHeartbeat) { return; }
 
@@ -224,7 +249,7 @@ client.on('message', message => {
 
   let count = 1;
   let match = content.match(/(?:(\d+)#\s*)?(.*)/);
-  let countRaw = match[1];
+  let countRaw = match ? match[1] : false;
   if (countRaw) {
     count = parseInt(countRaw);
     if (count > 100) { return; }
@@ -232,11 +257,11 @@ client.on('message', message => {
   }
 
   count = count || 1;
-  let contentAfterCount = match[2];
+  let contentAfterCount = match ? match[2] : content;
 
-  var lines = [];
+  var lines: string[] = [];
   for (let i = 0; i < count; i++) {
-    var result = Rollem.tryParse(contentAfterCount);
+    var result = rollemParser.tryParse(contentAfterCount);
     if (!result) { return; }
 
     let shouldReply = prefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
@@ -273,7 +298,7 @@ client.on('message', message => {
   // ignore the dice requirement with prefixed strings
   if (content.startsWith('r') || content.startsWith('&')) {
     var subMessage = content.substring(1);
-    var result = Rollem.tryParse(subMessage);
+    var result = rollemParser.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
@@ -287,7 +312,7 @@ client.on('message', message => {
   var match = content.match(mentionRegex); // TODO: This should override Deferral
   if (match) {
     var subMessage = content.substring(match[0].length);
-    var result = Rollem.tryParse(subMessage);
+    var result = rollemParser.tryParse(subMessage);
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
@@ -298,14 +323,14 @@ client.on('message', message => {
   }
 
   // handle inline matches
-  var last = null;
-  var matches = [];
+  let last: RegExpExecArray | null = null;
+  var matches: string[] = [];
   var regex = /\[(.+?)\]/g;
   while (last = regex.exec(content)) { matches.push(last[1]); }
 
   if (matches && matches.length > 0) {
     var messages = matches.map(function (match) {
-      var result = Rollem.tryParse(match);
+      var result = rollemParser.tryParse(match);
       var response = buildMessage(result);
       return response;
     }).filter(x => !!x);
@@ -322,15 +347,16 @@ client.on('message', message => {
   }
 });
 
-function getRelevantRoleNames(message, prefix) {
+function getRelevantRoleNames(message: Discord.Message, prefix: string) {
   if (!message.guild) { return []; }
   let me = message.guild.members.get(client.user.id);
+  if (!me) { return []; }
   let roleNames = me.roles.map(r => r.name);
   let roles = roleNames.filter(rn => rn.startsWith(prefix));
   return roles;
 }
 
-function getPrefix(message) {
+function getPrefix(message: Discord.Message) {
   let prefixRolePrefix = 'rollem:prefix:';
   let prefixRoles = getRelevantRoleNames(message, prefixRolePrefix);
   if (prefixRoles.length == 0) { return ""; }
@@ -338,9 +364,10 @@ function getPrefix(message) {
   return prefix;
 }
 
-function shouldDefer(message) {
+function shouldDefer(message: Discord.Message) {
   if (!message.guild) { return false; }
-  if (!message.channel || !message.channel.members) { return false; }
+  if (!message.channel) { return false; }
+  if (!(message.channel instanceof Discord.TextChannel)) { return false; }
 
   let members = message.channel && message.channel.members;
   if (!members) { return false; }
@@ -350,7 +377,7 @@ function shouldDefer(message) {
       let member = members.get(id);
       let isOnline = member && member.presence && member.presence.status == 'online';
       return isOnline;
-    }).map(id => members.get(id));
+    }).map(id => members.get(id) as Discord.GuildMember);
 
   if (deferToMembers.length > 0) {
     let names = deferToMembers.map(member => `${member.user.username} (${member.user.id})`).join(", ");
@@ -361,7 +388,8 @@ function shouldDefer(message) {
   return false;
 }
 
-function buildMessage(result, requireDice = true) {
+// TODO: Handle response type of rollem parser
+function buildMessage(result: any, requireDice = true) {
   if (result === false) { return false; }
   if (typeof (result) === "string") { return result; }
   if (result.depth <= 1) { return false; }
@@ -423,7 +451,7 @@ function enrichAIMetrics(object = {}) {
 
 /** Tracks an event with AI using a console fallback. */
 // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
-function trackEvent(name, properties = {}) {
+function trackEvent(name: string, properties = {}) {
   if (aiClient) {
     aiClient.trackEvent({
       name: name,
@@ -436,7 +464,7 @@ function trackEvent(name, properties = {}) {
 }
 
 /** Tracks a metric with AI using a console fallback. */
-function trackMetric(name, value) {
+function trackMetric(name: string, value: number) {
   if (aiClient) {
     aiClient.trackMetric({
       name: name,

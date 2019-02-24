@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/sharder.js",
+            "program": "${workspaceFolder}/rollem-dist/rollem-bot/bot.js",
             "envFile": "${workspaceFolder}/secrets/vscode.env",
             "cwd": "${workspaceFolder}"
         }

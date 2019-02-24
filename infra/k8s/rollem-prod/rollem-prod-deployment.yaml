@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollem-prod-deployment
+spec:
+  selector:
+    matchLabels:
+      app: rollem-prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rollem-prod
+    spec:
+      containers:
+      - name: rollem
+        image: lemtzas/rollem-discord:1.11.4
+        env:
+        - name: 'reboot'
+          value: 'yes please 3'
+        - name: 'DISCORD_BOT_USER_TOKEN'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod
+              key: DISCORD_BOT_USER_TOKEN
+        - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod
+              key: APPINSIGHTS_INSTRUMENTATIONKEY
+        - name: 'DEFER_TO_CLIENT_IDS'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod
+              key: DEFER_TO_CLIENT_IDS

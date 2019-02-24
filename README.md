@@ -126,14 +126,20 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 # Development
 
 ## Single Shard development
+
+  * You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+  * You will need a locally running instance of mongodb 
+  * The Application Insights line in config should be deleted to switch to console-logging.
+
+### Start up MongoDB
+
+
 ### From the command line
-1. Rename and update `./sample-source.env` (DO NOT COMMIT THIS)
-2. `source source.env && node bot.js`
-  * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
-  * The Application Insights line should be deleted to switch to console-logging.
+1. Rename and update `./secrets/sample-source.env` (DO NOT COMMIT THIS)
+2. `source ./secrets/source.env && node bot.js`
 
 ### From VSCode (with debugging)
-1. Rename and update `./sample-vscode.env` (DO NOT COMMIT THIS)
+1. Rename and update `./secrets/sample-vscode.env` (DO NOT COMMIT THIS)
 2. Press F5 while the project folder is open. Launch configuration is in `./.vscode/launch.json`
 
 ## Multiple Shards
@@ -143,6 +149,17 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
   * The Application Insights line should be deleted to switch to console-logging.
 
 Unfortunately `discord.js` does not yet support debugging multiple shards.
+
+## Local Kubernetes Development
+1. Setup Minkube
+  * [Windows-specific instructions](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers))
+  * [General instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+2. `minikube start` (may need to restart VSCode or your terminal first for it to find the command)
+3. `kubectl cluter-info` confirm it's working
+4. `minikube dashboard` open the dashboard
+5. `eval $(minikube docker-env)` to setup for local running
+6. `docker-machine create --driver virtualbox default` to get docker going on virtualbox
+6. `docker build -t rollem-discord .` to build the current docker image
 
 ## ~~Vagrant and Docker Setup (old)~~
 
