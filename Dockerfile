@@ -11,4 +11,4 @@ COPY . /usr/src/app
 RUN yarn install
 RUN yarn build
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start-for-dockerfile" ]

@@ -9,9 +9,9 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
-    "start": "node rollem-dist/rollem-bot/bot.js",
-    "start-local-one": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
-    "start-local-many": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
+    "start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
+    "start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
+    "start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
     "start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
     "package": "docker build -t rollem-discord .",
     "test": "mocha",
