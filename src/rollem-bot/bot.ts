@@ -51,8 +51,10 @@ import * as assert from 'assert';
 let rollemParser = new RollemParser();
 let VERSION = "v1.x.x";
 
-const SHARD_ID = process.env.DISCORD_BOT_SHARD_ID ? +process.env.DISCORD_BOT_SHARD_ID : 0;
-const SHARD_COUNT = process.env.DISCORD_BOT_SHARD_COUNT ? +process.env.DISCORD_BOT_SHARD_COUNT : 1;
+const SHARD_ID = process.env.DISCORD_BOT_SHARD_ID ? +process.env.DISCORD_BOT_SHARD_ID : undefined;
+const SHARD_COUNT = process.env.DISCORD_BOT_SHARD_COUNT ? +process.env.DISCORD_BOT_SHARD_COUNT : undefined;
+console.log("Shard ID: " + SHARD_ID)
+console.log("Shard Count: " + SHARD_COUNT)
 let client = new Discord.Client({
   shardCount: SHARD_COUNT,
   shardId: SHARD_ID,
