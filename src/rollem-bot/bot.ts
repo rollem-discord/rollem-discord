@@ -18,7 +18,7 @@ import { ParseHardBehavior } from "./behaviors/parse-hard.behavior";
 import { ParseSoftBehavior } from "./behaviors/parse-soft.behavior";
 
 console.log("Setting up top-level DI");
-const globalInjector =
+const topLevelInjector =
   ReflectiveInjector.resolveAndCreate([
     Logger,
     Config,
@@ -26,10 +26,10 @@ const globalInjector =
     RollemParser,
   ]);
 
-const logger = globalInjector.get(Logger) as Logger;
-const config = globalInjector.get(Config) as Config;
-const changelog = globalInjector.get(ChangeLog) as ChangeLog;
-const parser = globalInjector.get(RollemParser) as RollemParser;
+const logger = topLevelInjector.get(Logger) as Logger;
+const config = topLevelInjector.get(Config) as Config;
+const changelog = topLevelInjector.get(ChangeLog) as ChangeLog;
+const parser = topLevelInjector.get(RollemParser) as RollemParser;
 assert(!!logger, "DI failed to resolve logger");
 assert(!!config, "DI failed to resolve config");
 assert(!!changelog, "DI failed to resolve changelog");
@@ -60,8 +60,8 @@ const ORDERED_BEHAVIORS = [
 ];
 
 /// In to the next level of DI
-console.log("Setting up client-scoped DI");
-const clientInjector = globalInjector.resolveAndCreateChild([
+logger.trackError("Setting up client-scoped DI");
+const clientLevelInjector = topLevelInjector.resolveAndCreateChild([
   {
     provide: Client,
     useValue: client,
@@ -70,7 +70,7 @@ const clientInjector = globalInjector.resolveAndCreateChild([
 ]);
 
 logger.trackEvent("Constructing behaviors...");
-const constructedBehaviors = ORDERED_BEHAVIORS.map(ctor => clientInjector.get(ctor) as BehaviorBase);
+const constructedBehaviors = ORDERED_BEHAVIORS.map(ctor => clientLevelInjector.get(ctor) as BehaviorBase);
 
 logger.trackEvent("Applying behaviors...");
 constructedBehaviors.forEach(b => b.apply());
