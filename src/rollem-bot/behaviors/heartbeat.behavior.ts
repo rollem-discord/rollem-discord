@@ -1,13 +1,15 @@
 import { BehaviorBase } from "./behavior-base";
 import { Client } from "discord.js";
-import { Logger } from "../logger";
-import { Config } from "../config";
-import { ChangeLog } from "../changelog";
+import { Logger } from "@bot/logger";
+import { Config } from "@bot/config";
+import { ChangeLog } from "@bot/changelog";
 import moment from "moment";
+import { injectable } from "inversify";
 
 /**
  * Initializes the system after login and starts the heartbeat.
  */
+@injectable()
 export class HeartbeatBehavior extends BehaviorBase {
   private readonly NOW_PLAYING_MESSAGES = [
     () => `${this.changelog.version} - http://rollem.rocks`

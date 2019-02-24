@@ -1,7 +1,9 @@
 import { Client } from "discord.js";
-import { Logger } from "../logger";
-import util from "util";
+import { Logger } from "@bot/logger";
+import { injectable } from "inversify";
 
+/** A base for behaviors to be applied to a discord client. */
+@injectable()
 export abstract class BehaviorBase {
   constructor(
     protected readonly client: Client,
@@ -14,6 +16,7 @@ export abstract class BehaviorBase {
     this.register();
   }
 
+  /** Called on initialization to register any callbacks with the discord client. */
   protected abstract register(): void;
 
   /** Handle an unknown rejection. */

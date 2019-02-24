@@ -1,5 +1,6 @@
 import { BehaviorBase } from "./behavior-base";
 import util from "util";
+import { injectable } from "inversify";
 
 // TODO: there's got to be a cleaner way to handle this, but this seems to make it more resilient.
 
@@ -7,6 +8,7 @@ import util from "util";
  * Causes this client to die when an unknown error occurs.
  * When supervised, the process should be immediately restarted.
  */
+@injectable()
 export class DieOnErrorBehavior extends BehaviorBase {
   protected register() {
     this.client.on('error', (error) => {

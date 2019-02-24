@@ -46,8 +46,8 @@
         "src/rollem-bot/*"
       ],
       "*": [
-        "node_modules/*",
-        "src/types/*"
+        "src/types/*",
+        "node_modules/*"
       ]
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */

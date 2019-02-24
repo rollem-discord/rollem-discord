@@ -1,4 +1,9 @@
 import { RollBehaviorBase } from "./roll-behavior-base";
+import { injectable } from "inversify";
+import { RollemParser } from "@language/rollem";
+import { Client } from "discord.js";
+import { Logger } from "@bot/logger";
+import { Config } from "@bot/config";
 
 /**
  * Parses things with the following prefixes:
@@ -8,7 +13,15 @@ import { RollBehaviorBase } from "./roll-behavior-base";
  * 
  * Parses `[inline rolls]`
  */
+@injectable()
 export class ParseHardBehavior extends RollBehaviorBase {
+  constructor(
+    parser: RollemParser,
+    config: Config,
+    client: Client,
+    logger: Logger,
+  ) { super(parser, config, client, logger); }
+
   protected register() {
     // TODO: Split this up. Combine common bail rules.
     // inline and convenience messaging

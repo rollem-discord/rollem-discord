@@ -1,29 +1,50 @@
-'use strict';
+require("module-alias/register")
+import "reflect-metadata";
+import { Logger } from "./logger";
+import { Config } from "./config";
+import { RollemParser } from "@language/rollem";
+import { Client } from "discord.js";
+import { DieOnDisconnectBehavior } from "./behaviors/die-on-disconnect.behavior";
+import { DieOnErrorBehavior } from "./behaviors/die-on-error.behavior";
+import { Container, interfaces } from "inversify";
+import { ChangeLog } from "./changelog";
+import { BehaviorBase } from "./behaviors/behavior-base";
 
-const util = require("util");
+const config = new Config();
+const logger = new Logger(config);
 
-import Discord from 'discord.js';
-import { RollemParser } from '../rollem-language/rollem.js';
-import moment from 'moment';
-import * as assert from 'assert';
+console.log("Shard ID: " + config.ShardId)
+console.log("Shard Count: " + config.ShardCount)
+console.log("Logging in using token: " + config.Token);
 
-// const mongodbAddress = process.env.MONGODB_ADDRESS as string;
-// const mongodbPassword = process.env.MONGODB_ROOT_PASSWORD as string;
-// assert.ok(!!mongodbAddress, "no mongodb address");
-// assert.ok(!!mongodbPassword, "no mongodb password");
+logger.trackEvent("Setting up DI");
+var container = new Container();
+container.bind<Logger>(Logger).toConstantValue(logger);
+container.bind<Config>(Config).toConstantValue(config);
+container.bind<ChangeLog>(ChangeLog).to(ChangeLog);
+container.bind<RollemParser>(RollemParser).to(RollemParser);
 
-// MongoClient.connect(
-//   mongodbAddress,
-//   { auth: { user: 'root', password: mongodbPassword } },
-//   (err, client) => {
-//     assert.equal(null, err);
-    
-//     console.log("Mongo DB connection successful.");
- 
-//     const db = client.db("test");
-   
-//     client.close();
-//   })
+logger.trackEvent("Constructing client...");
+let client = new Client({
+  shardCount: config.ShardCount,
+  shardId: config.ShardId,
+});
 
+container.bind<Client>(Client).toConstantValue(client);
+logger.client = client;
 
+/** The behaviors in the order in which they will be loaded. */
+const ORDERED_BEHAVIORS: interfaces.Newable<BehaviorBase>[] = [
+  DieOnDisconnectBehavior,
+  DieOnErrorBehavior,
+];
 
+logger.trackEvent("Constructing behaviors...");
+const constructedBehaviors = ORDERED_BEHAVIORS.map(ctor => container.resolve(ctor));
+
+logger.trackEvent("Applying behaviors...");
+constructedBehaviors.forEach(b => b.apply());
+
+logger.trackEvent("Ready to start. Logging in...");
+client.login(config.Token);
+logger.trackEvent("Script end.");

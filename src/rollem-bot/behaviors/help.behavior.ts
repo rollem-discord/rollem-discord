@@ -1,13 +1,15 @@
 import { BehaviorBase } from "./behavior-base";
-import { Config } from "../config";
-import { ChangeLog } from "../changelog";
+import { Config } from "@bot/config";
+import { ChangeLog } from "@bot/changelog";
 import { Client } from "discord.js";
-import { Logger } from "../logger";
+import { Logger } from "@bot/logger";
 import moment from "moment";
+import { injectable } from "inversify";
 
 /**
  * Replies to "stats", "help", and "changelog"
  */
+@injectable()
 export class HelpBehavior extends BehaviorBase {
   constructor(
     private readonly config: Config,

@@ -22,15 +22,22 @@
   "files": [
     "./"
   ],
+  "_moduleAliases": {
+    "@root"      : ".",
+    "@language": "rollem-dist/rollem-language/",
+    "@bot": "rollem-dist/rollem-bot"
+  },
   "dependencies": {
     "@types/inversify": "^2.0.33",
     "@types/node": "^10.9.3",
     "applicationinsights": "^1.0.2",
     "discord.js": "^11.2.1",
     "inversify": "^5.0.1",
+    "module-alias": "^2.2.0",
     "moment": "^2.22.1",
     "npm": "^6.3.0",
-    "pegjs": "0.10.0"
+    "pegjs": "0.10.0",
+    "reflect-metadata": "^0.1.13"
   },
   "license": "MIT",
   "devDependencies": {
