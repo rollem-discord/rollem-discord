@@ -51,18 +51,24 @@ export namespace Bootstrapper {
 
   /** Creates the client and hooks it up to the logger. */
   export function prepareClient(topLevelInjector: InjectorWrapper) {
-    console.log("Initializing...");
     const logger = topLevelInjector.get(Logger);
     const config = topLevelInjector.get(Config);
+
+    
+    logger.trackEvent("Constructing client...");
     logger.trackEvent("Shard ID: " + config.ShardId)
     logger.trackEvent("Shard Count: " + config.ShardCount)
     logger.trackEvent("Logging in using token: " + config.Token);
-    
-    logger.trackEvent("Constructing client...");
-    let client = new Client({
-      shardCount: config.ShardCount,
-      shardId: config.ShardId,
-    });
+
+    const shouldSetShardInfo = config.ShardId && config.ShardCount;
+    const clientOptions =
+      shouldSetShardInfo
+      ? {
+        shardCount: config.ShardCount,
+        shardId: config.ShardId }
+      : undefined;
+
+    const client = new Client(clientOptions);
     logger.client = client;
 
     return client;
