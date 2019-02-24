@@ -1,7 +1,7 @@
-import { injectable } from "inversify";
+import { Injectable } from "injection-js";
 
 /** Loads and stores various configuration values. */
-@injectable()
+@Injectable()
 export class Config {
   /** The ID of this shard. Must be below @see ShardCount. */
   public readonly ShardId = process.env.DISCORD_BOT_SHARD_ID ? +process.env.DISCORD_BOT_SHARD_ID : undefined;

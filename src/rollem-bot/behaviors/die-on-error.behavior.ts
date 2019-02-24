@@ -1,8 +1,8 @@
 import { BehaviorBase } from "./behavior-base";
 import util from "util";
-import { injectable } from "inversify";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
+import { Injectable } from "injection-js";
 
 // TODO: there's got to be a cleaner way to handle this, but this seems to make it more resilient.
 
@@ -10,7 +10,7 @@ import { Logger } from "@bot/logger";
  * Causes this client to die when an unknown error occurs.
  * When supervised, the process should be immediately restarted.
  */
-@injectable()
+@Injectable()
 export class DieOnErrorBehavior extends BehaviorBase {
   constructor(
     protected readonly client: Client,

@@ -1,9 +1,9 @@
 import { RollBehaviorBase } from "./roll-behavior-base";
-import { injectable } from "inversify";
 import { RollemParser } from "@language/rollem";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
+import { Injectable } from "injection-js";
 
 /**
  * Parses things with the following prefixes:
@@ -13,7 +13,7 @@ import { Config } from "@bot/config";
  * 
  * Parses `[inline rolls]`
  */
-@injectable()
+@Injectable()
 export class ParseHardBehavior extends RollBehaviorBase {
   constructor(
     parser: RollemParser,

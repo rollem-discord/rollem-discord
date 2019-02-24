@@ -1,14 +1,14 @@
 import fs from 'fs';
 import util from 'util';
 import { Logger } from './logger';
-import { injectable } from 'inversify';
+import { Injectable } from 'injection-js';
 
 const CHANGELOG_LINK = "<https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md>\n\n";
 const INITIAL_CHANGELOG = CHANGELOG_LINK + "(Sorry, we're still reading it from disk.)";
 let INITIAL_VERSION = "v1.x.x";
 
 /** Loads and stores the changelog/version. */
-@injectable()
+@Injectable()
 export class ChangeLog {
   /** The current version number. */
   public version: string = INITIAL_VERSION;

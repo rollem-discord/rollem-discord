@@ -4,12 +4,12 @@ import { ChangeLog } from "@bot/changelog";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import moment from "moment";
-import { injectable } from "inversify";
+import { Injectable } from "injection-js";
 
 /**
  * Replies to "stats", "help", and "changelog"
  */
-@injectable()
+@Injectable()
 export class HelpBehavior extends BehaviorBase {
   constructor(
     private readonly config: Config,

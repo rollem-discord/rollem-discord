@@ -3,23 +3,23 @@ import * as appInsights from "applicationinsights";
 import { Client } from "discord.js";
 import { Config } from "./config";
 import { ChangeLog } from "./changelog";
-import { injectable } from "inversify";
 import util from "util";
+import { Injectable } from "injection-js";
 
 /** Manages logging. */
-@injectable()
+@Injectable()
 export class Logger {
   private readonly aiClient: appInsights.TelemetryClient;
+
+  /** The client this logger is for. */
+  public client?: Client;
+
+  /** The associated changelog. */
+  public changelog?: ChangeLog;
 
   constructor(
     /** The associated config. */
     public config: Config,
-
-    /** The client this logger is for. */
-    public client?: Client,
-
-    /** The associated changelog. */
-    public changelog?: ChangeLog,
   ) {
     if (config.AppInsightsInstrumentationKey) {
       // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.

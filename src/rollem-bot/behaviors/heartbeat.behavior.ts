@@ -4,12 +4,12 @@ import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
 import { ChangeLog } from "@bot/changelog";
 import moment from "moment";
-import { injectable } from "inversify";
+import { Injectable } from "injection-js";
 
 /**
  * Initializes the system after login and starts the heartbeat.
  */
-@injectable()
+@Injectable()
 export class HeartbeatBehavior extends BehaviorBase {
   private readonly NOW_PLAYING_MESSAGES = [
     () => `${this.changelog.version} - http://rollem.rocks`

@@ -1,12 +1,12 @@
 import { BehaviorBase } from "./behavior-base";
-import { injectable } from "inversify";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
+import { Injectable } from "injection-js";
 
 /**
  * Replies with "pong" whem DM'd "ping".
  */
-@injectable()
+@Injectable()
 export class PingPongBehavior extends BehaviorBase {
   constructor(
     protected readonly client: Client,

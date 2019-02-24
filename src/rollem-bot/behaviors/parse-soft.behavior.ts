@@ -1,14 +1,14 @@
 import { RollBehaviorBase } from "./roll-behavior-base";
-import { injectable } from "inversify";
 import { RollemParser } from "@language/rollem";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
+import { Injectable } from "injection-js";
 
 /**
  * Parses things without any prefix, unless a prefix is configured via role-name.
  */
-@injectable()
+@Injectable()
 export class ParseSoftBehavior extends RollBehaviorBase {
   constructor(
     parser: RollemParser,

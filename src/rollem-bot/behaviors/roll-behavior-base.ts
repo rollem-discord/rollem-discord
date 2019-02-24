@@ -3,10 +3,12 @@ import { BehaviorBase } from "./behavior-base";
 import { Config } from "@bot/config";
 import { Client, Message, TextChannel, GuildMember } from "discord.js";
 import { Logger } from "@bot/logger";
+import { Injectable } from "injection-js";
 
 // TODO: more fine-grained per-guild handlers with caching and all that
 
 /** A base for classes that involve parsing and message handling. */
+@Injectable()
 export abstract class RollBehaviorBase extends BehaviorBase {
   constructor(
     protected readonly parser: RollemParser,

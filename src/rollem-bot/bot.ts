@@ -1,52 +1,76 @@
 require("module-alias/register")
 import "reflect-metadata";
 import { Logger } from "./logger";
+
 import { Config } from "./config";
 import { RollemParser } from "@language/rollem";
 import { Client } from "discord.js";
 import { DieOnDisconnectBehavior } from "./behaviors/die-on-disconnect.behavior";
 import { DieOnErrorBehavior } from "./behaviors/die-on-error.behavior";
-import { Container, interfaces } from "inversify";
 import { ChangeLog } from "./changelog";
 import { BehaviorBase } from "./behaviors/behavior-base";
 import assert = require("assert");
+import { ReflectiveInjector } from "injection-js";
+import { HeartbeatBehavior } from "./behaviors/heartbeat.behavior";
+import { HelpBehavior } from "./behaviors/help.behavior";
+import { PingPongBehavior } from "./behaviors/ping-pong.behavior";
+import { ParseHardBehavior } from "./behaviors/parse-hard.behavior";
+import { ParseSoftBehavior } from "./behaviors/parse-soft.behavior";
 
-const config = new Config();
-const logger = new Logger(config);
+console.log("Setting up top-level DI");
+const globalInjector =
+  ReflectiveInjector.resolveAndCreate([
+    Logger,
+    Config,
+    ChangeLog,
+    RollemParser,
+  ]);
+
+const logger = globalInjector.get(Logger) as Logger;
+const config = globalInjector.get(Config) as Config;
+const changelog = globalInjector.get(ChangeLog) as ChangeLog;
+const parser = globalInjector.get(RollemParser) as RollemParser;
+assert(!!logger, "DI failed to resolve logger");
+assert(!!config, "DI failed to resolve config");
+assert(!!changelog, "DI failed to resolve changelog");
+assert(!!parser, "DI failed to resolve parser");
 
 console.log("Shard ID: " + config.ShardId)
 console.log("Shard Count: " + config.ShardCount)
 console.log("Logging in using token: " + config.Token);
 
-logger.trackEvent("Setting up DI");
-var container = new Container();
-container.bind<Config>(Config).toConstantValue(config);
-container.bind<Logger>(Logger).toConstantValue(logger);
-container.bind<ChangeLog>(ChangeLog).to(ChangeLog);
-container.bind<RollemParser>(RollemParser).to(RollemParser);
-
-assert(!!container.resolve(Config), "could not resolve Config");
-assert(!!container.resolve(Logger), "could not resolve Logger");
-assert(!!container.resolve(ChangeLog), "could not resolve ChangeLog");
-assert(!!container.resolve(RollemParser), "could not resolve RollemParser");
+changelog.initialize();
 
 logger.trackEvent("Constructing client...");
 let client = new Client({
   shardCount: config.ShardCount,
   shardId: config.ShardId,
 });
-
-container.bind<Client>(Client).toConstantValue(client);
 logger.client = client;
 
 /** The behaviors in the order in which they will be loaded. */
-const ORDERED_BEHAVIORS: interfaces.Newable<BehaviorBase>[] = [
+const ORDERED_BEHAVIORS = [
   DieOnDisconnectBehavior,
   DieOnErrorBehavior,
+  HeartbeatBehavior,
+  HelpBehavior,
+  PingPongBehavior,
+  ParseHardBehavior,
+  ParseSoftBehavior,
 ];
 
+/// In to the next level of DI
+console.log("Setting up client-scoped DI");
+const clientInjector = globalInjector.resolveAndCreateChild([
+  {
+    provide: Client,
+    useValue: client,
+  },
+  ...ORDERED_BEHAVIORS,
+]);
+
 logger.trackEvent("Constructing behaviors...");
-const constructedBehaviors = ORDERED_BEHAVIORS.map(ctor => container.resolve(ctor));
+const constructedBehaviors = ORDERED_BEHAVIORS.map(ctor => clientInjector.get(ctor) as BehaviorBase);
 
 logger.trackEvent("Applying behaviors...");
 constructedBehaviors.forEach(b => b.apply());
