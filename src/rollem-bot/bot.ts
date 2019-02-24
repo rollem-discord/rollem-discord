@@ -30,28 +30,33 @@ import fs from 'fs';
 import { MongoClient } from 'mongodb';
 import * as assert from 'assert';
 
-const mongodbAddress = process.env.MONGODB_ADDRESS as string;
-const mongodbPassword = process.env.MONGODB_ROOT_PASSWORD as string;
-assert.ok(!!mongodbAddress, "no mongodb address");
-assert.ok(!!mongodbPassword, "no mongodb password");
+// const mongodbAddress = process.env.MONGODB_ADDRESS as string;
+// const mongodbPassword = process.env.MONGODB_ROOT_PASSWORD as string;
+// assert.ok(!!mongodbAddress, "no mongodb address");
+// assert.ok(!!mongodbPassword, "no mongodb password");
 
-MongoClient.connect(
-  mongodbAddress,
-  { auth: { user: 'root', password: mongodbPassword } },
-  (err, client) => {
-    assert.equal(null, err);
+// MongoClient.connect(
+//   mongodbAddress,
+//   { auth: { user: 'root', password: mongodbPassword } },
+//   (err, client) => {
+//     assert.equal(null, err);
     
-    console.log("Mongo DB connection successful.");
+//     console.log("Mongo DB connection successful.");
  
-    const db = client.db("test");
+//     const db = client.db("test");
    
-    client.close();
-  })
+//     client.close();
+//   })
 
 let rollemParser = new RollemParser();
 let VERSION = "v1.x.x";
 
-let client = new Discord.Client({});
+const SHARD_ID = process.env.DISCORD_BOT_SHARD_ID ? +process.env.DISCORD_BOT_SHARD_ID : 0;
+const SHARD_COUNT = process.env.DISCORD_BOT_SHARD_COUNT ? +process.env.DISCORD_BOT_SHARD_COUNT : 1;
+let client = new Discord.Client({
+  shardCount: SHARD_COUNT,
+  shardId: SHARD_ID,
+});
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
 console.log("Logging in using token1: " + token);
