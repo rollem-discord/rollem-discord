@@ -8,4 +8,9 @@ rollem-dist/
 .idea/workspace.xml
 .idea/tasks.xml
 
+# Ignore all .envs unless they start with sample-
+*.env
+!sample-*.env
+
+# Ignore logs
 *.log

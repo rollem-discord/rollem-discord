@@ -1,5 +1,7 @@
 'use strict';
 
+const util = require("util");
+
 // enable application insights if we have an instrumentation key set up
 import * as appInsights from "applicationinsights";
 if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
@@ -16,6 +18,10 @@ if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
 }
 /** Will be `undefined` unless appInsights successfully initialized. */
 const aiClient = appInsights.defaultClient;
+// aiClient.addTelemetryProcessor((envelope, context) => {
+//   envelope.data.
+//   return true;
+// });
 
 import Discord from 'discord.js';
 import { RollemParser } from '../rollem-language/rollem.js';
@@ -45,9 +51,10 @@ MongoClient.connect(
 let rollemParser = new RollemParser();
 let VERSION = "v1.x.x";
 
-let client = new Discord.Client();
+let client = new Discord.Client({});
 
 var token = process.env.DISCORD_BOT_USER_TOKEN;
+console.log("Logging in using token1: " + token);
 var deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
 // read the changelog to the last major section that will fit
@@ -101,13 +108,33 @@ function cycleMessage() {
 
     messages.push(messageFunc);
     let message = messageFunc();
-    client.user.setStatus("online");
-    client.user.setGame(message);
+    client.user.setStatus("online").catch(error => handleRejection("setStatus", error));
+    client.user
+      .setActivity(message)
+      .catch(error => handleRejection("setActivity", error));
   }
 }
 
-client.on('disconnect', (...f) => {
-  trackEvent("disconnect");
+client.on('disconnect', (f) => {
+  trackEvent("disconnect", { reason: util.inspect(f) });
+  if (aiClient) { aiClient.flush(); }
+  process.exit(1);
+});
+
+client.on('error', (error) => {
+  if (error && typeof(error.message) === "string") {
+    try {
+      let ignoreError = error.message.includes('write EPIPE');
+      if (ignoreError) {
+        trackEvent("known error - " + error.message, { reason: util.inspect(error)});
+        return;
+      }
+    } catch { }
+  }
+
+  trackEvent("unknown error", { reason: util.inspect(error) });
+  if (aiClient) { aiClient.flush(); }
+
   process.exit(1);
 });
 
@@ -157,7 +184,7 @@ client.on('message', message => {
   if (message.guild) { return; }
 
   if (message.content === 'ping') {
-    message.reply('pong');
+    message.reply('pong').catch(rejected => handleSendRejection(message));
   }
 });
 
@@ -190,7 +217,7 @@ client.on('message', message => {
       'Avatar by Kagura on Charisma Bonus.'
     ];
     let response = stats.join('\n');
-    message.reply(stats);
+    message.reply(stats).catch(rejected => handleSendRejection(message));
     trackEvent("stats");
   }
 
@@ -199,7 +226,7 @@ client.on('message', message => {
     content.startsWith('change log') ||
     content.startsWith('changes') ||
     content.startsWith('diff')) {
-    message.reply(changelog);
+    message.reply(changelog).catch(rejected => handleSendRejection(message));
     trackEvent("changelog");
   }
 });
@@ -249,7 +276,7 @@ client.on('message', message => {
 
   if (lines.length > 0) {
     let response = "\n" + lines.join("\n");
-    message.reply(response);
+    message.reply(response).catch(rejected => handleSendRejection(message));
 
     if (count === 1) { trackEvent('soft parse'); }
     else { trackEvent('soft parse, repeated'); }
@@ -275,7 +302,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      message.reply(response);
+      message.reply(response).catch(rejected => handleSendRejection(message));
       trackEvent('medium parse');
       return;
     }
@@ -289,7 +316,7 @@ client.on('message', message => {
     var response = buildMessage(result, false);
     if (response) {
       if (shouldDefer(message)) { return; }
-      message.reply(response);
+      message.reply(response).catch(rejected => handleSendRejection(message));
       trackEvent('hard parse');
       return;
     }
@@ -313,7 +340,7 @@ client.on('message', message => {
     var fullMessage = '\n' + messages.join('\n');
     if (fullMessage) {
       if (shouldDefer(message)) { return; }
-      message.reply(fullMessage);
+      message.reply(fullMessage).catch(rejected => handleSendRejection(message));
       trackEvent('inline parse');
       return;
     }
@@ -448,4 +475,29 @@ function trackMetric(name: string, value: number) {
   }
 }
 
+function handleRejection(label, error) {
+  // let guildId = message.guild ? message.guild.id : null;
+  // let channelId = message.channel ? message.channel.id : null;
+  // let messageId = message.id;
+  // let userId = message.userId;
+  if (aiClient) {
+    aiClient.trackException({
+      exception: error,
+      properties: {
+        error: util.inspect(error),
+        label: label,
+      }
+    });
+  }
+}
+
+function handleSendRejection(message) {
+  // let guildId = message.guild ? message.guild.id : null;
+  // let channelId = message.channel ? message.channel.id : null;
+  // let messageId = message.id;
+  // let userId = message.userId;
+  trackEvent("Missing send permission");
+}
+
+console.log("Logging in using token2: " + token);
 client.login(token);

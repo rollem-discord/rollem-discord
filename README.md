@@ -35,10 +35,29 @@ Just roll.
 Inline rolls.
 
 > **@you:** Rolling [4d6] for glory  
-> **@rollem:** @you, 17 ⟵ [6, 5, 3, 3]4d6
+> **@rollem:** @you, 17 ⟵ [**6**, 5, 3, 3]4d6
 
 > **@you:** Rolling [4d6 for glory]  
-> **@rollem:** @you, 'for glory', 17 ⟵ [6, 5, 3, 3]4d6
+> **@rollem:** @you, 'for glory', 17 ⟵ [**6**, 5, 3, 3]4d6
+
+Repeated rolls.
+
+> **@you:** 3#d20  
+> **@rollem:** @you,  
+> 20 ⟵ [**20**]1d20  
+> 13 ⟵ [13]1d20  
+> 11 ⟵ [11]1d20
+
+Stat generation.
+
+> **@you:** 6#4d6d1  
+> **@rollem:** @you,  
+> 12 ⟵ [**6**, 3, 3, ~~2~~]4d6dl1  
+> 6 ⟵ [2, 2, 2, ~~**1**~~]4d6dl1  
+> 13 ⟵ [5, 5, 3, ~~2~~]4d6dl1  
+> 10 ⟵ [5, 3, 2, ~~2~~]4d6dl1  
+> 13 ⟵ [**6**, 5, 2, ~~**1**~~]4d6dl1  
+> 15 ⟵ [**6**, **6**, 3, ~~3~~]4d6dl1
 
 Math.
 
@@ -50,7 +69,7 @@ Math.
 
 ## Dice Syntax
 
-X and Y are integers. A and B are arbitrary Expressions.
+X/Y/Z are integers. A and B are arbitrary Expressions.
 
 | Syntax            |                                                                                                                                                          |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -68,9 +87,17 @@ X and Y are integers. A and B are arbitrary Expressions.
 | `BX` `GX` `WX`    | Burning Wheel notation. Aliased to `Xd6 >> Y` where Y is determined by B/G/W. B=4, G=3, W=2.                                                             |
 | `BX!` `GX!` `WX!` | Burning Wheel open roll notation. Aliased to `Xd6! >> Y` where Y is determined by B/G/W. B=4, G=3, W=2.                                                  |
 | `dF` `XdF`        | Fate Dice notation. Rolls dice with values of -1, 0, 1. Represented by `-`, `0`, and `+`.                                                                |
+| `XdYns`           | No Sort. Does not sort the result of `XdY` in the output.                                                                                                |
+| `X#A`             | Evaluates the expression A X times. Use for stat generation: `6#4d6d1`                                                                                   |
+| `dYdZ` `XdYdZ`    | Drop dice notation. Drops the *lowest* Z dice from the result of `XdY`. Alias for `XdYdlZ`. May be used with `ns` and `!`.                               |
+| `dYdlZ` `XdYdlZ`  | Drop dice notation. Drops the *lowest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                   |
+| `dYdhZ` `XdYdhZ`  | Drop dice notation. Drops the *highest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                  |
+| `dYkZ` `XdYkZ`    | Keep dice notation. Keeps the *highest* Z dice from the result of `XdY`. Alias for `XdYkhZ`. May be used with `ns` and `!`.                              |
+| `dYkZ` `XdYkZ`    | Keep dice notation. Keeps the *highest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                  |
+| `dYklZ` `XdYklZ`  | Keep dice notation. Keeps the *lowest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                   |
+| `dYcZ` `XdYcZ`    | Critrange notation. Bolds all rolls greater than or equal to Z. Cannot be used with keep or drop notations.                                              |
 
 ## Limitations
-
 * Rollem will not roll more than 100 dice.
 * Rollem will not roll "one-sided" dice.
 * Rollem will not roll single numbers.
@@ -78,7 +105,7 @@ X and Y are integers. A and B are arbitrary Expressions.
 * Rolls prefixed with `N#` will be rolled `N` times. N > 100 will be ignored.
 
 ## Prefixing
-Give Rollem a role of `rollem:prefix:<your prefix here>` to disable aggressive rolling.
+Give Rollem a role of `rollem:prefix:<your prefix here>` to disable no-prefix rolling.
 
 With this role:
 * Rollem will still roll lines prefixed with `&` or `r`

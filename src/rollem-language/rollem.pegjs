@@ -32,8 +32,6 @@
     var count = 0;
     left.values.forEach(function(v,i,arr) { if (evaluator(v)) { count++; } });
 
-    debugger;
-
     return {
       "value": count,
       "values": [ count ],
@@ -46,12 +44,12 @@
   function makeInteger(text) {
     var value = parseInt(text, 10);
     return {
-        "value": value,
-          "values": [ value ],
-          "pretties": text,
-          "depth": 1,
-          "dice": 0
-      };
+      "value": value,
+      "values": [ value ],
+      "pretties": text,
+      "depth": 1,
+      "dice": 0
+    };
   }
 
   // TODO: generalize roll structure
@@ -59,24 +57,24 @@
     var size = 3;
     var count = left ? left.value : 1;
     if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
-    var values_arr = [];
+    var valuesArr = [];
 
     // roll
     for (var i=0; i < count; i++)
     {
       var newVals = singleDieEvaluator(size);
-      Array.prototype.push.apply(values_arr, newVals);
+      Array.prototype.push.apply(valuesArr, newVals);
     }
 
     // map d3 to -1 0 1
-    values_arr = values_arr.map(v => v - 2);
+    valuesArr = valuesArr.map(v => v - 2);
 
     // total
     var accumulator = 0;
-    values_arr.forEach(function(v,i,arr) { accumulator += v; });
+    valuesArr.forEach(function(v,i,arr) { accumulator += v; });
 
     // make pretties int - 0 +
-    var pretties_arr = values_arr.sort((a,b) => a - b).reverse().map(function(v,i,arr) {
+    var prettiesArr = valuesArr.sort((a,b) => a - b).reverse().map(function(v,i,arr) {
       switch(v) {
         case 0: return "0";
         case 1: return "+";
@@ -85,53 +83,89 @@
       }
     });
 
-    var pretties = "[" + pretties_arr.join(", ") + "]" + count + "dF";
+    var pretties = "[" + prettiesArr.join(", ") + "]" + count + "dF";
 
-    values_arr = values_arr.sort((a,b) => a - b);
+    valuesArr = valuesArr.sort((a,b) => a - b);
     var depth = left ? left.depth+1 : 2;
     var dice = left ? left.value : 1;
     return {
         "value": accumulator,
-        "values": values_arr,
+        "values": valuesArr,
         "pretties": pretties,
         "depth": depth,
         "dice": dice
     };
   }
 
-  function makeBasicRoll(left, right, explode, noSort) {
+  function makeBasicRoll(left, right, explode, configuration) {
     var size = right.value;
     var count = left ? left.value : 1;
+    var noSort = configuration.noSort;
+    var keepDropOperator = configuration.operator;
+    var keepDropValue = configuration.value || 0;
+
     if (size <= 1) { error("Minimum die size is 2.", "CUSTOM"); }
     if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
-    var values_arr = [];
+
+    var valuesArr = [];
 
     // roll
     for (var i=0; i < count; i++)
     {
       var newVals = singleDieEvaluator(size, explode);
-      Array.prototype.push.apply(values_arr, newVals);
+      Array.prototype.push.apply(valuesArr, newVals);
     }
+
+    // handle keep-drop
+    var augmentedValuesArr = valuesArr.map(v => { return {value: v, isKept: false}; });
+    var sortedAugmentedValuesArr = Array.from(augmentedValuesArr).sort((a,b) => a.value - b.value).reverse();
+    var keepRangeStart = 0;
+    var keepRangeEndExclusive = sortedAugmentedValuesArr.length;
+    var critrange = size;
+    switch (keepDropOperator) {
+      case "kh":
+        keepRangeEndExclusive = keepDropValue;
+        break;
+      case "kl":
+        keepRangeStart = sortedAugmentedValuesArr.length - keepDropValue;
+        break;
+      case "dh":
+        keepRangeStart = keepDropValue;
+        break;
+      case "dl":
+        keepRangeEndExclusive = sortedAugmentedValuesArr.length - keepDropValue
+        break;
+      case "c":
+        critrange = configuration.value;
+        break;
+      default:
+        // leave it at the default (keep everything)
+        break;
+    }
+  
+    sortedAugmentedValuesArr.slice(keepRangeStart, keepRangeEndExclusive).forEach(v => v.isKept = true);
 
     // total
     var accumulator = 0;
-    values_arr.forEach(function(v,i,arr) { accumulator += v; });
+    augmentedValuesArr.filter(v => v.isKept).forEach((v,i,arr) => accumulator += v.value);
 
     // format
-    var sorted_values_arr = noSort ? values_arr : values_arr.sort((a,b) => a - b).reverse();
-    var pretties_arr = sorted_values_arr.map(function(v,i,arr) {
-      return dieFormatter(v, size);
+    var formatOrder = noSort ? augmentedValuesArr : sortedAugmentedValuesArr;
+    var prettiesArr = formatOrder.map((v,i,arr) => {
+      //critrange is by default = to size 
+      return dieFormatter(v.value, critrange, v.isKept);
     });
 
-    var pretties = "[" + pretties_arr.join(", ") + "]" + count + "d" + right.pretties;
+    var pretties = "[" + prettiesArr.join(", ") + "]" + count + "d" + right.pretties;
     if (explode) { pretties = pretties + "!"; }
+    if (keepDropOperator) { pretties = pretties + keepDropOperator + keepDropValue; }
 
-    values_arr = values_arr.sort((a,b) => a - b);
+    valuesArr = sortedAugmentedValuesArr.filter(v => v.isKept).map(v => v.value);
     var depth = left ? Math.max(left.depth, right.depth)+1 : right.depth+1;
     var dice = left ? left.value : 1;
     return {
         "value": accumulator,
-        "values": values_arr,
+        "values": valuesArr,
         "pretties": pretties,
         "depth": depth,
         "dice": dice
@@ -142,21 +176,29 @@
   var singleDieEvaluator = rollEvaluator;
 
   // This is used to configure stylization of the individual die results.
-  function dieFormatter(value, size) {
-    if (value == size)
-      return maxFormatter(value);
+  function dieFormatter(value, size, isKept = true) {
+    var formatted = value
+    if (value >= size)
+      formatted = maxFormatter(formatted);
     else if (value == 1)
-      return minFormatter(value);
-    else
-      return value;
+      formatted = minFormatter(formatted);
+
+    if (!isKept)
+      formatted = dropFormatter(formatted);
+    
+    return formatted;
   }
 
-  function minFormatter(value) {
-    return "**" + value + "**";
+  function minFormatter(formatted) {
+    return "**" + formatted + "**";
   }
 
-  function maxFormatter(value) {
-    return "**" + value + "**";
+  function maxFormatter(formatted) {
+    return "**" + formatted + "**";
+  }
+
+  function dropFormatter(formatted) {
+    return "~~" + formatted + "~~";
   }
 }
 
@@ -241,16 +283,16 @@ Expression
             result.value += current.value * result.values.length;
             result.values = result.values.map(function(val) {
               return val + current.value;})
-            var pretties_arr = result.values.sort((a,b) => a - b).reverse()
-            var joined = "[" + pretties_arr.join(", ") + "]";
+            var prettiesArr = result.values.sort((a,b) => a - b).reverse()
+            var joined = "[" + prettiesArr.join(", ") + "]";
             result.pretties = joined + " ⟵ " + result.pretties + " ++ " + current.pretties;
             break;
           case "--":
             result.value -= current.value * result.values.length;
             result.values = result.values.map(function(val) {
               return val - current.value; })
-            var pretties_arr = result.values.sort((a,b) => a - b).reverse()
-            var joined = "[" + pretties_arr.join(", ") + "]";
+            var prettiesArr = result.values.sort((a,b) => a - b).reverse()
+            var joined = "[" + prettiesArr.join(", ") + "]";
             result.pretties = joined + " ⟵ " + result.pretties + " -- " + current.pretties;
             break;
         }
@@ -305,8 +347,8 @@ BurningWheelRoll
   = left:[BGW] right:Integer explode:"!"? {
       let rollLeft = right;
       let rollRight = makeInteger("6");
-      let rollResult = makeBasicRoll(rollLeft, rollRight, explode);
-      debugger;
+      let rollResult = makeBasicRoll(rollLeft, rollRight, explode, {});
+
       let counterRight = null;
 
       switch (left) {
@@ -321,7 +363,6 @@ BurningWheelRoll
           break;
       }
 
-      debugger;
       let counterResult = makeCounter(rollResult, ">>", counterRight);
       counterResult.pretties = `${left}${right.pretties} (${counterResult.pretties})`
 
@@ -329,9 +370,77 @@ BurningWheelRoll
     }
 
 BasicRoll
-  = left:Integer? [dD] right:Integer explode:"!"? noSort:"ns"? {
-      return makeBasicRoll(left, right, explode, noSort);
+  = left:Integer? [dD] right:Integer explode:"!"? configuration:BasicRollConfiguration {
+      return makeBasicRoll(left, right, explode, configuration);
     }
+
+BasicRollConfiguration
+  = keepDrop:KeepDropConfiguration? noSort:"ns"? {
+    const configuration = keepDrop || {operator: null, value: null};
+    configuration.noSort = noSort ? true: false;
+    return configuration;
+  }
+//Implementing Critrange here. Prevents user from doing drop/keeps and specifying a range at the same time. 
+KeepDropConfiguration
+  = which:(KeepConfiguration / DropConfiguration / KeepHighestConfiguration / KeepLowestConfiguration / DropHighestConfiguration / DropLowestConfiguration / Critrangeconfiguration) {
+    return which; // these all return something of the format {operator: "kh"|"kl"|"dh"|"dl"|"c", value: integer}
+  }
+
+KeepConfiguration
+  = operator:"k" value:Integer {
+    return {
+      operator: "kh",
+      value: value.value,
+    }
+  }
+
+KeepHighestConfiguration
+  = operator:"kh" value:Integer {
+    return {
+      operator: "kh",
+      value: value.value,
+    }
+  }
+
+KeepLowestConfiguration
+  = operator:"kl" value:Integer {
+    return {
+      operator: "kl",
+      value: value.value,
+    }
+  }
+
+DropConfiguration
+  = operator:"d" value:Integer {
+    return {
+      operator: "dl",
+      value: value.value,
+    }
+  }
+
+DropHighestConfiguration
+  = operator:"dh" value:Integer {
+    return {
+      operator: "dh",
+      value: value.value,
+    }
+  }
+
+DropLowestConfiguration
+  = operator:"dl" value:Integer {
+    return {
+      operator: "dl",
+      value: value.value,
+    }
+  }
+
+Critrangeconfiguration
+  = operator:"c" value:Integer {
+    return {
+      operator:"c",
+      value: value.value,
+    }
+  }
 
 Integer "integer"
   = [0-9]+ {

@@ -1,3 +1,43 @@
+# **1.11.1**
+* Dodge exception.
+
+# **1.11.0**
+* Critrange notation, bolding dice above the given value `d20c18`
+* Courtesy of <https://github.com/zmon49>
+
+# **1.10.1**
+* Fix Burning Wheel rolls.
+
+# **1.10.0**
+* Add Keep-Drop dice
+* Keep Highest N `10d5k5` `10d5kh5` - `k` is a shortcut for `kh`
+* Drop Lowest N `10d5d5` `10d5dl5` - `d` is a shortcut for `dl`
+* Drop Highest N `10d5dh5`
+* Keep Lowest N `10d5kl5`
+* Disable sorting `10d3k5ns`
+* With exploding dice `10d3!k5`
+
+# **1.9.10**
+* Ignore WSS-closing events, as they are not terminal. Log and restart on all other errors.
+
+# **1.9.9**
+* Do not restart on error.
+
+# **1.9.8**
+* Actually flush the errors.
+
+# **1.9.7**
+* Better error logging.
+
+# **1.9.6**
+* Update dependencies.
+
+# **1.9.5**
+* Add `catch` section to all `Promise`s.
+
+# **1.9.4**
+* Avoid exceptions when the bot doesn't have send permissions.
+
 # **1.9.3**
 * Do not reply to messages with [bracketed] [text] that is not a roll.
 
