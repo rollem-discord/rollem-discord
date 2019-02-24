@@ -9,6 +9,7 @@ import { DieOnErrorBehavior } from "./behaviors/die-on-error.behavior";
 import { Container, interfaces } from "inversify";
 import { ChangeLog } from "./changelog";
 import { BehaviorBase } from "./behaviors/behavior-base";
+import assert = require("assert");
 
 const config = new Config();
 const logger = new Logger(config);
@@ -19,10 +20,15 @@ console.log("Logging in using token: " + config.Token);
 
 logger.trackEvent("Setting up DI");
 var container = new Container();
-container.bind<Logger>(Logger).toConstantValue(logger);
 container.bind<Config>(Config).toConstantValue(config);
+container.bind<Logger>(Logger).toConstantValue(logger);
 container.bind<ChangeLog>(ChangeLog).to(ChangeLog);
 container.bind<RollemParser>(RollemParser).to(RollemParser);
+
+assert(!!container.resolve(Config), "could not resolve Config");
+assert(!!container.resolve(Logger), "could not resolve Logger");
+assert(!!container.resolve(ChangeLog), "could not resolve ChangeLog");
+assert(!!container.resolve(RollemParser), "could not resolve RollemParser");
 
 logger.trackEvent("Constructing client...");
 let client = new Client({
