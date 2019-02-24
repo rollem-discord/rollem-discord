@@ -1,7 +1,7 @@
 'use strict';
 
 // enable application insights if we have an instrumentation key set up
-import appInsights from "applicationinsights";
+import * as appInsights from "applicationinsights";
 if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.
   appInsights.setup()
@@ -21,6 +21,26 @@ import Discord from 'discord.js';
 import { RollemParser } from '../rollem-language/rollem.js';
 import moment from 'moment';
 import fs from 'fs';
+import { MongoClient } from 'mongodb';
+import * as assert from 'assert';
+
+const mongodbAddress = process.env.MONGODB_ADDRESS as string;
+const mongodbPassword = process.env.MONGODB_ROOT_PASSWORD as string;
+assert.ok(!!mongodbAddress, "no mongodb address");
+assert.ok(!!mongodbPassword, "no mongodb password");
+
+MongoClient.connect(
+  mongodbAddress,
+  { auth: { user: 'root', password: mongodbPassword } },
+  (err, client) => {
+    assert.equal(null, err);
+    
+    console.log("Mongo DB connection successful.");
+ 
+    const db = client.db("test");
+   
+    client.close();
+  })
 
 let rollemParser = new RollemParser();
 let VERSION = "v1.x.x";

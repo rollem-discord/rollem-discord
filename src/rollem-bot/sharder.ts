@@ -1,5 +1,5 @@
 // enable application insights if we have an instrumentation key set up
-import appInsights from "applicationinsights";
+import * as appInsights from "applicationinsights";
 if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.
   appInsights.setup()
