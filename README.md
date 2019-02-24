@@ -52,12 +52,12 @@ Stat generation.
 
 > **@you:** 6#4d6d1  
 > **@rollem:** @you,  
-> 12 ⟵ [**6**, 3, 3, ~~2~~]4d6dl1  
-> 6 ⟵ [2, 2, 2, ~~**1**~~]4d6dl1  
-> 13 ⟵ [5, 5, 3, ~~2~~]4d6dl1  
-> 10 ⟵ [5, 3, 2, ~~2~~]4d6dl1  
-> 13 ⟵ [**6**, 5, 2, ~~**1**~~]4d6dl1  
-> 15 ⟵ [**6**, **6**, 3, ~~3~~]4d6dl1
+> 12 ⟵ [**6**, 3, 3, ~~2~~ ]4d6dl1  
+> 6 ⟵ [2, 2, 2, ~~**1**~~ ]4d6dl1  
+> 13 ⟵ [5, 5, 3, ~~2~~ ]4d6dl1  
+> 10 ⟵ [5, 3, 2, ~~2~~ ]4d6dl1  
+> 13 ⟵ [**6**, 5, 2, ~~**1**~~ ]4d6dl1  
+> 15 ⟵ [**6**, **6**, 3, ~~3~~ ]4d6dl1
 
 Math.
 
@@ -126,31 +126,33 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 # Development
 
 ## Single Shard development
-
-  * You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
-  * You will need a locally running instance of mongodb 
-  * The Application Insights line in config should be deleted to switch to console-logging.
-
-### Start up MongoDB
-
-
-### From the command line
-1. Rename and update `./secrets/sample-source.env` (DO NOT COMMIT THIS)
-2. `source ./secrets/source.env && node bot.js`
+* You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me) 
+* Set up [yarn](https://yarnpkg.com/en/)
+* Run `yarn install` in the root directory
+* Install typescript `yarn global add typescript`
+* Rename and update `./secrets/sample-vscode.env`
+  * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+  * The Application Insights line may be deleted to switch to console-only logging.
 
 ### From VSCode (with debugging)
-1. Rename and update `./secrets/sample-vscode.env` (DO NOT COMMIT THIS)
+1. Rename and update `./secrets/sample-vscode.env`
 2. Press F5 while the project folder is open. Launch configuration is in `./.vscode/launch.json`
 
-## Multiple Shards
-1. Rename and update `./sample-source.env` (DO NOT COMMIT THIS)
-2. Run `source source.env && yarn start`
-  * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
-  * The Application Insights line should be deleted to switch to console-logging.
+### Single Shard (no debugging)
+1. Rename and update `./secrets/sample-vscode.env`
+2. Run `yarn run start`
 
-Unfortunately `discord.js` does not yet support debugging multiple shards.
+## Multiple Shards (no debugging)
+1. Rename and update `./secrets/sample-vscode.env`
+2. Run `yarn run start-sharder`
 
-## Local Kubernetes Development
+## Running in Docker
+1. `yarn run package` (The container will compile it)
+2. `yarn run start-package`
+
+## ~~Local Kubernetes Development~~
+These are incomplete and are a massive pain on Windows anyway.
+
 1. Setup Minkube
   * [Windows-specific instructions](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers))
   * [General instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/)
@@ -159,15 +161,7 @@ Unfortunately `discord.js` does not yet support debugging multiple shards.
 4. `minikube dashboard` open the dashboard
 5. `eval $(minikube docker-env)` to setup for local running
 6. `docker-machine create --driver virtualbox default` to get docker going on virtualbox
-6. `docker build -t rollem-discord .` to build the current docker image
-
-## ~~Vagrant and Docker Setup (old)~~
-
-1. Setup [Vagrant](https://www.vagrantup.com/) with `vagrant up`
-2. `vagrant ssh` to get into it.
-3. Code will be in `/vagrant`.
-4. From `/vagrant`, run `docker build -t rollem . && docker run -it --rm -e DISCORD_BOT_USER_TOKEN='<YOUR TOKEN>' --name rollem rollem`
-    * You will need to replace `<YOUR TOKEN>` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+7. `docker build -t rollem-discord .` to build the current docker image
 
 ## Deploying the Bot
 

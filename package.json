@@ -9,8 +9,11 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
-    "start": "node rollem-dist/rollem-bot/sharder.js",
-    "start-local": "source ./secrets/source.env && node ./rollem-dist/rollem-bot/bot.js",
+    "start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
+    "start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
+    "start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
+    "start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
+    "package": "docker build -t rollem-discord .",
     "test": "mocha",
     "build": "gulp build",
     "watch": "gulp watch",
@@ -19,15 +22,21 @@
   "files": [
     "./"
   ],
+  "_moduleAliases": {
+    "@root": ".",
+    "@language": "rollem-dist/rollem-language/",
+    "@bot": "rollem-dist/rollem-bot"
+  },
   "dependencies": {
-    "@types/mongodb": "^3.1.7",
     "@types/node": "^10.9.3",
     "applicationinsights": "^1.0.2",
     "discord.js": "^11.2.1",
+    "injection-js": "^2.2.1",
+    "module-alias": "^2.2.0",
     "moment": "^2.22.1",
-    "mongodb": "^3.1.6",
     "npm": "^6.3.0",
-    "pegjs": "0.10.0"
+    "pegjs": "0.10.0",
+    "reflect-metadata": "^0.1.13"
   },
   "license": "MIT",
   "devDependencies": {
