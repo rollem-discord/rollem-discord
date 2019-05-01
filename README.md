@@ -232,7 +232,7 @@ curl --request PATCH --header "Authorization: Bot {TOKEN HERE}" -H "Content-Type
 
 Avatar by Kagura on Charisma Bonus.
 
-![](avatar/kagura1.jpg)
+![](rollem-media/kagura1-512.png)
 
 # License: MIT
 
