@@ -28,7 +28,7 @@ export class HeartbeatBehavior extends BehaviorBase {
 
       this.cycleMessage();
 
-      console.log("will defer to " + this.config.deferToClientIds);
+      console.log("will defer to: " + this.config.deferToClientIds);
       console.log('username: ' + this.client.user.username);
       console.log('id: ' + this.client.user.id);
 
