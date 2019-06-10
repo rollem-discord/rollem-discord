@@ -1,3 +1,6 @@
+# **1.11.5**
+* Fixing deployment.
+
 # **1.11.2**
 * Major refactor. All is TypeScript and DI now.
 * Sharding will now be performed manually instead of via sharder.js
