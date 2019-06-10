@@ -9,6 +9,9 @@ export class Config {
   /** The number of shards. */
   public readonly ShardCount = process.env.DISCORD_BOT_SHARD_COUNT ? +process.env.DISCORD_BOT_SHARD_COUNT : undefined;
 
+  /** True if the config has all needed shard info. */
+  public readonly HasShardInfo = this.ShardId != undefined && this.ShardCount != undefined;
+
   /** The user token for Discord. */
   public readonly Token = process.env.DISCORD_BOT_USER_TOKEN;
 

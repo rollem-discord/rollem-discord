@@ -60,9 +60,8 @@ export namespace Bootstrapper {
     logger.trackEvent("Shard Count: " + config.ShardCount)
     logger.trackEvent("Logging in using token: " + config.Token);
 
-    const shouldSetShardInfo = !!config.ShardCount;
     const clientOptions =
-      shouldSetShardInfo
+      config.HasShardInfo
       ? {
         shardCount: config.ShardCount,
         shardId: config.ShardId }

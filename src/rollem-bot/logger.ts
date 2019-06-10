@@ -94,25 +94,35 @@ export class Logger {
   public shardName() {
     if (!this.client) { return undefined; }
 
-    return this.client.shard
-      ? `${this.client.shard.id+1} of ${this.client.shard.count}`
-      : "only";
+    var shardId = this.shardId();
+    var shardCount = this.shardCount();
+    
+    if (typeof shardCount == "undefined") { return undefined; }
+    if (shardCount > 1) { return `${shardId} of ${shardCount}`; }
+
+    return "only";
   }
 
   /** Constructs a one-index string identifying this shard. */
   public shardId() {
     if (!this.client) { return undefined; }
-    return this.client.shard
-      ? this.client.shard.id + 1
-      : 1;
+    if (this.client.shard) { return this.client.shard.id + 1; }
+    if (this.config.HasShardInfo && typeof this.config.ShardId == "number") {
+      return this.config.ShardId + 1;
+    }
+
+    return 1;
   }
 
   /** Safely retrieves the shard count. */
   public shardCount() {
     if (!this.client) { return undefined; }
-    return this.client.shard
-      ? this.client.shard.count
-      : 1;
+    if (this.client.shard) { return this.client.shard.count; }
+    if (this.config.HasShardInfo) {
+      return this.config.ShardCount;
+    }
+    
+    return 1;
   }
 
   /** Adds common AI properties to the given object (or creates one). Returns the given object. */
