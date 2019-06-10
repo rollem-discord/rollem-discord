@@ -93,6 +93,7 @@ export class Logger {
   /** Constructs a human-readable string identifying this shard. */
   public shardName() {
     if (!this.client) { return undefined; }
+
     return this.client.shard
       ? `${this.client.shard.id+1} of ${this.client.shard.count}`
       : "only";

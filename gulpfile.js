@@ -1,13 +1,16 @@
 var gulp = require('gulp');
 var del = require('del');
 var ts = require('gulp-typescript');
+var sourcemaps = require('gulp-sourcemaps');
 
 var tsProject = ts.createProject('tsconfig.json');
 
 gulp.task('build-ts', function () {
     return tsProject.src()
-        .pipe(tsProject())
-        .js.pipe(gulp.dest('rollem-dist'));
+        .pipe(sourcemaps.init())
+        .pipe(tsProject()).js
+        .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: '../lib'}))
+        .pipe(gulp.dest('rollem-dist'));
 });
 
 gulp.task('copy-pegjs', function() {

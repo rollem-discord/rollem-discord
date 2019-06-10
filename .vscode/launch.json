@@ -10,8 +10,8 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/rollem-dist/rollem-bot/bot.js",
             "envFile": "${workspaceFolder}/secrets/vscode.env",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true
         }
-        
     ]
 }
