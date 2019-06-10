@@ -1,12 +1,7 @@
-# **1.11.7**
-* Fixing deployment.
-
-# **1.11.2**
+# **1.11.8**
 * Major refactor. All is TypeScript and DI now.
 * Sharding will now be performed manually instead of via sharder.js
-
-# **1.11.1**
-* Dodge exception.
+* Fixing deployment.
 
 # **1.11.0**
 * Critrange notation, bolding dice above the given value `d20c18`
