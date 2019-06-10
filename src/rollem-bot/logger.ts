@@ -116,7 +116,7 @@ export class Logger {
 
   /** Adds common AI properties to the given object (or creates one). Returns the given object. */
   private enrichAIProperties(object = {}) {
-    if (this.client) {
+    if (this.client && this.client.user) {
       object["Shard Name"] = '' + this.shardName();
       object["Client ID"] = '' + this.client.user.id;
       object["Client Name"] = '' + this.client.user.username;

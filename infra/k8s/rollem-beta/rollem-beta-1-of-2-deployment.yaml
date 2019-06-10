@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rollem-beta-deployment
+  name: rollem-beta-1-of-2-deployment
 spec:
   selector:
     matchLabels:
@@ -13,9 +13,15 @@ spec:
         app: rollem-beta
     spec:
       containers:
-      - name: rollem
-        image: lemtzas/rollem-discord:1.11.4
+      - name: rollem-beta-shard-1-of-2
+        image: lemtzas/rollem-discord:1.11.5
         env:
+        - name: 'reboot'
+          value: '2019-06-09'
+        - name: DISCORD_BOT_SHARD_ID
+          value: '0'
+        - name: DISCORD_BOT_SHARD_COUNT
+          value: '2'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
