@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rollem-prod-2-deployment
+  name: rollem-prod-5-deployment
 spec:
   selector:
     matchLabels:
@@ -13,13 +13,13 @@ spec:
         app: rollem-prod
     spec:
       containers:
-      - name: rollem-shard-2
+      - name: rollem-shard-5
         image: lemtzas/rollem-discord:1.11.9
         env:
         - name: 'reboot'
           value: '2019-06-09'
         - name: DISCORD_BOT_SHARD_ID
-          value: '1'
+          value: '4'
         - name: DISCORD_BOT_SHARD_COUNT
           value: '9'
         - name: 'DISCORD_BOT_USER_TOKEN'
