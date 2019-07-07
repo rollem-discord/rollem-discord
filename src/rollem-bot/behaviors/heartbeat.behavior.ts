@@ -12,7 +12,8 @@ import { Injectable } from "injection-js";
 @Injectable()
 export class HeartbeatBehavior extends BehaviorBase {
   private readonly NOW_PLAYING_MESSAGES = [
-    () => `${this.changelog.version} - http://rollem.rocks`
+    () => `${this.changelog.version} - http://rollem.rocks`,
+    () => `${this.changelog.version} - http://rollem.rocks !`
   ];
 
   constructor(

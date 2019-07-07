@@ -1,6 +1,6 @@
 import { BehaviorBase } from "./behavior-base";
-import util from "util";
-import { Client } from "discord.js";
+import util, { promisify } from "util";
+import { Client, Message } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Injectable } from "injection-js";
 
@@ -33,12 +33,38 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     this.client.on('typingStop', () => this.logDiscordActivity());
     this.client.on('presenceUpdate', () => this.logDiscordActivity());
     this.client.on('userUpdate', () => this.logDiscordActivity());
+    this.client.on("debug", function(info){
+        console.log(`debug -> ${info}`);
+    });
+    this.client.on('messageReactionAdd', (reaction, user) => this.logDiscordActivity());
+    this.client.on('messageReactionRemove', (reaction, user) => this.logDiscordActivity());
+    this.client.on('messageReactionRemoveAll', (message) => this.logDiscordActivity());
+    this.client.on('messageUpdate', (oldMessage, newMessage) => this.logDiscordActivity());
+    this.client.on('guildUnavailable', guild => {
+      this.logger.trackError(`Guild Unvailable (id: ${guild.id})`);
+      this.logDiscordActivity();
+    });
+    this.client.on('voiceStateUpdate', (oldMember, newMember) => this.logDiscordActivity());
+
+    this.client.on('warn', info => this.logger.trackError("warning - " + info));
+    this.client.on('rateLimit', info => this.logger.trackEvent('RateLimit', info));
 
     this.client.on('message', m => {
       if (m.content == 'throw error') throw new Error('error');
       if (m.content == 'throw') throw 'rip'
       if (m.content == 'die') process.exit(4);
     })
+
+    this.client.on('ready', async () => {
+      let botOwner = this.client.users.find("id", "105641015943135232"); // this is me. i couldn't message the bot itself.
+      let message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
+      while (true) {
+        await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+        let reaction = await message.react("🕒");
+        await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+        await reaction.remove();
+      }
+    });
 
     setInterval(() => this.watch(), DeadmanSwitchBehavior.PollingDuration);
   }

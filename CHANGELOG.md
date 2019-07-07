@@ -1,6 +1,7 @@
-# **1.11.13**
+# **1.11.15**
 * Stability updates
 * "Deadman switch" restart. (if no activity in N seconds, reconnect)
+* "Deadman monitoring". Constantly "reacts" to a message in my DMs to ensure liveness.
 * Improved logging
 
 # **1.11.9**
