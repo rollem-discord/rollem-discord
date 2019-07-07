@@ -67,8 +67,6 @@ export class Logger {
     } else {
       // oblivion
     }
-    
-    console.log(`\t${name} - ${value}`);
   }
 
   /** Tracks an error with AI using a console fallback. */
