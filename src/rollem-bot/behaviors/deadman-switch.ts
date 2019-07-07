@@ -71,9 +71,9 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       while (true) {
         try {
           let reaction = await message.react("🕒");
-          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 2);
           await reaction.remove();
-          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 2);
         } catch { /* oblivion */ }
       }
     });
