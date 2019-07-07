@@ -1,4 +1,4 @@
-# **1.11.11**
+# **1.11.12**
 * Stability updates
 * "Deadman switch" restart. (if no messages in N seconds, reconnect)
 * Improved logging

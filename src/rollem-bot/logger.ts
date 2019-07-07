@@ -84,7 +84,7 @@ export class Logger {
       })
     }
 
-    console.log(name, JSON.stringify(error));
+    console.error(name, JSON.stringify(error));
   }
 
   /** Flushes the logger's pending messages. */
