@@ -20,15 +20,19 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     protected readonly logger: Logger,
   ) { super(client, logger); }
 
-  private messagesInLastMinute = 0;
+  private activityInLastMinute = 0;
   private messagesSinceLastReport = 0;
 
   protected register() {
     this.client.on('message', m => {
-      this.messagesInLastMinute++;
       this.messagesSinceLastReport++;
-      setTimeout(() => this.messagesInLastMinute--, DeadmanSwitchBehavior.TimeWindowDuration);
+      this.logDiscordActivity();
     });
+
+    this.client.on('typingStart', () => this.logDiscordActivity());
+    this.client.on('typingStop', () => this.logDiscordActivity());
+    this.client.on('presenceUpdate', () => this.logDiscordActivity());
+    this.client.on('userUpdate', () => this.logDiscordActivity());
 
     this.client.on('message', m => {
       if (m.content == 'throw error') throw new Error('error');
@@ -39,12 +43,17 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     setInterval(() => this.watch(), DeadmanSwitchBehavior.PollingDuration);
   }
 
+  private logDiscordActivity() {
+    this.activityInLastMinute++;
+    setTimeout(() => this.activityInLastMinute--, DeadmanSwitchBehavior.TimeWindowDuration);
+  }
+
   private watch() {
-    this.logger.trackMetric("Handled Messages Per Minute", this.messagesInLastMinute);
+    this.logger.trackMetric("Activity Per Minute", this.activityInLastMinute);
     this.logger.trackMetric("Handled Messages", this.messagesSinceLastReport);
-    if (this.messagesInLastMinute == 0) {
-      this.logger.trackMetric("No Messages Received", 1);
-      this.logger.trackError("No messages received in a minute. Restarting.");
+    if (this.activityInLastMinute == 0) {
+      this.logger.trackMetric("No Activity", 1);
+      this.logger.trackError("No activity in a minute. Restarting.");
       process.exit(3);
     }
 

@@ -1,6 +1,6 @@
-# **1.11.12**
+# **1.11.13**
 * Stability updates
-* "Deadman switch" restart. (if no messages in N seconds, reconnect)
+* "Deadman switch" restart. (if no activity in N seconds, reconnect)
 * Improved logging
 
 # **1.11.9**
