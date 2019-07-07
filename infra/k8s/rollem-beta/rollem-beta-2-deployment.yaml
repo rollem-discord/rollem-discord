@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-beta-shard-2
-        image: lemtzas/rollem-discord:1.11.15
+        image: lemtzas/rollem-discord:1.11.17
         terminationMessagePolicy: FallbackToLogsOnError
         env:
         - name: 'reboot'
