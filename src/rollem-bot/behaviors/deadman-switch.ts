@@ -57,12 +57,21 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
 
     this.client.on('ready', async () => {
       let botOwner = this.client.users.find("id", "105641015943135232"); // this is me. i couldn't message the bot itself.
-      let message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
+      let message: Message | undefined = undefined;
+      while (!message) {
+        try {
+          message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
+        } catch {
+          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+        }
+      }
       while (true) {
-        await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
-        let reaction = await message.react("🕒");
-        await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
-        await reaction.remove();
+        try {
+          let reaction = await message.react("🕒");
+          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+          await reaction.remove();
+          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
+        } catch { /* oblivion */ }
       }
     });
 

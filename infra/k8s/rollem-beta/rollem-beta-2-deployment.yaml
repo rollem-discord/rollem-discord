@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-beta-shard-2
-        image: lemtzas/rollem-discord:1.11.9
+        image: lemtzas/rollem-discord:1.11.15
         env:
         - name: 'reboot'
           value: '2019-07-04.1'

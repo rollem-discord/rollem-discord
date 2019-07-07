@@ -11,4 +11,4 @@ COPY . /usr/src/app
 RUN yarn install
 RUN yarn build
 
-CMD ["/bin/bash", "-c", "yarn run start-for-dockerfile 2> >(tee /dev/termination-log >&2)"]
+CMD ["/bin/bash", "-c", "yarn run start-for-dockerfile 2> /dev/termination-log"]
