@@ -1,6 +1,6 @@
 import { BehaviorBase } from "./behavior-base";
 import util, { promisify } from "util";
-import { Client, Message } from "discord.js";
+import { Client, Message, User } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Injectable } from "injection-js";
 
@@ -56,10 +56,11 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     })
 
     this.client.on('ready', async () => {
-      let botOwner = this.client.users.find("id", "105641015943135232"); // this is me. i couldn't message the bot itself.
+      let botOwner: User | undefined = undefined;
       let message: Message | undefined = undefined;
       while (!message) {
         try {
+          botOwner = this.client.users.find("id", "105641015943135232"); // this is me. i couldn't message the bot itself.
           message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
         } catch {
           await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
