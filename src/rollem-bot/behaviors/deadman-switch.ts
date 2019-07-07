@@ -60,7 +60,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       let message: Message | undefined = undefined;
       while (!message) {
         try {
-          botOwner = this.client.users.find("id", "105641015943135232"); // this is me. i couldn't message the bot itself.
+          botOwner = await this.client.fetchUser("105641015943135232"); // this is me. i couldn't message the bot itself.
           console.log("botowner - " + botOwner.username);
           message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
           console.log("botowner - " + message.content);
