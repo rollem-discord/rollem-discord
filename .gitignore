@@ -14,3 +14,7 @@ rollem-dist/
 
 # Ignore logs
 *.log
+
+# Ignore various secrets
+*.pem
+*.ovpn

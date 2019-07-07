@@ -4,6 +4,7 @@ import "reflect-metadata";
 
 import { Newable } from "./lib/utility-types";
 import { BehaviorBase } from "./behaviors/behavior-base";
+import { DeadmanSwitchBehavior } from "./behaviors/deadman-switch";
 import { DieOnDisconnectBehavior } from "./behaviors/die-on-disconnect.behavior";
 import { DieOnErrorBehavior } from "./behaviors/die-on-error.behavior";
 import { HeartbeatBehavior } from "./behaviors/heartbeat.behavior";
@@ -22,6 +23,7 @@ const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
   PingPongBehavior,
   ParseHardBehavior,
   ParseSoftBehavior,
+  DeadmanSwitchBehavior,
 ];
 
 const topLevelInjector    = Bootstrapper.buildTopLevelProviders();

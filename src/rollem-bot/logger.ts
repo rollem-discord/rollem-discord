@@ -67,6 +67,8 @@ export class Logger {
     } else {
       // oblivion
     }
+    
+    console.log(`\t${name} - ${value}`);
   }
 
   /** Tracks an error with AI using a console fallback. */
@@ -90,7 +92,7 @@ export class Logger {
     if (this.aiClient) { this.aiClient.flush(); }
   }
 
-  /** Constructs a human-readable string identifying this shard. */
+  /** Constructs a borg-readable string identifying this shard. Like "7 of 9" */
   public shardName() {
     if (!this.client) { return undefined; }
 

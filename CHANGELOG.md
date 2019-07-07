@@ -1,3 +1,8 @@
+# **1.11.10**
+* Stability updates
+* "Deadman switch" restart. (if no messages in N seconds, reconnect)
+* Improved logging
+
 # **1.11.9**
 * Major refactor. All is TypeScript and DI now.
 * Sharding will now be performed manually instead of via sharder.js

@@ -17,7 +17,7 @@ spec:
         image: lemtzas/rollem-discord:1.11.9
         env:
         - name: 'reboot'
-          value: '2019-06-09'
+          value: '2019-07-05'
         - name: DISCORD_BOT_SHARD_ID
           value: '6'
         - name: DISCORD_BOT_SHARD_COUNT
