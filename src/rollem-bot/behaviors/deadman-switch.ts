@@ -55,12 +55,6 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       this.logger.trackEvent('RateLimit', info)
     });
 
-    this.client.on('message', m => {
-      if (m.content == 'throw error') throw new Error('error');
-      if (m.content == 'throw') throw 'rip'
-      if (m.content == 'die') process.exit(4);
-    })
-
     this.client.on('ready', async () => {
       let botOwner: User | undefined = undefined;
       let message: Message | undefined = undefined;
