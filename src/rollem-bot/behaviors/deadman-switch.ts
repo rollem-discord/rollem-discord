@@ -47,7 +47,13 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     this.client.on('voiceStateUpdate', (oldMember, newMember) => this.logDiscordActivity());
 
     this.client.on('warn', info => this.logger.trackError("warning - " + info));
-    this.client.on('rateLimit', info => this.logger.trackEvent('RateLimit', info));
+    this.client.on('rateLimit', info => {
+      if (info && typeof info.path == 'string' && info.path.includes('240734859381702657') && info.path.includes('reactions')) {
+        return;
+      }
+      
+      this.logger.trackEvent('RateLimit', info)
+    });
 
     this.client.on('message', m => {
       if (m.content == 'throw error') throw new Error('error');
