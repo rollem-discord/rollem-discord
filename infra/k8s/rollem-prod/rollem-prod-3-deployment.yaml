@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-shard-3
-        image: lemtzas/rollem-discord:1.11.24
+        image: lemtzas/rollem-discord:1.11.26
         env:
         - name: 'reboot'
           value: '2019-07-05'
