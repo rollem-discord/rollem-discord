@@ -48,7 +48,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
 
     this.client.on('warn', info => this.logger.trackError("warning - " + info));
     this.client.on('rateLimit', info => {
-      if (info && typeof info.path == 'string' && info.path.includes('240734859381702657') && info.path.includes('reactions')) {
+      if (info && typeof info.path == 'string' && info.path.includes('reactions')) {
         return;
       }
       
