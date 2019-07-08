@@ -33,9 +33,9 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     this.client.on('typingStop', () => this.logDiscordActivity());
     this.client.on('presenceUpdate', () => this.logDiscordActivity());
     this.client.on('userUpdate', () => this.logDiscordActivity());
-    this.client.on("debug", function(info){
-        console.log(`debug -> ${info}`);
-    });
+    // this.client.on("debug", function(info){
+    //     console.log(`debug -> ${info}`);
+    // });
     this.client.on('messageReactionAdd', (reaction, user) => this.logDiscordActivity());
     this.client.on('messageReactionRemove', (reaction, user) => this.logDiscordActivity());
     this.client.on('messageReactionRemoveAll', (message) => this.logDiscordActivity());
