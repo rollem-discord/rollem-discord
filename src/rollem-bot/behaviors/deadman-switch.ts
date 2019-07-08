@@ -92,7 +92,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     if (this.activityInLastMinute == 0) {
       this.logger.trackMetric("No Activity", 1);
       this.logger.trackError("No activity in a minute. Restarting.");
-      process.exit(3);
+      process.exit(0);
     }
 
     this.messagesSinceLastReport = 0;

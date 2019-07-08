@@ -39,14 +39,14 @@ export class DieOnErrorBehavior extends BehaviorBase {
     this.logger.trackEvent("unknown error", { reason: util.inspect(error) });
     this.logger.flush();
   
-    process.exit(1);
+    process.exit(0);
   }
 
   /** Handles otherwise-unhandled errors. */
   private handleUncaughtError(error: Error) {
     this.logger.trackError(`uncaught error - ${error.name}`, error);
     this.logger.flush();
-    process.exit(2);
+    process.exit(0);
   }
 
   /** Handles otherwise-unhandled errors. */
