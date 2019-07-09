@@ -65,13 +65,15 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     let botOwner: User | undefined = undefined;
     let message: Message | undefined = undefined;
     let reaction: MessageReaction | undefined = undefined;
+    let counter = 0;
     this.client.on('ready', async () => {
       message = undefined;
       reaction = undefined;
+      counter++;
       while (!message) {
         try {
           botOwner = await this.client.fetchUser("105641015943135232"); // this is me. i couldn't message the bot itself.
-          message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
+          message = await botOwner.send(`shard '${this.logger.shardName()}' - ready ${counter}`) as Message;
         } catch {
           await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
         }
