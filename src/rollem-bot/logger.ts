@@ -52,9 +52,9 @@ export class Logger {
         measurements: this.enrichAIMetrics(),
         properties: this.enrichAIProperties(properties)
       });
+    } else {
+      console.log(name, properties);
     }
-
-    console.log(name, properties);
   }
 
   /** Tracks a metric with AI using a console fallback. */
@@ -80,9 +80,9 @@ export class Logger {
           label: name,
         }
       })
+    } else {
+      console.error(name, JSON.stringify(error));
     }
-
-    console.error(name, JSON.stringify(error));
   }
 
   /** Flushes the logger's pending messages. */
