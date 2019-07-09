@@ -14,8 +14,15 @@ spec:
     spec:
       containers:
       - name: rollem-beta-shard-2
-        image: lemtzas/rollem-discord:1.11.26
+        image: lemtzas/rollem-discord:1.11.28
         terminationMessagePolicy: FallbackToLogsOnError
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100M
+          limits:
+            cpu: 100m
+            memory: 100M
         env:
         - name: 'reboot'
           value: '2019-07-04.1'

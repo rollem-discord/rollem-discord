@@ -1,6 +1,6 @@
 import { BehaviorBase } from "./behavior-base";
 import util, { promisify } from "util";
-import { Client, Message, User } from "discord.js";
+import { Client, Message, User, MessageReaction } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Injectable } from "injection-js";
 
@@ -55,30 +55,39 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       this.logger.trackEvent('RateLimit', info)
     });
 
+    this.initializeSelfWatchdog();
+
+    setInterval(() => this.watch(), DeadmanSwitchBehavior.PollingDuration);
+  }
+
+  /** Generates messages on startup and then twiddles the emoji on them, ensuring there's always activity. */
+  private initializeSelfWatchdog() {
+    let botOwner: User | undefined = undefined;
+    let message: Message | undefined = undefined;
+    let reaction: MessageReaction | undefined = undefined;
     this.client.on('ready', async () => {
-      let botOwner: User | undefined = undefined;
-      let message: Message | undefined = undefined;
+      message = undefined;
+      reaction = undefined;
       while (!message) {
         try {
           botOwner = await this.client.fetchUser("105641015943135232"); // this is me. i couldn't message the bot itself.
-          console.log("botowner - " + botOwner.username);
           message = await botOwner.send(`shard '${this.logger.shardName()}' - ready`) as Message;
-          console.log("botowner - " + message.content);
         } catch {
           await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);
         }
       }
-      while (true) {
-        try {
-          let reaction = await message.react("🕒");
-          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 2);
-          await reaction.remove();
-          await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 2);
-        } catch { /* oblivion */ }
-      }
     });
 
-    setInterval(() => this.watch(), DeadmanSwitchBehavior.PollingDuration);
+    setInterval(async () => {
+      try {
+        if (!message)
+          return;
+        if (!reaction)
+          reaction = await message.react("🕒");
+        else
+          await reaction.remove();
+      } catch { /* oblivion */ }
+    }, DeadmanSwitchBehavior.TimeWindowDuration / 2);
   }
 
   private logDiscordActivity() {
