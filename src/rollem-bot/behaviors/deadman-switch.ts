@@ -82,12 +82,14 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
 
     setInterval(async () => {
       try {
-        if (!message)
-          return;
-        if (!reaction)
+        if (!message) { return; }
+        
+        if (!reaction) {
           reaction = await message.react("🕒");
-        else
+        } else {
           await reaction.remove();
+          reaction = undefined;
+        }
       } catch { /* oblivion */ }
     }, DeadmanSwitchBehavior.TimeWindowDuration / 2);
   }

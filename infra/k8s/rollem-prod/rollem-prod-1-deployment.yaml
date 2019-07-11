@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-shard-1
-        image: lemtzas/rollem-discord:1.11.29
+        image: lemtzas/rollem-discord:1.11.30
         resources:
           requests:
             cpu: 200m
@@ -24,7 +24,7 @@ spec:
             memory: 400M
         env:
         - name: 'reboot'
-          value: '2019-07-05'
+          value: '2019-07-10'
         - name: DISCORD_BOT_SHARD_ID
           value: '0'
         - name: DISCORD_BOT_SHARD_COUNT
