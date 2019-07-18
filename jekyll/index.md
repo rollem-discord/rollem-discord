@@ -8,11 +8,11 @@ layout: home
 # Rollem for Discord
 A dice-rolling bot for Discord that lets you Just Roll To Roll.
 
-[Invite to Server](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=0){: .btn .btn-blue }
+[Invite to Server](/invite.md){: .btn .btn-blue }
 
 Want the latest updates?
 
-[Also get the beta bot](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0){: .btn }
+[Also get the beta bot](/invite-beta.md){: .btn }
 
 # How to use this bot
 
