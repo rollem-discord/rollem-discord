@@ -3,6 +3,7 @@ layout: default
 title: Burning Wheel
 parent: Syntax
 nav_order: 100
+permalink: /syntax/burning-wheel/
 ---
 
 # Burning Wheel Notation

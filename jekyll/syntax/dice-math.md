@@ -3,6 +3,7 @@ layout: default
 title: Dice Math
 parent: Syntax
 nav_order: 4
+permalink: /syntax/math/
 ---
 
 # Dice Math

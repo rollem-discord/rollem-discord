@@ -3,6 +3,7 @@ layout: default
 title: Crit-range
 parent: Syntax
 nav_order: 6
+permalink: /syntax/crit-range/
 ---
 
 # Crit-range

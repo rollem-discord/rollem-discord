@@ -3,6 +3,7 @@ layout: default
 title: Standard Dice
 parent: Syntax
 nav_order: 2
+permalink: /syntax/standard/
 ---
 
 # Standard Dice
