@@ -11,11 +11,14 @@
   "scripts": {
     "start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
     "start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
+
     "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-sfo2",
     "replace-rollem-beta": "kubectl replace -f ./infra/k8s/rollem-beta/",
     "replace-rollem-prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
+
     "start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
     "start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
+    
     "package": "docker build -t rollem-discord .",
     "test": "mocha",
     "build": "gulp build",
