@@ -6,36 +6,41 @@ import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 
 /**
- * Parses things without any prefix, unless a prefix is configured via role-name.
+ * Parses things with the following prefixes:
+ *  - The bot's name
+ *  - &
+ *  - r
+ * 
+ * Parses `[inline rolls]`
  */
 @Injectable()
-export class ParseSoftBehavior extends RollBehaviorBase {
+export class ParseShortPrefixBehavior extends RollBehaviorBase {
   constructor(
     parser: RollemParser,
     config: Config,
     client: Client,
     logger: Logger,
   ) { super(parser, config, client, logger); }
-  
+
   protected register() {
+    // TODO: Combine common bail rules.
+    // inline and convenience messaging
     this.client.on('message', message => {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
       if (this.shouldDefer(message)) { return; }
-      if (message.content.startsWith('D')) { return; } // apparently D8 is a common emote.
-    
-      // honor the prefix
-      let prefix = this.getPrefix(message);
-      if (!message.content.startsWith(prefix)) { return; }
-    
-      // get our actual roll content
-      let content = message.content.substring(prefix.length);
-      content = content.trim();
-      
-      let requireDice = true;
-      let lines = this.rollMany(content, !!prefix, requireDice);
-      this.replyAndLog(message, 'no prefix parse', lines);
+
+      let content = message.content.trim();
+
+      // ignore the dice requirement with prefixed strings
+      if (content.startsWith('r') || content.startsWith('&')) {
+        let subMessage = content.substring(1);
+        let hasPrefix = true;
+        let requireDice = false;
+        let lines = this.rollMany(subMessage, hasPrefix, requireDice);
+        this.replyAndLog(message, `${content[0]}-prefixed parse`, lines);
+      }
     });
   }
 }

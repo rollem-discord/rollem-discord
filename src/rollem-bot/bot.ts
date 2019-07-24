@@ -10,9 +10,11 @@ import { DieOnErrorBehavior } from "./behaviors/die-on-error.behavior";
 import { HeartbeatBehavior } from "./behaviors/heartbeat.behavior";
 import { HelpBehavior } from "./behaviors/help.behavior";
 import { PingPongBehavior } from "./behaviors/ping-pong.behavior";
-import { ParseHardBehavior } from "./behaviors/parse-hard.behavior";
 import { ParseSoftBehavior } from "./behaviors/parse-soft.behavior";
 import { Bootstrapper } from "./bootstrap";
+import { ParseBracketedBehavior } from "./behaviors/parse-bracketed.behavior copy";
+import { ParseNamePrefixedBehavior } from "./behaviors/parse-name-prefixed.behavior";
+import { ParseShortPrefixBehavior } from "./behaviors/parse-short-prefixed.behavior";
 
 /** The behaviors in the order in which they will be loaded. */
 const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
@@ -21,7 +23,9 @@ const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
   HeartbeatBehavior,
   HelpBehavior,
   PingPongBehavior,
-  ParseHardBehavior,
+  ParseBracketedBehavior,
+  ParseNamePrefixedBehavior,
+  ParseShortPrefixBehavior,
   ParseSoftBehavior,
   DeadmanSwitchBehavior,
 ];

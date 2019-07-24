@@ -36,6 +36,7 @@
     "discord.js": "^11.2.1",
     "gulp-sourcemaps": "^2.6.5",
     "injection-js": "^2.2.1",
+    "lodash": "^4.17.15",
     "module-alias": "^2.2.0",
     "moment": "^2.22.1",
     "npm": "^6.3.0",
@@ -44,6 +45,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash": "^4.14.136",
     "chai": "^3.5.0",
     "del": "^3.0.0",
     "gulp": "^4.0.0",

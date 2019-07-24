@@ -1,3 +1,6 @@
+# **1.12.0**
+* Inline rolling now supports `[3#4d6d1 multi-rolling]`
+
 # **1.11.31**
 * Stability updates
 * "Deadman switch" restart. (if no activity in N seconds, reconnect)

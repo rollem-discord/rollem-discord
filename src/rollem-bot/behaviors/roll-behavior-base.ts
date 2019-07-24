@@ -78,4 +78,59 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   
     return response;
   }
+
+  /**
+   * Attempts to roll many dice from the given content 
+   * @returns The response message(s) or null
+   */
+  protected rollMany(content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
+    let count = 1;
+    let match = content.match(/(?:(\d+)#\s*)?(.*)/);
+    let countRaw = match ? match[1] : false;
+    if (countRaw) {
+      count = parseInt(countRaw);
+      if (count > 100) { return null; }
+      if (count < 1) { return null; }
+    }
+  
+    count = count || 1;
+    let contentAfterCount = match ? match[2] : content;
+  
+    var lines: string[] = [];
+    for (let i = 0; i < count; i++) {
+      var result = this.parser.tryParse(contentAfterCount);
+      if (!result) { return null; }
+  
+      let shouldReply = hasPrefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+      if (!shouldReply) { return null; }
+  
+      let response = this.buildMessage(result, requireDice);
+  
+      if (response && shouldReply) {
+        lines.push(response);
+      }
+    }
+
+    return lines;
+  }
+
+  /**
+   * Replies to the message and logs, if necessary.
+   * @param logTag The tag for this log path.
+   * @param lines The grouped replies, or null.
+   * @returns True if a response was sent.
+   */
+  protected replyAndLog(message: Message, logTag: string, lines: string[] | null): boolean {
+    if (lines && lines.length > 0) {
+      let response = "\n" + lines.join("\n");
+      message.reply(response).catch(rejected => this.handleSendRejection(message));
+
+      if (lines.length === 1) { this.logger.trackEvent(`${logTag}`); }
+      else { this.logger.trackEvent(`${logTag}, repeated`); }
+
+      return true;
+    }
+
+    return false;
+  }
 }
