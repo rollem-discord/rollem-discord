@@ -1,4 +1,4 @@
-# **1.12.0**
+# **1.12.1**
 * Inline rolling now supports `[3#4d6d1 multi-rolling]`
 
 # **1.11.31**

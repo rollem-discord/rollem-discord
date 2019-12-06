@@ -16,8 +16,9 @@ If both exist, the main bot will defer to the beta bot. This is per-channel.
 
 [Add the beta bot to your server.](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0)
 
-## Support and Feature Requests
+## Links
 
+* [Patreon](https://patreon.com/david_does)
 * [Rollem Support Server](https://discord.gg/VhYX9u7)
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
 * [@Lemtzas on Twitter](https://twitter.com/lemtzas)

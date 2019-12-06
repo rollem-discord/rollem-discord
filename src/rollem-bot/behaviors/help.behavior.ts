@@ -42,6 +42,7 @@ export class HelpBehavior extends BehaviorBase {
           `**users:** ${this.client.users.size}`,
           '',
           'Docs at <http://rollem.rocks>',
+          'Support rollem at <https://patreon.com/david_does>',
           'Try `@rollem changelog`',
           '',
           'Avatar by Kagura on Charisma Bonus.'
