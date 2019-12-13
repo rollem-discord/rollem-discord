@@ -1,4 +1,7 @@
 {
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(value, max));
+  }
    // Object Format:
     // {
     //   value = 27,
@@ -102,7 +105,7 @@
     var count = left ? left.value : 1;
     var noSort = configuration.noSort;
     var keepDropOperator = configuration.operator;
-    var keepDropValue = configuration.value || 0;
+    var keepDropValue = clamp(configuration.value || 0, 0, count);
 
     if (size <= 1) { error("Minimum die size is 2.", "CUSTOM"); }
     if (count > 100) { error("Maximum die count is 100.", "CUSTOM"); }
@@ -142,7 +145,9 @@
         // leave it at the default (keep everything)
         break;
     }
-  
+
+    console.log(keepRangeStart);
+    console.log(keepRangeEndExclusive);
     sortedAugmentedValuesArr.slice(keepRangeStart, keepRangeEndExclusive).forEach(v => v.isKept = true);
 
     // total

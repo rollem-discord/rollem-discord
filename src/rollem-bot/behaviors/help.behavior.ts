@@ -19,6 +19,7 @@ export class HelpBehavior extends BehaviorBase {
   ) { super(client, logger); }
 
   protected register() {
+    // 
     this.client.on('message', message => {
       if (message.author.bot) { return; }
       let content = message.content;

@@ -1,3 +1,6 @@
+# **1.12.2**
+* Keep-drop notation no longer produces unusual results when told to drop more dice than it has (as in 5d6d6)
+
 # **1.12.1**
 * Inline rolling now supports `[3#4d6d1 multi-rolling]`
 
