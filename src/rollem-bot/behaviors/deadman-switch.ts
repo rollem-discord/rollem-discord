@@ -80,18 +80,19 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       }
     });
 
-    setInterval(async () => {
-      try {
-        if (!message) { return; }
+    //// this was generating a lot of logs, costing money for not much value. so it's off now.
+    // setInterval(async () => {
+    //   try {
+    //     if (!message) { return; }
         
-        if (!reaction) {
-          reaction = await message.react("🕒");
-        } else {
-          await reaction.remove();
-          reaction = undefined;
-        }
-      } catch { /* oblivion */ }
-    }, DeadmanSwitchBehavior.TimeWindowDuration / 2);
+    //     if (!reaction) {
+    //       reaction = await message.react("🕒");
+    //     } else {
+    //       await reaction.remove();
+    //       reaction = undefined;
+    //     }
+    //   } catch { /* oblivion */ }
+    // }, DeadmanSwitchBehavior.TimeWindowDuration / 2);
   }
 
   private logDiscordActivity() {

@@ -1,4 +1,4 @@
-# **1.12.2**
+# **1.12.3**
 * Keep-drop notation no longer produces unusual results when told to drop more dice than it has (as in 5d6d6)
 
 # **1.12.1**
