@@ -175,6 +175,9 @@ export class Logger {
   /** Adds common AI metrics to the given object (or creates one). Returns the given object. */
   private enrichAIMetrics(message: Message|null, object = {}) {
     if (this.client) {
+      object['Guild ID'] = message?.guild?.id ?? '';
+      object['Author ID'] = message?.author?.id ?? '';
+      object['Channel ID'] = message?.channel?.id ?? '';
       object['Servers (per shard)'] = this.client.guilds.size;
       object['Users (per shard)'] = this.client.users.size;
       object['Uptime (minutes)'] = this.client.uptime / 1000 / 60;
