@@ -41,7 +41,7 @@ export namespace Bootstrapper {
       .initialize()
       .then(changelog => {
         logger.changelog = changelog;
-        logger.trackEvent(
+        logger.trackSimpleEvent(
           `Got changelog ${changelog.changelog}`,
           {
             version: changelog.version,
@@ -55,10 +55,10 @@ export namespace Bootstrapper {
     const config = topLevelInjector.get(Config);
 
     
-    logger.trackEvent("Constructing client...");
-    logger.trackEvent("Shard ID: " + config.ShardId)
-    logger.trackEvent("Shard Count: " + config.ShardCount)
-    logger.trackEvent("Logging in using token: " + config.Token);
+    logger.trackSimpleEvent("Constructing client...");
+    logger.trackSimpleEvent("Shard ID: " + config.ShardId)
+    logger.trackSimpleEvent("Shard Count: " + config.ShardCount)
+    logger.trackSimpleEvent("Logging in using token: " + config.Token);
 
     const clientOptions =
       config.HasShardInfo
@@ -75,7 +75,7 @@ export namespace Bootstrapper {
 
   /** Creates the DI context in which the client and its behaviors live. */
   export function createClientContext(topLevelInjector: InjectorWrapper, client: Client, orderedBehaviors: Newable<BehaviorBase>[]) {
-    topLevelInjector.get(Logger).trackEvent("Setting up client-scoped DI");
+    topLevelInjector.get(Logger).trackSimpleEvent("Setting up client-scoped DI");
     return topLevelInjector.createChildContext([
       { provide: Client, useValue: client, },
       ...orderedBehaviors,
@@ -85,10 +85,10 @@ export namespace Bootstrapper {
   /** Attaches the known behaviors to the client. */
   export function attachBehaviorsToClient(clientLevelInjector: InjectorWrapper, orderedBehaviors: Newable<BehaviorBase>[]) {
     const logger = clientLevelInjector.get(Logger);
-    logger.trackEvent("Constructing behaviors...");
+    logger.trackSimpleEvent("Constructing behaviors...");
     const constructedBehaviors = orderedBehaviors.map(ctor => clientLevelInjector.get(ctor) as BehaviorBase);
 
-    logger.trackEvent("Applying behaviors...");
+    logger.trackSimpleEvent("Applying behaviors...");
     constructedBehaviors.forEach(b => b.apply());
   }
 
@@ -98,9 +98,9 @@ export namespace Bootstrapper {
     const client = clientLevelInjector.get(Client);
     const config = clientLevelInjector.get(Config);
 
-    logger.trackEvent("Ready to start. Logging in...");
+    logger.trackSimpleEvent("Ready to start. Logging in...");
     client.login(config.Token);
 
-    logger.trackEvent("Logged in.");
+    logger.trackSimpleEvent("Logged in.");
   }
 }

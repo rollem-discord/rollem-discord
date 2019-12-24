@@ -50,7 +50,7 @@ export class HelpBehavior extends BehaviorBase {
         ];
         let response = stats.join('\n');
         message.reply(stats).catch(rejected => this.handleSendRejection(message));
-        this.logger.trackEvent("stats");
+        this.logger.trackMessageEvent("stats", message);
       }
     
       // changelog
@@ -59,7 +59,7 @@ export class HelpBehavior extends BehaviorBase {
         content.startsWith('changes') ||
         content.startsWith('diff')) {
         message.reply(this.changelog.changelog).catch(rejected => this.handleSendRejection(message));
-        this.logger.trackEvent("changelog");
+        this.logger.trackMessageEvent("changelog", message);
       }
     });
   }

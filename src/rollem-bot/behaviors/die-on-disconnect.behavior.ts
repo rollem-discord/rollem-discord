@@ -19,7 +19,7 @@ export class DieOnDisconnectBehavior extends BehaviorBase {
 
   protected register() {
     this.client.on('disconnect', (f) => {
-      this.logger.trackEvent("disconnect", { reason: util.inspect(f) });
+      this.logger.trackSimpleEvent("disconnect", { reason: util.inspect(f) });
       this.logger.flush();
       process.exit(0);
     });

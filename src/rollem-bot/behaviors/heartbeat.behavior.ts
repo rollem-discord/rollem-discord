@@ -25,7 +25,7 @@ export class HeartbeatBehavior extends BehaviorBase {
   
   protected register() {
     this.client.on('ready', () => {
-      this.logger.trackEvent("ready");
+      this.logger.trackSimpleEvent("ready");
 
       this.cycleMessage();
 
@@ -76,6 +76,6 @@ export class HeartbeatBehavior extends BehaviorBase {
     const disableHeartbeat = process.env.DISABLE_HEARTBEAT
     if (disableHeartbeat) { return; }
   
-    this.logger.trackEvent(`heartbeat - shard ${this.logger.shardName()}`, {reason: reason});
+    this.logger.trackSimpleEvent(`heartbeat - shard ${this.logger.shardName()}`, {reason: reason});
   }
 }

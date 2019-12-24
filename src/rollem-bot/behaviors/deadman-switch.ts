@@ -52,7 +52,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
         return;
       }
       
-      this.logger.trackEvent('RateLimit', info)
+      this.logger.trackSimpleEvent('RateLimit', info)
     });
 
     this.initializeSelfWatchdog();

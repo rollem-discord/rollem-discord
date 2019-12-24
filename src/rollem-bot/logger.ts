@@ -1,6 +1,6 @@
 // enable application insights if we have an instrumentation key set up
 import * as appInsights from "applicationinsights";
-import { Client } from "discord.js";
+import { Client, Message } from "discord.js";
 import { Config } from "./config";
 import { ChangeLog } from "./changelog";
 import util from "util";
@@ -45,12 +45,26 @@ export class Logger {
 
   /** Tracks an event with AI using a console fallback. */
   // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
-  public trackEvent(name: string, properties = {}) {
+  public trackSimpleEvent(name: string, properties = {}) {
     if (this.aiClient) {
       this.aiClient.trackEvent({
         name: name,
-        measurements: this.enrichAIMetrics(),
-        properties: this.enrichAIProperties(properties)
+        measurements: this.enrichAIMetrics(null),
+        properties: this.enrichAIProperties(null, properties)
+      });
+    } else {
+      console.log(name, properties);
+    }
+  }
+
+  /** Tracks an event with AI using a console fallback. */
+  // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
+  public trackMessageEvent(name: string, message: Message, properties = {}) {
+    if (this.aiClient) {
+      this.aiClient.trackEvent({
+        name: name,
+        measurements: this.enrichAIMetrics(message),
+        properties: this.enrichAIProperties(message, properties)
       });
     } else {
       console.log(name, properties);
@@ -126,8 +140,9 @@ export class Logger {
   }
 
   /** Adds common AI properties to the given object (or creates one). Returns the given object. */
-  private enrichAIProperties(object = {}) {
+  private enrichAIProperties(message: Message|null, object = {}) {
     if (this.client && this.client.user) {
+      object["Message ID"] = '' + (message?.id ?? '');
       object["Shard Name"] = '' + this.shardName();
       object["Client ID"] = '' + this.client.user.id;
       object["Client Name"] = '' + this.client.user.username;
@@ -141,7 +156,7 @@ export class Logger {
   }
 
   /** Adds common AI metrics to the given object (or creates one). Returns the given object. */
-  private enrichAIMetrics(object = {}) {
+  private enrichAIMetrics(message: Message|null, object = {}) {
     if (this.client) {
       object['Servers (per shard)'] = this.client.guilds.size;
       object['Users (per shard)'] = this.client.users.size;

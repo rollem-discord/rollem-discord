@@ -12,7 +12,7 @@ export abstract class BehaviorBase {
   
   /** Applies the behavior to the given client. */
   public apply(): void {
-    this.logger.trackEvent(`Registering Behavior: ${this.constructor.name}`)
+    this.logger.trackSimpleEvent(`Registering Behavior: ${this.constructor.name}`)
     this.register();
   }
 
@@ -34,6 +34,6 @@ export abstract class BehaviorBase {
     // let channelId = message.channel ? message.channel.id : null;
     // let messageId = message.id;
     // let userId = message.userId;
-    this.logger.trackEvent("Missing send permission");
+    this.logger.trackMessageEvent("Missing send permission", message);
   }
 }

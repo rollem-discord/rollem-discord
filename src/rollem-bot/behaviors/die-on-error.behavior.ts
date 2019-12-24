@@ -30,13 +30,13 @@ export class DieOnErrorBehavior extends BehaviorBase {
       try {
         let ignoreError = error.message.includes('write EPIPE');
         if (ignoreError) {
-          this.logger.trackEvent("known error - " + error.message, { reason: util.inspect(error)});
+          this.logger.trackSimpleEvent("known error - " + error.message, { reason: util.inspect(error)});
           return;
         }
       } catch { }
     }
   
-    this.logger.trackEvent("unknown error", { reason: util.inspect(error) });
+    this.logger.trackSimpleEvent("unknown error", { reason: util.inspect(error) });
     this.logger.flush();
   
     process.exit(0);
@@ -61,7 +61,7 @@ export class DieOnErrorBehavior extends BehaviorBase {
   
   /** Fired on exit. */
   private handleExit(code: number) {
-    this.logger.trackEvent(`exiting - ${code}`);
+    this.logger.trackSimpleEvent(`exiting - ${code}`);
     this.logger.flush();
   }
 }

@@ -51,7 +51,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   
     if (deferToMembers.length > 0) {
       let names = deferToMembers.map(member => `${member.user.username} (${member.user.id})`).join(", ");
-      this.logger.trackEvent('deferral to ' + names);
+      this.logger.trackMessageEvent('deferral to ' + names, message);
       return true;
     }
   
@@ -125,8 +125,8 @@ export abstract class RollBehaviorBase extends BehaviorBase {
       let response = "\n" + lines.join("\n");
       message.reply(response).catch(rejected => this.handleSendRejection(message));
 
-      if (lines.length === 1) { this.logger.trackEvent(`${logTag}`); }
-      else { this.logger.trackEvent(`${logTag}, repeated`); }
+      if (lines.length === 1) { this.logger.trackMessageEvent(`${logTag}`, message); }
+      else { this.logger.trackMessageEvent(`${logTag}, repeated`, message); }
 
       return true;
     }
