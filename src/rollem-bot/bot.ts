@@ -12,7 +12,7 @@ import { HelpBehavior } from "./behaviors/help.behavior";
 import { PingPongBehavior } from "./behaviors/ping-pong.behavior";
 import { ParseSoftBehavior } from "./behaviors/parse-soft.behavior";
 import { Bootstrapper } from "./bootstrap";
-import { ParseBracketedBehavior } from "./behaviors/parse-bracketed.behavior copy";
+import { ParseBracketedBehavior } from "./behaviors/parse-bracketed.behavior";
 import { ParseNamePrefixedBehavior } from "./behaviors/parse-name-prefixed.behavior";
 import { ParseShortPrefixBehavior } from "./behaviors/parse-short-prefixed.behavior";
 
