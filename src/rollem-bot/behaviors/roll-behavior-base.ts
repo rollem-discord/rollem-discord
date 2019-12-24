@@ -83,7 +83,9 @@ export abstract class RollBehaviorBase extends BehaviorBase {
    * Attempts to roll many dice from the given content 
    * @returns The response message(s) or null
    */
-  protected rollMany(content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
+  protected rollMany(message: Message, logTag: string, content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
+    this.logger.trackMessageEvent(`Roll Many, ${logTag}: ${content}`, message);
+
     let count = 1;
     let match = content.match(/(?:(\d+)#\s*)?(.*)/);
     let countRaw = match ? match[1] : false;

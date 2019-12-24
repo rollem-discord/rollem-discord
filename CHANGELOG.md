@@ -1,6 +1,6 @@
-# **1.12.4**
+# **1.12.5**
 * Package updates
-* Log Message ID when available
+* Logging (Message ID, trigger type, roll command)
 
 # **1.12.3**
 * Keep-drop notation no longer produces unusual results when told to drop more dice than it has (as in 5d6d6)

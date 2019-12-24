@@ -38,8 +38,8 @@ export class ParseShortPrefixBehavior extends RollBehaviorBase {
         let subMessage = content.substring(1);
         let hasPrefix = true;
         let requireDice = false;
-        let lines = this.rollMany(subMessage, hasPrefix, requireDice);
-        this.replyAndLog(message, `${content[0]}-prefixed parse`, lines);
+        let lines = this.rollMany(message, `Short-prefixed roll (${content[0]})`, subMessage, hasPrefix, requireDice);
+        this.replyAndLog(message, `Short-prefixed roll (${content[0]})`, lines);
       }
     });
   }

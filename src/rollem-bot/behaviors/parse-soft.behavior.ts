@@ -34,8 +34,8 @@ export class ParseSoftBehavior extends RollBehaviorBase {
       content = content.trim();
       
       let requireDice = true;
-      let lines = this.rollMany(content, !!prefix, requireDice);
-      this.replyAndLog(message, 'no prefix parse', lines);
+      let lines = this.rollMany(message, "No-prefix roll", content, !!prefix, requireDice);
+      this.replyAndLog(message, 'No-prefix roll', lines);
     });
   }
 }

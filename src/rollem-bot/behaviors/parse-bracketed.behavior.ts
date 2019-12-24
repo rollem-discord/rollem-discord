@@ -5,6 +5,7 @@ import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import _ from "lodash";
+import { join } from "path";
 
 /**
  * Parses things with the following prefixes:
@@ -41,12 +42,13 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
       while (last = regex.exec(content)) { matches.push(last[1]); }
 
       if (matches && matches.length > 0) {
+        this.logger.trackMessageEvent(`Bracketed Roll (parent): [${matches.join('], [')}]`, message);
         let lines =
           _(matches)
             .map(match => {
               let hasPrefix = true;
               let requireDice = true;
-              let lines = this.rollMany(match, hasPrefix, requireDice);
+              let lines = this.rollMany(message, "Bracketed Roll", match, hasPrefix, requireDice);
               return lines;
             })
             .filter(x => x != null)
@@ -55,7 +57,7 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
             .value();
 
         if (lines.length === 0) { return; }
-        this.replyAndLog(message, `bracketed parse`, lines);
+        this.replyAndLog(message, `Bracketed Roll`, lines);
       }
     });
   }

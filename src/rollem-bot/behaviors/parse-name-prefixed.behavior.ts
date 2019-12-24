@@ -38,8 +38,8 @@ export class ParseNamePrefixedBehavior extends RollBehaviorBase {
         var subMessage = content.substring(match[0].length);
         let hasPrefix = true;
         let requireDice = false;
-        var lines = this.rollMany(subMessage, hasPrefix, requireDice);
-        var replied = this.replyAndLog(message, 'name-prefixed parse', lines);
+        var lines = this.rollMany(message, "Name-prefixed roll", subMessage, hasPrefix, requireDice);
+        var replied = this.replyAndLog(message, 'Name-prefixed roll', lines);
       }
     });
   }
