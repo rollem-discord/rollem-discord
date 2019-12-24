@@ -84,36 +84,40 @@ export abstract class RollBehaviorBase extends BehaviorBase {
    * @returns The response message(s) or null
    */
   protected rollMany(message: Message, logTag: string, content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
-    this.logger.trackMessageEvent(`Roll Many, ${logTag}: ${content}`, message);
-
-    let count = 1;
-    let match = content.match(/(?:(\d+)#\s*)?(.*)/);
-    let countRaw = match ? match[1] : false;
-    if (countRaw) {
-      count = parseInt(countRaw);
-      if (count > 100) { return null; }
-      if (count < 1) { return null; }
-    }
-  
-    count = count || 1;
-    let contentAfterCount = match ? match[2] : content;
-  
-    var lines: string[] = [];
-    for (let i = 0; i < count; i++) {
-      var result = this.parser.tryParse(contentAfterCount);
-      if (!result) { return null; }
-  
-      let shouldReply = hasPrefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
-      if (!shouldReply) { return null; }
-  
-      let response = this.buildMessage(result, requireDice);
-  
-      if (response && shouldReply) {
-        lines.push(response);
+    try {
+      let count = 1;
+      let match = content.match(/(?:(\d+)#\s*)?(.*)/);
+      let countRaw = match ? match[1] : false;
+      if (countRaw) {
+        count = parseInt(countRaw);
+        if (count > 100) { return null; }
+        if (count < 1) { return null; }
       }
-    }
+    
+      count = count || 1;
+      let contentAfterCount = match ? match[2] : content;
+    
+      var lines: string[] = [];
+      for (let i = 0; i < count; i++) {
+        var result = this.parser.tryParse(contentAfterCount);
+        if (!result) { return null; }
+    
+        let shouldReply = hasPrefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+        if (!shouldReply) { return null; }
+    
+        let response = this.buildMessage(result, requireDice);
+    
+        if (response && shouldReply) {
+          this.logger.trackMessageEvent(`Roll Many, ${logTag}: ${content}`, message);
+          lines.push(response);
+        }
+      }
 
-    return lines;
+      return lines;
+    } catch (ex) {
+      this.logger.trackMessageError(`Roll Many, ${logTag}: ${content}`, message);
+      throw ex;
+    }
   }
 
   /**

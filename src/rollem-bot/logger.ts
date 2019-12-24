@@ -84,6 +84,23 @@ export class Logger {
   }
 
   /** Tracks an error with AI using a console fallback. */
+  public trackMessageError(name: string, message: Message, error?: Error) {
+    if (this.aiClient) {
+      error = error || new Error(name);
+      this.aiClient.trackException({
+        exception: error,
+        properties: {
+          error: util.inspect(error),
+          "Message ID": '' + (message?.id ?? ''),
+          label: name,
+        }
+      })
+    } else {
+      console.error(name, JSON.stringify(error));
+    }
+  }
+
+  /** Tracks an error with AI using a console fallback. */
   public trackError(name: string, error?: Error) {
     if (this.aiClient) {
       error = error || new Error(name);
