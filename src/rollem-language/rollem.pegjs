@@ -146,8 +146,6 @@
         break;
     }
 
-    console.log(keepRangeStart);
-    console.log(keepRangeEndExclusive);
     sortedAugmentedValuesArr.slice(keepRangeStart, keepRangeEndExclusive).forEach(v => v.isKept = true);
 
     // total
@@ -246,7 +244,7 @@ Comparator
 
       var value = wasSuccess;
       var values = wasSuccess ? [1] : [0];
-      console.log(left.dice, right.dice);
+
       return {
           "value": value,
           "values": values,
