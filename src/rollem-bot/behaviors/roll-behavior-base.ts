@@ -108,9 +108,12 @@ export abstract class RollBehaviorBase extends BehaviorBase {
         let response = this.buildMessage(result, requireDice);
     
         if (response && shouldReply) {
-          this.logger.trackMessageEvent(`Roll Many, ${logTag}: ${content}`, message);
           lines.push(response);
         }
+      }
+
+      if (lines.length > 0) {
+        this.logger.trackMessageEvent(`Roll Many, ${logTag}: ${content}`, message);
       }
 
       return lines;
