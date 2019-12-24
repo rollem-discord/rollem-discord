@@ -1,4 +1,4 @@
-# **1.12.8**
+# **1.12.9**
 * Package updates
 * Logging (Message IDs, trigger type, roll command)
 
