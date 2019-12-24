@@ -159,6 +159,9 @@ export class Logger {
   /** Adds common AI properties to the given object (or creates one). Returns the given object. */
   private enrichAIProperties(message: Message|null, object = {}) {
     if (this.client && this.client.user) {
+      object['Guild ID'] = '' + (message?.guild?.id ?? 'none');
+      object['Author ID'] = '' + (message?.author?.id ?? 'none');
+      object['Channel ID'] = '' + (message?.channel?.id ?? 'none');
       object["Message ID"] = '' + (message?.id ?? '');
       object["Shard Name"] = '' + this.shardName();
       object["Client ID"] = '' + this.client.user.id;
@@ -175,9 +178,6 @@ export class Logger {
   /** Adds common AI metrics to the given object (or creates one). Returns the given object. */
   private enrichAIMetrics(message: Message|null, object = {}) {
     if (this.client) {
-      object['Guild ID'] = '' + (message?.guild?.id ?? '');
-      object['Author ID'] = '' + (message?.author?.id ?? '');
-      object['Channel ID'] = '' + (message?.channel?.id ?? '');
       object['Servers (per shard)'] = this.client.guilds.size;
       object['Users (per shard)'] = this.client.users.size;
       object['Uptime (minutes)'] = this.client.uptime / 1000 / 60;
