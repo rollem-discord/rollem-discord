@@ -19,9 +19,6 @@ spec:
           requests:
             cpu: 200m
             memory: 400M
-          limits:
-            cpu: 200m
-            memory: 400M
         env:
         - name: 'reboot'
           value: '2019-12-06'
