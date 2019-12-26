@@ -14,9 +14,13 @@ Want the latest updates?
 
 [Also get the beta bot](/invite-beta/){: .btn }
 
+This bot is kept running and fast thanks to community help.
+
+[Support on Patreon](https://patreon.com/david_does){: .btn .btn-blue }
+
 # Links
 
-* [Patreon](https://patreon.com/david_does) - help keep it running
+* [Patreon](https://patreon.com/david_does)
 * [Rollem Support Server](https://discord.gg/VhYX9u7)
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
 
