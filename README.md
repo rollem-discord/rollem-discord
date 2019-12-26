@@ -21,7 +21,6 @@ If both exist, the main bot will defer to the beta bot. This is per-channel.
 * [Patreon](https://patreon.com/david_does)
 * [Rollem Support Server](https://discord.gg/VhYX9u7)
 * [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
-* [@Lemtzas on Twitter](https://twitter.com/lemtzas)
 
 # How to use this bot
 
