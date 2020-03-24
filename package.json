@@ -14,7 +14,7 @@
     "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
     "replace-rollem-beta": "kubectl replace -f ./infra/k8s/rollem-beta/",
     "replace-rollem-prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
-    "forward-grafana": "/bin/bash \<\<\< 'kubectl port-forward $(kubectl get  pods --selector=app=grafana --output=jsonpath=\"{.items..metadata.name}\") 3000'",
+    "forward-grafana": "/bin/bash \\<\\<\\< 'kubectl port-forward $(kubectl get  pods --selector=app=grafana --output=jsonpath=\"{.items..metadata.name}\") 3000'",
     "start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
     "start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
     "package": "docker build -t rollem-discord .",

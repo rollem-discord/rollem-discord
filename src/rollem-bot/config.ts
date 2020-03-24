@@ -22,7 +22,7 @@ export class Config {
   public readonly AppInsightsInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
 
   /** The regex to be used to determine if the bot was mentioned. Updated after login. */
-  public mentionRegex: RegExp = /$<@999999999999999999>/i;
+  public mentionRegex: RegExp = /$<@!999999999999999999>/i;
 
   /** The interval between updating the "Now Playing" message under the bot. */
   public readonly messageInterval = 59 * 1000; // every minute (less a bit, so it will trigger other "every minute" monitors)

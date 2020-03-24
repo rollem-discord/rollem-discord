@@ -1,3 +1,6 @@
+# **1.12.12**
+* Make bot respond to mentions again
+
 # **1.12.11**
 * Package updates
 * Logging (Message IDs, trigger type, roll command)

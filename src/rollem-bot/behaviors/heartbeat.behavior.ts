@@ -34,7 +34,7 @@ export class HeartbeatBehavior extends BehaviorBase {
       console.log('id: ' + this.client.user.id);
 
       setInterval(() => this.cycleMessage(), this.config.messageInterval);
-      const mentionRegex_s = '^<@' + this.client.user.id + '>\\s+';
+      const mentionRegex_s = '^<@!' + this.client.user.id + '>\\s+';
       this.config.mentionRegex = new RegExp(mentionRegex_s);
 
       this.sendHeartbeat("startup message");
