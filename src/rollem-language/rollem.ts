@@ -6,7 +6,6 @@ var grammarLocation = path.join(__dirname, 'rollem.pegjs');
 var grammar = fs.readFileSync(grammarLocation, 'utf8');
 
 var parser = Peg.generate(grammar)
-
 export class RollemParser {
   // returns false if parsing failed due to grammar match failure
   tryParse(input: string): any

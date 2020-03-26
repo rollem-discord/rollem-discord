@@ -103,7 +103,8 @@
   function makeBasicRoll(left, right, explode, configuration) {
     var size = right.value;
     var count = left ? left.value : 1;
-    var noSort = configuration.noSort;
+    var allSameAndExplode = configuration.allSameAndExplode;
+    var noSort = configuration.noSort || allSameAndExplode;
     var keepDropOperator = configuration.operator;
     var keepDropValue = clamp(configuration.value || 0, 0, count);
 
@@ -117,6 +118,16 @@
     {
       var newVals = singleDieEvaluator(size, explode);
       Array.prototype.push.apply(valuesArr, newVals);
+    }
+
+    // allSameAndExplode
+    if (allSameAndExplode && valuesArr.length >= 2) {
+      var allSame = valuesArr.every(v => v == valuesArr[0]);
+      while (allSame) {
+        var newVals = singleDieEvaluator(size, explode);
+        allSame = newVals.every(v => v == valuesArr[0]);
+        Array.prototype.push.apply(valuesArr, newVals);
+      }
     }
 
     // handle keep-drop
@@ -378,11 +389,18 @@ BasicRoll
     }
 
 BasicRollConfiguration
-  = keepDrop:KeepDropConfiguration? noSort:"ns"? {
+  = keepDrop:KeepDropConfiguration? daro:TunnelsAndTrollsConfiguration? noSort:"ns"? {
     const configuration = keepDrop || {operator: null, value: null};
     configuration.noSort = noSort ? true: false;
+    configuration.allSameAndExplode = daro ? true : false;
     return configuration;
   }
+
+TunnelsAndTrollsConfiguration
+  = which:("daro"/"aro"/"taro") {
+    return which
+  }
+
 //Implementing Critrange here. Prevents user from doing drop/keeps and specifying a range at the same time. 
 KeepDropConfiguration
   = which:(KeepConfiguration / DropConfiguration / KeepHighestConfiguration / KeepLowestConfiguration / DropHighestConfiguration / DropLowestConfiguration / Critrangeconfiguration) {

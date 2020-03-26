@@ -1,3 +1,6 @@
+# **1.14.0**
+* Support Doubles/Triples/etc And Roll Over via suffix. `3d6taro` `2d6daro` `20d6aro`
+
 # **1.13.0**
 * Support negative numbers.
 
