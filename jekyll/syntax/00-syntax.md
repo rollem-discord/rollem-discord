@@ -37,3 +37,4 @@ X/Y/Z are integers. A and B are arbitrary Expressions.
 | `dYkZ` `XdYkZ`    | Keep dice notation. Keeps the *highest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                  |
 | `dYklZ` `XdYklZ`  | Keep dice notation. Keeps the *lowest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                   |
 | `dYcZ` `XdYcZ`    | Critrange notation. Bolds all rolls greater than or equal to Z. Cannot be used with keep or drop notations.                                              |
+| `2dYdaro` `3dYtaro` `XdYaro` | Doubles/Triples/All-Same And Roll Over notation. "Explodes" when all dice match. Used for Tunnels and Trolls.                                 |
