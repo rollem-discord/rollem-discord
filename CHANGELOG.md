@@ -1,3 +1,6 @@
+# **1.13.0**
+* Support negative numbers.
+
 # **1.12.12**
 * Make bot respond to mentions again
 
