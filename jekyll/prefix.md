@@ -8,7 +8,7 @@ permalink: /prefix/
 
 Normally, Rollem does not use a prefix. If it looks like a roll, Rollem will treat it like one.
 
-![](assets/just-roll.png)
+![](/assets/just-roll.png)
 
 ## Prefixing
 If you don't want this behavior, give Rollem a role of `rollem:prefix:<your prefix here>` to disable no-prefix rolling.
