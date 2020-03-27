@@ -1,4 +1,4 @@
-# **1.15.0**
+# **1.15.1**
 * Support "exploding" on an arbitrary range. `2d6!3` will explode when 3+ is rolled.
 
 # **1.14.0**

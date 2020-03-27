@@ -18,6 +18,8 @@
       (explodeConfiguration && explodeConfiguration.value)
       ? explodeConfiguration.value
       : size;
+    if (minimumExplodeSize <= 1) { error("Explode value must be greater than 1.", "CUSTOM"); }
+    if (minimumExplodeSize < size/1000) { error("Explode chance must be less than 99.9%", "CUSTOM"); }
     do {
       var last_roll = Math.floor(Math.random() * size) + 1;
       all_rolls.push(last_roll);
