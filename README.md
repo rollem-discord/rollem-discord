@@ -75,7 +75,8 @@ X/Y/Z are integers. A and B are arbitrary Expressions.
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `XdY`             | Rolls X dice of Y size. `4d6` rolls 4 six-sided dice.                                                                                                    |
 | `dY`              | Rolls a single die of Y size.                                                                                                                            |
-| `dY!` `XdY!`      | Exploding dice. Rolly Y on a Y-sided die grants an additional die roll.                                                                                  |
+| `dY!` `XdY!`      | Exploding dice. Rolling Y on a Y-sided die grants an additional die roll.                                                                                |
+| `dY!Z` `XdY!Z`    | Exploding dice. Rolling Z or above on a Y-sided die grants an additional die roll.                                                                       |
 | `XdYns` `XdY!ns`  | Disable dice sorting.                                                                                                                                    |
 | `A+B` `A-B`       | Arbitrary chains of addition and subtraction.                                                                                                            |
 | `A*B` `A/B`       | Arbitrary chains of multiplication and division.                                                                                                         |
@@ -96,6 +97,7 @@ X/Y/Z are integers. A and B are arbitrary Expressions.
 | `dYkZ` `XdYkZ`    | Keep dice notation. Keeps the *highest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                  |
 | `dYklZ` `XdYklZ`  | Keep dice notation. Keeps the *lowest* Z dice from the result of `XdY`. May be used with `ns` and `!`.                                                   |
 | `dYcZ` `XdYcZ`    | Critrange notation. Bolds all rolls greater than or equal to Z. Cannot be used with keep or drop notations.                                              |
+| `2dYdaro` `3dYtaro` `XdYaro` | Doubles/Triples/All-Same And Roll Over notation. "Explodes" when all dice match. Used for Tunnels and Trolls.                                 |
 
 ## Limitations
 * Rollem will not roll more than 100 dice.

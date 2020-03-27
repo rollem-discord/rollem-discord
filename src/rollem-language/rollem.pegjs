@@ -12,12 +12,16 @@
     // }
    function maxEvaluator(size) { return size; }
    function minEvaluator(size) { return 1; }
-   function rollEvaluator(size, explode) {
+   function rollEvaluator(size, explodeConfiguration) {
     var all_rolls = [];
+    var minimumExplodeSize =
+      (explodeConfiguration && explodeConfiguration.value)
+      ? explodeConfiguration.value
+      : size;
     do {
       var last_roll = Math.floor(Math.random() * size) + 1;
       all_rolls.push(last_roll);
-    } while (last_roll == size && explode)
+    } while (last_roll >= minimumExplodeSize && explodeConfiguration)
     return all_rolls;
   }
 
@@ -100,7 +104,7 @@
     };
   }
 
-  function makeBasicRoll(left, right, explode, configuration) {
+  function makeBasicRoll(left, right, explodeConfiguration, configuration) {
     var size = right.value;
     var count = left ? left.value : 1;
     var allSameAndExplode = configuration.allSameAndExplode;
@@ -116,7 +120,7 @@
     // roll
     for (var i=0; i < count; i++)
     {
-      var newVals = singleDieEvaluator(size, explode);
+      var newVals = singleDieEvaluator(size, explodeConfiguration);
       Array.prototype.push.apply(valuesArr, newVals);
     }
 
@@ -124,7 +128,7 @@
     if (allSameAndExplode && valuesArr.length >= 2) {
       var allSame = valuesArr.every(v => v == valuesArr[0]);
       while (allSame) {
-        var newVals = singleDieEvaluator(size, explode);
+        var newVals = singleDieEvaluator(size, explodeConfiguration);
         allSame = newVals.every(v => v == valuesArr[0]);
         Array.prototype.push.apply(valuesArr, newVals);
       }
@@ -171,7 +175,12 @@
     });
 
     var pretties = "[" + prettiesArr.join(", ") + "]" + count + "d" + right.pretties;
-    if (explode) { pretties = pretties + "!"; }
+    if (explodeConfiguration) {
+      pretties = pretties + "!";
+      if (explodeConfiguration.value) {
+        pretties = pretties + explodeConfiguration.value;
+      }
+    }
     if (keepDropOperator) { pretties = pretties + keepDropOperator + keepDropValue; }
 
     valuesArr = sortedAugmentedValuesArr.filter(v => v.isKept).map(v => v.value);
@@ -384,9 +393,17 @@ BurningWheelRoll
     }
 
 BasicRoll
-  = left:Integer? [dD] right:Integer explode:"!"? configuration:BasicRollConfiguration {
-      return makeBasicRoll(left, right, explode, configuration);
+  = left:Integer? [dD] right:Integer explodeConfiguration:ExplodeConfiguration? configuration:BasicRollConfiguration {
+      return makeBasicRoll(left, right, explodeConfiguration, configuration);
     }
+
+ExplodeConfiguration
+  = "!" value:Integer? {
+    return {
+      operator: "!",
+      value: value && value.value || null
+    }
+  }
 
 BasicRollConfiguration
   = keepDrop:KeepDropConfiguration? daro:TunnelsAndTrollsConfiguration? noSort:"ns"? {

@@ -17,6 +17,7 @@ X/Y/Z are integers. A and B are arbitrary Expressions.
 | `XdY`             | Rolls X dice of Y size. `4d6` rolls 4 six-sided dice.                                                                                                    |
 | `dY`              | Rolls a single die of Y size.                                                                                                                            |
 | `dY!` `XdY!`      | Exploding dice. Rolling Y on a Y-sided die grants an additional die roll.                                                                                |
+| `dY!Z` `XdY!Z`    | Exploding dice. Rolling Z or above on a Y-sided die grants an additional die roll.                                                                       |
 | `XdYns` `XdY!ns`  | Disable dice sorting.                                                                                                                                    |
 | `A+B` `A-B`       | Arbitrary chains of addition and subtraction.                                                                                                            |
 | `A*B` `A/B`       | Arbitrary chains of multiplication and division.                                                                                                         |

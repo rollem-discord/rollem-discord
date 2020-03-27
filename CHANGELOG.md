@@ -1,3 +1,6 @@
+# **1.15.0**
+* Support "exploding" on an arbitrary range. `2d6!3` will explode when 3+ is rolled.
+
 # **1.14.0**
 * Support Doubles/Triples/etc And Roll Over via suffix. `3d6taro` `2d6daro` `20d6aro`
 
