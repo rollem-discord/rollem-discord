@@ -1,7 +1,11 @@
 import { Logger } from "./logger";
 
 import { Config } from "./config";
-import { RollemParser } from "@language/rollem";
+
+import { RollemParserV1 } from "@language-v1/rollem-parser";
+import { RollemParserV2 } from "@language-v2/rollem-parser";
+import { Parsers } from "@bot/lib/parsers";
+
 import { Client } from "discord.js";
 import { ChangeLog } from "./changelog";
 import { BehaviorBase } from "./behaviors/behavior-base";
@@ -9,9 +13,11 @@ import assert = require("assert");
 import { InjectorWrapper } from "./lib/injector-wrapper";
 import { Newable } from "./lib/utility-types";
 
+// tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
   /** Constructs the upper-most DI context for the bot. */
   export function buildTopLevelProviders() {
+    // tslint:disable-next-line: no-console
     console.log("Setting up top-level DI");
     const topLevelInjector =
       InjectorWrapper.createTopLevelContext(
@@ -19,13 +25,15 @@ export namespace Bootstrapper {
           Logger,
           Config,
           ChangeLog,
-          RollemParser,
+          RollemParserV1,
+          RollemParserV2,
+          Parsers
         ]);
 
     const logger = topLevelInjector.get(Logger);
     const config = topLevelInjector.get(Config);
     const changelog = topLevelInjector.get(ChangeLog);
-    const parser = topLevelInjector.get(RollemParser);
+    const parser = topLevelInjector.get(RollemParserV1);
     assert(!!logger, "DI failed to resolve logger");
     assert(!!config, "DI failed to resolve config");
     assert(!!changelog, "DI failed to resolve changelog");
@@ -54,7 +62,6 @@ export namespace Bootstrapper {
     const logger = topLevelInjector.get(Logger);
     const config = topLevelInjector.get(Config);
 
-    
     logger.trackSimpleEvent("Constructing client...");
     logger.trackSimpleEvent("Shard ID: " + config.ShardId)
     logger.trackSimpleEvent("Shard Count: " + config.ShardCount)

@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var pegjs = require('gulp-pegjs');
 var del = require('del');
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
@@ -11,6 +12,12 @@ gulp.task('build-ts', function () {
         .pipe(tsProject()).js
         .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: '../lib'}))
         .pipe(gulp.dest('rollem-dist'));
+});
+
+gulp.task('build-ts-pegjs', function () {
+    return gulp.src('src/rollem-language-2/**/*.pegjs')
+        .pipe(pegjs())
+        .pipe(gulp.dest('src/'))
 });
 
 gulp.task('copy-pegjs', function() {

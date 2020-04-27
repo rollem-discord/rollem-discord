@@ -2168,6 +2168,18 @@ gulp-cli@^2.2.0:
     v8flags "^3.0.1"
     yargs "^7.1.0"
 
+gulp-pegjs@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/gulp-pegjs/-/gulp-pegjs-0.2.0.tgz#6850631c5e4159ecb30219b30e74b58f15222cbb"
+  integrity sha512-fyRAt+zKPaOSCd9xo8qHpgJ0vgeojQh8zjpULUWn2wqUDrB+8EflFWIaPd4X1hEnSBIqutgF1MEgKPfOpvjvWQ==
+  dependencies:
+    object-assign "^4.0.1"
+    pegjs "^0.10.0"
+    plugin-error "^1.0.1"
+    replace-ext "^1.0.0"
+    through2 "^2.0.1"
+    vinyl "^2.2.0"
+
 gulp-sourcemaps@^2.6.5:
   version "2.6.5"
   resolved "https://registry.yarnpkg.com/gulp-sourcemaps/-/gulp-sourcemaps-2.6.5.tgz#a3f002d87346d2c0f3aec36af7eb873f23de8ae6"
@@ -4332,7 +4344,7 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pegjs@0.10.0:
+pegjs@0.10.0, pegjs@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/pegjs/-/pegjs-0.10.0.tgz#cf8bafae6eddff4b5a7efb185269eaaf4610ddbd"
 
@@ -5367,7 +5379,7 @@ through2-filter@^3.0.0:
     through2 "~2.0.0"
     xtend "~4.0.0"
 
-through2@2.X, through2@^2.0.0, through2@^2.0.3, through2@~2.0.0:
+through2@2.X, through2@^2.0.0, through2@^2.0.1, through2@^2.0.3, through2@~2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
   dependencies:
@@ -5461,6 +5473,13 @@ tough-cookie@~2.4.3:
   dependencies:
     psl "^1.1.24"
     punycode "^1.4.1"
+
+ts-pegjs@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/ts-pegjs/-/ts-pegjs-0.2.6.tgz#fc6261cca04736c43e58c630ecfc5dcff23dbb39"
+  integrity sha512-mIX/dMQ6a1EHAEhvCLS6Z41+O700zlLiwB4V5ZSlKFLZKLDE93reik5IFw/HJsKgs488UiLx144yeEWWyu7YIw==
+  dependencies:
+    pegjs "^0.10.0"
 
 tty-browserify@0.0.1:
   version "0.0.1"
@@ -5774,7 +5793,7 @@ vinyl@^1.1.0, vinyl@^1.2.0:
     clone-stats "^0.0.1"
     replace-ext "0.0.1"
 
-vinyl@^2.0.0, vinyl@^2.1.0:
+vinyl@^2.0.0, vinyl@^2.1.0, vinyl@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vinyl/-/vinyl-2.2.0.tgz#d85b07da96e458d25b2ffe19fece9f2caa13ed86"
   integrity sha512-MBH+yP0kC/GQ5GwBqrTPTzEfiiLjta7hTtvQtbxBgTeSXsmKQRQecjibMbxIXzVT3Y9KJK+drOz1/k+vsu8Nkg==

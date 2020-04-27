@@ -1,5 +1,5 @@
 import { RollBehaviorBase } from "./roll-behavior-base";
-import { RollemParser } from "@language/rollem";
+import { Parsers } from "@bot/lib/parsers";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
@@ -16,11 +16,11 @@ import { Injectable } from "injection-js";
 @Injectable()
 export class ParseShortPrefixBehavior extends RollBehaviorBase {
   constructor(
-    parser: RollemParser,
+    parsers: Parsers,
     config: Config,
     client: Client,
     logger: Logger,
-  ) { super(parser, config, client, logger); }
+  ) { super(parsers, config, client, logger); }
 
   protected register() {
     // TODO: Combine common bail rules.
