@@ -28,7 +28,7 @@ export class Logger {
           .setAutoCollectRequests(true)
           .setAutoCollectPerformance(true)
           .setAutoCollectExceptions(true)
-          .setAutoCollectDependencies(true)
+          .setAutoCollectDependencies(false)
           .setAutoCollectConsole(true, true)
           .setUseDiskRetryCaching(true)
           .start();
