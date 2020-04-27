@@ -98,10 +98,10 @@ export abstract class RollBehaviorBase extends BehaviorBase {
       const shouldUseNewParser = this.shouldUseNewParser(message);
       if (shouldUseNewParser) {
         parserVersion = "v2";
-        return this.rollManyV1(message, logTag, content, hasPrefix, requireDice);
+        return this.rollManyV2(message, logTag, content, hasPrefix, requireDice);
       } else {
         parserVersion = "v1";
-        return this.rollManyV2(message, logTag, content, hasPrefix, requireDice);
+        return this.rollManyV1(message, logTag, content, hasPrefix, requireDice);
       }
     } catch (ex) {
       this.logger.trackMessageError(`Roll Many, ${logTag}: ${content}`, message);
