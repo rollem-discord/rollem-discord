@@ -1,14 +1,6 @@
 {
-  function makeInteger(text) {
-    var value = parseInt(text, 10);
-    return {
-      "value": value,
-      "values": [ value ],
-      "pretties": text,
-      "depth": 1,
-      "dice": 0
-    };
-  }
+  // see ./rollem-header.ts and gulpfile.js for how imports are handled
+  debugger;
 }
 
 start
@@ -59,6 +51,8 @@ Comparator
           "dice": left.dice + right.dice
       };
     }
+    /
+    Integer
 
 Integer "integer"
   = "-"?[0-9]+ {

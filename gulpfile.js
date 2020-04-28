@@ -4,6 +4,7 @@ var ext_replace = require('gulp-ext-replace');
 var tspegjs = require('ts-pegjs');
 var del = require('del');
 var ts = require('gulp-typescript');
+var fs = require('fs');
 var sourcemaps = require('gulp-sourcemaps');
 
 var tsProject = ts.createProject('tsconfig.json');
@@ -17,14 +18,20 @@ gulp.task('build-ts', function () {
 });
 
 gulp.task('watch-pegjs-v2', function() {
-    return gulp.watch('./src/rollem-language-2/*.pegjs', gulp.series('build-pegjs-v2'));
+    return gulp.watch(['./src/rollem-language-2/*.pegjs', './src/rollem-language-2/rollem-header.ts'], gulp.series('build-pegjs-v2'));
 });
-var what = { "hello": "world" };
+
 gulp.task('build-pegjs-v2', function () {
+    const headerLocation = './src/rollem-language-2/rollem-header.ts';
+    const header = fs.readFileSync(headerLocation, 'utf8');
+
     return gulp.src('src/rollem-language-2/rollem.pegjs')
         .pipe(pegjs({
             plugins: [tspegjs],
-            cache: true
+            cache: true,
+            "tspegjs": {
+                "customHeader": header,
+            }
           }))
         .pipe(ext_replace('.ts'))
         .pipe(gulp.dest('src/rollem-language-2/'))

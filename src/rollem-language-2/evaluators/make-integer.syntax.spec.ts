@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import 'mocha';
-import { makeInteger } from './make-integer';
 import { RollemParserV2 } from '@language-v2/rollem-parser';
 
 const parser = new RollemParserV2()
@@ -16,7 +15,7 @@ describe('make-integer (syntax)', () => {
   });
 
   it('should handle multiple digits', () => {
-    const delayedValue = parser.parse("5");
+    const delayedValue = parser.parse("189465");
     const value = delayedValue();
     expect(value.value).to.equal(189465);
     expect(value.values).to.eql([189465]);
@@ -26,7 +25,7 @@ describe('make-integer (syntax)', () => {
   });
 
   it('should handle negative numbers', () => {
-    const delayedValue = parser.parse("5");
+    const delayedValue = parser.parse("-189465");
     const value = delayedValue();
     expect(value.value).to.equal(-189465);
     expect(value.values).to.eql([-189465]);
