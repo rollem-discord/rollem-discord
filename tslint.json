@@ -5,7 +5,8 @@
     ],
     "jsRules": {},
     "rules": {
-        "impl": true
+        "impl": true,
+        "object-literal-shorthand": false
     },
     "rulesDirectory": []
 }

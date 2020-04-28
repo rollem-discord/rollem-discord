@@ -19,7 +19,7 @@ gulp.task('build-ts', function () {
 gulp.task('watch-pegjs-v2', function() {
     return gulp.watch('./src/rollem-language-2/*.pegjs', gulp.series('build-pegjs-v2'));
 });
-
+var what = { "hello": "world" };
 gulp.task('build-pegjs-v2', function () {
     return gulp.src('src/rollem-language-2/rollem.pegjs')
         .pipe(pegjs({

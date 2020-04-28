@@ -4,6 +4,7 @@ import { Config } from "@bot/config";
 import { Client, Message, TextChannel, GuildMember } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Injectable } from "injection-js";
+import { ContainerV1 } from "@language-v1/container";
 
 // TODO: more fine-grained per-guild handlers with caching and all that
 
@@ -68,9 +69,9 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   }
 
   // TODO: Handle response type of rollem parser
-  protected buildMessage(result: any, requireDice = true) {
+  protected buildMessage(result: ContainerV1 | false, requireDice = true) {
     if (result === false) { return false; }
-    if (typeof (result) === "string") { return result; }
+    if (result.error) { return result.error; }
     if (result.depth <= 1) { return false; }
     if (requireDice && result.dice < 1) { return false; }
 
