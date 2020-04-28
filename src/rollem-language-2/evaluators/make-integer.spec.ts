@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import makeInteger from './make-integer';
+import { makeInteger } from './make-integer';
 
 describe('make-integer', () => {
   it('should handle single digits', () => {

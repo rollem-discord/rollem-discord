@@ -1,7 +1,7 @@
 import { OldContainer } from "./old-container";
 import { Delayed } from "./types";
 
-export default function makeInteger(text: string): Delayed<OldContainer> {
+export function makeInteger(text: string): Delayed<OldContainer> {
   const value = parseInt(text, 10);
   return () => new OldContainer({
     value: value,
