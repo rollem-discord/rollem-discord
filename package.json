@@ -53,10 +53,7 @@
     "npm": "^6.3.0",
     "pegjs": "0.10.0",
     "reflect-metadata": "^0.1.13",
-    "ts-pegjs": "^0.2.6"
-  },
-  "license": "MIT",
-  "devDependencies": {
+    "ts-pegjs": "^0.2.6",
     "@types/chai": "^4.2.11",
     "@types/lodash": "^4.14.136",
     "@types/mocha": "^7.0.2",
@@ -72,5 +69,6 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.0.3",
     "watchify": "^3.9.0"
-  }
+  },
+  "license": "MIT"
 }
