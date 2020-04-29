@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-beta-shard-2
-        image: docker.pkg.github.com/rollem-discord/rollem-discord/rollem-discord:1.15.6
+        image: lemtzas/rollem-discord:1.15.6
         terminationMessagePolicy: FallbackToLogsOnError
         resources:
           requests:
@@ -22,7 +22,7 @@ spec:
             memory: 100M
         env:
         - name: 'reboot'
-          value: '2019-07-04.1'
+          value: '2020-04-29'
         - name: DISCORD_BOT_SHARD_ID
           value: '1'
         - name: DISCORD_BOT_SHARD_COUNT
