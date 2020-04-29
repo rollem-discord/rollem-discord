@@ -13,7 +13,9 @@ import { Injectable } from "injection-js";
 export class HeartbeatBehavior extends BehaviorBase {
   private readonly NOW_PLAYING_MESSAGES = [
     () => `${this.changelog.version} - http://rollem.rocks`,
-    () => `${this.changelog.version} - http://rollem.rocks !`
+    () => `support on ko-fi - ${this.changelog.version} - http://rollem.rocks`,
+    () => `${this.changelog.version} - http://rollem.rocks`,
+    () => `support on patreon - ${this.changelog.version} - http://rollem.rocks`,
   ];
 
   constructor(
@@ -22,7 +24,7 @@ export class HeartbeatBehavior extends BehaviorBase {
     client: Client,
     logger: Logger,
   ) { super(client, logger); }
-  
+
   protected register() {
     this.client.on('ready', () => {
       this.logger.trackSimpleEvent("ready");
@@ -34,8 +36,8 @@ export class HeartbeatBehavior extends BehaviorBase {
       console.log('id: ' + this.client.user.id);
 
       setInterval(() => this.cycleMessage(), this.config.messageInterval);
-      const mentionRegex_s = '^<@!' + this.client.user.id + '>\\s+';
-      this.config.mentionRegex = new RegExp(mentionRegex_s);
+      const mentionRegex = '^<@!' + this.client.user.id + '>\\s+';
+      this.config.mentionRegex = new RegExp(mentionRegex);
 
       this.sendHeartbeat("startup message");
       this.sendHeartbeatNextHour();
@@ -44,13 +46,13 @@ export class HeartbeatBehavior extends BehaviorBase {
 
   private cycleMessage() {
     if (this.client.user) {
-      let messageFunc = this.NOW_PLAYING_MESSAGES.shift();
+      const messageFunc = this.NOW_PLAYING_MESSAGES.shift();
       if (!messageFunc) {
         throw new Error("No message found.");
       }
-  
+
       this.NOW_PLAYING_MESSAGES.push(messageFunc);
-      let message = messageFunc();
+      const message = messageFunc();
       this.client.user.setStatus("online").catch(error => this.handleRejection("setStatus", error));
       this.client.user
         .setActivity(message)
@@ -70,12 +72,12 @@ export class HeartbeatBehavior extends BehaviorBase {
       msToNextHour
     );
   }
-  
+
   /** Sends a single heartbeat-info message to owner confirming liveliness. */
   private sendHeartbeat(reason: string) {
     const disableHeartbeat = process.env.DISABLE_HEARTBEAT
     if (disableHeartbeat) { return; }
-  
+
     this.logger.trackSimpleEvent(`heartbeat - shard ${this.logger.shardName()}`, {reason: reason});
   }
 }

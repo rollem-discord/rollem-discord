@@ -19,40 +19,43 @@ export class HelpBehavior extends BehaviorBase {
   ) { super(client, logger); }
 
   protected register() {
-    // 
     this.client.on('message', message => {
       if (message.author.bot) { return; }
       let content = message.content;
-    
+
       // ignore without prefix
-      var match = content.match(this.config.mentionRegex);
+      const match = content.match(this.config.mentionRegex);
       if (message.guild && !match) { return; }
       if (match) {
         content = content.substring(match[0].length).trim();
       }
-    
+
       // stats and basic help
       if (content.startsWith('stats') || content.startsWith('help')) {
-        let guilds = this.client.guilds.map((g) => g.name);
-        let uptime = moment.duration(this.client.uptime);
-        let stats = [
+        const guilds = this.client.guilds.map((g) => g.name);
+        const uptime = moment.duration(this.client.uptime);
+        const stats = [
           '',
           `**shard:** ${this.logger.shardName()}`,
           `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
           `**servers:** ${this.client.guilds.size}`,
           `**users:** ${this.client.users.size}`,
           '',
-          'Docs at <http://rollem.rocks>',
-          'Support rollem at <https://patreon.com/david_does>',
-          'Try `@rollem changelog`',
+          '- Docs at <http://rollem.rocks>',
+          '- Try `@rollem changelog`',
+          '- v2 syntax is in the works',
+          '',
+          "Fund rollem's server addiction:",
+          '- <https://patreon.com/david_does>',
+          '- <https://ko-fi.com/rollem>',
           '',
           'Avatar by Kagura on Charisma Bonus.'
         ];
-        let response = stats.join('\n');
+        const response = stats.join('\n');
         message.reply(stats).catch(rejected => this.handleSendRejection(message));
         this.logger.trackMessageEvent("stats", message);
       }
-    
+
       // changelog
       if (content.startsWith('changelog') ||
         content.startsWith('change log') ||
