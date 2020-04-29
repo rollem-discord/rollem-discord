@@ -54,7 +54,7 @@ gulp.task('watch-pegjs', function() {
     return gulp.watch('./src/**/*.pegjs', gulp.series('copy-pegjs'));
 });
 
-gulp.task('build-all', gulp.parallel('build-pegjs-v2','build-ts', 'copy-pegjs'));
+gulp.task('build-all', gulp.parallel(gulp.series('build-pegjs-v2','build-ts'), 'copy-pegjs'));
 gulp.task('watch-all', gulp.parallel('watch-pegjs-v2','watch-ts', 'watch-pegjs'));
 gulp.task('build', gulp.series('clean', 'build-all'));
 gulp.task('watch', gulp.series('clean', 'build-all', 'watch-all'));
