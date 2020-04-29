@@ -1,3 +1,6 @@
+# **1.15.3**
+* Fix crit-range display in output.
+
 # **1.15.2**
 * Support "exploding" on an arbitrary range. `2d6!3` will explode when 3+ is rolled.
 

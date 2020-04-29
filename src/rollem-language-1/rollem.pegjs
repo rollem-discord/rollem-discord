@@ -157,6 +157,7 @@
         break;
       case "c":
         critrange = configuration.value;
+        keepDropValue = critrange;
         break;
       default:
         // leave it at the default (keep everything)
@@ -183,6 +184,7 @@
         pretties = pretties + explodeConfiguration.value;
       }
     }
+
     if (keepDropOperator) { pretties = pretties + keepDropOperator + keepDropValue; }
 
     valuesArr = sortedAugmentedValuesArr.filter(v => v.isKept).map(v => v.value);

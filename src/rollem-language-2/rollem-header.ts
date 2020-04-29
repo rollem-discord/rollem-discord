@@ -1,1 +1,1 @@
-import makeInteger from "./evaluators/make-integer";
+import { makeInteger } from "./evaluators/make-integer";
