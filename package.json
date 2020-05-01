@@ -28,9 +28,14 @@
     "./"
   ],
   "mocha": {
-    "require": ["ts-node/register", "tsconfig-paths/register"],
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
     "spec": "src/**/*.spec.ts",
-    "extension": ["ts"]
+    "extension": [
+      "ts"
+    ]
   },
   "_moduleAliases": {
     "@root": ".",
@@ -40,32 +45,33 @@
   },
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
-    "@types/node": "^12.0.12",
-    "applicationinsights": "^1.0.2",
-    "discord.js": "^11.2.1",
-    "gulp-ext-replace": "^0.3.0",
-    "gulp-pegjs": "^0.2.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "injection-js": "^2.2.1",
-    "lodash": "^4.17.15",
-    "module-alias": "^2.2.0",
-    "moment": "^2.22.1",
-    "npm": "^6.3.0",
-    "pegjs": "0.10.0",
-    "reflect-metadata": "^0.1.13",
-    "ts-pegjs": "^0.2.6",
     "@types/chai": "^4.2.11",
     "@types/lodash": "^4.14.136",
     "@types/mocha": "^7.0.2",
+    "@types/node": "^12.0.12",
+    "applicationinsights": "^1.0.2",
     "chai": "^3.5.0",
     "del": "^3.0.0",
+    "discord.js": "^11.2.1",
     "gulp": "^4.0.0",
+    "gulp-ext-replace": "^0.3.0",
+    "gulp-pegjs": "^0.2.0",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^5.0.0-alpha.3",
     "gulp-watch": "^4.3.11",
+    "injection-js": "^2.2.1",
+    "lodash": "^4.17.15",
     "mocha": "^3.2.0",
+    "module-alias": "^2.2.0",
+    "moment": "^2.22.1",
+    "node-cache": "^5.1.0",
+    "npm": "^6.3.0",
     "nyc": "^15.0.1",
+    "pegjs": "0.10.0",
+    "reflect-metadata": "^0.1.13",
     "ts-mocha": "^7.0.0",
     "ts-node": "^8.9.1",
+    "ts-pegjs": "^0.2.6",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.0.3",
     "watchify": "^3.9.0"

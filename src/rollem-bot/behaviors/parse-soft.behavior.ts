@@ -4,6 +4,7 @@ import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import { Parsers } from "@bot/lib/parsers";
+import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
 
 /**
  * Parses things without any prefix, unless a prefix is configured via role-name.
@@ -13,9 +14,10 @@ export class ParseSoftBehavior extends RollBehaviorBase {
   constructor(
     parsers: Parsers,
     config: Config,
+    repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
-  ) { super(parsers, config, client, logger); }
+  ) { super(parsers, config, repliedMessageCache, client, logger); }
 
   protected register() {
     this.client.on('message', message => {

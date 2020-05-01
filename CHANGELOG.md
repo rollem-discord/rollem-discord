@@ -1,7 +1,8 @@
-# **1.15.6**
+# **1.15.7**
 * Fix crit-range display in output.
 * Add ko-fi + patreon callouts to status message.
 * Start work on v2 of the rollem syntax. Nowhere near ready yet!
+* Add cache-based guard against duplicate messages. Covers the last 5 seconds.
 
 # **1.15.2**
 * Support "exploding" on an arbitrary range. `2d6!3` will explode when 3+ is rolled.

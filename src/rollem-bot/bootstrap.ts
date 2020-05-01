@@ -12,6 +12,7 @@ import { BehaviorBase } from "./behaviors/behavior-base";
 import assert = require("assert");
 import { InjectorWrapper } from "./lib/injector-wrapper";
 import { Newable } from "./lib/utility-types";
+import { RepliedMessageCache } from "./lib/replied-message-cache";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -27,17 +28,24 @@ export namespace Bootstrapper {
           ChangeLog,
           RollemParserV1,
           RollemParserV2,
-          Parsers
+          Parsers,
+          RepliedMessageCache,
         ]);
 
     const logger = topLevelInjector.get(Logger);
-    const config = topLevelInjector.get(Config);
-    const changelog = topLevelInjector.get(ChangeLog);
-    const parser = topLevelInjector.get(RollemParserV1);
     assert(!!logger, "DI failed to resolve logger");
+    const config = topLevelInjector.get(Config);
     assert(!!config, "DI failed to resolve config");
+    const changelog = topLevelInjector.get(ChangeLog);
     assert(!!changelog, "DI failed to resolve changelog");
-    assert(!!parser, "DI failed to resolve parser");
+    const parserv1 = topLevelInjector.get(RollemParserV1);
+    assert(!!parserv1, "DI failed to resolve parser v1");
+    const parserv2 = topLevelInjector.get(RollemParserV2);
+    assert(!!parserv2, "DI failed to resolve parser v2");
+    const parsers = topLevelInjector.get(Parsers);
+    assert(!!parsers, "DI failed to resolve parsers");
+    const repliedMessageCache = topLevelInjector.get(RepliedMessageCache);
+    assert(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
 
     return topLevelInjector;
   }
