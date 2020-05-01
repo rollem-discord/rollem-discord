@@ -10,7 +10,7 @@ export class RepliedMessageCache extends NodeCache {
   constructor() {
     super({
       stdTTL: 5, // seconds
-      checkperiod: 5 * 1000, // seconds
+      checkperiod: 5, // seconds
       deleteOnExpire: true,
       useClones: false, // go fast
     });
