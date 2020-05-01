@@ -4,6 +4,7 @@ import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
+import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
 
 /**
  * Parses things with the following prefixes:
@@ -18,9 +19,10 @@ export class ParseNamePrefixedBehavior extends RollBehaviorBase {
   constructor(
     parsers: Parsers,
     config: Config,
+    repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
-  ) { super(parsers, config, client, logger); }
+  ) { super(parsers, config, repliedMessageCache, client, logger); }
 
   protected register() {
     // TODO: Split this up. Combine common bail rules.

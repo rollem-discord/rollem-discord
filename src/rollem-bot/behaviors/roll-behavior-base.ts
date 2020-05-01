@@ -5,6 +5,8 @@ import { Client, Message, TextChannel, GuildMember } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Injectable } from "injection-js";
 import { ContainerV1 } from "@language-v1/container";
+import { default as NodeCache } from "node-cache";
+import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
 
 // TODO: more fine-grained per-guild handlers with caching and all that
 
@@ -14,6 +16,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   constructor(
     protected readonly parsers: Parsers,
     protected readonly config: Config,
+    protected readonly repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
   ) { super(client, logger); }
@@ -94,6 +97,10 @@ export abstract class RollBehaviorBase extends BehaviorBase {
    * @returns The response message(s) or null
    */
   protected rollMany(message: Message, logTag: string, content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
+    if (this.repliedMessageCache.hasSeenMessageBefore(message)) {
+      return [];
+    }
+
     let parserVersion = "unknown";
     try {
       const shouldUseNewParser = this.shouldUseNewParser(message);
@@ -111,7 +118,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   }
 
   protected rollManyV2(message: Message, logTag: string, content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
-    return ["this is the v2 parser!"];
+    return ["the v2 parser is not yet ready"];
   }
 
   protected rollManyV1(message: Message, logTag: string, content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {

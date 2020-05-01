@@ -6,6 +6,7 @@ import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import _ from "lodash";
 import { join } from "path";
+import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
 
 /**
  * Parses things with the following prefixes:
@@ -20,9 +21,10 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
   constructor(
     parsers: Parsers,
     config: Config,
+    repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
-  ) { super(parsers, config, client, logger); }
+  ) { super(parsers, config, repliedMessageCache, client, logger); }
 
   protected register() {
     // TODO: Combine common bail rules.
