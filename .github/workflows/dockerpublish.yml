@@ -3,8 +3,8 @@ name: Docker
 on:
   push:
     # Publish `master` as Docker `latest` image.
-    branches:
-      - master
+#     branches:
+#       - master
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -28,12 +28,12 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag image
 
-      - name: Log into github registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: Log into docker hub registry
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
 
-      - name: Push image to github
+      - name: Push image to docker hub registry
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$IMAGE_NAME
           
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -53,12 +53,12 @@ jobs:
           docker tag image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-      - name: Log into docker hub registry
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
+      - name: Log into github registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Push image to docker hub registry
+      - name: Push image to github
         run: |
-          IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$IMAGE_NAME
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
           
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
