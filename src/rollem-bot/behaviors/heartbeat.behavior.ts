@@ -35,7 +35,10 @@ export class HeartbeatBehavior extends BehaviorBase {
       console.log('username: ' + this.client.user.username);
       console.log('id: ' + this.client.user.id);
 
-      setInterval(() => this.cycleMessage(), this.config.messageInterval);
+      if (this.client.shard.id === 0) {
+        setInterval(() => this.cycleMessage(), this.config.messageInterval);
+      }
+
       const mentionRegex = '^<@!' + this.client.user.id + '>\\s+';
       this.config.mentionRegex = new RegExp(mentionRegex);
 
