@@ -35,7 +35,8 @@ export class HeartbeatBehavior extends BehaviorBase {
       console.log('username: ' + this.client.user.username);
       console.log('id: ' + this.client.user.id);
 
-      if (this.client.shard.id === 0) {
+      const shard = this.client.shard?.id ?? 0;
+      if (shard === 0) {
         setInterval(() => this.cycleMessage(), this.config.messageInterval);
       }
 

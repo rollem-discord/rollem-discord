@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-beta-shard-2
-        image: lemtzas/rollem-discord:1.15.9
+        image: lemtzas/rollem-discord:1.15.10
         terminationMessagePolicy: FallbackToLogsOnError
         resources:
           requests:
