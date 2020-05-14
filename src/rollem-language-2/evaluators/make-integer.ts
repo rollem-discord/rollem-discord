@@ -1,9 +1,10 @@
-import { OldContainer } from "./old-container";
-import { Delayed } from "./types";
+import { Integer } from "@language-v2/types/integer";
+import { OldContainer } from "@language-v2/types";
+import { Delayed } from "@language-v2/types/delayed";
 
 export function makeInteger(text: string): Delayed<OldContainer> {
   const v = parseInt(text, 10);
-  return () => new OldContainer({
+  return (_) => new Integer({
     value: v,
     values: [ v ],
     pretties: text,
@@ -11,10 +12,6 @@ export function makeInteger(text: string): Delayed<OldContainer> {
     dice: 0
   });
 }
-
-// export interface Context {
-//   hello: string;
-// }
 
 // export type Delayed<T> = (context: Context) => T;
 

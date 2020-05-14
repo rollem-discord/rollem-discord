@@ -1,1 +1,0 @@
-export type Delayed<T> = () => T;
