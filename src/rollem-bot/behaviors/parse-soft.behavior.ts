@@ -24,6 +24,7 @@ export class ParseSoftBehavior extends RollBehaviorBase {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
+      if (this.repliedMessageCache.hasSeenMessageBefore(message, "soft")) { return; }
       if (this.shouldDefer(message)) { return; }
       if (message.content.startsWith('D')) { return; } // apparently D8 is a common emote.
 

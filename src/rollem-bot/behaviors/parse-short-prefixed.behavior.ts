@@ -31,6 +31,7 @@ export class ParseShortPrefixBehavior extends RollBehaviorBase {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
+      if (this.repliedMessageCache.hasSeenMessageBefore(message, "short")) { return; }
       if (this.shouldDefer(message)) { return; }
 
       let content = message.content.trim();

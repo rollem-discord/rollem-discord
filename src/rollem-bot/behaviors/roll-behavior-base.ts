@@ -97,10 +97,6 @@ export abstract class RollBehaviorBase extends BehaviorBase {
    * @returns The response message(s) or null
    */
   protected rollMany(message: Message, logTag: string, content: string, hasPrefix: boolean, requireDice: boolean): string[] | null {
-    if (this.repliedMessageCache.hasSeenMessageBefore(message)) {
-      return [];
-    }
-
     let parserVersion = "unknown";
     try {
       const shouldUseNewParser = this.shouldUseNewParser(message);

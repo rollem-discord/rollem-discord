@@ -33,6 +33,7 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
+      if (this.repliedMessageCache.hasSeenMessageBefore(message, "bracketed")) { return; }
       if (this.shouldDefer(message)) { return; }
 
       let content = message.content.trim();

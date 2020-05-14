@@ -30,6 +30,7 @@ export class ParseNamePrefixedBehavior extends RollBehaviorBase {
     this.client.on('message', message => {
       // avoid doing insane things
       if (message.author.bot) { return; }
+      if (this.repliedMessageCache.hasSeenMessageBefore(message, "prefixed")) { return; }
       if (message.author == this.client.user) { return; }
 
       var content = message.content.trim();
