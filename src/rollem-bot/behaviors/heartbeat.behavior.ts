@@ -29,13 +29,11 @@ export class HeartbeatBehavior extends BehaviorBase {
     this.client.on('ready', () => {
       this.logger.trackSimpleEvent("ready");
 
-      this.cycleMessage();
-
       console.log("will defer to: " + this.config.deferToClientIds);
       console.log('username: ' + this.client.user.username);
       console.log('id: ' + this.client.user.id);
 
-      const shard = this.client.shard?.id ?? 0;
+      const shard = this.config.ShardId;
       if (shard === 0) {
         setInterval(() => this.cycleMessage(), this.config.messageInterval);
       }

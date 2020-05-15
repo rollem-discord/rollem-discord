@@ -1,4 +1,4 @@
-# **1.15.11**
+# **1.15.12**
 * Fix crit-range display in output.
 * Add ko-fi + patreon callouts to status message.
 * Start work on v2 of the rollem syntax. Nowhere near ready yet!
