@@ -35,6 +35,7 @@ export class HeartbeatBehavior extends BehaviorBase {
 
       const shard = this.config.ShardId;
       if (shard === 0) {
+        this.cycleMessage();
         setInterval(() => this.cycleMessage(), this.config.messageInterval);
       }
 
