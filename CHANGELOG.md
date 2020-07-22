@@ -1,5 +1,6 @@
-# **1.15.18*
+# **1.15.19*
 * Tweak logging.
+* Change Inactivity timeout to 5 minutes.
 
 # **1.15.13**
 * Fix crit-range display in output.

@@ -12,7 +12,7 @@ import { Injectable } from "injection-js";
  */
 @Injectable()
 export class DeadmanSwitchBehavior extends BehaviorBase {
-  private static readonly TimeWindowDuration = 60 * 1000;
+  private static readonly TimeWindowDuration = 5 * 60 * 1000;
   private static readonly PollingDuration = 30 * 1000;
 
   constructor(
