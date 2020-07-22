@@ -47,6 +47,7 @@ export class Logger {
   // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
   public trackSimpleEvent(name: string, properties = {}) {
     if (this.aiClient) {
+      console.log(name, properties);
       this.aiClient.trackEvent({
         name: name,
         measurements: this.enrichAIMetrics(null),
@@ -61,13 +62,14 @@ export class Logger {
   // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
   public trackMessageEvent(name: string, message: Message, properties = {}) {
     if (this.aiClient) {
+      console.log(name, message, properties);
       this.aiClient.trackEvent({
         name: name,
         measurements: this.enrichAIMetrics(message),
         properties: this.enrichAIProperties(message, properties)
       });
     } else {
-      console.log(name, properties);
+      console.log(name, message, properties);
     }
   }
 
@@ -86,6 +88,7 @@ export class Logger {
   /** Tracks an error with AI using a console fallback. */
   public trackMessageError(name: string, message: Message, error?: Error) {
     if (this.aiClient) {
+      console.error(name, message, JSON.stringify(error));
       error = error || new Error(name);
       this.aiClient.trackException({
         exception: error,
@@ -96,13 +99,14 @@ export class Logger {
         }
       })
     } else {
-      console.error(name, JSON.stringify(error));
+      console.error(name, message, JSON.stringify(error));
     }
   }
 
   /** Tracks an error with AI using a console fallback. */
   public trackError(name: string, error?: Error) {
     if (this.aiClient) {
+      console.error(name, JSON.stringify(error));
       error = error || new Error(name);
       this.aiClient.trackException({
         exception: error,

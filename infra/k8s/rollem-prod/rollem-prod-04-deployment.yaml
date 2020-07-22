@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
       - name: rollem-shard-04
-        image: lemtzas/rollem-discord:1.15.13
+        image: lemtzas/rollem-discord:1.15.14
         resources:
           requests:
             cpu: 150m
             memory: 250M
         env:
         - name: 'reboot'
-          value: '2020-07-21.1'
+          value: '2020-07-21.2'
         - name: DISCORD_BOT_SHARD_ID
           value: '4'
         - name: DISCORD_BOT_SHARD_COUNT

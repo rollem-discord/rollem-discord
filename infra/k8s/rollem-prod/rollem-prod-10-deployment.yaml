@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-shard-10
-        image: lemtzas/rollem-discord:1.15.13
+        image: lemtzas/rollem-discord:1.15.14
         resources:
           requests:
             cpu: 150m
