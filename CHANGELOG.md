@@ -1,3 +1,6 @@
+# **1.15.17*
+* Tweak logging.
+
 # **1.15.13**
 * Fix crit-range display in output.
 * Add ko-fi + patreon callouts to status message.
