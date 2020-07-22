@@ -1,3 +1,6 @@
+# **1.15.15**
+* Upgrade discord.js version
+
 # **1.15.13**
 * Fix crit-range display in output.
 * Add ko-fi + patreon callouts to status message.
