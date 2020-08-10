@@ -13,14 +13,14 @@ export class PingPongBehavior extends BehaviorBase {
     protected readonly logger: Logger,
   ) { super(client, logger); }
 
-  protected register() {
-    this.client.on('message', message => {
+  protected async register() {
+    this.client.on('message', async message => {
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
       if (message.guild) { return; }
     
       if (message.content === 'ping') {
-        message.reply('pong').catch(rejected => this.handleSendRejection(message));
+        await message.reply('pong').catch(rejected => this.handleSendRejection(message));
       }
     });
   }

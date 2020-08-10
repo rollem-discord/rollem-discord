@@ -11,13 +11,13 @@ export abstract class BehaviorBase {
   ) { }
   
   /** Applies the behavior to the given client. */
-  public apply(): void {
+  public async apply(): Promise<void> {
     this.logger.trackSimpleEvent(`Registering Behavior: ${this.constructor.name}`)
-    this.register();
+    await this.register();
   }
 
   /** Called on initialization to register any callbacks with the discord client. */
-  protected abstract register(): void;
+  protected abstract async register(): Promise<void>;
 
   /** Handle an unknown rejection. */
   protected handleRejection(label: string, error: Error) {

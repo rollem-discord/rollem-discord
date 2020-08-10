@@ -17,7 +17,7 @@ export class DieOnErrorBehavior extends BehaviorBase {
     protected readonly logger: Logger,
   ) { super(client, logger); }
   
-  protected register() {
+  protected async register() {
     this.client.on('error', error => this.handleClientError(error));
     process.on("exit", code => this.handleExit(code));
     process.on("uncaughtException", error => this.handleUncaughtError(error));

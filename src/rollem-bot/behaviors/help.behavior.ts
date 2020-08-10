@@ -18,8 +18,8 @@ export class HelpBehavior extends BehaviorBase {
     logger: Logger,
   ) { super(client, logger); }
 
-  protected register() {
-    this.client.on('message', message => {
+  protected async register() {
+    this.client.on('message', async message => {
       if (message.author.bot) { return; }
       let content = message.content;
 
@@ -61,7 +61,7 @@ export class HelpBehavior extends BehaviorBase {
         content.startsWith('change log') ||
         content.startsWith('changes') ||
         content.startsWith('diff')) {
-        message.reply(this.changelog.changelog).catch(rejected => this.handleSendRejection(message));
+        await message.reply(this.changelog.changelog).catch(rejected => this.handleSendRejection(message));
         this.logger.trackMessageEvent("changelog", message);
       }
     });

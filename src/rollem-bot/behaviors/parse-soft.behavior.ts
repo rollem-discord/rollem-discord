@@ -19,8 +19,8 @@ export class ParseSoftBehavior extends RollBehaviorBase {
     logger: Logger,
   ) { super(parsers, config, repliedMessageCache, client, logger); }
 
-  protected register() {
-    this.client.on('message', message => {
+  protected async register() {
+    this.client.on('message', async message => {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
@@ -38,7 +38,7 @@ export class ParseSoftBehavior extends RollBehaviorBase {
 
       const requireDice = true;
       const lines = this.rollMany(message, "No-prefix roll", content, !!prefix, requireDice);
-      this.replyAndLog(message, 'No-prefix roll', lines);
+      await this.replyAndLog(message, 'No-prefix roll', lines);
     });
   }
 }

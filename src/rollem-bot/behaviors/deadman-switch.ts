@@ -23,7 +23,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
   private activityInLastMinute = 0;
   private messagesSinceLastReport = 0;
 
-  protected register() {
+  protected async register() {
     this.client.on('message', m => {
       this.messagesSinceLastReport++;
       this.logDiscordActivity();
@@ -55,13 +55,13 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       this.logger.trackSimpleEvent('RateLimit', info)
     });
 
-    this.initializeSelfWatchdog();
+    await this.initializeSelfWatchdog();
 
     setInterval(() => this.watch(), DeadmanSwitchBehavior.PollingDuration);
   }
 
   /** Generates messages on startup and then twiddles the emoji on them, ensuring there's always activity. */
-  private initializeSelfWatchdog() {
+  private async initializeSelfWatchdog() {
     let botOwner: User | undefined = undefined;
     let message: Message | undefined = undefined;
     let reaction: MessageReaction | undefined = undefined;

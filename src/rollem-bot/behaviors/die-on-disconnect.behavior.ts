@@ -17,7 +17,7 @@ export class DieOnDisconnectBehavior extends BehaviorBase {
     protected readonly logger: Logger,
   ) { super(client, logger); }
 
-  protected register() {
+  protected async register() {
     this.client.on('disconnect', (f) => {
       this.logger.trackSimpleEvent("disconnect", { reason: util.inspect(f) });
       this.logger.flush();

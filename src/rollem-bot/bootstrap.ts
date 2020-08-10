@@ -98,13 +98,13 @@ export namespace Bootstrapper {
   }
 
   /** Attaches the known behaviors to the client. */
-  export function attachBehaviorsToClient(clientLevelInjector: InjectorWrapper, orderedBehaviors: Newable<BehaviorBase>[]) {
+  export async function attachBehaviorsToClient(clientLevelInjector: InjectorWrapper, orderedBehaviors: Newable<BehaviorBase>[]) {
     const logger = clientLevelInjector.get(Logger);
     logger.trackSimpleEvent("Constructing behaviors...");
     const constructedBehaviors = orderedBehaviors.map(ctor => clientLevelInjector.get(ctor) as BehaviorBase);
 
     logger.trackSimpleEvent("Applying behaviors...");
-    constructedBehaviors.forEach(b => b.apply());
+    await Promise.all(constructedBehaviors.map(async b => await b.apply()));
   }
 
   /** Starts the client. */

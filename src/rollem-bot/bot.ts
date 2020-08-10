@@ -30,9 +30,13 @@ const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
   DeadmanSwitchBehavior,
 ];
 
-const topLevelInjector    = Bootstrapper.buildTopLevelProviders();
-                            Bootstrapper.prepareChangelog(topLevelInjector);
-const client              = Bootstrapper.prepareClient(topLevelInjector);
-const clientLevelInjector = Bootstrapper.createClientContext(topLevelInjector, client, ORDERED_BEHAVIORS);
-                            Bootstrapper.attachBehaviorsToClient(clientLevelInjector, ORDERED_BEHAVIORS);
-                            Bootstrapper.startClient(clientLevelInjector);
+async function bootstrap() {
+  const topLevelInjector    = Bootstrapper.buildTopLevelProviders();
+                              Bootstrapper.prepareChangelog(topLevelInjector);
+  const client              = Bootstrapper.prepareClient(topLevelInjector);
+  const clientLevelInjector = Bootstrapper.createClientContext(topLevelInjector, client, ORDERED_BEHAVIORS);
+                              await Bootstrapper.attachBehaviorsToClient(clientLevelInjector, ORDERED_BEHAVIORS);
+                              Bootstrapper.startClient(clientLevelInjector);
+}
+
+bootstrap();

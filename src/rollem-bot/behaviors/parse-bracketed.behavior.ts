@@ -26,10 +26,10 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
     logger: Logger,
   ) { super(parsers, config, repliedMessageCache, client, logger); }
 
-  protected register() {
+  protected async register() {
     // TODO: Combine common bail rules.
     // inline and convenience messaging
-    this.client.on('message', message => {
+    this.client.on('message', async message => {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
@@ -60,7 +60,7 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
             .value();
 
         if (lines.length === 0) { return; }
-        this.replyAndLog(message, `Bracketed Roll`, lines);
+        await this.replyAndLog(message, `Bracketed Roll`, lines);
       }
     });
   }

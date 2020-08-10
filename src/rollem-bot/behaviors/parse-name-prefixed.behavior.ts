@@ -24,10 +24,10 @@ export class ParseNamePrefixedBehavior extends RollBehaviorBase {
     logger: Logger,
   ) { super(parsers, config, repliedMessageCache, client, logger); }
 
-  protected register() {
+  protected async register() {
     // TODO: Split this up. Combine common bail rules.
     // inline and convenience messaging
-    this.client.on('message', message => {
+    this.client.on('message', async message => {
       // avoid doing insane things
       if (message.author.bot) { return; }
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "prefixed")) { return; }
@@ -42,7 +42,7 @@ export class ParseNamePrefixedBehavior extends RollBehaviorBase {
         let hasPrefix = true;
         let requireDice = false;
         var lines = this.rollMany(message, "Name-prefixed roll", subMessage, hasPrefix, requireDice);
-        var replied = this.replyAndLog(message, 'Name-prefixed roll', lines);
+        var replied = await this.replyAndLog(message, 'Name-prefixed roll', lines);
       }
     });
   }

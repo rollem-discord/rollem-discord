@@ -25,8 +25,8 @@ export class HeartbeatBehavior extends BehaviorBase {
     logger: Logger,
   ) { super(client, logger); }
 
-  protected register() {
-    this.client.on('ready', () => {
+  protected async register() {
+    this.client.on('ready', async () => {
       this.logger.trackSimpleEvent("ready");
 
       console.log("will defer to: " + this.config.deferToClientIds);

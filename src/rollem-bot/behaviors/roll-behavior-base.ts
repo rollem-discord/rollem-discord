@@ -158,10 +158,10 @@ export abstract class RollBehaviorBase extends BehaviorBase {
    * @param lines The grouped replies, or null.
    * @returns True if a response was sent.
    */
-  protected replyAndLog(message: Message, logTag: string, lines: string[] | null): boolean {
+  protected async replyAndLog(message: Message, logTag: string, lines: string[] | null): Promise<boolean> {
     if (lines && lines.length > 0) {
       const response = "\n" + lines.join("\n");
-      message.reply(response).catch(rejected => this.handleSendRejection(message));
+      await message.reply(response).catch(rejected => this.handleSendRejection(message));
 
       if (lines.length === 1) { this.logger.trackMessageEvent(`${logTag}`, message); }
       else { this.logger.trackMessageEvent(`${logTag}, repeated`, message); }
