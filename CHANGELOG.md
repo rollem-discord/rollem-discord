@@ -1,5 +1,6 @@
-# **1.15.21**
+# **1.15.22**
 * Update to discord.js v12. Breaking changes.
+* Update to node 14.5.0
 
 # **1.15.20**
 * Tweak logging.
