@@ -1,4 +1,7 @@
-# **1.15.20*
+# **1.15.21**
+* Update to discord.js v12. Breaking changes.
+
+# **1.15.20**
 * Tweak logging.
 * Disable Inactivity Restart.
 
