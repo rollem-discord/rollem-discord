@@ -88,7 +88,7 @@ export class Logger {
   /** Tracks an error with AI using a console fallback. */
   public trackMessageError(name: string, message: Message, error?: Error) {
     if (this.aiClient) {
-      console.error(name, message, JSON.stringify(error));
+      console.error(name, message, util.inspect(error));
       error = error || new Error(name);
       this.aiClient.trackException({
         exception: error,
@@ -99,14 +99,14 @@ export class Logger {
         }
       })
     } else {
-      console.error(name, message, JSON.stringify(error));
+      console.error(name, message, util.inspect(error));
     }
   }
 
   /** Tracks an error with AI using a console fallback. */
   public trackError(name: string, error?: Error) {
     if (this.aiClient) {
-      console.error(name, JSON.stringify(error));
+      console.error(name, util.inspect(error));
       error = error || new Error(name);
       this.aiClient.trackException({
         exception: error,
@@ -116,7 +116,7 @@ export class Logger {
         }
       })
     } else {
-      console.error(name, JSON.stringify(error));
+      console.error(name, util.inspect(error));
     }
   }
 

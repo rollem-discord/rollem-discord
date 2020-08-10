@@ -53,7 +53,7 @@ export class DieOnErrorBehavior extends BehaviorBase {
   private handleUnhandledRejection(reason: {} | null | undefined, promise: Promise<any>) {
     if (reason instanceof Error)
       this.logger.trackError(`unhandled rejection - ${reason}`, reason);
-    this.logger.trackError(`unhandled rejection - ${reason} - ${JSON.stringify(reason)}`);
+    this.logger.trackError(`unhandled rejection - ${reason} - ${util.inspect(reason)}`);
 
     this.logger.flush();
   }

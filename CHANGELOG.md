@@ -1,5 +1,6 @@
-# **1.15.15**
-* Upgrade discord.js version
+# **1.15.20*
+* Tweak logging.
+* Disable Inactivity Restart.
 
 # **1.15.13**
 * Fix crit-range display in output.
