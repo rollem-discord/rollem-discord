@@ -32,14 +32,14 @@ export class HelpBehavior extends BehaviorBase {
 
       // stats and basic help
       if (content.startsWith('stats') || content.startsWith('help')) {
-        const guilds = this.client.guilds.map((g) => g.name);
+        const guilds = this.client.guilds.cache.map((g) => g.name);
         const uptime = moment.duration(this.client.uptime);
         const stats = [
           '',
           `**shard:** ${this.logger.shardName()}`,
           `**uptime:** ${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`,
-          `**servers:** ${this.client.guilds.size}`,
-          `**users:** ${this.client.users.size}`,
+          `**servers:** ${this.client.guilds.cache.size}`,
+          `**users:** ${this.client.users.cache.size}`,
           '',
           '- Docs at <http://rollem.rocks>',
           '- Try `@rollem changelog`',

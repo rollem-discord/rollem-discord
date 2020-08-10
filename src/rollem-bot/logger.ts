@@ -141,7 +141,7 @@ export class Logger {
   /** Constructs a one-index string identifying this shard. */
   public shardId() {
     if (!this.client) { return undefined; }
-    if (this.client.shard) { return this.client.shard.id + 1; }
+    if (this.client.shard) { return this.client.shard.ids.map(id => id + 1).join(", "); }
     if (this.config.HasShardInfo && typeof this.config.ShardId == "number") {
       return this.config.ShardId + 1;
     }
@@ -182,9 +182,9 @@ export class Logger {
   /** Adds common AI metrics to the given object (or creates one). Returns the given object. */
   private enrichAIMetrics(message: Message|null, object = {}) {
     if (this.client) {
-      object['Servers (per shard)'] = this.client.guilds.size;
-      object['Users (per shard)'] = this.client.users.size;
-      object['Uptime (minutes)'] = this.client.uptime / 1000 / 60;
+      object['Servers (per shard)'] = this.client.guilds.cache.size;
+      object['Users (per shard)'] = this.client.users.cache.size;
+      object['Uptime (minutes)'] = (this.client.uptime || 0) / 1000 / 60;
       object['Shard Count'] = this.shardCount();
       object['Shard ID'] = this.shardId();
     }

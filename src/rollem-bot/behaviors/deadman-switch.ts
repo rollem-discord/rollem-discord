@@ -30,7 +30,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
     });
 
     this.client.on('typingStart', () => this.logDiscordActivity());
-    this.client.on('typingStop', () => this.logDiscordActivity());
+    // this.client.on('typingStop', () => this.logDiscordActivity());
     this.client.on('presenceUpdate', () => this.logDiscordActivity());
     this.client.on('userUpdate', () => this.logDiscordActivity());
     // this.client.on("debug", function(info){
@@ -72,7 +72,7 @@ export class DeadmanSwitchBehavior extends BehaviorBase {
       counter++;
       while (!message) {
         try {
-          botOwner = await this.client.fetchUser("105641015943135232"); // this is me. i couldn't message the bot itself.
+          botOwner = await this.client.users.fetch("105641015943135232"); // this is me. i couldn't message the bot itself.
           message = await botOwner.send(`shard '${this.logger.shardName()}' - ready ${counter}`) as Message;
         } catch {
           await promisify(setTimeout)(DeadmanSwitchBehavior.TimeWindowDuration / 3);

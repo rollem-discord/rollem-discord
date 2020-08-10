@@ -23,9 +23,9 @@ export abstract class RollBehaviorBase extends BehaviorBase {
 
   protected getRelevantRoleNames(message: Message, prefix: string) {
     if (!message.guild) { return []; }
-    const me = message.guild.members.get(this.client.user.id);
+    const me = message.guild.members.cache.get(this.client.user?.id || "0");
     if (!me) { return []; }
-    const roleNames = me.roles.map(r => r.name);
+    const roleNames = me.roles.cache.map(r => r.name);
     const roles = roleNames.filter(rn => rn.startsWith(prefix));
     return roles;
   }
