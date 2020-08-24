@@ -6,7 +6,7 @@ import { RollemParserV1 } from "@language-v1/rollem-parser";
 import { RollemParserV2 } from "@language-v2/rollem-parser";
 import { Parsers } from "@bot/lib/parsers";
 
-import { Client } from "discord.js";
+import { Client, ClientOptions } from "discord.js";
 import { ChangeLog } from "./changelog";
 import { BehaviorBase } from "./behaviors/behavior-base";
 import assert = require("assert");
@@ -75,11 +75,11 @@ export namespace Bootstrapper {
     logger.trackSimpleEvent("Shard Count: " + config.ShardCount)
     logger.trackSimpleEvent("Logging in using token: " + config.Token);
 
-    const clientOptions =
+    const clientOptions: ClientOptions|undefined =
       config.HasShardInfo
       ? {
         shardCount: config.ShardCount,
-        shardId: config.ShardId }
+        shards: config.ShardId }
       : undefined;
 
     const client = new Client(clientOptions);

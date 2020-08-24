@@ -1,6 +1,7 @@
-# **1.15.23**
+# **1.15.24**
 * Update to discord.js v12. Breaking changes.
-* Update to node 14.5.0
+* Update to node 14.5.0.
+* Update sharding strategy.
 
 # **1.15.20**
 * Tweak logging.
