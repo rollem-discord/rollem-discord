@@ -153,7 +153,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
     return lines;
   }
 
-  /**
+  /** 
    * Replies to the message and logs, if necessary.
    * @param logTag The tag for this log path.
    * @param lines The grouped replies, or null.
@@ -162,7 +162,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   protected async replyAndLog(message: Message, logTag: string, lines: string[] | null): Promise<boolean> {
     if (lines && lines.length > 0) {
 
-      const response = "\n" + lines.join("\n ");
+      const response = "\n" + lines.join("\n");
 
       await message.reply(response).catch(rejected => this.handleSendRejection(message));
 
