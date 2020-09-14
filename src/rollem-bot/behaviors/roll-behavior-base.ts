@@ -87,7 +87,8 @@ export abstract class RollBehaviorBase extends BehaviorBase {
       result.value = result.value ? "**Success!**" : "**Failure!**";
     }
 
-    response += result.value + ' ⟵ ' + result.pretties;
+    //spacing out along with a nice formatting of the role number.
+    response += '` ' + result.value + ' `' + ' ⟵ ' + result.pretties.split(']').join('] ');
 
     return response;
   }
@@ -160,7 +161,9 @@ export abstract class RollBehaviorBase extends BehaviorBase {
    */
   protected async replyAndLog(message: Message, logTag: string, lines: string[] | null): Promise<boolean> {
     if (lines && lines.length > 0) {
-      const response = "\n" + lines.join("\n");
+      console.dir(lines);
+      const response = "\n" + lines.join("\n ");
+      console.dir(response);
       await message.reply(response).catch(rejected => this.handleSendRejection(message));
 
       if (lines.length === 1) { this.logger.trackMessageEvent(`${logTag}`, message); }
