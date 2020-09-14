@@ -87,7 +87,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
       result.value = result.value ? "**Success!**" : "**Failure!**";
     }
 
-    //spacing out along with a nice formatting of the role number.
+    //spacing out along with a nice formatting of the role number. 
     response += '` ' + result.value + ' `' + ' ⟵ ' + result.pretties.split(']').join('] ');
 
     return response;
