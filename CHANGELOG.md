@@ -1,4 +1,7 @@
-# **1.15.24**
+# **1.15.25**
+* Formatting tweak courtesy of riezahughes
+
+# **1.15.23**
 * Update to discord.js v12. Breaking changes.
 * Update to node 14.5.0.
 * Update sharding strategy.
