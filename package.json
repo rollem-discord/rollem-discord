@@ -22,7 +22,8 @@
     "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
     "build": "gulp build",
     "watch": "gulp watch",
-    "terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light"
+    "terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
   },
   "files": [
     "./"
@@ -41,7 +42,8 @@
     "@root": ".",
     "@language-v1": "rollem-dist/rollem-language-1/",
     "@language-v2": "rollem-dist/rollem-language-2/",
-    "@bot": "rollem-dist/rollem-bot"
+    "@bot": "rollem-dist/rollem-bot",
+    "@storage": "rollem-dist/storage/"
   },
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
@@ -50,7 +52,7 @@
     "@types/keyv": "^3.1.1",
     "@types/lodash": "^4.14.136",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^12.0.12",
+    "@types/node": "^14.10.2",
     "applicationinsights": "^1.0.2",
     "chai": "^3.5.0",
     "chance": "^1.1.5",

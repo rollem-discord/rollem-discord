@@ -5,6 +5,7 @@ import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import { Parsers } from "@bot/lib/parsers";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
+import { Storage } from "@storage/storage";
 
 /**
  * Parses things without any prefix, unless a prefix is configured via role-name.
@@ -14,14 +15,15 @@ export class ParseSoftBehavior extends RollBehaviorBase {
   constructor(
     parsers: Parsers,
     config: Config,
+    storage: Storage,
     repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
-  ) { super(parsers, config, repliedMessageCache, client, logger); }
+  ) { super(parsers, config, storage, repliedMessageCache, client, logger); }
 
   protected async register() {
     this.client.on('message', async message => {
-      // avoid doing insane things
+      // avoid doing absurd things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "soft")) { return; }

@@ -7,6 +7,7 @@ import { Injectable } from "injection-js";
 import { ContainerV1 } from "@language-v1/container";
 import { default as NodeCache } from "node-cache";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
+import { Storage } from "@storage/storage";
 
 // TODO: more fine-grained per-guild handlers with caching and all that
 
@@ -16,6 +17,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   constructor(
     protected readonly parsers: Parsers,
     protected readonly config: Config,
+    protected readonly storage: Storage,
     protected readonly repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
