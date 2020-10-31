@@ -13,10 +13,14 @@ export abstract class OldContainer {
   }
 
   public get depth(): number {
-    return Math.max(0, ...this.parentValues.map(parent => parent.depth));
+    return Math.max(0, ...this.parentValues.map(parent => parent.depth)) + 1;
   }
 
   public get dice(): number {
+    return this.dicePassthru;
+  }
+
+  protected get dicePassthru(): number {
     return _.sum([0, ...this.parentValues.map(parent => parent.dice)]);
   }
 }

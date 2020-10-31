@@ -32,6 +32,7 @@ describe('make-integer (syntax)', () => {
     const ctx = new TestContext("test");
     const delayedValue = parser.parse("-189465");
     const value = delayedValue(ctx);
+    debugger;
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(-189465);
     expect(value.pretties).to.equal("-189465");

@@ -1,19 +1,18 @@
-import { OldContainer } from "./old-container";
+import { Dice } from "./dice";
 import { ParamType } from "./param-type";
 import { Value } from "./value";
-import { Values } from "./values";
 
-export class Dice extends Values {
+export class DicePassthru extends Dice {
   public readonly $howMany: Value;
   public readonly $dieSize: Value;
 
-  constructor(input: ParamType<Dice>) {
+  constructor(input: ParamType<DicePassthru>) {
     super(input);
     this.$howMany = input.$howMany;
     this.$dieSize = input.$dieSize;
   }
 
   public get dice() {
-    return super.dice + this.$howMany.value;
+    return this.dicePassthru;
   }
 }

@@ -5,3 +5,4 @@ export * from './delayed';
 export * from './context';
 export * from './value';
 export * from './values';
+export * from './dice-passthru';

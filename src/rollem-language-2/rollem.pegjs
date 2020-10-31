@@ -3,31 +3,35 @@
 }
 
 start
-  = result: Expression label:Label? {
+  = result: Expression0 label:Label? {
     result.label = label;
     result.values = [result.value];
     return result;
   }
 
-Label
+Label "label"
  = _____ label:(Garbage)? {
    return label;
  }
 
-Expression
-  = UnaryMinus
+Expression0 "expression 0"
+  = Expression1
+  / UnaryMinus
+
+Expression1 "expression 1"
+  = RollSimple
     /
-    RollSimple
+    PositiveInteger
     /
     Integer
 
-UnaryMinus
-  = "-" e:Expression {
+UnaryMinus "unary minus"
+  = "-" e:Expression0 {
     return unaryMinus(e);
   }
 
-RollSimple
-  = left:PositiveInteger? [dD] right:Integer {
+RollSimple "roll(simple)"
+  = left:PositiveInteger? [dD] right:PositiveInteger {
     return rollSimple(left, right);
   }
 
