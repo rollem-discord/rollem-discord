@@ -3,7 +3,7 @@
 }
 
 start
-  = result: Comparator label:Label? {
+  = result: Expression label:Label? {
     result.label = label;
     result.values = [result.value];
     return result;
@@ -14,18 +14,30 @@ Label
    return label;
  }
 
-Comparator
-  = RollSimple
+Expression
+  = UnaryMinus
+    /
+    RollSimple
     /
     Integer
 
+UnaryMinus
+  = "-" e:Expression {
+    return unaryMinus(e);
+  }
+
 RollSimple
-  = left:Integer? [dD] right:Integer {
+  = left:PositiveInteger? [dD] right:Integer {
     return rollSimple(left, right);
   }
 
 Integer "integer"
   = "-"?[0-9]+ {
+      return makeInteger(text());
+    }
+
+PositiveInteger "positive integer"
+  = [0-9]+ {
       return makeInteger(text());
     }
 

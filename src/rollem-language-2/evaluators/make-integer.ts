@@ -4,13 +4,10 @@ import { Delayed } from "@language-v2/types/delayed";
 
 export function makeInteger(text: string): Delayed<OldContainer> {
   const v = parseInt(text, 10);
-  return (_) => new Integer({
-    value: v,
-    values: [ v ],
-    pretties: text,
-    depth: 1,
-    dice: 0
-  });
+  return (ctx) => {
+    ctx.trace(`make-integer: ${v}`);
+    return Integer.fromNumber(v);
+  };
 }
 
 // export type Delayed<T> = (context: Context) => T;

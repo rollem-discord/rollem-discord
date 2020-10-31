@@ -26,7 +26,7 @@ export class StorageBehavior extends RollBehaviorBase {
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "storage")) { return; }
-      if (this.shouldDefer(message)) { return; }
+      if (await this.shouldDefer(message)) { return; }
 
       const user = await this.storage.getOrCreateUser(message.author.id)
 

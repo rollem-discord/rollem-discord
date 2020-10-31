@@ -11,7 +11,6 @@ describe('make-integer (syntax)', () => {
     const value = delayedValue(ctx);
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(5);
-    expect(value.values).to.eql([5]);
     expect(value.pretties).to.equal("5");
     expect(value.dice).to.equal(0);
     expect(value.depth).to.equal(1);
@@ -24,7 +23,6 @@ describe('make-integer (syntax)', () => {
     const value = delayedValue(ctx);
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(189465);
-    expect(value.values).to.eql([189465]);
     expect(value.pretties).to.equal("189465");
     expect(value.dice).to.equal(0);
     expect(value.depth).to.equal(1);
@@ -36,7 +34,6 @@ describe('make-integer (syntax)', () => {
     const value = delayedValue(ctx);
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(-189465);
-    expect(value.values).to.eql([-189465]);
     expect(value.pretties).to.equal("-189465");
     expect(value.dice).to.equal(0);
     expect(value.depth).to.equal(1);
