@@ -20,10 +20,27 @@
       : size;
     if (minimumExplodeSize <= 1) { error("Explode value must be greater than 1.", "CUSTOM"); }
     if (minimumExplodeSize < size/1000) { error("Explode chance must be less than 99.9%", "CUSTOM"); }
-    do {
-      var last_roll = Math.floor(Math.random() * size) + 1;
-      all_rolls.push(last_roll);
-    } while (last_roll >= minimumExplodeSize && explodeConfiguration)
+    if (explodeConfiguration.operator === "oe") {
+      var minimumExplodeUpSize = Math.ceil(size * 0.95) + 1;
+      var maximumExplodeDownSize = Math.ceil(size * 0.05) + 1;
+      var sign = 1;
+      do {
+        var last_roll = Math.floor(Math.random() * size) + 1;
+        // first roll
+        if (all_rolls.length == 0 && last_roll <= maximumExplodeDownSize) {
+          sign = -1;
+          all_rolls.push(last_roll);
+          last_roll = size;
+        } else {
+          all_rolls.push(sign * last_roll);
+        }
+      } while (last_roll >= minimumExplodeUpSize && explodeConfiguration)
+    } else {
+      do {
+        var last_roll = Math.floor(Math.random() * size) + 1;
+        all_rolls.push(last_roll);
+      } while (last_roll >= minimumExplodeSize && explodeConfiguration)
+    }
     return all_rolls;
   }
 
@@ -179,9 +196,13 @@
 
     var pretties = "[" + prettiesArr.join(", ") + "]" + count + "d" + right.pretties;
     if (explodeConfiguration) {
-      pretties = pretties + "!";
-      if (explodeConfiguration.value) {
-        pretties = pretties + explodeConfiguration.value;
+      if (explodeConfiguration.operator === "oe") {
+        pretties = pretties + "oe";
+      } else {
+        pretties = pretties + "!";
+        if (explodeConfiguration.value) {
+          pretties = pretties + explodeConfiguration.value;
+        }
       }
     }
 
@@ -406,6 +427,12 @@ ExplodeConfiguration
     return {
       operator: "!",
       value: value && value.value || null
+    }
+  }
+  / "oe" {
+    return {
+      operator: "oe",
+      value: null
     }
   }
 
