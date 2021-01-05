@@ -20,7 +20,7 @@
       : size;
     if (minimumExplodeSize <= 1) { error("Explode value must be greater than 1.", "CUSTOM"); }
     if (minimumExplodeSize < size/1000) { error("Explode chance must be less than 99.9%", "CUSTOM"); }
-    if (explodeConfiguration.operator === "oe") {
+    if (explodeConfiguration && explodeConfiguration.operator === "oe") {
       var minimumExplodeUpSize = Math.ceil(size * 0.95) + 1;
       var maximumExplodeDownSize = Math.ceil(size * 0.05) + 1;
       var sign = 1;
