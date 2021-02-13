@@ -21,11 +21,11 @@ spec:
             memory: 250M
         env:
         - name: 'reboot'
-          value: '2020-10-06'
+          value: '2021-01-19'
         - name: DISCORD_BOT_SHARD_ID
           value: '19'
         - name: DISCORD_BOT_SHARD_COUNT
-          value: '25'
+          value: '30'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
