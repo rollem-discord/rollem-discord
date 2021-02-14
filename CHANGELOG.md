@@ -1,3 +1,7 @@
+# **1.16.0**
+* Beginnings of storage.
+* Connect to database on startup.
+
 # **1.15.26**
 * Formatting tweak courtesy of riezahughes
 

@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: rollem-beta
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
@@ -22,7 +22,7 @@ spec:
             memory: 100M
         env:
         - name: 'reboot'
-          value: '2020-04-29'
+          value: '2021-02-12.6'
         - name: DISCORD_BOT_SHARD_ID
           value: '1'
         - name: DISCORD_BOT_SHARD_COUNT

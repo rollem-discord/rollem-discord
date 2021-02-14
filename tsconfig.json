@@ -45,6 +45,9 @@
       "@language-v2/*": [
         "src/rollem-language-2/*"
       ],
+      "@storage/*": [
+        "src/storage/*"
+      ],
       "@bot/*": [
         "src/rollem-bot/*"
       ],

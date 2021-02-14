@@ -5,6 +5,7 @@ import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
+import { Storage } from "@storage/storage";
 
 /**
  * Parses things with the following prefixes:
@@ -19,16 +20,17 @@ export class ParseNamePrefixedBehavior extends RollBehaviorBase {
   constructor(
     parsers: Parsers,
     config: Config,
+    storage: Storage,
     repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
-  ) { super(parsers, config, repliedMessageCache, client, logger); }
+  ) { super(parsers, config, storage, repliedMessageCache, client, logger); }
 
   protected async register() {
     // TODO: Split this up. Combine common bail rules.
     // inline and convenience messaging
     this.client.on('message', async message => {
-      // avoid doing insane things
+      // avoid doing absurd things
       if (message.author.bot) { return; }
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "prefixed")) { return; }
       if (message.author == this.client.user) { return; }

@@ -1,23 +1,26 @@
-export interface OldContainerInput {
-  value: number;
-  values: number[];
-  pretties: string;
-  depth: number;
-  dice: number;
-}
+import _ from "lodash";
+import { ParamType } from "./param-type";
 
-export class OldContainer {
+export abstract class OldContainer {
   public readonly value: number;
-  public readonly values: number[];
   public readonly pretties: string;
-  public readonly depth: number;
-  public readonly dice: number;
+  public readonly parentValues: OldContainer[];
 
-  constructor(input: OldContainerInput) {
+  constructor(input: ParamType<OldContainer>) {
     this.value = input.value;
-    this.values = input.values;
     this.pretties = input.pretties;
-    this.depth = input.depth;
-    this.dice = input.dice;
+    this.parentValues = input.parentValues;
+  }
+
+  public get depth(): number {
+    return Math.max(0, ...this.parentValues.map(parent => parent.depth)) + 1;
+  }
+
+  public get dice(): number {
+    return this.dicePassthru;
+  }
+
+  protected get dicePassthru(): number {
+    return _.sum([0, ...this.parentValues.map(parent => parent.dice)]);
   }
 }

@@ -15,6 +15,7 @@ import { Bootstrapper } from "./bootstrap";
 import { ParseBracketedBehavior } from "./behaviors/parse-bracketed.behavior";
 import { ParseNamePrefixedBehavior } from "./behaviors/parse-name-prefixed.behavior";
 import { ParseShortPrefixBehavior } from "./behaviors/parse-short-prefixed.behavior";
+import { StorageBehavior } from "./behaviors/storage.behavior";
 
 /** The behaviors in the order in which they will be loaded. */
 const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
@@ -28,10 +29,12 @@ const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
   ParseShortPrefixBehavior,
   ParseSoftBehavior,
   DeadmanSwitchBehavior,
+  // StorageBehavior,
 ];
 
 async function bootstrap() {
   const topLevelInjector    = Bootstrapper.buildTopLevelProviders();
+                              await Bootstrapper.prepareStorage(topLevelInjector);
                               Bootstrapper.prepareChangelog(topLevelInjector);
   const client              = Bootstrapper.prepareClient(topLevelInjector);
   const clientLevelInjector = Bootstrapper.createClientContext(topLevelInjector, client, ORDERED_BEHAVIORS);

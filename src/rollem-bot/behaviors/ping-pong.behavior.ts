@@ -4,7 +4,7 @@ import { Logger } from "@bot/logger";
 import { Injectable } from "injection-js";
 
 /**
- * Replies with "pong" whem DM'd "ping".
+ * Replies with "pong" when DM'd "ping".
  */
 @Injectable()
 export class PingPongBehavior extends BehaviorBase {

@@ -3,29 +3,45 @@
 }
 
 start
-  = result: Comparator label:Label? {
+  = result: Expression0 label:Label? {
     result.label = label;
     result.values = [result.value];
     return result;
   }
 
-Label
+Label "label"
  = _____ label:(Garbage)? {
    return label;
  }
 
-Comparator
+Expression0 "expression 0"
+  = Expression1
+  / UnaryMinus
+
+Expression1 "expression 1"
   = RollSimple
+    /
+    PositiveInteger
     /
     Integer
 
-RollSimple
-  = left:Integer? [dD] right:Integer {
+UnaryMinus "unary minus"
+  = "-" e:Expression0 {
+    return unaryMinus(e);
+  }
+
+RollSimple "roll(simple)"
+  = left:PositiveInteger? [dD] right:PositiveInteger {
     return rollSimple(left, right);
   }
 
 Integer "integer"
   = "-"?[0-9]+ {
+      return makeInteger(text());
+    }
+
+PositiveInteger "positive integer"
+  = [0-9]+ {
       return makeInteger(text());
     }
 

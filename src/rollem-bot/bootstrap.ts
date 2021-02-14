@@ -13,6 +13,7 @@ import assert = require("assert");
 import { InjectorWrapper } from "./lib/injector-wrapper";
 import { Newable } from "./lib/utility-types";
 import { RepliedMessageCache } from "./lib/replied-message-cache";
+import { Storage } from "@storage/storage";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -25,6 +26,7 @@ export namespace Bootstrapper {
         [
           Logger,
           Config,
+          { provide: Storage, useValue: new Storage() },
           ChangeLog,
           RollemParserV1,
           RollemParserV2,
@@ -46,8 +48,17 @@ export namespace Bootstrapper {
     assert(!!parsers, "DI failed to resolve parsers");
     const repliedMessageCache = topLevelInjector.get(RepliedMessageCache);
     assert(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
+    const storage = topLevelInjector.get(Storage);
+    assert(!!storage, "DI failed to resolve storage");
 
     return topLevelInjector;
+  }
+
+  /** Starts reading the changelog and updates logger with it. */
+  export async function prepareStorage(topLevelInjector: InjectorWrapper) {
+    const logger = topLevelInjector.get(Logger);
+    await topLevelInjector.get(Storage).initialize();
+    logger.trackSimpleEvent(`Connected to postgres`);
   }
 
   /** Starts reading the changelog and updates logger with it. */

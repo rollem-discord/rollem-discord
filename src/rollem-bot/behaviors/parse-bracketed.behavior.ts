@@ -7,6 +7,7 @@ import { Injectable } from "injection-js";
 import _ from "lodash";
 import { join } from "path";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
+import { Storage } from "@storage/storage";
 
 /**
  * Parses things with the following prefixes:
@@ -21,20 +22,21 @@ export class ParseBracketedBehavior extends RollBehaviorBase {
   constructor(
     parsers: Parsers,
     config: Config,
+    storage: Storage,
     repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
-  ) { super(parsers, config, repliedMessageCache, client, logger); }
+  ) { super(parsers, config, storage, repliedMessageCache, client, logger); }
 
   protected async register() {
     // TODO: Combine common bail rules.
     // inline and convenience messaging
     this.client.on('message', async message => {
-      // avoid doing insane things
+      // avoid doing absurd things
       if (message.author.bot) { return; }
       if (message.author == this.client.user) { return; }
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "bracketed")) { return; }
-      if (this.shouldDefer(message)) { return; }
+      if (await this.shouldDefer(message)) { return; }
 
       let content = message.content.trim();
 

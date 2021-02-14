@@ -7,6 +7,7 @@ import { Injectable } from "injection-js";
 import { ContainerV1 } from "@language-v1/container";
 import { default as NodeCache } from "node-cache";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
+import { Storage } from "@storage/storage";
 
 // TODO: more fine-grained per-guild handlers with caching and all that
 
@@ -16,6 +17,7 @@ export abstract class RollBehaviorBase extends BehaviorBase {
   constructor(
     protected readonly parsers: Parsers,
     protected readonly config: Config,
+    protected readonly storage: Storage,
     protected readonly repliedMessageCache: RepliedMessageCache,
     client: Client,
     logger: Logger,
@@ -47,18 +49,19 @@ export abstract class RollBehaviorBase extends BehaviorBase {
     return true;
   }
 
-  protected shouldDefer(message: Message) {
+  protected async shouldDefer(message: Message) {
     if (!message.guild) { return false; }
     if (!message.channel) { return false; }
     if (!(message.channel instanceof TextChannel)) { return false; }
 
-    const members = message.channel && message.channel.members;
+    const channel = await message.channel.fetch();
+    const members = channel.members;
     if (!members) { return false; }
-
+    
     const deferToMembers =
-      this.config.deferToClientIds.filter(id => {
-        const member = members.get(id);
-        const isOnline = member && member.presence && member.presence.status === 'online';
+      this.config.deferToClientIds.filter(userId => {
+        const member = members.get(userId);
+        const isOnline = member?.presence && member.presence.status === 'online';
         return isOnline;
       }).map(id => members.get(id) as GuildMember);
 
