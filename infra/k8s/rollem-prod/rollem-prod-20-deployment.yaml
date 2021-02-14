@@ -29,15 +29,20 @@ spec:
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
-              name: rollem-prod
+              name: rollem-prod-2
               key: DISCORD_BOT_USER_TOKEN
         - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
           valueFrom:
             secretKeyRef:
-              name: rollem-prod
+              name: rollem-prod-2
               key: APPINSIGHTS_INSTRUMENTATIONKEY
         - name: 'DEFER_TO_CLIENT_IDS'
           valueFrom:
             secretKeyRef:
-              name: rollem-prod
+              name: rollem-prod-2
               key: DEFER_TO_CLIENT_IDS
+        - name: 'DB_CONNECTION_STRING'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod-2
+              key: DB_CONNECTION_STRING
