@@ -48,6 +48,8 @@ export namespace Bootstrapper {
     assert(!!parsers, "DI failed to resolve parsers");
     const repliedMessageCache = topLevelInjector.get(RepliedMessageCache);
     assert(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
+    const storage = topLevelInjector.get(Storage);
+    assert(!!storage, "DI failed to resolve storage");
 
     return topLevelInjector;
   }
@@ -55,7 +57,7 @@ export namespace Bootstrapper {
   /** Starts reading the changelog and updates logger with it. */
   export async function prepareStorage(topLevelInjector: InjectorWrapper) {
     const logger = topLevelInjector.get(Logger);
-    await topLevelInjector.get(Storage).initialize()
+    await topLevelInjector.get(Storage).initialize();
     logger.trackSimpleEvent(`Connected to postgres`);
   }
 
