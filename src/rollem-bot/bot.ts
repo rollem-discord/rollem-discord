@@ -29,7 +29,7 @@ const ORDERED_BEHAVIORS: Newable<BehaviorBase>[] = [
   ParseShortPrefixBehavior,
   ParseSoftBehavior,
   DeadmanSwitchBehavior,
-  // StorageBehavior,
+  StorageBehavior,
 ];
 
 async function bootstrap() {

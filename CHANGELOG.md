@@ -1,3 +1,6 @@
+# **1.16.1**
+* Enable DB hit per message
+
 # **1.16.0**
 * Beginnings of storage.
 * Connect to database on startup.
