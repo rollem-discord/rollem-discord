@@ -36,9 +36,16 @@ export class Storage {
       type: "postgres",
       url: process.env.DB_CONNECTION_STRING,
       ssl: { rejectUnauthorized: false },
+      synchronize: true,
       connectTimeoutMS: 500,
       entities: [
         "rollem-dist/storage/entity/*.js",
+      ],
+      migrations: [
+         "src/storage/migration/**/*.ts"
+      ],
+      subscribers: [
+         "src/storage/subscriber/**/*.ts"
       ],
     });
   }
