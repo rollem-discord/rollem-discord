@@ -11,9 +11,9 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/rollem-dist/rollem-bot/bot.js",
+      "program": "${workspaceFolder}/rollem-bot/rollem-dist/rollem-bot/bot.js",
       "envFile": "${workspaceFolder}/secrets/vscode.env",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/rollem-bot/",
       "sourceMaps": true
     }
   ]
