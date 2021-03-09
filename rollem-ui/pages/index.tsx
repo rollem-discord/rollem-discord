@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { getSortedDocsData } from '../lib/get-docs-data';
 import styles from '../styles/Home.module.css';
+import Button from '@material-ui/core/Button';
 
 export default function Home({ allDocsData }) {
   return (
@@ -13,6 +14,10 @@ export default function Home({ allDocsData }) {
 
       <Link href="/docs">Docs</Link>
       <Link href="/presskit">Presskit</Link>
+
+    <Button variant="contained" color="primary">
+      Hello World
+    </Button>
 
       {/* Add this <section> tag below the existing <section> tag */}
       <section>
