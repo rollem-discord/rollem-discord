@@ -4,17 +4,17 @@ import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 
-const postsDirectory = path.join(process.cwd(), 'docs')
+const docsDirectory = path.join(process.cwd(), 'docs')
 
 export function getSortedDocsData() {
-  // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory)
+  // Get file names under /docs
+  const fileNames = fs.readdirSync(docsDirectory)
   const allDocsData = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '')
 
     // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName)
+    const fullPath = path.join(docsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
     // Use gray-matter to parse the post metadata section
@@ -26,7 +26,7 @@ export function getSortedDocsData() {
       ...(matterResult.data as { date: string; title: string })
     }
   })
-  // Sort posts by date
+  // Sort docs by date
   return allDocsData.sort((a, b) => {
     if (a.date < b.date) {
       return 1
@@ -36,8 +36,8 @@ export function getSortedDocsData() {
   })
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory)
+export function getAllDocIds() {
+  const fileNames = fs.readdirSync(docsDirectory)
   return fileNames.map(fileName => {
     return {
       params: {
@@ -47,8 +47,8 @@ export function getAllPostIds() {
   })
 }
 
-export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
+export async function getDocData(id: string) {
+  const fullPath = path.join(docsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
   // Use gray-matter to parse the post metadata section
@@ -61,9 +61,13 @@ export async function getPostData(id: string) {
   const contentHtml = processedContent.toString()
 
   // Combine the data with the id and contentHtml
-  return {
+  const result = {
     id,
     contentHtml,
     ...(matterResult.data as { date: string; title: string })
   }
+
+  delete result['orig'];
+
+  return result;
 }
