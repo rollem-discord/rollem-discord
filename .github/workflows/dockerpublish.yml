@@ -80,6 +80,7 @@ jobs:
 
           docker tag image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
   push-ui:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -88,15 +89,19 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set Directory
+        working-directory: ./rollem-ui
         run: cd rollem-ui
 
       - name: Build image
+        working-directory: ./rollem-ui
         run: docker build . --file Dockerfile --tag image
 
       - name: Log into docker hub registry
+        working-directory: ./rollem-ui
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
 
       - name: Push image to docker hub registry
+        working-directory: ./rollem-ui
         run: |
           IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$UI_IMAGE_NAME
           
@@ -119,9 +124,11 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Log into github registry
+        working-directory: ./rollem-ui
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image to github
+        working-directory: ./rollem-ui
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$UI_IMAGE_NAME
           
