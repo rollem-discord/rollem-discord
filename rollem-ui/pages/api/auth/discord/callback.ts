@@ -1,10 +1,9 @@
-import OAuth from 'discord-oauth2';
 import DiscordOauth2 from 'discord-oauth2';
 import util from 'util';
 const oauth = new DiscordOauth2({
-  clientId: '240732567744151553',
+  clientId: process.env.DISCORD_CLIENT_ID,
   clientSecret: process.env.DISCORD_CLIENT_SECRET,
-  redirectUri: 'http://localhost:3000/api/auth/discord/callback',
+  redirectUri: process.env.DISCORD_REDIRECT_URI,
 });
 
 import { NextApiRequest, NextApiResponse } from "next";
