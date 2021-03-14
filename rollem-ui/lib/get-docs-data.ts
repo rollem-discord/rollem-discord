@@ -3,7 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
-import util from "util";
 
 import { chain, clone, flatMapDeep, map, sortBy } from "lodash";
 import remarkGfm from "remark-gfm";
@@ -30,7 +29,6 @@ export interface DocsDataTree {
 /** Gets the docs data. Sorted. Recursive. */
 export function getSortedDocsData(): DocsDataTree[] {
   const docs = getSortedDocsDataInternal(docsDirectory);
-  console.log(util.inspect(docs, false, null, true /* enable colors */));
   return docs;
 }
 
@@ -129,7 +127,7 @@ export function getAllDocIds() {
 }
 
 export async function getDocData(id: string[]) {
-  id = id.filter(v => v !== '.' && v !== '..');
+  id = id.filter((v) => v !== "." && v !== "..");
   const fileContents = getPathContents(id);
 
   // Use gray-matter to parse the post metadata section
@@ -155,16 +153,15 @@ export async function getDocData(id: string[]) {
 }
 
 function getPathContents(id: string[]): string {
-
-  id = id.filter(v => v !== '.' && v !== '..');
-  const childPath = path.join(docsDirectory, ...id) + '.md';
+  id = id.filter((v) => v !== "." && v !== "..");
+  const childPath = path.join(docsDirectory, ...id) + ".md";
   if (fs.existsSync(childPath)) {
     if (fs.statSync(childPath).isFile()) {
       return fs.readFileSync(childPath, "utf8");
     }
   }
 
-  const indexPath = path.join(docsDirectory, ...id, 'index.md');
+  const indexPath = path.join(docsDirectory, ...id, "index.md");
   if (fs.existsSync(indexPath)) {
     if (fs.statSync(indexPath).isFile()) {
       return fs.readFileSync(indexPath, "utf8");
@@ -172,4 +169,10 @@ function getPathContents(id: string[]): string {
   }
 
   throw new Error(`404: ${childPath} + ${indexPath}`);
+}
+
+export function makePropsAllDocData(): { allDocsData: DocsDataTree[] } {
+  return {
+    allDocsData: getSortedDocsData(),
+  };
 }

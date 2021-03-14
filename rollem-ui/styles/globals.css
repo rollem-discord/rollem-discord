@@ -18,3 +18,8 @@ a {
 a.active {
   border-bottom: 2px solid white;
 }
+
+#__next {
+  height: 100%;
+  width: 100%;
+}

@@ -2,20 +2,23 @@ import Head from 'next/head'
 import Date from '../components/date'
 import utilStyles from '../styles/utils.module.scss'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { getAllDocIds, getDocData } from '../lib/get-docs-data'
+import { DocsDataTree, getAllDocIds, getDocData, makePropsAllDocData } from '../lib/get-docs-data'
 import DocsLayout from '../components/layouts/docs'
+import RootLayout from '../components/layouts/RootLayout'
 
 export default function Post({
-  postData
+  postData,
+  allDocsData,
 }: {
   postData: {
     title: string
     date: string
     contentHtml: string
-  }
+  },
+  allDocsData: DocsDataTree[],
 }) {
   return (
-    <DocsLayout>
+    <RootLayout allDocsData={allDocsData}>
       <Head>
         <title>{postData.title}</title>
       </Head>
@@ -26,7 +29,7 @@ export default function Post({
         </div> */}
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
-    </DocsLayout>
+    </RootLayout>
   )
 }
 
@@ -44,7 +47,8 @@ export const getStaticProps: GetStaticProps = async ({ params }: { params: { id:
   const postData = await getDocData(params.id);
   return {
     props: {
-      postData
+      postData,
+      ...makePropsAllDocData(),
     }
   }
 }

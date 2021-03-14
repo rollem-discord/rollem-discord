@@ -1,9 +1,8 @@
 import Head from 'next/head'
 import { useEffect } from 'react';
-import NavLayout from '../components/layouts/nav';
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }): JSX.Element {
 
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -29,9 +28,7 @@ function MyApp({ Component, pageProps }) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      <NavLayout>
-        <Component {...pageProps} />
-      </NavLayout>
+      <Component {...pageProps} />
     </>
   )
 }

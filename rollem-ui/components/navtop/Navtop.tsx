@@ -44,7 +44,7 @@ export default function NavTop() {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6">
-            News
+            Rollem Rocks
           </Typography>
           <ActiveLink href={`/docs`} activeClassName={classes.activeLink}><a>Docs</a></ActiveLink>
           <span className={classes.spacer}></span>
