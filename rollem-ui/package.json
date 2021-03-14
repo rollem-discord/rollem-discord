@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "package": "docker build -t rollem-ui .",
+    "package:start": "docker run -p 3001:3000 --env-file ./secrets/vscode.env rollem-ui"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
