@@ -38,7 +38,7 @@ function getSortedDocsDataInternal(
   parentRoute: string[] = []
 ): DocsDataTree[] {
   const fileNames = fs.readdirSync(directoryName);
-  console.log(fileNames);
+  // console.log(fileNames);
   return fileNames
     .map((fileName) => {
       const pathId = fileName.replace(/\.md$/, "");
@@ -113,6 +113,7 @@ export function getAllDocIds() {
     ...chain(flattenedDocData)
       .flatMap((v) => v?.children)
       .map((v) => v?.item)
+      .filter(v => !!v)
       .value(),
   ];
   return flat2
@@ -154,10 +155,12 @@ export async function getDocData(id: string[]) {
 
 function getPathContents(id: string[]): string {
   id = id.filter((v) => v !== "." && v !== "..");
-  const childPath = path.join(docsDirectory, ...id) + ".md";
-  if (fs.existsSync(childPath)) {
-    if (fs.statSync(childPath).isFile()) {
-      return fs.readFileSync(childPath, "utf8");
+  if (id.length > 0) {
+    const childPath = path.join(docsDirectory, ...id) + ".md";
+    if (fs.existsSync(childPath)) {
+      if (fs.statSync(childPath).isFile()) {
+        return fs.readFileSync(childPath, "utf8");
+      }
     }
   }
 
@@ -168,7 +171,7 @@ function getPathContents(id: string[]): string {
     }
   }
 
-  throw new Error(`404: ${childPath} + ${indexPath}`);
+  throw new Error(`404: ${indexPath}`);
 }
 
 export function makePropsAllDocData(): { allDocsData: DocsDataTree[] } {

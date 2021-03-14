@@ -32,7 +32,6 @@ export default function Home({
 }
 
 export async function getStaticProps(): Promise<{ props: { postData: unknown, allDocsData: DocsDataTree[]} }> {
-  const allDocsData = getSortedDocsData();
   const postData = await getDocData([]);
   return {
     props: {

@@ -25,7 +25,7 @@ function makeTree(treeNode: DocsDataTree): JSX.Element {
 }
 
 function makeEntry(data: DocsData): JSX.Element {
-  console.log(data);
+  // console.log(data);
   if (!data) { return <></>; }
   const path = '/' + data.route.join('/');
   return (

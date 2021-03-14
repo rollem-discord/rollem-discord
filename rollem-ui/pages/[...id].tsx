@@ -1,9 +1,7 @@
 import Head from 'next/head'
-import Date from '../components/date'
 import utilStyles from '../styles/utils.module.scss'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { DocsDataTree, getAllDocIds, getDocData, makePropsAllDocData } from '../lib/get-docs-data'
-import DocsLayout from '../components/layouts/docs'
 import RootLayout from '../components/layouts/RootLayout'
 
 export default function Post({
@@ -34,16 +32,14 @@ export default function Post({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllDocIds()
+  const paths = getAllDocIds().filter(path => path.params.id.length !== 0);
   return {
     paths: paths,
-    fallback: false
+    fallback: false,
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }: { params: { id: string[] }}) => {
-  console.log(params)
-  console.log('Viewing: ', params.id);
   const postData = await getDocData(params.id);
   return {
     props: {
