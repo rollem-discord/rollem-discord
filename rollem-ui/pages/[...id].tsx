@@ -41,7 +41,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }: { params: { id: string[] }}) => {
   console.log(params)
   console.log('Viewing: ', params.id);
-  const postData = await getDocData(params.id.join('/'));
+  const postData = await getDocData(params.id);
   return {
     props: {
       postData

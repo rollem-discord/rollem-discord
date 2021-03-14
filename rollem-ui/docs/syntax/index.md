@@ -12,6 +12,7 @@ This is the full syntax. Navigate to pages for specific syntax and examples / ex
 
 X/Y/Z are integers. A and B are arbitrary Expressions.
 
+
 | Syntax            |                                                                                                                                                          |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `XdY`             | Rolls X dice of Y size. `4d6` rolls 4 six-sided dice.                                                                                                    |

@@ -6,6 +6,7 @@ import html from "remark-html";
 import util from "util";
 
 import { chain, clone, flatMapDeep, map, sortBy } from "lodash";
+import remarkGfm from "remark-gfm";
 
 const docsDirectory = path.join(process.cwd(), "docs");
 
@@ -127,9 +128,9 @@ export function getAllDocIds() {
     });
 }
 
-export async function getDocData(id: string) {
-  const fullPath = path.join(docsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+export async function getDocData(id: string[]) {
+  id = id.filter(v => v !== '.' && v !== '..');
+  const fileContents = getPathContents(id);
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -137,6 +138,7 @@ export async function getDocData(id: string) {
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
     .use(html)
+    .use(remarkGfm)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
@@ -150,4 +152,24 @@ export async function getDocData(id: string) {
   delete result["orig"];
 
   return result;
+}
+
+function getPathContents(id: string[]): string {
+
+  id = id.filter(v => v !== '.' && v !== '..');
+  const childPath = path.join(docsDirectory, ...id) + '.md';
+  if (fs.existsSync(childPath)) {
+    if (fs.statSync(childPath).isFile()) {
+      return fs.readFileSync(childPath, "utf8");
+    }
+  }
+
+  const indexPath = path.join(docsDirectory, ...id, 'index.md');
+  if (fs.existsSync(indexPath)) {
+    if (fs.statSync(indexPath).isFile()) {
+      return fs.readFileSync(indexPath, "utf8");
+    }
+  }
+
+  throw new Error(`404: ${childPath} + ${indexPath}`);
 }
