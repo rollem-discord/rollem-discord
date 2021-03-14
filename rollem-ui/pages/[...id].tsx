@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Date from '../../components/date'
-import utilStyles from '../../styles/utils.module.scss'
+import Date from '../components/date'
+import utilStyles from '../styles/utils.module.scss'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { getAllDocIds, getDocData } from '../../lib/get-docs-data'
-import DocsLayout from '../../components/layouts/docs'
+import { getAllDocIds, getDocData } from '../lib/get-docs-data'
+import DocsLayout from '../components/layouts/docs'
 
 export default function Post({
   postData
@@ -21,9 +21,9 @@ export default function Post({
       </Head>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+        {/* <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
-        </div>
+        </div> */}
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
     </DocsLayout>
@@ -33,13 +33,15 @@ export default function Post({
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllDocIds()
   return {
-    paths,
+    paths: paths,
     fallback: false
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getDocData(params.id as string)
+export const getStaticProps: GetStaticProps = async ({ params }: { params: { id: string[] }}) => {
+  console.log(params)
+  console.log('Viewing: ', params.id);
+  const postData = await getDocData(params.id.join('/'));
   return {
     props: {
       postData

@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { getSortedDocsData } from '../lib/get-docs-data';
+import { DocsData, DocsDataTree, getSortedDocsData } from '../lib/get-docs-data';
 import styles from '../styles/Home.module.css';
 import Button from '@material-ui/core/Button';
+import { TransitEnterexitOutlined } from '@material-ui/icons';
 
-export default function Home({ allDocsData }) {
+export default function Home({ allDocsData }: { allDocsData: DocsDataTree[] }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -23,16 +24,9 @@ export default function Home({ allDocsData }) {
       <section>
         <h2>Blog</h2>
         <ul>
-          {allDocsData.map(({ id, date, title }) => (
-            <li key={id}>
-              {title}
-              <br />
-              {id}
-              <br />
-              {date}
-            </li>
-          ))}
+          {allDocsData.map(node => makeTree(node))}
         </ul>
+        <h2>end</h2>
       </section>
 
       <footer className={styles.footer}>
@@ -49,11 +43,34 @@ export default function Home({ allDocsData }) {
   )
 }
 
-export async function getStaticProps() {
+function makeTree(treeNode: DocsDataTree, parentPath: string = '/') {
+  return (
+    <li>
+      {makeEntry(treeNode?.item, parentPath)}
+      <ul>
+        {treeNode?.children?.map(child => makeTree(child, parentPath))}
+      </ul>
+    </li>
+  )
+}
+
+function makeEntry(data: DocsData, parentPath: string) {
+  console.log(data);
+  if (!data) { return <></>; }
+  const path = data.route.join('/');
+  console.log(path);
+  return (
+    <li>
+      <a href={path}><span>{data.title} ({data.id}) ({data.nav_order})</span></a>
+    </li>
+  )
+}
+
+export async function getStaticProps(): Promise<{ props: { allDocsData: DocsDataTree[]} }> {
   const allDocsData = getSortedDocsData();
   return {
     props: {
-      allDocsData,
+      allDocsData: allDocsData,
     }
   }
 }
