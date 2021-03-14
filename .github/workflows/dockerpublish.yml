@@ -11,9 +11,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   BOT_IMAGE_NAME: rollem-discord
-  BOT_DIRECTORY: ./rollem-bot
   UI_IMAGE_NAME: rollem-discord-ui
-  UI_DIRECTORY: rollem-ui
 
 jobs:
   push-bot:
@@ -87,10 +85,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set Directory
-        working-directory: ./rollem-ui
-        run: cd rollem-ui
 
       - name: Build image
         working-directory: ./rollem-ui
