@@ -86,15 +86,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build image
+      - name: Build image2
         working-directory: ./rollem-ui
-        run: docker build . --file Dockerfile --tag image
+        run: docker build . --file Dockerfile --tag image2
 
       - name: Log into docker hub registry
         working-directory: ./rollem-ui
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
 
-      - name: Push image to docker hub registry
+      - name: Push image2 to docker hub registry
         working-directory: ./rollem-ui
         run: |
           IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$UI_IMAGE_NAME
@@ -114,14 +114,14 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag image2 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
       - name: Log into github registry
         working-directory: ./rollem-ui
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Push image to github
+      - name: Push image2 to github
         working-directory: ./rollem-ui
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$UI_IMAGE_NAME
@@ -141,5 +141,5 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag image2 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
