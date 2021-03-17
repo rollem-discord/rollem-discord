@@ -9,6 +9,7 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
+    "tsc": "tsc",
     "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js"
   },
   "mocha": {
