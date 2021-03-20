@@ -1,6 +1,6 @@
 {
   "name": "@rollem/ui",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.2-alpha.0",
   "description": "Rollem for Discord (UI) - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
   "main": "rollem.js",
@@ -27,7 +27,7 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.3",
-    "@rollem/common": "^0.0.1-alpha.0",
+    "@rollem/common": "^0.0.2-alpha.0",
     "@types/lodash": "^4.14.168",
     "@types/material-ui": "^0.21.8",
     "date-fns": "^2.19.0",
