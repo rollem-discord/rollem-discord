@@ -1,7 +1,6 @@
 {
   "name": "@rollem/ui",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev2": "dotenv -e secrets/vscode.env next dev",
     "build2": "next build",
