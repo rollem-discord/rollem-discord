@@ -14,6 +14,9 @@
     "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js"
   },
   "prepublish": "tsc",
+  "publishConfig": {
+    "access": "public"
+  },
   "mocha": {
     "require": [
       "ts-node/register",
