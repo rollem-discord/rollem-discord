@@ -1,3 +1,6 @@
+export * from './entity/User';
+export * from './storage';
+
 // import "reflect-metadata";
 // import {createConnection} from "typeorm";
 // import {User} from "./entity/User";

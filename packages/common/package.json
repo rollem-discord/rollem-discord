@@ -1,17 +1,19 @@
 {
-  "name": "rollem-discord-common",
+  "name": "@rollem/common",
   "version": "0.1.1",
   "description": "Rollem for Discord utilities.",
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
-  "main": "rollem.js",
   "homepage": "https://github.com/lemtzas/rollem-discord",
   "bugs": {
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js"
   },
+  "prepublish": "tsc",
   "mocha": {
     "require": [
       "ts-node/register",
@@ -43,6 +45,7 @@
     "del": "^3.0.0",
     "discord.js": "12",
     "dotenv": "^8.2.0",
+    "dotenv-cli": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-ext-replace": "^0.3.0",
     "gulp-pegjs": "^0.2.0",
@@ -54,6 +57,7 @@
     "mocha": "^3.2.0",
     "module-alias": "^2.2.0",
     "moment": "^2.22.1",
+    "next-transpile-modules": "^6.3.0",
     "node-cache": "^5.1.0",
     "npm": "^6.3.0",
     "nyc": "^15.0.1",
@@ -68,5 +72,8 @@
     "typescript": "^3.0.3",
     "watchify": "^3.9.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "next-cli": "^1.0.0"
+  }
 }

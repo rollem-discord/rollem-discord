@@ -2,14 +2,18 @@
   "extends": "../../base.tsconfig.json",
   "compilerOptions": {
     "composite": true,
+    "declaration": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "outDir": "dist",
   },
   "include": [
-    "storage/**/*"
+    "src/**/*"
   ],
   "exclude": [
       "node_modules",
+      "dist",
       "**/*.spec.ts"
   ]
 }
