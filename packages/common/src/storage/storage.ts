@@ -32,6 +32,7 @@ export class Storage {
   }
 
   public async initialize() {
+    console.log("homk",__dirname);
     this.connection = await createConnection({
       type: "postgres",
       url: process.env.DB_CONNECTION_STRING,

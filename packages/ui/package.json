@@ -42,7 +42,8 @@
     "remark": "^13.0.0",
     "remark-gfm": "^1.0.0",
     "remark-html": "^13.0.1",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.32",
