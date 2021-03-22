@@ -11,6 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
+    "watch": "tsc --watch",
     "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js"
   },
   "prepublish": "tsc",

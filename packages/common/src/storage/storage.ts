@@ -1,6 +1,8 @@
+import 'reflect-metadata';
 import { Injectable } from "injection-js";
-import { createConnection, Connection, getConnection, Repository } from "typeorm";
+import { createConnection, Connection, getConnection, Repository, ConnectionOptions } from "typeorm";
 import { User } from "./entity/User";
+import path from 'path';
 
 @Injectable()
 export class Storage {
@@ -33,21 +35,24 @@ export class Storage {
 
   public async initialize() {
     console.log("homk",__dirname);
-    this.connection = await createConnection({
+    const config: ConnectionOptions = {
       type: "postgres",
       url: process.env.DB_CONNECTION_STRING,
       ssl: { rejectUnauthorized: false },
       synchronize: true,
       connectTimeoutMS: 500,
       entities: [
-        "rollem-dist/storage/entity/*.js",
+        User,
       ],
       migrations: [
-         "src/storage/migration/**/*.ts"
+        path.join(__dirname, '/migration/**/*.js'),
       ],
       subscribers: [
-         "src/storage/subscriber/**/*.ts"
+        path.join(__dirname, '/subscriber/**/*.js'),
       ],
-    });
+    };
+    console.log(config);
+    this.connection = await createConnection(config);
+    debugger;
   }
 }

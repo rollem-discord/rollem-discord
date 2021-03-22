@@ -12,7 +12,6 @@ import { Storage } from '@rollem/common/dist/storage/storage';
 
 import { NextApiRequest, NextApiResponse } from "next";
 
-
 const storage = new Storage();
 const storageInitialize$ = storage.initialize();
 

@@ -1,3 +1,5 @@
+import { User } from "@rollem/common/src/storage/entity/User";
+
 require("dotenv").config({path: "secrets/vscode.env"});
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/storage/entity/**/*.ts"
+      User
    ],
    "migrations": [
       "src/storage/migration/**/*.ts"
@@ -15,9 +17,4 @@ module.exports = {
    "subscribers": [
       "src/storage/subscriber/**/*.ts"
    ],
-   "cli": {
-      "entitiesDir": "src/storage/entity",
-      "migrationsDir": "src/storage/migration",
-      "subscribersDir": "src/storage/subscriber"
-   }
 }

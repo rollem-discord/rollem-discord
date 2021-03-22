@@ -13,7 +13,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev2": "dotenv -e secrets/vscode.env next dev",
+    "dev2": "NODE_OPTIONS='--inspect' next dev",
     "build2": "next build",
     "start": "next start",
     "package": "docker build -t rollem-ui .",
