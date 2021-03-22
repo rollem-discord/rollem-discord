@@ -43,6 +43,7 @@
     "remark-gfm": "^1.0.0",
     "remark-html": "^13.0.1",
     "sass": "^1.32.8",
+    "ts-loader": "^8.0.18",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {

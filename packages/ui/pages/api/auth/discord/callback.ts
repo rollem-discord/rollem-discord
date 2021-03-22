@@ -8,7 +8,7 @@ const config = {
 };
 console.log(config);
 const oauth = new DiscordOauth2(config);
-import { Storage } from '@rollem/common/dist/storage/storage';
+import { Storage } from '@rollem/common/src/storage/storage';
 
 import { NextApiRequest, NextApiResponse } from "next";
 
