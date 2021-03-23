@@ -34,6 +34,7 @@
     "discord-oauth2": "^2.6.0",
     "dotenv-cli": "^4.0.0",
     "gray-matter": "^4.0.2",
+    "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
     "next": "10.0.8",
     "next-session": "^3.4.0",
@@ -44,6 +45,7 @@
     "remark-gfm": "^1.0.0",
     "remark-html": "^13.0.1",
     "sass": "^1.32.8",
+    "swr": "^0.5.4",
     "ts-loader": "^8.0.18",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },

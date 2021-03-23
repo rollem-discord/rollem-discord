@@ -1,12 +1,16 @@
 import Head from 'next/head'
 import utilStyles from '../styles/utils.module.scss'
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths, NextApiResponse } from 'next'
 import { DocsDataTree, getAllDocIds, getDocData, makePropsAllDocData } from '../lib/get-docs-data'
 import RootLayout from '../components/layouts/RootLayout'
+import { applySession } from 'next-session'
+import { RollemApiRequest, RollemSessionData, RollemIncomingMessage } from '../lib/withSession'
+import { ServerResponse } from 'http'
 
 export default function Post({
   postData,
   allDocsData,
+  session,
 }: {
   postData: {
     title: string
@@ -14,6 +18,7 @@ export default function Post({
     contentHtml: string
   },
   allDocsData: DocsDataTree[],
+  session: any,
 }) {
   return (
     <RootLayout allDocsData={allDocsData}>
@@ -21,6 +26,12 @@ export default function Post({
         <title>{postData.title}</title>
       </Head>
       <article>
+        <span>xx{session}xx</span>
+          {/* <span>
+            <span>{session.discord.user.avatar}</span>
+            <span>{session.discord.user.username}</span>
+            <span>#{session.discord.user.discriminator}</span>
+          </span> */}
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         {/* <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
