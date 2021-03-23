@@ -2,7 +2,6 @@ import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColu
 
 @Entity()
 export class User {
-
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -19,6 +19,12 @@
     "jsx": "preserve",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@rollem/ui/*": [
+        "./*"
+      ],
+    },
   },
   "include": [
     "next-env.d.ts",
