@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rollem-prod-28-deployment
+  name: rollem-prod-38-deployment
 spec:
   selector:
     matchLabels:
@@ -13,7 +13,7 @@ spec:
         app: rollem-prod
     spec:
       containers:
-      - name: rollem-shard-28
+      - name: rollem-shard-38
         image: lemtzas/rollem-discord:1.16.0
         resources:
           requests:
