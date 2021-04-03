@@ -13,7 +13,7 @@ import assert = require("assert");
 import { InjectorWrapper } from "./lib/injector-wrapper";
 import { Newable } from "./lib/utility-types";
 import { RepliedMessageCache } from "./lib/replied-message-cache";
-import { Storage } from "../../../rollem-common/storage/storage";
+import { Storage } from "@rollem/common/src/storage/storage";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {

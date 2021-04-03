@@ -7,13 +7,13 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch Bot",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/rollem-bot/rollem-dist/rollem-bot/bot.js",
+      "program": "${workspaceFolder}/packages/rollem-bot/rollem-dist/rollem-bot/bot.js",
       "envFile": "${workspaceFolder}/secrets/vscode.env",
-      "cwd": "${workspaceFolder}/rollem-bot/",
+      "cwd": "${workspaceFolder}/packages/rollem-bot/",
       "sourceMaps": true
     },
     {

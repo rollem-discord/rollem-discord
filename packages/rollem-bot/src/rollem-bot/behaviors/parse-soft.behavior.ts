@@ -5,7 +5,7 @@ import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import { Parsers } from "@bot/lib/parsers";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
-import { Storage } from "../../../../rollem-common/storage/storage";
+import { Storage } from "@rollem/common/src/storage/storage";
 
 /**
  * Parses things without any prefix, unless a prefix is configured via role-name.
