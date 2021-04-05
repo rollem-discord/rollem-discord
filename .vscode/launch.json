@@ -8,10 +8,11 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "Launch Bot",
+      "args": ["--trace-warnings", "--experimental-modules"],
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/packages/rollem-bot/rollem-dist/rollem-bot/bot.js",
+      "program": "${workspaceFolder}/packages/rollem-bot/dist/bundle.js",
       "envFile": "${workspaceFolder}/secrets/vscode.env",
       "cwd": "${workspaceFolder}/packages/rollem-bot/",
       "sourceMaps": true

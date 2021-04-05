@@ -8,6 +8,7 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
@@ -79,5 +80,6 @@
   "license": "MIT",
   "devDependencies": {
     "next-cli": "^1.0.0"
-  }
+  },
+  "gitHead": "dd311ee508237af431f5254627e785398d8fb2a0"
 }

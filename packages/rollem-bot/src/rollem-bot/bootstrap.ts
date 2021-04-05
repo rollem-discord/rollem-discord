@@ -9,7 +9,7 @@ import { Parsers } from "@bot/lib/parsers";
 import { Client, ClientOptions } from "discord.js";
 import { ChangeLog } from "./changelog";
 import { BehaviorBase } from "./behaviors/behavior-base";
-import assert = require("assert");
+// import assert from "assert";
 import { InjectorWrapper } from "./lib/injector-wrapper";
 import { Newable } from "./lib/utility-types";
 import { RepliedMessageCache } from "./lib/replied-message-cache";
@@ -35,21 +35,21 @@ export namespace Bootstrapper {
         ]);
 
     const logger = topLevelInjector.get(Logger);
-    assert(!!logger, "DI failed to resolve logger");
+    // assert(!!logger, "DI failed to resolve logger");
     const config = topLevelInjector.get(Config);
-    assert(!!config, "DI failed to resolve config");
+    // assert(!!config, "DI failed to resolve config");
     const changelog = topLevelInjector.get(ChangeLog);
-    assert(!!changelog, "DI failed to resolve changelog");
+    // assert(!!changelog, "DI failed to resolve changelog");
     const parserv1 = topLevelInjector.get(RollemParserV1);
-    assert(!!parserv1, "DI failed to resolve parser v1");
+    // assert(!!parserv1, "DI failed to resolve parser v1");
     const parserv2 = topLevelInjector.get(RollemParserV2);
-    assert(!!parserv2, "DI failed to resolve parser v2");
+    // assert(!!parserv2, "DI failed to resolve parser v2");
     const parsers = topLevelInjector.get(Parsers);
-    assert(!!parsers, "DI failed to resolve parsers");
+    // assert(!!parsers, "DI failed to resolve parsers");
     const repliedMessageCache = topLevelInjector.get(RepliedMessageCache);
-    assert(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
+    // assert(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
     const storage = topLevelInjector.get(Storage);
-    assert(!!storage, "DI failed to resolve storage");
+    // assert(!!storage, "DI failed to resolve storage");
 
     return topLevelInjector;
   }

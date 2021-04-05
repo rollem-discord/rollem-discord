@@ -9,6 +9,8 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
+    "start:dev": "NODE_ENV=development webpack",
+    "run:dev": "NODE_ENV=development nodemon dist/bundle.js",
     "start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
     "start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
     "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
@@ -39,12 +41,6 @@
       "ts"
     ]
   },
-  "_moduleAliases": {
-    "@root": ".",
-    "@language-v1": "rollem-dist/rollem-language-1/",
-    "@language-v2": "rollem-dist/rollem-language-2/",
-    "@bot": "rollem-dist/rollem-bot"
-  },
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
     "@rollem/common": "^0.0.4-alpha.0",
@@ -60,6 +56,7 @@
     "del": "^3.0.0",
     "discord.js": "12",
     "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.3.0",
     "gulp": "^4.0.0",
     "gulp-ext-replace": "^0.3.0",
     "gulp-pegjs": "^0.2.0",
@@ -75,15 +72,27 @@
     "npm": "^6.3.0",
     "nyc": "^15.0.1",
     "pegjs": "0.10.0",
+    "pegjs-loader": "^0.5.6",
     "pg": "^8.3.3",
     "reflect-metadata": "^0.1.13",
+    "ts-loader": "^8.1.0",
     "ts-mocha": "^7.0.0",
     "ts-node": "^8.9.1",
     "ts-pegjs": "^0.2.6",
     "tsconfig-paths": "^3.9.0",
     "typeorm": "^0.2.31",
     "typescript": "^3.0.3",
-    "watchify": "^3.9.0"
+    "watchify": "^3.9.0",
+    "webpack": "^5.30.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-filter-warnings-plugin": "^1.2.1"
   },
-  "license": "MIT"
+  "resolutions": {
+    "node-fetch": "3.0.0-beta.9"
+  },
+  "license": "MIT",
+  "gitHead": "dd311ee508237af431f5254627e785398d8fb2a0",
+  "devDependencies": {
+    "copy-webpack-plugin": "^8.1.0"
+  }
 }

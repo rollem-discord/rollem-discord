@@ -3,10 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { ContainerV1 } from "./container";
 
-const grammarLocation = path.join(__dirname, 'rollem.pegjs');
-const grammar = fs.readFileSync(grammarLocation, 'utf8');
-
-const parser = Peg.generate(grammar)
+const parser = require('./rollem.pegjs');
 export class RollemParserV1 {
   // returns false if parsing failed due to grammar match failure
   tryParse(input: string): ContainerV1 | false

@@ -1,7 +1,6 @@
 // these must be the first imported items
-require("module-alias/register")
 import "reflect-metadata";
-
+global.fetch = require("node-fetch");
 import { Newable } from "./lib/utility-types";
 import { BehaviorBase } from "./behaviors/behavior-base";
 import { DeadmanSwitchBehavior } from "./behaviors/deadman-switch";

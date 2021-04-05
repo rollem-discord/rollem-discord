@@ -1,11 +1,11 @@
-var gulp = require('gulp');
-var pegjs = require('gulp-pegjs');
-var ext_replace = require('gulp-ext-replace');
-var tspegjs = require('ts-pegjs');
-var del = require('del');
-var ts = require('gulp-typescript');
-var fs = require('fs');
-var sourcemaps = require('gulp-sourcemaps');
+import gulp from 'gulp';
+import pegjs from 'gulp-pegjs';
+import ext_replace from 'gulp-ext-replace';
+import tspegjs from 'ts-pegjs';
+import del from 'del';
+import ts from 'gulp-typescript';
+import fs from 'fs';
+import sourcemaps from 'gulp-sourcemaps';
 
 var tsProject = ts.createProject('tsconfig.json');
 
@@ -14,7 +14,7 @@ gulp.task('build-ts', function () {
         .pipe(sourcemaps.init())
         .pipe(tsProject()).js
         .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: '../lib'}))
-        .pipe(gulp.dest('rollem-dist'));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch-pegjs-v2', function() {
