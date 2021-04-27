@@ -275,10 +275,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@rollem/common@^0.0.4-alpha.0":
-  version "0.0.4-alpha.0"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.4-alpha.0.tgz#bae189c3b992903859d52f3f6f99ddc31488d889"
-  integrity sha512-X5CG5H18fWT1EYM5Zdi/uPpJcLHJNIvU28IFkbocxnZ8CVR88Gvni+zbqKhPH/PRhOvJWRXxmra9DhLWG1ljcg==
+"@rollem/common@^0.0.5-alpha.0":
+  version "0.0.5-alpha.0"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.5-alpha.0.tgz#f8835c7eecda355c399c3c1c0989a1cb14ca97fa"
+  integrity sha512-Uq6TZaS6+WZvfRbp/9bbaAHbY65mCB+CzaLfaIW6auKfU8xzb1RuO4r13PlPFz6pHUH3KCCR8HhgZuohTnkVAQ==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
