@@ -22,10 +22,17 @@ export default withSession(
   async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
     try {
       // console.log(util.inspect(req.session, true, null, true));
+      const data = req.session as RollemSessionData;
+      const user = await oauth.getUser(req.session.discord.auth.access_token);
 
-      res
-        .status(200)
-        .json(req.session);
+      await storage.forgetUser(user.id /** Discord User ID */)
+
+      await req.session.commit();
+      await req.session.destroy();
+
+      res.redirect(
+        `/account/after-delete`
+      );
     } catch (ex) {
       console.error(ex);
       res.status(500);

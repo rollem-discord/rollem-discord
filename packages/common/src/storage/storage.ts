@@ -32,10 +32,14 @@ export class Storage {
   }
 
   public async forgetUser(discordUserId): Promise<User|undefined> {
+    console.log(1);
     const existingUser = await this.usersRepository.findOne({discordUserId: discordUserId});
+    console.log(2);
     if (!existingUser) { return undefined; }
+    console.log(3);
 
     await this.usersRepository.delete(existingUser.id);
+    console.log(4);
 
     return existingUser;
   }

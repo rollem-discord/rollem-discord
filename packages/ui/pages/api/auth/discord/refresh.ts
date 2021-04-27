@@ -8,33 +8,23 @@ export default withSession(
   async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
     await storageInitialize$;
     // console.log(util.inspect(req, true, null, true));
-    const code = req.query["code"] as string;
     try {
-      const response = await oauth.tokenRequest({
-        code: code,
-        scope: "identify guilds",
-        grantType: "authorization_code",
-      });
-
-      const user = await oauth.getUser(response.access_token);
-      const guilds = await oauth.getUserGuilds(response.access_token);
+      const user = await oauth.getUser(req.session.discord.auth.access_token);
+      const guilds = await oauth.getUserGuilds(req.session.discord.auth.access_token);
       await req.session.commit();
 
-      const userData = await storage.getOrCreateUser(user.id /* Discord ID */);
+      const userData = await storage.getOrCreateUser(user.id /* discord id */);
       const userConnections = await storage.getOrCreateUserConnections({
-        id: userData.id, /** Rollem ID */
+        id: userData.id,
       });
 
       req.session.discord = req.session.discord || {} as any;
-      req.session.discord.auth = response;
-      req.session.discord.expires_at = new Date(
-        Date.now() + response.expires_in
-      );
+      req.session.discord.auth = req.session.discord.auth;
+      req.session.discord.expires_at = req.session.discord.expires_at;
       req.session.discord.user = user;
       req.session.discord.guilds = guilds;
       req.session.data = req.session.data || {} as any;
       req.session.data.user = userData;
-      req.session.data.userConnections = userConnections;
 
       res.redirect(
         `/account/summary`

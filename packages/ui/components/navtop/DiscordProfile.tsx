@@ -11,7 +11,8 @@ import classes from './Navtop.module.scss';
 import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
-import { Avatar } from '@material-ui/core';
+import { Avatar, SvgIcon, Tooltip } from '@material-ui/core';
+import { ExitToApp, Settings } from '@material-ui/icons';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -58,25 +59,36 @@ export function DiscordProfile() {
     const username = data?.discord?.user?.username;
     const discriminator = data?.discord?.user?.discriminator;
 
-    const logoutUrl = "/account/logout";
-
     return (
       <>
-        <ActiveLink href={`/account`} className={classes.link} activeClassName={classes.activeLink}>
-          <a>
-            <span className={classes.homeWrapper}>
-              <Avatar
-                src={`https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`}
-                className={classes.profileImage}
-              ></Avatar>
-              <span>{username}</span>
-              <span className={classes.discrimator}>#{discriminator}</span>
-            </span>
-          </a>
-        </ActiveLink>
-        <Link href={logoutUrl}>
-          <a className={classes.link}>Logout</a>
-        </Link>
+        <Tooltip title={`Account (${username}#${discriminator})`}>
+          <span>
+            <ActiveLink href={`/account`} className={classes.link} activeClassName={classes.activeLink}>
+              <a>
+                <span className={classes.homeWrapper}>
+                  <Avatar
+                    src={`https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`}
+                    className={classes.profileImage}
+                  ></Avatar>
+                </span>
+              </a>
+            </ActiveLink>
+          </span>
+        </Tooltip>
+        <Tooltip title="Settings">
+          <span>
+            <Link href={'/account/settings'}><a><SvgIcon component={Settings}></SvgIcon></a></Link>
+          </span>
+        </Tooltip>
+        <Tooltip title="Logout">
+          <span>
+            <Link href={"/account/logout"}>
+              <a className={classes.link}>
+                <SvgIcon component={ExitToApp}></SvgIcon>
+              </a>
+            </Link>
+          </span>
+        </Tooltip>
       </>
     );
   }

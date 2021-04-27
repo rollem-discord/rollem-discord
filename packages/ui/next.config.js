@@ -18,7 +18,7 @@ module.exports = {
       exclude: [/mongodb/, /mssql/, /mysql/, /mysql2/, /oracledb/, /pg/, /pg-query-stream/, /react-native-sqlite-storage/, /redis/, /sqlite3/, /sql.js/, /typeorm-aurora-data-api-driver/]
     }))
 
-    console.log(defaultLoaders);
+    // console.log(defaultLoaders);
     config.module.rules.push({
       test: /\.tsx?$/,
       use: ["ts-loader"],

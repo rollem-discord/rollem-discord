@@ -15,15 +15,11 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>{postData.title}</title>
+        <title>Rollem Rocks</title>
       </Head>
       <RootLayout>
         <article>
-          <h1>{postData.title}</h1>
-          {/* <div className={utilStyles.lightText}>
-            <Date dateString={postData.date} />
-          </div> */}
-          <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+          <h1>Rollem Rocks</h1>
         </article>
       </RootLayout>
     </>
