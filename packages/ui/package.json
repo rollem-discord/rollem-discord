@@ -13,8 +13,9 @@
     "access": "public"
   },
   "scripts": {
-    "dev2": "NODE_OPTIONS='--inspect' next dev",
-    "build2": "next build",
+    "dev": "yarn run dev:ui",
+    "dev:ui": "NODE_OPTIONS='--inspect' next dev",
+    "build:ui": "next build",
     "start": "next start",
     "package": "docker build -t rollem-ui .",
     "package:start": "docker run -p 3001:3000 --env-file ./secrets/vscode.env rollem-ui",
