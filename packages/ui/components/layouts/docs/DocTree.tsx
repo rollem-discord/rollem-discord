@@ -1,5 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { DocsData, DocsDataTree } from '../../lib/get-docs-data';
+import { DocsData, DocsDataTree } from '../../../lib/get-docs-data';
 import styles from './DocTree.module.scss';
 
 export default function DocTree({ allDocsData }: { allDocsData: DocsDataTree[] }): JSX.Element {

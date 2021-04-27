@@ -1,12 +1,13 @@
-import RootLayout from "../components/layouts/RootLayout"
+import DocsLayout from "../components/layouts/docs/DocsLayout"
 import { DocsDataTree, makePropsAllDocData } from "../lib/get-docs-data"
 
 export default function Custom404({ allDocsData }: { allDocsData: DocsDataTree[] }) {
   return (
-    <RootLayout allDocsData={allDocsData}>
+    <DocsLayout allDocsData={allDocsData}>
       <h1>404 - Page Not Found</h1>
       <img src="/images/rollem-transparent.png"></img>
-    </RootLayout>
+      <p>You may have been looking for one of the docs to the left.</p>
+    </DocsLayout>
   )
 }
 

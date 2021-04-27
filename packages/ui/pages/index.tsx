@@ -4,7 +4,6 @@ import Head from 'next/head';
 
 export default function Home({
   postData,
-  allDocsData,
 }: {
   postData: {
     title: string
@@ -18,7 +17,7 @@ export default function Home({
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <RootLayout allDocsData={allDocsData}>
+      <RootLayout>
         <article>
           <h1>{postData.title}</h1>
           {/* <div className={utilStyles.lightText}>
@@ -29,14 +28,4 @@ export default function Home({
       </RootLayout>
     </>
   )
-}
-
-export async function getStaticProps(): Promise<{ props: { postData: unknown, allDocsData: DocsDataTree[]} }> {
-  const postData = await getDocData([]);
-  return {
-    props: {
-      postData: postData,
-      ...makePropsAllDocData(),
-    }
-  }
 }

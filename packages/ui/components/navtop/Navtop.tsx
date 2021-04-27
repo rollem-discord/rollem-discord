@@ -11,6 +11,7 @@ import classes from './Navtop.module.scss';
 import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
+import { DiscordProfile } from './DiscordProfile';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -22,11 +23,31 @@ async function fetcher(url) {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    homeWrapper: {
+      display: "flex",
+      flexFlow: "row nowrap",
+      alignItems: "center",
+    },
+    iconImage: {
+      maxHeight: "64px",
+      marginRight: ".5em",
+    },
+    profileImage: {
+      maxHeight: "48px",
+      marginRight: ".25em",
+    },
     root: {
       flexGrow: 1,
     },
     activeLink: {
       borderBottom: "2px solid white",
+    },
+    link: {
+      height: "64px",
+      display: "flex",
+      flexFlow: "row nowrap",
+      padding: "16px",
+      alignItems: "center",
     },
     toolbar: {
       "& > *": {
@@ -56,16 +77,16 @@ export default function NavTop() {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6">
-            Rollem Rocks
+            <Link href={'/'}>
+              <a className={classes.homeWrapper}>
+                <img className={classes.iconImage} src="/images/rollem-transparent.png"></img>
+                Rollem Rocks
+              </a>
+            </Link>
           </Typography>
-          <ActiveLink href={`/docs`} activeClassName={classes.activeLink}><a>Docs</a></ActiveLink>
-          <span className={classes.spacer}></span>
-          <span>
-            <img src={"https://cdn.discordapp.com/avatars/" + data?.discord?.user?.id + "/" + data?.discord?.user?.avatar + ".png"}></img>
-            <span>{data?.discord?.user?.username}</span>
-            <span>#{data?.discord?.user?.discriminator}</span>
-          </span>
-          <Button href="https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify%20guilds" color="inherit">Login</Button>
+          <ActiveLink href={`/docs`} activeClassName={classes.activeLink} className={classes.link}><a>Docs</a></ActiveLink>
+          <div className={classes.spacer}></div>
+          <DiscordProfile></DiscordProfile>
         </Toolbar>
       </AppBar>
     </div>

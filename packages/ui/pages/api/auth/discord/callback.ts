@@ -56,7 +56,7 @@ export default withSession(
       await storage.updateUserConnections(userConnections);
 
       res.redirect(
-        `/api/auth/discord/getData`
+        `/account/summary`
       );
     } catch (ex) {
       console.error(ex);

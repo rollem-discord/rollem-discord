@@ -13,8 +13,8 @@ const ActiveLink = ({ children, activeClassName, ...props }) => {
   // pages/[slug].js will be matched via props.as
   const className =
     asPath === props.href || asPath === props.as
-      ? `${childClassName} ${activeClassName}`.trim()
-      : childClassName
+      ? `${props.className} ${childClassName} ${activeClassName}`.trim()
+      : `${props.className} ${childClassName}`
 
   return (
     <Link href={props.href} {...props}>

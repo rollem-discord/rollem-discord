@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  width: 100%;
+
+  .top {
+    flex-grow: 0;
+  }
+
+  .bottom {
+    flex-grow: 1;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    .left {
+      flex-grow: 0;
+    }
+    
+    .right {
+      flex-grow: 1;
+    }
+  }
+}
