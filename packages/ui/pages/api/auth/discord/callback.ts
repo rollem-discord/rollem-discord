@@ -37,7 +37,7 @@ export default withSession(
       req.session.data.userConnections = userConnections;
 
       res.redirect(
-        `/account/summary`
+        `/account`
       );
     } catch (ex) {
       console.error(ex);

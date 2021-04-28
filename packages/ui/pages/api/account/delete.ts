@@ -21,6 +21,7 @@ import {
 export default withSession(
   async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
     try {
+      await storageInitialize$;
       // console.log(util.inspect(req.session, true, null, true));
       const data = req.session as RollemSessionData;
       const user = await oauth.getUser(req.session.discord.auth.access_token);

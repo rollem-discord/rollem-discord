@@ -4,12 +4,12 @@ import styles from './DocTree.module.scss';
 
 export default function DocTree({ allDocsData }: { allDocsData: DocsDataTree[] }): JSX.Element {
   return (
-    <div className={styles.root}>
+    <section className={styles.root}>
       <h3><b><u>Docs</u></b></h3>
       <ul>
         {allDocsData.map(node => makeTree(node))}
       </ul>
-    </div>
+    </section>
   );
 }
 
@@ -27,7 +27,7 @@ function makeTree(treeNode: DocsDataTree): JSX.Element {
 function makeEntry(data: DocsData): JSX.Element {
   // console.log(data);
   if (!data) { return <></>; }
-  const path = '/' + data.route.join('/');
+  const path = '/docs/' + data.route.join('/');
   return (
     <a href={path}><span>{data.title}</span></a>
   )

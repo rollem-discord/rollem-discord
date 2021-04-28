@@ -32,17 +32,8 @@ export default function Post({
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = chain(getAllDocIds()).filter(path => path.params.id.length !== 0).value();
-  console.log(util.inspect(paths, true, 20, true));
-  return {
-    paths: paths,
-    fallback: false,
-  }
-}
-
 export const getStaticProps: GetStaticProps = async ({ params }: { params: { id: string[] }}) => {
-  const postData = await getDocData(params.id);
+  const postData = await getDocData([]);
   return {
     props: {
       postData,

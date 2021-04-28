@@ -16,6 +16,7 @@ export class Storage {
   private get userConnectionsRepository(): Repository<UserConnections> { return this.connection.getRepository(UserConnections); }
 
   public async getOrCreateUser(discordUserId): Promise<User> {
+    debugger;
     const retrieveById = async () => await this.usersRepository.findOne({where: { discordUserId: discordUserId }});
     const existingUser = await retrieveById();
     if (existingUser) { return existingUser; }
@@ -63,6 +64,7 @@ export class Storage {
 
   public async initialize() {
     console.log("homk",__dirname);
+    if (this.connection) { return; }
     const config: ConnectionOptions = {
       type: "postgres",
       url: process.env.DB_CONNECTION_STRING,
