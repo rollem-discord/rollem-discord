@@ -7,6 +7,6 @@ const config = {
   db_connection: process.env.DB_CONNECTION_STRING,
 };
 
-console.log(config);
+// console.log(config);
 
 export const oauth = new DiscordOauth2(config);
