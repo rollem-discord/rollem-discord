@@ -21,8 +21,8 @@ export class Config {
   /** The AI Instrumentation Key. */
   public readonly AppInsightsInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
 
-  /** The regex to be used to determine if the bot was mentioned. Updated after login. */
-  public mentionRegex: RegExp = /$<@!999999999999999999>/i;
+  /** The regex to be used to determine if the bot was mentioned. Updated after login. <@!...> means the message was tab-completed, <@...> means it was typed manually and inferred. */
+  public mentionRegex: RegExp = /$<@!999999999999999999>|<@999999999999999999>/i;
 
   /** The interval between updating the "Now Playing" message under the bot. */
   public readonly messageInterval = 59 * 1000; // every minute (less a bit, so it will trigger other "every minute" monitors)

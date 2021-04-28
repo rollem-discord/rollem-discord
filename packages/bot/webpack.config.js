@@ -2,8 +2,9 @@ const { IgnorePlugin } = require('webpack');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
-module.exports = {
+const config = {
   entry: './src/rollem-bot/bot.ts',
   target: 'node',
   plugins: [
@@ -47,3 +48,17 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
 };
+
+// if (process.env.NODE_ENV !== 'production') {
+//   config.plugins.push(new WebpackShellPluginNext({
+//     onBuildStart:{
+//       scripts: ['echo "Webpack Start"'],
+//     },
+//     onDoneWatch: {
+//       scripts: ['yarn run webpack:launch'],
+//       blocking: false,
+//     }
+//   }));
+// }
+
+module.exports = config;

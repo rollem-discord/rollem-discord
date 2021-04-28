@@ -12,6 +12,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
+      
       "program": "${workspaceFolder}/packages/bot/dist/bundle.js",
       "envFile": "${workspaceFolder}/secrets/vscode.env",
       "cwd": "${workspaceFolder}/packages/bot/",

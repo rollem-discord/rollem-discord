@@ -12,7 +12,8 @@
     "build": "yarn run build:bot",
     "build:bot": "NODE_ENV=development webpack",
     "dev": "yarn run dev:bot",
-    "dev:bot": "NODE_ENV=development nodemon dist/bundle.js",
+    "dev:bot": "NODE_ENV=development webpack --watch",
+    "webpack:launch": "NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "package": "docker build -t rollem-bot .",
     "package:start": "docker run --env-file ./secrets/vscode.env rollem-bot",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
@@ -87,7 +88,8 @@
     "watchify": "^3.9.0",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0",
-    "webpack-filter-warnings-plugin": "^1.2.1"
+    "webpack-filter-warnings-plugin": "^1.2.1",
+    "webpack-shell-plugin-next": "^2.2.2"
   },
   "resolutions": {
     "node-fetch": "3.0.0-beta.9"
