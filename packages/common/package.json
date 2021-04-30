@@ -16,7 +16,7 @@
     "tsc": "tsc",
     "watch": "tsc --watch",
     "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
-    "publish:prepare-subdirectory": "mkdir dist && cp package.json dist/package.json",
+    "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
     "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
   },
   "prepublish": "tsc",
@@ -85,5 +85,5 @@
   "devDependencies": {
     "next-cli": "^1.0.0"
   },
-  "gitHead": "bcee9978aafb9c851a96a4f49e30ccc6d59f3605"
+  "gitHead": "ff0f936d253c4f8f232130ba1d373239b6436688"
 }

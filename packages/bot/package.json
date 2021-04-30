@@ -1,6 +1,6 @@
 {
   "name": "@rollem/bot",
-  "version": "0.0.8-alpha.0",
+  "version": "0.0.7-alpha.0",
   "description": "Rollem for Discord - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
   "main": "rollem.js",
@@ -33,8 +33,8 @@
     "old:start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
     "old:build": "gulp build",
     "old:watch": "gulp watch",
-    "publish:prepare-subdirectory": "mkdir dist && cp package.json dist/package.json",
-    "prepare": "yarn run publish:prepare-subdirectory"
+    "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
+    "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
   },
   "files": [
     "./"
