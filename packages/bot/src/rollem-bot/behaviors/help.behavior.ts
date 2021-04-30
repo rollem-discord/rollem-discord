@@ -5,6 +5,7 @@ import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import moment from "moment";
 import { Injectable } from "injection-js";
+import util from 'util';
 
 /**
  * Replies to "stats", "help", and "changelog"

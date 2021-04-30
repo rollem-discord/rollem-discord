@@ -1,6 +1,6 @@
 {
   "name": "@rollem/common",
-  "version": "0.0.5-alpha.0",
+  "version": "0.0.7-alpha.0",
   "description": "Rollem for Discord utilities.",
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
   "homepage": "https://github.com/lemtzas/rollem-discord",
@@ -11,9 +11,13 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
+    "build": "yarn run build:common",
+    "build:common": "yarn run tsc",
     "tsc": "tsc",
     "watch": "tsc --watch",
-    "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js"
+    "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    "publish:prepare-subdirectory": "mkdir dist && cp package.json dist/package.json",
+    "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
   },
   "prepublish": "tsc",
   "publishConfig": {

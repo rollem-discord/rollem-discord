@@ -1,6 +1,6 @@
 {
   "name": "@rollem/bot",
-  "version": "0.0.5-alpha.0",
+  "version": "0.0.7-alpha.0",
   "description": "Rollem for Discord - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
   "main": "rollem.js",
@@ -11,12 +11,16 @@
   "scripts": {
     "build": "yarn run build:bot",
     "build:bot": "NODE_ENV=development webpack",
+    "build:dockerfile": "webpack",
     "dev": "yarn run dev:bot",
-    "dev:bot": "NODE_ENV=development nodemon dist/bundle.js",
+    "dev:bot": "NODE_ENV=development webpack --watch",
+    "webpack:launch": "NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "package": "docker build -t rollem-bot .",
-    "package:start": "docker run --env-file ./secrets/vscode.env rollem-bot",
+    "package:start": "docker run --env-file ../../secrets/vscode.env rollem-bot",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
-    "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    "package:start:fake": "node -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
+    "start-for-dockerfile": "node dist/bundle.js",
     "old:terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light",
     "old:start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
     "old:start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
@@ -28,7 +32,9 @@
     "old:start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
     "old:start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
     "old:build": "gulp build",
-    "old:watch": "gulp watch"
+    "old:watch": "gulp watch",
+    "publish:prepare-subdirectory": "mkdir dist && cp package.json dist/package.json",
+    "prepare": "yarn run publish:prepare-subdirectory"
   },
   "files": [
     "./"
@@ -87,7 +93,8 @@
     "watchify": "^3.9.0",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0",
-    "webpack-filter-warnings-plugin": "^1.2.1"
+    "webpack-filter-warnings-plugin": "^1.2.1",
+    "webpack-shell-plugin-next": "^2.2.2"
   },
   "resolutions": {
     "node-fetch": "3.0.0-beta.9"

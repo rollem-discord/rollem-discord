@@ -6,7 +6,7 @@
     "declarationMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "dist",
+    "outDir": "./dist",
     "rootDir": "./src",
   },
   "include": [

@@ -7,7 +7,7 @@ import { Injectable } from "injection-js";
 import _ from "lodash";
 import { join } from "path";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
-import { Storage } from "@rollem/common/src/storage/storage";
+import { Storage } from "@rollem/common";
 
 /**
  * Parses things with the following prefixes:

@@ -1,3 +1,6 @@
+# **1.16.3**
+* Allow mentions without tab-completing.
+
 # **1.16.2**
 * Enable DB hit per message
 
