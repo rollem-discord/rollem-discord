@@ -5,7 +5,7 @@ import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
 import { Injectable } from "injection-js";
 import { RepliedMessageCache } from "@bot/lib/replied-message-cache";
-import { Storage } from "@rollem/common/src/storage/storage";
+import { Storage } from "@rollem/common";
 
 /**
  * Replies with storage inspection commands.
