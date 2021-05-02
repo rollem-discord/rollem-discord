@@ -24,6 +24,7 @@
     "build:common:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
     "build:common:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
     "build:common:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
     "test": "jest --no-cache --runInBand",
