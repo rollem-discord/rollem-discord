@@ -1,6 +1,7 @@
 // these must be the first imported items
 import "reflect-metadata";
-global.fetch = require("node-fetch");
+import nodeFetch from 'node-fetch';
+global.fetch = nodeFetch as any;
 
 import { Newable } from "./lib/utility-types";
 import { BehaviorBase } from "./behaviors/behavior-base";

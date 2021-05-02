@@ -1,14 +1,14 @@
-import webpack from 'webpack';
-import FilterWarningsPlugin from 'webpack-filter-warnings-plugin';
-import CopyPlugin from "copy-webpack-plugin";
-import path from 'path';
-import WebpackShellPluginNext from 'webpack-shell-plugin-next';
-
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 const config = {
-  entry: "./src/rollem-bot/bot.ts",
-  target: "node",
+  entry: './src/rollem-bot/bot.ts',
+  target: 'node',
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   plugins: [
     new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
     new FilterWarningsPlugin({
@@ -85,4 +85,4 @@ const config = {
 //   }));
 // }
 
-export default config;
+module.exports = config;

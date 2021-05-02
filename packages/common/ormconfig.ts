@@ -1,4 +1,4 @@
-import { User } from "./src/storage/entity/User";
+import { User, UserConnections } from "./src";
 
 require("dotenv").config({path: "../../secrets/vscode.env"});
 
@@ -9,7 +9,7 @@ module.exports = {
    "synchronize": true,
    "logging": false,
    "entities": [
-      User
+      User, UserConnections, 
    ],
    "migrations": [
       "src/storage/migration/**/*.ts"

@@ -275,10 +275,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@rollem/common@^0.0.12-alpha.0":
-  version "0.0.12-alpha.0"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.12-alpha.0.tgz#65d5f364adc79f45c81dd041cffe8accfbee8999"
-  integrity sha512-OGmgiJKJZMmbZ/gdaNsbNwXGj267FalYZNuM0T/1iTWhy2aH53JBSAUM8mzF+al6ZVK9MVwkWErKvDsFGbQpkw==
+"@rollem/common@^0.0.15-alpha.0":
+  version "0.0.14-alpha.0"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.14-alpha.0.tgz#5dd01bee556aabbf1631df205ea04f1ededd80fb"
+  integrity sha512-4IpnLIvAFxctx4UBkiiiYhkinbI0QE2g/QquCFUj9lHZrUavKDKhwg//bFGZPrf/MYwCX93Z6TDLYkukwUzlTQ==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -8520,6 +8520,11 @@ webpack-merge@^5.7.3:
   dependencies:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
+
+webpack-node-externals@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-3.0.0.tgz#1a3407c158d547a9feb4229a9e3385b7b60c9917"
+  integrity sha512-LnL6Z3GGDPht/AigwRh2dvL9PQPFQ8skEpVrWZXLWBYmqcaojHNN0onvHzie6rq7EWKrrBfPYqNEzTJgiwEQDQ==
 
 webpack-shell-plugin-next@^2.2.2:
   version "2.2.2"
