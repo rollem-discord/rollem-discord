@@ -1,6 +1,6 @@
 import { User } from "@rollem/common";
 
-require("dotenv").config({path: "secrets/vscode.env"});
+require("dotenv").config({path: "../../secrets/vscode.env"});
 
 module.exports = {
    "type": "postgres",

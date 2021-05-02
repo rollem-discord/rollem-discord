@@ -8,6 +8,7 @@
   "bugs": {
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
+  "type": "module",
   "scripts": {
     "clean": "rm -rf ./dist",
     "build": "npm run clean && npm run build:bot",
