@@ -1,4 +1,4 @@
-import { BehaviorBase } from "./behavior-base";
+import { DiscordBehaviorBase } from "./discord-behavior-base";
 import util from "util";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
@@ -11,7 +11,7 @@ import { Injectable } from "injection-js";
  * When supervised, the process should be immediately restarted.
  */
 @Injectable()
-export class DieOnErrorBehavior extends BehaviorBase {
+export class DieOnErrorBehavior extends DiscordBehaviorBase {
   constructor(
     protected readonly client: Client,
     protected readonly logger: Logger,

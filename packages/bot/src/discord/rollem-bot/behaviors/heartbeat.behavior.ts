@@ -1,4 +1,4 @@
-import { BehaviorBase } from "./behavior-base";
+import { DiscordBehaviorBase } from "./discord-behavior-base";
 import { Client } from "discord.js";
 import { Logger } from "@bot/logger";
 import { Config } from "@bot/config";
@@ -10,7 +10,7 @@ import { Injectable } from "injection-js";
  * Initializes the system after login and starts the heartbeat.
  */
 @Injectable()
-export class HeartbeatBehavior extends BehaviorBase {
+export class HeartbeatBehavior extends DiscordBehaviorBase {
   private readonly NOW_PLAYING_MESSAGES = [
     () => `${this.changelog.version} - http://rollem.rocks`,
     () => `support on ko-fi - ${this.changelog.version} - http://rollem.rocks`,

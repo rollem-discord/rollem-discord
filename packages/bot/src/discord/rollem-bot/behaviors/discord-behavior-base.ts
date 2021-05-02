@@ -4,7 +4,7 @@ import { Injectable } from "injection-js";
 
 /** A base for behaviors to be applied to a discord client. */
 @Injectable()
-export abstract class BehaviorBase {
+export abstract class DiscordBehaviorBase {
   constructor(
     protected readonly client: Client,
     protected readonly logger: Logger,
@@ -17,7 +17,7 @@ export abstract class BehaviorBase {
   }
 
   /** Called on initialization to register any callbacks with the discord client. */
-  protected abstract async register(): Promise<void>;
+  protected abstract register(): Promise<void>;
 
   /** Handle an unknown rejection. */
   protected handleRejection(label: string, error: Error) {

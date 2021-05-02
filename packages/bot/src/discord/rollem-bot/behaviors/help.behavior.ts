@@ -1,4 +1,4 @@
-import { BehaviorBase } from "./behavior-base";
+import { DiscordBehaviorBase } from "./discord-behavior-base";
 import { Config } from "@bot/config";
 import { ChangeLog } from "@bot/changelog";
 import { Client } from "discord.js";
@@ -11,7 +11,7 @@ import util from 'util';
  * Replies to "stats", "help", and "changelog"
  */
 @Injectable()
-export class HelpBehavior extends BehaviorBase {
+export class HelpBehavior extends DiscordBehaviorBase {
   constructor(
     private readonly config: Config,
     private readonly changelog: ChangeLog,

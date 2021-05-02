@@ -1,4 +1,4 @@
-import { BehaviorBase } from "./behavior-base";
+import { DiscordBehaviorBase } from "./discord-behavior-base";
 import { Parsers } from "@bot/lib/parsers";
 import { Config } from "@bot/config";
 import { Client, Message, TextChannel, GuildMember } from "discord.js";
@@ -13,7 +13,7 @@ import { Storage } from "@rollem/common";
 
 /** A base for classes that involve parsing and message handling. */
 @Injectable()
-export abstract class RollBehaviorBase extends BehaviorBase {
+export abstract class RollBehaviorBase extends DiscordBehaviorBase {
   constructor(
     protected readonly parsers: Parsers,
     protected readonly config: Config,

@@ -65,7 +65,26 @@
 
     /* Advanced Options */
     // "skipLibCheck": true,                     /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@language-v1/*": [
+        "src/rollem-language-1/*"
+      ],
+      "@language-v2/*": [
+        "src/rollem-language-2/*"
+      ],
+      "@bot/*": [
+        "src/discord/rollem-bot/*"
+      ],
+      "*": [
+        "src/types/*",
+        "node_modules/*"
+      ]
+    },
   },
   "include": ["src/**/*"]
 }

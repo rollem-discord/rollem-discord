@@ -1,4 +1,4 @@
-import { BehaviorBase } from "./behavior-base";
+import { DiscordBehaviorBase } from "./discord-behavior-base";
 import util, { promisify } from "util";
 import { Client, Message, User, MessageReaction } from "discord.js";
 import { Logger } from "@bot/logger";
@@ -11,7 +11,7 @@ import { Injectable } from "injection-js";
  * When supervised, the process should be immediately restarted.
  */
 @Injectable()
-export class DeadmanSwitchBehavior extends BehaviorBase {
+export class DeadmanSwitchBehavior extends DiscordBehaviorBase {
   private static readonly TimeWindowDuration = 60 * 1000;
   private static readonly PollingDuration = 30 * 1000;
 

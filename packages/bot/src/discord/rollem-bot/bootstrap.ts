@@ -8,12 +8,14 @@ import { Parsers } from "@bot/lib/parsers";
 
 import { Client, ClientOptions } from "discord.js";
 import { ChangeLog } from "./changelog";
-import { BehaviorBase } from "./behaviors/behavior-base";
+import { DiscordBehaviorBase } from "./behaviors/discord-behavior-base";
 // import assert from "assert";
 import { InjectorWrapper } from "./lib/injector-wrapper";
 import { Newable } from "./lib/utility-types";
 import { RepliedMessageCache } from "./lib/replied-message-cache";
 import { Storage } from "@rollem/common";
+import { BehaviorBase } from "@common/behavior.base";
+import { ClassProvider } from "injection-js";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -100,19 +102,32 @@ export namespace Bootstrapper {
   }
 
   /** Creates the DI context in which the client and its behaviors live. */
-  export function createClientContext(topLevelInjector: InjectorWrapper, client: Client, orderedBehaviors: Newable<BehaviorBase>[]) {
-    topLevelInjector.get(Logger).trackSimpleEvent("Setting up client-scoped DI");
+  export function createClientContext(
+    topLevelInjector: InjectorWrapper,
+    client: Client,
+    orderedStandardBehaviors: Newable<BehaviorBase>[],
+    orderedDiscordBehaviors: Newable<DiscordBehaviorBase>[]
+  ) {
+    topLevelInjector
+      .get(Logger)
+      .trackSimpleEvent("Setting up client-scoped DI");
     return topLevelInjector.createChildContext([
-      { provide: Client, useValue: client, },
-      ...orderedBehaviors,
+      { provide: Client, useValue: client },
+      ...orderedStandardBehaviors.map(b =>
+        <ClassProvider>{
+          provide: BehaviorBase,
+          useClass: b,
+          multi: true,
+        }),
+      ...orderedDiscordBehaviors,
     ]);
   }
 
   /** Attaches the known behaviors to the client. */
-  export async function attachBehaviorsToClient(clientLevelInjector: InjectorWrapper, orderedBehaviors: Newable<BehaviorBase>[]) {
+  export async function attachBehaviorsToClient(clientLevelInjector: InjectorWrapper, orderedBehaviors: Newable<DiscordBehaviorBase>[]) {
     const logger = clientLevelInjector.get(Logger);
     logger.trackSimpleEvent("Constructing behaviors...");
-    const constructedBehaviors = orderedBehaviors.map(ctor => clientLevelInjector.get(ctor) as BehaviorBase);
+    const constructedBehaviors = orderedBehaviors.map(ctor => clientLevelInjector.get(ctor) as DiscordBehaviorBase);
 
     logger.trackSimpleEvent("Applying behaviors...");
     await Promise.all(constructedBehaviors.map(async b => await b.apply()));

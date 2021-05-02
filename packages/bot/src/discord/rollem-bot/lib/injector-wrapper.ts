@@ -1,4 +1,4 @@
-import { ReflectiveInjector, Provider } from "injection-js";
+import { ReflectiveInjector, Provider, InjectionToken } from "injection-js";
 import { Newable } from "@bot/lib/utility-types";
 
 /** A utility wrapper around @see ReflectiveInjector */
@@ -12,7 +12,7 @@ export class InjectorWrapper {
   ) { }
 
   /** Gets a value for the given context. */
-  public get<T>(ctor: Newable<T>)
+  public get<T>(ctor: Newable<T> | InjectionToken<T>)
   {
     return this.injector.get(ctor) as T;
   }
