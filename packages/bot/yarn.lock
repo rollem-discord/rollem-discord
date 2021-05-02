@@ -275,10 +275,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@rollem/common@^0.0.5-alpha.0":
-  version "0.0.5-alpha.0"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.5-alpha.0.tgz#f8835c7eecda355c399c3c1c0989a1cb14ca97fa"
-  integrity sha512-Uq6TZaS6+WZvfRbp/9bbaAHbY65mCB+CzaLfaIW6auKfU8xzb1RuO4r13PlPFz6pHUH3KCCR8HhgZuohTnkVAQ==
+"@rollem/common@^0.0.11-alpha.0":
+  version "0.0.11-alpha.0"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.11-alpha.0.tgz#426e2e38bec8ee23d2c44ebe212a158e0d50ed74"
+  integrity sha512-s3MfgKRmXASosAgsveWQZefYa2NVS/DqVMHNOLLCgGaOULOZ2tDZZXGGLM/yhaGgppBCWzcFNzcnlfm3WuAp5g==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -319,6 +319,7 @@
     typeorm "0.3.0-rc.21"
     typescript "^3.0.3"
     watchify "^3.9.0"
+    webpack-filter-warnings-plugin "^1.2.1"
 
 "@sqltools/formatter@1.2.2":
   version "1.2.2"
@@ -8858,11 +8859,6 @@ yargs@^8.0.2:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
-
-yarn@^6.3.0:
-  version "1.22.10"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.10.tgz#c99daa06257c80f8fa2c3f1490724e394c26b18c"
-  integrity sha512-IanQGI9RRPAN87VGTF7zs2uxkSyQSrSPsju0COgbsKQOOXr5LtcVPeyXWgwVa0ywG3d8dg6kSYKGBuYK021qeA==
 
 yn@3.1.1:
   version "3.1.1"

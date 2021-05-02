@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
-    "@rollem/common": "^0.0.5-alpha.0",
+    "@rollem/common": "^0.0.11-alpha.0",
     "@types/chai": "^4.2.11",
     "@types/chance": "^1.1.0",
     "@types/keyv": "^3.1.1",
@@ -95,7 +95,7 @@
     "webpack-cli": "^4.6.0",
     "webpack-filter-warnings-plugin": "^1.2.1",
     "webpack-shell-plugin-next": "^2.2.2",
-    "yarn": "^6.3.0"
+    "npm": "^6.3.0"
   },
   "resolutions": {
     "node-fetch": "3.0.0-beta.9"
