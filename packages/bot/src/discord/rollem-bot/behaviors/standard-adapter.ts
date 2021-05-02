@@ -78,8 +78,8 @@ export class StandardAdapter extends DiscordBehaviorBase {
     for (const behavior of this.behaviors) {
       const result =
         preparedMessage.isPrefixed
-        ? await behavior.onTaggedMessage(preparedMessage.content, context)
-        : await behavior.onUntaggedMessage(preparedMessage.content, context);
+        ? await behavior.onTaggedMessage(message, preparedMessage.content, context)
+        : await behavior.onUntaggedMessage(message, preparedMessage.content, context);
       if (result) {
         message.reply(result.response).catch(rejected => this.handleSendRejection(message));
       }

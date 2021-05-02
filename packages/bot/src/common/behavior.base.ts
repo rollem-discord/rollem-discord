@@ -1,3 +1,4 @@
+import { Logger } from "@bot/logger";
 import { Injectable, InjectionToken } from "injection-js";
 import { BehaviorContext } from "./behavior-context";
 import { BehaviorResponse } from "./behavior-response";
@@ -5,6 +6,9 @@ import { BehaviorResponse } from "./behavior-response";
 /** A Base Behavior. */
 @Injectable()
 export abstract class BehaviorBase {
-  public abstract onUntaggedMessage(content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
-  public abstract onTaggedMessage(content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
+  constructor(protected readonly logger: Logger) {
+  }
+
+  public abstract onUntaggedMessage(trigger: any, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
+  public abstract onTaggedMessage(trigger: any, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
 }

@@ -16,6 +16,8 @@ import { RepliedMessageCache } from "./lib/replied-message-cache";
 import { Storage } from "@rollem/common";
 import { BehaviorBase } from "@common/behavior.base";
 import { ClassProvider } from "injection-js";
+import { BehaviorStatsBase } from "@common/stats-base";
+import { DiscordStats } from "../discord-stats";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -113,6 +115,7 @@ export namespace Bootstrapper {
       .trackSimpleEvent("Setting up client-scoped DI");
     return topLevelInjector.createChildContext([
       { provide: Client, useValue: client },
+      { provide: BehaviorStatsBase, useClass: DiscordStats },
       ...orderedStandardBehaviors.map(b =>
         <ClassProvider>{
           provide: BehaviorBase,
