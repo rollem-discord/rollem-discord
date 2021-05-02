@@ -18,16 +18,18 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn run build:cjs && yarn run build:esm && yarn run build:umd && yarn run build:types",
-    "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
-    "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
-    "build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
-    "build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "build": "yarn run build:common",
+    "build:common": "yarn run build:common:cjs && yarn run build:common:esm && yarn run build:common:umd && yarn run build:common:types",
+    "build:common:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "build:common:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "build:common:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
+    "build:common:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
-    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
+    "addscope": "node tools/packagejson name @tomchen/example-typescript-package",
+    "prepare": "npm run build"
   },
   "mocha": {
     "require": [
