@@ -1,5 +1,4 @@
-import { User } from '@rollem/common';
-import { UserConnections } from '@rollem/common/src/storage/entity/UserConnections';
+import { User, UserConnections } from '@rollem/common';
 import { IncomingMessage } from 'http';
 import { NextApiRequest } from 'next';
 import { Session, SessionCookieData } from 'next-session/dist/types';

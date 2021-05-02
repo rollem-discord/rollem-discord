@@ -1,4 +1,5 @@
 export * from './entity/User';
+export * from './entity/UserConnections';
 export * from './storage';
 
 // import "reflect-metadata";

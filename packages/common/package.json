@@ -7,21 +7,27 @@
   "bugs": {
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
-  "main": "dist/index.js",
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "yarn run build:common",
-    "build:common": "yarn run tsc",
-    "tsc": "tsc",
-    "watch": "tsc --watch",
-    "typeorm": "node -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
-    "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
-    "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
-  },
-  "prepublish": "tsc",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "umd:main": "dist/umd/index.js",
+  "types": "dist/types/index.d.js",
   "publishConfig": {
     "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn run build:cjs && yarn run build:esm && yarn run build:umd && yarn run build:types",
+    "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
+    "build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "clean": "node tools/cleanup",
+    "package": "yarn run build && yarn pack",
+    "test": "jest --no-cache --runInBand",
+    "test:cov": "jest --coverage --no-cache --runInBand",
+    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
   },
   "mocha": {
     "require": [
@@ -79,11 +85,24 @@
     "tsconfig-paths": "^3.9.0",
     "typeorm": "0.3.0-rc.21",
     "typescript": "^3.0.3",
-    "watchify": "^3.9.0"
+    "watchify": "^3.9.0",
+    "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "license": "MIT",
   "devDependencies": {
-    "next-cli": "^1.0.0"
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.0",
+    "ts-loader": "^8.0.16",
+    "typescript": "^4.1.3",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
   },
   "gitHead": "af2fd4ba63c7c5d39ff5d32d64697660f64fcac4"
 }

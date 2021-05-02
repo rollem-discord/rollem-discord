@@ -9,10 +9,11 @@
     "url": "https://github.com/lemtzas/rollem-discord/issues"
   },
   "scripts": {
-    "build": "yarn run build:bot",
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && npm run build:bot",
     "build:bot": "NODE_ENV=development webpack",
     "build:dockerfile": "webpack",
-    "dev": "yarn run dev:bot",
+    "dev": "npm run dev:bot",
     "dev:bot": "NODE_ENV=development webpack --watch",
     "webpack:launch": "NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "package": "docker build -t rollem-bot .",
@@ -34,7 +35,7 @@
     "old:build": "gulp build",
     "old:watch": "gulp watch",
     "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
-    "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
+    "prepare": "npm run build && npm run publish:prepare-subdirectory"
   },
   "files": [
     "./"
@@ -77,7 +78,7 @@
     "module-alias": "^2.2.0",
     "moment": "^2.22.1",
     "node-cache": "^5.1.0",
-    "npm": "^6.3.0",
+    "yarn": "^6.3.0",
     "nyc": "^15.0.1",
     "pegjs": "0.10.0",
     "pegjs-loader": "^0.5.6",

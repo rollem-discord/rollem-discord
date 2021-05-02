@@ -1,4 +1,4 @@
-import { User } from "@rollem/common/src/storage/entity/User";
+import { User } from "@rollem/common/storage/entity/User";
 
 require("dotenv").config({path: "secrets/vscode.env"});
 

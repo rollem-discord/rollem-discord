@@ -13,9 +13,10 @@
     "access": "public"
   },
   "scripts": {
+    "clean": "rm -rf ./dist",
     "dev": "yarn run dev:ui",
     "dev:ui": "NODE_OPTIONS='--inspect' next dev",
-    "build": "yarn run build:ui",
+    "build": "yarn run clean && yarn run build:ui",
     "build:ui": "next build",
     "start": "next start",
     "package": "docker build -t rollem-ui .",
@@ -25,7 +26,7 @@
     "k8s:update-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
     "k8s:delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
     "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
-    "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
+    "prepare": "# yarn run build && yarn run publish:prepare-subdirectory"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
