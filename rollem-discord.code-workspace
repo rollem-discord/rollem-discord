@@ -2,10 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"name": "rollem-discord @ e7c4552",
-			"uri": "gitlens://e7c4552/Users/tem/dev/rollem-discord?{\"path\":\"/Users/tem/dev/rollem-discord\",\"ref\":\"e7c4552087f7f82a29310c57606984fbe152521a\",\"repoPath\":\"/Users/tem/dev/rollem-discord\"}"
 		}
 	],
 	"settings": {

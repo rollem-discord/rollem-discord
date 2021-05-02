@@ -6,17 +6,17 @@ export class UserConnections {
     id!: string;
 
     @Column({ nullable: true})
-    discord_access_token: string | null = null;
+    discord_access_token!: string;
 
     @Column({ nullable: true})
-    discord_token_type: string | null = null;
+    discord_token_type!: string;
 
     @Column({ nullable: true})
-    discord_expires_at: Date | null = null;
+    discord_expires_at!: Date;
 
     @Column({ nullable: true})
-    discord_refresh_token: string | null = null;
+    discord_refresh_token!: string;
 
     @Column({ nullable: true})
-    discord_scope: string | null = null;
+    discord_scope!: string;
 }
