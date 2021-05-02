@@ -1,18 +1,40 @@
-const { IgnorePlugin } = require('webpack');
-const nodeExternals = require('webpack-node-externals');
-const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
-const path = require('path');
-const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+import webpack from 'webpack';
+import FilterWarningsPlugin from 'webpack-filter-warnings-plugin';
+import CopyPlugin from "copy-webpack-plugin";
+import path from 'path';
+import WebpackShellPluginNext from 'webpack-shell-plugin-next';
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const config = {
-  entry: './src/rollem-bot/bot.ts',
-  target: 'node',
-  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+  entry: "./src/rollem-bot/bot.ts",
+  target: "node",
   plugins: [
-    new IgnorePlugin({ resourceRegExp: /^pg-native$/}),
+    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
     new FilterWarningsPlugin({
-      exclude: [/mongodb/, /mssql/, /mysql/, /mysql2/, /oracledb/, /pg/, /pg-query-stream/, /react-native-sqlite-storage/, /redis/, /sqlite3/, /sql.js/, /typeorm-aurora-data-api-driver/]
+      exclude: [
+        /the request of a dependency is an expression/,
+        /mongodb/,
+        /mssql/,
+        /mysql/,
+        /mysql2/,
+        /oracledb/,
+        /pg/,
+        /pg-query-stream/,
+        /react-native-sqlite-storage/,
+        /redis/,
+        /sqlite3/,
+        /sql.js/,
+        /typeorm-aurora-data-api-driver/,
+        /hdb-pool/,
+        /@sap\/hana-client/,
+        /utf-8-validate/,
+        /bufferutil/,
+        /zlib-sync/,
+        /erlpack/,
+        /@opentelemetry/,
+        /applicationinsights-native-metrics/,
+      ],
     }),
     // new CopyPlugin({
     //   patterns: [
@@ -23,31 +45,31 @@ const config = {
   node: {
     global: true,
     __filename: false,
-    __dirname: false,
+    __dirname: true,
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
       },
       {
         test: /\.pegjs$/,
-        use: 'pegjs-loader',
+        use: "pegjs-loader",
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
     alias: {
       "@language-v1": path.resolve(__dirname, "src/rollem-language-1/"),
       "@language-v2": path.resolve(__dirname, "src/rollem-language-2/"),
       "@bot": path.resolve(__dirname, "src/rollem-bot/"),
-    }
+    },
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
 };
 
@@ -63,4 +85,4 @@ const config = {
 //   }));
 // }
 
-module.exports = config;
+export default config;
