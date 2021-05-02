@@ -102,7 +102,7 @@
     "node-fetch": "3.0.0-beta.9"
   },
   "license": "MIT",
-  "gitHead": "af2fd4ba63c7c5d39ff5d32d64697660f64fcac4",
+  "gitHead": "8f1d875a3e399a3af679d7a63b3b3e059ce77178",
   "devDependencies": {
     "copy-webpack-plugin": "^8.1.0"
   }

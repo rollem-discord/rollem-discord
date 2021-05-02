@@ -1,4 +1,5 @@
 const { IgnorePlugin } = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
@@ -7,6 +8,7 @@ const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 const config = {
   entry: './src/rollem-bot/bot.ts',
   target: 'node',
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   plugins: [
     new IgnorePlugin({ resourceRegExp: /^pg-native$/}),
     new FilterWarningsPlugin({
