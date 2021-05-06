@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "lerna": "lerna",
     "dev": "lerna run dev --stream",
     "dev:ui": "lerna run dev:ui --stream",
     "dev:bot": "lerna run dev:bot --stream",
@@ -20,7 +21,7 @@
     "replace-rollem-prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
     "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod"
   },
-  "devDependencies": {
+  "dependencies": {
     "lerna": "^4.0.0"
   }
 }
