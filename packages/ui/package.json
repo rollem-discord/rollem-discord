@@ -2,11 +2,11 @@
   "name": "@rollem/ui",
   "version": "2.1.0",
   "description": "Rollem for Discord (UI) - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
-  "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
+  "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "main": "rollem.js",
-  "homepage": "https://github.com/lemtzas/rollem-discord",
+  "homepage": "https://github.com/rollem-discord/rollem-discord",
   "bugs": {
-    "url": "https://github.com/lemtzas/rollem-discord/issues"
+    "url": "https://github.com/rollem-discord/rollem-discord/issues"
   },
   "license": "MIT",
   "publishConfig": {
