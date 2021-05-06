@@ -1,7 +1,7 @@
 import { DiscordBehaviorBase } from "./discord-behavior-base";
 import util, { promisify } from "util";
 import { Client, Message, User, MessageReaction } from "discord.js";
-import { Logger } from "@bot/logger";
+import { Logger, LoggerCategory } from "@bot/logger";
 import { Injectable } from "injection-js";
 
 // TODO: there's got to be a cleaner way to handle this, but this seems to make it more resilient.
@@ -41,18 +41,18 @@ export class DeadmanSwitchBehavior extends DiscordBehaviorBase {
     this.client.on('messageReactionRemoveAll', (message) => this.logDiscordActivity());
     this.client.on('messageUpdate', (oldMessage, newMessage) => this.logDiscordActivity());
     this.client.on('guildUnavailable', guild => {
-      this.logger.trackError(`Guild Unvailable (id: ${guild.id})`);
+      this.logger.trackError(LoggerCategory.SystemEvent, `Guild Unvailable (id: ${guild.id})`);
       this.logDiscordActivity();
     });
     this.client.on('voiceStateUpdate', (oldMember, newMember) => this.logDiscordActivity());
 
-    this.client.on('warn', info => this.logger.trackError("warning - " + info));
+    this.client.on('warn', info => this.logger.trackError(LoggerCategory.SystemEvent, "warning - " + info));
     this.client.on('rateLimit', info => {
       if (info && typeof info.path == 'string' && info.path.includes('reactions')) {
         return;
       }
       
-      this.logger.trackSimpleEvent('RateLimit', info)
+      this.logger.trackSimpleEvent(LoggerCategory.SystemEvent, 'RateLimit', info)
     });
 
     await this.initializeSelfWatchdog();
@@ -101,11 +101,11 @@ export class DeadmanSwitchBehavior extends DiscordBehaviorBase {
   }
 
   private watch() {
-    this.logger.trackMetric("Activity Per Minute", this.activityInLastMinute);
-    this.logger.trackMetric("Handled Messages", this.messagesSinceLastReport);
+    this.logger.trackMetric(LoggerCategory.SystemActivity, "Activity Per Minute", this.activityInLastMinute);
+    this.logger.trackMetric(LoggerCategory.SystemActivity, "Handled Messages", this.messagesSinceLastReport);
     if (this.activityInLastMinute == 0) {
-      this.logger.trackMetric("No Activity", 1);
-      this.logger.trackError("No activity in a minute.");
+      this.logger.trackMetric(LoggerCategory.SystemActivity, "No Activity", 1);
+      this.logger.trackError(LoggerCategory.SystemActivity, "No activity in a minute.");
       this.logger.flush();
       // process.exit(0);
     }

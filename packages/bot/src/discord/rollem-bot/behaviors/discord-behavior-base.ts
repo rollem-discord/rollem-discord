@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import { Logger } from "@bot/logger";
+import { Logger, LoggerCategory } from "@bot/logger";
 import { Injectable } from "injection-js";
 
 /** A base for behaviors to be applied to a discord client. */
@@ -12,7 +12,7 @@ export abstract class DiscordBehaviorBase {
   
   /** Applies the behavior to the given client. */
   public async apply(): Promise<void> {
-    this.logger.trackSimpleEvent(`Registering Behavior: ${this.constructor.name}`)
+    this.logger.trackSimpleEvent(LoggerCategory.BehaviorRegistration, `Registering Behavior: ${this.constructor.name}`)
     await this.register();
   }
 
@@ -25,7 +25,7 @@ export abstract class DiscordBehaviorBase {
     // let channelId = message.channel ? message.channel.id : null;
     // let messageId = message.id;
     // let userId = message.userId;
-    this.logger.trackError(label, error);
+    this.logger.trackError(LoggerCategory.SystemEvent, label, error);
   }
   
   /** Handle a rejected send request. */
@@ -34,6 +34,6 @@ export abstract class DiscordBehaviorBase {
     // let channelId = message.channel ? message.channel.id : null;
     // let messageId = message.id;
     // let userId = message.userId;
-    this.logger.trackMessageEvent("Missing send permission", message);
+    this.logger.trackMessageEvent(LoggerCategory.SystemEvent, "Missing send permission", message);
   }
 }

@@ -6,6 +6,16 @@ import { ChangeLog } from "./changelog";
 import util from "util";
 import { Injectable } from "injection-js";
 
+export enum LoggerCategory {
+  SystemActivity,
+  SystemEvent,
+  BehaviorRegistration,
+  BehaviorRouting,
+  BehaviorEvent,
+}
+
+const ignoredCategories: LoggerCategory[] = []
+
 /** Manages logging. */
 @Injectable()
 export class Logger {
@@ -45,7 +55,9 @@ export class Logger {
 
   /** Tracks an event with AI using a console fallback. */
   // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
-  public trackSimpleEvent(name: string, properties = {}) {
+  public trackSimpleEvent(category: LoggerCategory, name: string, properties = {}) {
+    if (ignoredCategories.includes(category)) { return; }
+
     if (this.aiClient) {
       console.log(name, properties);
       this.aiClient.trackEvent({
@@ -60,7 +72,9 @@ export class Logger {
 
   /** Tracks an event with AI using a console fallback. */
   // TODO: Convert many of the operations to use trackRequest instead. See https://docs.microsoft.com/en-us/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest
-  public trackMessageEvent(name: string, message: Message, properties = {}) {
+  public trackMessageEvent(category: LoggerCategory, name: string, message: Message, properties = {}) {
+    if (ignoredCategories.includes(category)) { return; }
+    
     if (this.aiClient) {
       console.log(name, message, properties);
       this.aiClient.trackEvent({
@@ -74,7 +88,9 @@ export class Logger {
   }
 
   /** Tracks a metric with AI using a console fallback. */
-  public trackMetric(name: string, value: number) {
+  public trackMetric(category: LoggerCategory, name: string, value: number) {
+    if (ignoredCategories.includes(category)) { return; }
+    
     if (this.aiClient) {
       this.aiClient.trackMetric({
         name: name,
@@ -86,7 +102,9 @@ export class Logger {
   }
 
   /** Tracks an error with AI using a console fallback. */
-  public trackMessageError(name: string, message: Message, error?: Error) {
+  public trackMessageError(category: LoggerCategory, name: string, message: Message, error?: Error) {
+    if (ignoredCategories.includes(category)) { return; }
+    
     if (this.aiClient) {
       console.error(name, message, util.inspect(error));
       error = error || new Error(name);
@@ -104,7 +122,9 @@ export class Logger {
   }
 
   /** Tracks an error with AI using a console fallback. */
-  public trackError(name: string, error?: Error) {
+  public trackError(category: LoggerCategory, name: string, error?: Error) {
+    if (ignoredCategories.includes(category)) { return; }
+    
     if (this.aiClient) {
       console.error(name, util.inspect(error));
       error = error || new Error(name);

@@ -1,4 +1,4 @@
-import { Logger } from "./logger";
+import { Logger, LoggerCategory } from "./logger";
 
 import { Config } from "./config";
 
@@ -18,6 +18,7 @@ import { BehaviorBase } from "@common/behavior.base";
 import { ClassProvider } from "injection-js";
 import { BehaviorStatsBase } from "@common/stats-base";
 import { DiscordStats } from "../discord-stats";
+import { strict } from "assert";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -39,7 +40,7 @@ export namespace Bootstrapper {
         ]);
 
     const logger = topLevelInjector.get(Logger);
-    // assert(!!logger, "DI failed to resolve logger");
+    strict(!!logger, "DI failed to resolve logger");
     const config = topLevelInjector.get(Config);
     // assert(!!config, "DI failed to resolve config");
     const changelog = topLevelInjector.get(ChangeLog);
@@ -62,7 +63,7 @@ export namespace Bootstrapper {
   export async function prepareStorage(topLevelInjector: InjectorWrapper) {
     const logger = topLevelInjector.get(Logger);
     await topLevelInjector.get(Storage).initialize();
-    logger.trackSimpleEvent(`Connected to postgres`);
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, `Connected to postgres`);
   }
 
   /** Starts reading the changelog and updates logger with it. */
@@ -73,6 +74,7 @@ export namespace Bootstrapper {
       .then(changelog => {
         logger.changelog = changelog;
         logger.trackSimpleEvent(
+          LoggerCategory.SystemEvent,
           `Got changelog ${changelog.changelog}`,
           {
             version: changelog.version,
@@ -85,10 +87,10 @@ export namespace Bootstrapper {
     const logger = topLevelInjector.get(Logger);
     const config = topLevelInjector.get(Config);
 
-    logger.trackSimpleEvent("Constructing client...");
-    logger.trackSimpleEvent("Shard ID: " + config.ShardId)
-    logger.trackSimpleEvent("Shard Count: " + config.ShardCount)
-    logger.trackSimpleEvent("Logging in using token: " + config.Token);
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Constructing client...");
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Shard ID: " + config.ShardId)
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Shard Count: " + config.ShardCount)
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Logging in using token: " + config.Token);
 
     const clientOptions: ClientOptions|undefined =
       config.HasShardInfo
@@ -112,7 +114,7 @@ export namespace Bootstrapper {
   ) {
     topLevelInjector
       .get(Logger)
-      .trackSimpleEvent("Setting up client-scoped DI");
+      .trackSimpleEvent(LoggerCategory.SystemEvent, "Setting up client-scoped DI");
     return topLevelInjector.createChildContext([
       { provide: Client, useValue: client },
       { provide: BehaviorStatsBase, useClass: DiscordStats },
@@ -129,10 +131,10 @@ export namespace Bootstrapper {
   /** Attaches the known behaviors to the client. */
   export async function attachBehaviorsToClient(clientLevelInjector: InjectorWrapper, orderedBehaviors: Newable<DiscordBehaviorBase>[]) {
     const logger = clientLevelInjector.get(Logger);
-    logger.trackSimpleEvent("Constructing behaviors...");
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Constructing behaviors...");
     const constructedBehaviors = orderedBehaviors.map(ctor => clientLevelInjector.get(ctor) as DiscordBehaviorBase);
 
-    logger.trackSimpleEvent("Applying behaviors...");
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Applying behaviors...");
     await Promise.all(constructedBehaviors.map(async b => await b.apply()));
   }
 
@@ -142,9 +144,9 @@ export namespace Bootstrapper {
     const client = clientLevelInjector.get(Client);
     const config = clientLevelInjector.get(Config);
 
-    logger.trackSimpleEvent("Ready to start. Logging in...");
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Ready to start. Logging in...");
     client.login(config.Token);
 
-    logger.trackSimpleEvent("Logged in.");
+    logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Logged in.");
   }
 }

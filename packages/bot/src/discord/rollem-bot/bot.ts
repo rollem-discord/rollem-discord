@@ -9,22 +9,27 @@ import { DeadmanSwitchBehavior } from "./behaviors/deadman-switch";
 import { DieOnDisconnectBehavior } from "./behaviors/die-on-disconnect.behavior";
 import { DieOnErrorBehavior } from "./behaviors/die-on-error.behavior";
 import { HeartbeatBehavior } from "./behaviors/heartbeat.behavior";
-import { ParseSoftBehavior } from "./behaviors/parse-soft.behavior";
 import { Bootstrapper } from "./bootstrap";
-import { ParseBracketedBehavior } from "./behaviors/parse-bracketed.behavior";
-import { ParseNamePrefixedBehavior } from "./behaviors/parse-name-prefixed.behavior";
-import { ParseShortPrefixBehavior } from "./behaviors/parse-short-prefixed.behavior";
-import { StorageBehavior } from "./behaviors/storage.behavior";
 import { StandardAdapter } from "./behaviors/standard-adapter";
 import { BehaviorBase } from "@common/behavior.base";
 import { PingPongBehavior } from "@common/behaviors/ping-pong.behavior";
 import { StatsBehavior } from "@common/behaviors/stats.behavior";
 import { ChangelogBehavior } from "@common/behaviors/changelog.behavior";
+import { DiceBracketedBehavior } from "@common/behaviors/dice/dice-bracketed.behavior";
+import { DiceShortPrefixedBehavior } from "@common/behaviors/dice/dice-short-prefixed.behavior";
+import { DiceSoftParseBehavior } from "@common/behaviors/dice/dice-soft-parse.behavior";
+import { DiceTaggedBehavior } from "@common/behaviors/dice/dice-tagged.behavior";
+import { StorageBehavior } from "@common/behaviors/storage.behavior";
 
 const ORDERED_STANDARD_BEHAVIORS: Newable<BehaviorBase>[] = [
   PingPongBehavior,
   StatsBehavior,
   ChangelogBehavior,
+  StorageBehavior,
+  DiceBracketedBehavior,
+  DiceShortPrefixedBehavior,
+  DiceSoftParseBehavior,
+  DiceTaggedBehavior,
 ];
 
 /** The behaviors in the order in which they will be loaded. */
@@ -32,12 +37,7 @@ const ORDERED_DISCORD_BEHAVIORS: Newable<DiscordBehaviorBase>[] = [
   DieOnDisconnectBehavior,
   DieOnErrorBehavior,
   HeartbeatBehavior,
-  ParseBracketedBehavior,
-  ParseNamePrefixedBehavior,
-  ParseShortPrefixBehavior,
-  ParseSoftBehavior,
   DeadmanSwitchBehavior,
-  StorageBehavior,
   StandardAdapter,
 ];
 

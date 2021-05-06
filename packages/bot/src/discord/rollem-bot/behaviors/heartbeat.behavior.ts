@@ -1,6 +1,6 @@
 import { DiscordBehaviorBase } from "./discord-behavior-base";
 import { Client } from "discord.js";
-import { Logger } from "@bot/logger";
+import { Logger, LoggerCategory } from "@bot/logger";
 import { Config } from "@bot/config";
 import { ChangeLog } from "@bot/changelog";
 import moment from "moment";
@@ -27,7 +27,7 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
 
   protected async register() {
     this.client.on('ready', async () => {
-      this.logger.trackSimpleEvent("ready");
+      this.logger.trackSimpleEvent(LoggerCategory.SystemActivity, "ready");
 
       console.log("will defer to: " + this.config.deferToClientIds);
       console.log('username: ' + this.client.user?.username);
@@ -81,6 +81,6 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
     const disableHeartbeat = process.env.DISABLE_HEARTBEAT
     if (disableHeartbeat) { return; }
 
-    this.logger.trackSimpleEvent(`heartbeat - shard ${this.logger.shardName()}`, {reason: reason});
+    this.logger.trackSimpleEvent(LoggerCategory.SystemActivity, `heartbeat - shard ${this.logger.shardName()}`, {reason: reason});
   }
 }

@@ -10,10 +10,12 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && npm run build:bot",
+    "watch": "yarn watch:bot",
+    "watch:bot": "NODE_ENV=development webpack --watch",
+    "build": "yarn run clean && yarn run build:bot",
     "build:bot": "NODE_ENV=development webpack",
     "build:dockerfile": "webpack",
-    "dev": "npm run dev:bot",
+    "dev": "yarn run dev:bot",
     "dev:bot": "NODE_ENV=development webpack --watch",
     "webpack:launch": "NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "package": "docker build -t rollem-bot .",
@@ -35,7 +37,7 @@
     "old:build": "gulp build",
     "old:watch": "gulp watch",
     "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
-    "prepare": "npm run build && npm run publish:prepare-subdirectory"
+    "prepare": "yarn run build && yarn run publish:prepare-subdirectory"
   },
   "files": [
     "./"

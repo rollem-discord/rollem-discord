@@ -1,7 +1,7 @@
 import { DiscordBehaviorBase } from "./discord-behavior-base";
 import util from "util";
 import { Client } from "discord.js";
-import { Logger } from "@bot/logger";
+import { Logger, LoggerCategory } from "@bot/logger";
 import { Injectable } from "injection-js";
 
 // TODO: there's got to be a cleaner way to handle this, but this seems to make it more resilient.
@@ -30,13 +30,13 @@ export class DieOnErrorBehavior extends DiscordBehaviorBase {
       try {
         let ignoreError = error.message.includes('write EPIPE');
         if (ignoreError) {
-          this.logger.trackSimpleEvent("known error - " + error.message, { reason: util.inspect(error)});
+          this.logger.trackSimpleEvent(LoggerCategory.SystemEvent, "known error - " + error.message, { reason: util.inspect(error)});
           return;
         }
       } catch { }
     }
   
-    this.logger.trackSimpleEvent("unknown error", { reason: util.inspect(error) });
+    this.logger.trackSimpleEvent(LoggerCategory.SystemEvent, "unknown error", { reason: util.inspect(error) });
     this.logger.flush();
   
     process.exit(0);
@@ -44,7 +44,7 @@ export class DieOnErrorBehavior extends DiscordBehaviorBase {
 
   /** Handles otherwise-unhandled errors. */
   private handleUncaughtError(error: Error) {
-    this.logger.trackError(`uncaught error - ${error.name}`, error);
+    this.logger.trackError(LoggerCategory.SystemEvent, `uncaught error - ${error.name}`, error);
     this.logger.flush();
     process.exit(0);
   }
@@ -52,8 +52,8 @@ export class DieOnErrorBehavior extends DiscordBehaviorBase {
   /** Handles otherwise-unhandled errors. */
   private handleUnhandledRejection(reason: {} | null | undefined, promise: Promise<any>) {
     if (reason instanceof Error)
-      this.logger.trackError(`unhandled rejection - ${reason}`, reason);
-    this.logger.trackError(`unhandled rejection - ${reason} - ${util.inspect(reason)}`);
+      this.logger.trackError(LoggerCategory.SystemEvent, `unhandled rejection - ${reason}`, reason);
+    this.logger.trackError(LoggerCategory.SystemEvent, `unhandled rejection - ${reason} - ${util.inspect(reason)}`);
 
     this.logger.flush();
   }
@@ -61,7 +61,7 @@ export class DieOnErrorBehavior extends DiscordBehaviorBase {
   
   /** Fired on exit. */
   private handleExit(code: number) {
-    this.logger.trackSimpleEvent(`exiting - ${code}`);
+    this.logger.trackSimpleEvent(LoggerCategory.SystemEvent, `exiting - ${code}`);
     this.logger.flush();
   }
 }

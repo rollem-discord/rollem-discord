@@ -2,7 +2,7 @@ import { ChangeLog } from "@bot/changelog";
 import { Logger } from "@bot/logger";
 import { BehaviorContext } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
-import { BehaviorBase } from "@common/behavior.base";
+import { BehaviorBase, Trigger } from "@common/behavior.base";
 import { BehaviorStatsBase } from "@common/stats-base";
 import { Injectable } from "injection-js";
 import { toPairs } from "lodash";
@@ -11,16 +11,16 @@ import { toPairs } from "lodash";
 @Injectable()
 export class StatsBehavior extends BehaviorBase {
   constructor(
-    private readonly changelog: ChangeLog,
     private readonly statsProvider: BehaviorStatsBase,
     logger: Logger,
   ) {
     super(logger);
   }
 
-  public async onTaggedMessage(trigger: any, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public label = "stats";
+
+  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     if (content.startsWith('stats') || content.startsWith('help')) {
-      this.logger.trackMessageEvent("stats", trigger);
       const stats = await this.statsProvider.getStats();
       const statsPairs = toPairs(stats);
       const statsArray = statsPairs.map(([name, value]) => `**${name}:** ${value}`);
@@ -48,7 +48,7 @@ export class StatsBehavior extends BehaviorBase {
     }
   }
 
-  public async onUntaggedMessage(trigger: any, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 }

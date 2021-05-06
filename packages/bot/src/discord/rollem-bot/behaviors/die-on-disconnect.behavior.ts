@@ -1,7 +1,7 @@
 import { DiscordBehaviorBase } from "./discord-behavior-base";
 import util from "util";
 import { Client } from "discord.js";
-import { Logger } from "@bot/logger";
+import { Logger, LoggerCategory } from "@bot/logger";
 import { Injectable } from "injection-js";
 
 // TODO: there's got to be a cleaner way to handle this, but this seems to make it more resilient.
@@ -19,7 +19,7 @@ export class DieOnDisconnectBehavior extends DiscordBehaviorBase {
 
   protected async register() {
     this.client.on('disconnect', (f) => {
-      this.logger.trackSimpleEvent("disconnect", { reason: util.inspect(f) });
+      this.logger.trackSimpleEvent(LoggerCategory.SystemEvent, "disconnect", { reason: util.inspect(f) });
       this.logger.flush();
       process.exit(0);
     });

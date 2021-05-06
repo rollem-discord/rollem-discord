@@ -1,6 +1,6 @@
 import fs from 'fs';
 import util from 'util';
-import { Logger } from './logger';
+import { Logger, LoggerCategory } from './logger';
 import { Injectable } from 'injection-js';
 
 const CHANGELOG_LINK = "<https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md>\n\n";
@@ -50,7 +50,7 @@ export class ChangeLog {
         this.version = `v${versionText}`;
       }
     } catch (err) {
-      this.logger.trackError(err);
+      this.logger.trackError(LoggerCategory.BehaviorEvent, err);
       this.changelog = CHANGELOG_LINK + "(Sorry, there was an issue reading the file fom disk.) \n\n" + err;
     }
 
