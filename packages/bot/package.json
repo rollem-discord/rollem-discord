@@ -14,7 +14,7 @@
     "watch:bot": "NODE_ENV=development webpack --watch",
     "build": "yarn run clean && yarn run build:bot",
     "build:bot": "NODE_ENV=development webpack",
-    "build:dockerfile": "webpack",
+    "build:dockerfile": "NODE_ENV=development webpack",
     "dev": "yarn run dev:bot",
     "dev:bot": "NODE_ENV=development webpack --watch",
     "webpack:launch": "NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
