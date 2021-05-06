@@ -1,7 +1,7 @@
 {
   "name": "@rollem/bot",
   "version": "2.1.0",
-  "description": "Rollem for Discord - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
+  "description": "Rollem (Discord Bot) - Bot Deployable",
   "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
   "bugs": {
