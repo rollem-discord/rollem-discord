@@ -15,7 +15,8 @@
     "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
     "replace-rollem-beta": "kubectl replace -f ./infra/k8s/rollem-beta/",
     "replace-rollem-prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
-    "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod"
+    "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
+    "version": "lerna clean --yes && lerna exec \"yarn install --ignore-scripts --package-lock-only --no-audit\" && git add packages/*/yarn.lock"
   },
   "devDependencies": {
     "lerna": "^3.0.0"
