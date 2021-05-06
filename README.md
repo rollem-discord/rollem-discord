@@ -1,3 +1,5 @@
+[![Docker](https://github.com/rollem-discord/rollem-discord/actions/workflows/dockerpublish.yml/badge.svg)](https://github.com/rollem-discord/rollem-discord/actions/workflows/dockerpublish.yml)
+
 # Rollem for Discord
 
 A feature-filled dicebot that allows you to just roll.
