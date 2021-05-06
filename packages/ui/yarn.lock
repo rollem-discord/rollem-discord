@@ -439,10 +439,10 @@
   resolved "https://registry.npmjs.org/@opentelemetry/context-base/-/context-base-0.14.0.tgz"
   integrity sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw==
 
-"@rollem/common@^0.0.5-alpha.0":
-  version "0.0.5-alpha.0"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.5-alpha.0.tgz#f8835c7eecda355c399c3c1c0989a1cb14ca97fa"
-  integrity sha512-Uq6TZaS6+WZvfRbp/9bbaAHbY65mCB+CzaLfaIW6auKfU8xzb1RuO4r13PlPFz6pHUH3KCCR8HhgZuohTnkVAQ==
+"@rollem/common@^0.0.16-alpha.0":
+  version "0.0.16-alpha.0"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-0.0.16-alpha.0.tgz#dd85e7c30e4106632426e7a8ace67cbed249bda7"
+  integrity sha512-y6iUZ/ANETo9qLjKuYnnw3NSShR0X1b6lymJMPfE0D52P7DPpyeQMkjZ2mKgNe3jBETLIamK/vTI0kD9vVc+IA==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -483,6 +483,7 @@
     typeorm "0.3.0-rc.21"
     typescript "^3.0.3"
     watchify "^3.9.0"
+    webpack-filter-warnings-plugin "^1.2.1"
 
 "@sqltools/formatter@1.2.2":
   version "1.2.2"
