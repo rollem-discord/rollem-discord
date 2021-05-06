@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Injectable } from "injection-js";
-import { createConnection, Connection, getConnection, Repository, ConnectionOptions, getRepository } from "typeorm";
+import { createConnection, Connection, getConnection, Repository, ConnectionOptions, getRepository, getConnectionManager } from "typeorm";
 import { User } from "./entity/User";
 import path from 'path';
 import { UserConnections } from './entity/UserConnections';
@@ -78,6 +78,17 @@ export class Storage {
       ],
     };
 
-    this.connection = await createConnection(config);
+    try {
+      this.connection = await createConnection(config);
+    } catch (err) {
+      // If AlreadyHasActiveConnectionError occurs, return already existent connection
+      if (err.name === 'AlreadyHasActiveConnectionError') {
+        const existingConnection = getConnectionManager().get("default");
+        this.connection = existingConnection;
+        return;
+     }
+
+     throw err;
+    }
   }
 }

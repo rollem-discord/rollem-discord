@@ -13,6 +13,8 @@ import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { Avatar, SvgIcon, Tooltip } from '@material-ui/core';
 import { ExitToApp, Settings } from '@material-ui/icons';
+import { useRouter } from 'next/router';
+import { isUndefined } from 'lodash';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -93,8 +95,12 @@ export function DiscordProfile() {
     );
   }
   
-
-  const loginUrl = "https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fdiscord%2Fcallback&response_type=code&scope=identify%20guilds";
+  let loginUrl = '#';
+  if (typeof window !== 'undefined') {
+    const callback = `${window.location.origin}/api/auth/discord/callback`;
+    const encodedCallback = encodeURI(callback);
+    loginUrl = `https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=${encodedCallback}&response_type=code&scope=identify%20guilds`;
+  }
 
   return (
     <>
