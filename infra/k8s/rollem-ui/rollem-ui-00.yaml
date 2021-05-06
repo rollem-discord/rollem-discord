@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollem-ui-00-deployment
+spec:
+  selector:
+    matchLabels:
+      app: rollem-prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rollem-prod
+    spec:
+      containers:
+      - name: rollem-ui-00
+        image: lemtzas/rollem-discord:1.16.2-test-7
+        resources:
+          requests:
+            cpu: 200m
+            memory: 400M
+        env:
+        - name: 'reboot'
+          value: '2021-02-13.1'
+        - name: 'DISCORD_CLIENT_ID'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-ui
+              key: DISCORD_CLIENT_ID
+        - name: 'DISCORD_CLIENT_SECRET'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-ui
+              key: DISCORD_CLIENT_SECRET
+        - name: 'DISCORD_REDIRECT_URI'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-ui
+              key: DISCORD_REDIRECT_URI
+        - name: 'DB_CONNECTION_STRING'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod-2
+              key: DB_CONNECTION_STRING

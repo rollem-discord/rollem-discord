@@ -7,14 +7,35 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch Bot",
+      "args": ["--trace-warnings", "--experimental-modules"],
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/rollem-dist/rollem-bot/bot.js",
+      
+      "program": "${workspaceFolder}/packages/bot/dist/bundle.js",
       "envFile": "${workspaceFolder}/secrets/vscode.env",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/packages/bot/",
       "sourceMaps": true
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to NextJS",
+      "skipFiles": ["<node_internals>/**"],
+      "port": 9229
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next.js server-side",
+      "cwd": "${workspaceFolder}/packages/ui/",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--inspect", "node_modules/.bin/next", "dev"],
+      "port": 9229,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${workspaceRoot}/packages/ui/*",
+      }
     }
   ]
 }

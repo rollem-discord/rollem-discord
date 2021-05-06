@@ -1,88 +1,27 @@
 {
-  "name": "rollem-discord",
-  "version": "0.1.1",
-  "description": "Rollem for Discord - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
-  "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
-  "main": "rollem.js",
-  "homepage": "https://github.com/lemtzas/rollem-discord",
-  "bugs": {
-    "url": "https://github.com/lemtzas/rollem-discord/issues"
-  },
+  "name": "root",
+  "private": true,
   "scripts": {
-    "start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
-    "start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
+    "lerna": "lerna",
+    "dev": "lerna run dev --stream",
+    "dev:ui": "lerna run dev:ui --stream",
+    "dev:bot": "lerna run dev:bot --stream",
+    "dev:common": "lerna run dev:common --stream",
+    "build": "lerna run build --stream",
+    "build:ui": "lerna run build:ui --stream",
+    "build:bot": "lerna run build:bot --stream",
+    "build:common": "lerna run build:common --stream",
+    "bootstrap": "lerna bootstrap",
+    "publish:major": "lerna publish major -y",
+    "publish:minor": "lerna publish minor -y",
+    "publish:patch": "lerna publish patch -y",
+    "publish:prepatch": "lerna publish prepatch -y",
     "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
     "replace-rollem-beta": "kubectl replace -f ./infra/k8s/rollem-beta/",
     "replace-rollem-prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
-    "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
-    "forward-grafana": "/bin/bash \\<\\<\\< 'kubectl port-forward $(kubectl get  pods --selector=app=grafana --output=jsonpath=\"{.items..metadata.name}\") 3000'",
-    "start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
-    "start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
-    "package": "docker build -t rollem-discord .",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
-    "build": "gulp build",
-    "watch": "gulp watch",
-    "terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light",
-    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
-  },
-  "files": [
-    "./"
-  ],
-  "mocha": {
-    "require": [
-      "ts-node/register",
-      "tsconfig-paths/register"
-    ],
-    "spec": "src/**/*.spec.ts",
-    "extension": [
-      "ts"
-    ]
-  },
-  "_moduleAliases": {
-    "@root": ".",
-    "@language-v1": "rollem-dist/rollem-language-1/",
-    "@language-v2": "rollem-dist/rollem-language-2/",
-    "@bot": "rollem-dist/rollem-bot",
-    "@storage": "rollem-dist/storage/"
+    "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod"
   },
   "dependencies": {
-    "@discordjs/uws": "^10.149.0",
-    "@types/chai": "^4.2.11",
-    "@types/chance": "^1.1.0",
-    "@types/keyv": "^3.1.1",
-    "@types/lodash": "^4.14.136",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^14.10.2",
-    "applicationinsights": "^1.0.2",
-    "chai": "^3.5.0",
-    "chance": "^1.1.5",
-    "del": "^3.0.0",
-    "discord.js": "12",
-    "dotenv": "^8.2.0",
-    "gulp": "^4.0.0",
-    "gulp-ext-replace": "^0.3.0",
-    "gulp-pegjs": "^0.2.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-typescript": "^5.0.0-alpha.3",
-    "gulp-watch": "^4.3.11",
-    "injection-js": "^2.2.1",
-    "lodash": "^4.17.15",
-    "mocha": "^3.2.0",
-    "module-alias": "^2.2.0",
-    "moment": "^2.22.1",
-    "node-cache": "^5.1.0",
-    "npm": "^6.3.0",
-    "nyc": "^15.0.1",
-    "pegjs": "0.10.0",
-    "pg": "^8.3.3",
-    "reflect-metadata": "^0.1.13",
-    "ts-mocha": "^7.0.0",
-    "ts-node": "^8.9.1",
-    "ts-pegjs": "^0.2.6",
-    "tsconfig-paths": "^3.9.0",
-    "typeorm": "^0.2.31",
-    "typescript": "^3.0.3",
-    "watchify": "^3.9.0"
-  },
-  "license": "MIT"
+    "lerna": "^4.0.0"
+  }
 }

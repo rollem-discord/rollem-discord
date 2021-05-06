@@ -1,0 +1,30 @@
+.root {
+  background-color: rgba(0,0,0,0.1);
+  margin: 0;
+  padding: 1em;
+  margin-right: 1em;
+  height: 100%;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    ul {
+      margin-left: 1em;
+    }
+  }
+
+  .hasChildren > a {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  a {
+    padding: 0.125em;
+    display: inline-block;
+  }
+
+  h3 {
+    margin: 0;
+    margin-bottom: .5em;
+  }
+}
