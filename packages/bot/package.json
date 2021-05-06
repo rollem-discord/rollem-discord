@@ -1,6 +1,6 @@
 {
   "name": "@rollem/bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Rollem for Discord - A dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax.",
   "author": "Lemtzas <lemtzas@gmail.com> (http://twitter.com/lemtzas)",
   "main": "rollem.js",
@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
-    "@rollem/common": "^1.0.0",
+    "@rollem/common": "^2.0.0",
     "@types/chai": "^4.2.11",
     "@types/chance": "^1.1.0",
     "@types/keyv": "^3.1.1",
