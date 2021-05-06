@@ -9,6 +9,7 @@ ENV NODE_ENV $NODE_ENV
 
 COPY . .
 RUN yarn install
+RUN yarn tsc --version
 RUN yarn build:dockerfile
 
 CMD ["/bin/bash", "-c", "yarn run start-for-dockerfile"]
