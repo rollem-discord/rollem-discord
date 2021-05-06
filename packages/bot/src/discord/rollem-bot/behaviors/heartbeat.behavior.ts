@@ -5,19 +5,13 @@ import { Config } from "@bot/config";
 import { ChangeLog } from "@bot/changelog";
 import moment from "moment";
 import { Injectable } from "injection-js";
+import { Console } from "node:console";
 
 /**
  * Initializes the system after login and starts the heartbeat.
  */
 @Injectable()
 export class HeartbeatBehavior extends DiscordBehaviorBase {
-  private readonly NOW_PLAYING_MESSAGES = [
-    () => `${this.changelog.version} - http://rollem.rocks`,
-    () => `support on ko-fi - ${this.changelog.version} - http://rollem.rocks`,
-    () => `${this.changelog.version} - http://rollem.rocks`,
-    () => `support on patreon - ${this.changelog.version} - http://rollem.rocks`,
-  ];
-
   constructor(
     private readonly config: Config,
     private readonly changelog: ChangeLog,
@@ -34,9 +28,17 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
       console.log('id: ' + this.client.user?.id);
 
       const shard = this.config.ShardId;
-      if (shard === 0) {
-        this.cycleMessage();
-        setInterval(() => this.cycleMessage(), this.config.messageInterval);
+      if (shard === 0 || !shard) {
+        console.log({shard})
+        this.client.user!
+          .setPresence({
+            activity: {
+              type: 'PLAYING',
+              name: `rollem.rocks|${this.changelog.version}`,
+            },
+            status: 'online',
+          })
+          .catch(error => this.handleRejection("setActivity", error))
       }
 
       const mentionRegex = '^<@!' + this.client.user?.id + '>\\s+|^<@' + this.client.user?.id + '>\\s+';
@@ -45,22 +47,6 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
       this.sendHeartbeat("startup message");
       this.sendHeartbeatNextHour();
     });
-  }
-
-  private cycleMessage() {
-    if (this.client.user) {
-      const messageFunc = this.NOW_PLAYING_MESSAGES.shift();
-      if (!messageFunc) {
-        throw new Error("No message found.");
-      }
-
-      this.NOW_PLAYING_MESSAGES.push(messageFunc);
-      const message = messageFunc();
-      this.client.user.setStatus("online").catch(error => this.handleRejection("setStatus", error));
-      this.client.user
-        .setActivity(message)
-        .catch(error => this.handleRejection("setActivity", error));
-    }
   }
 
   private sendHeartbeatNextHour() {

@@ -1,3 +1,9 @@
+# **2.3.0**
+* Convert to monorepo
+* Create new website
+* Split DB off into common module
+* Refactor DB hit
+
 # **1.16.3**
 * Allow mentions without tab-completing.
 
