@@ -21,6 +21,6 @@
     "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod"
   },
   "devDependencies": {
-    "lerna": "^3.0.0"
+    "lerna": "^4.0.0"
   }
 }
