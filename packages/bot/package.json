@@ -92,7 +92,7 @@
     "ts-pegjs": "^0.2.6",
     "tsconfig-paths": "^3.9.0",
     "typeorm": "^0.2.31",
-    "typescript": "^3.0.3",
+    "typescript": "3.9.7",
     "watchify": "^3.9.0",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0",
