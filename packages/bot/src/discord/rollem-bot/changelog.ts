@@ -47,7 +47,7 @@ export class ChangeLog {
       let versionMatch = firstLine.match(/\d+(?:\.\d+){2}/i);
       let versionText = versionMatch ? versionMatch[0] : null;
       if (versionText) {
-        this.version = `v${versionText}`;
+        this.version = `${versionText}`;
       }
     } catch (err) {
       this.logger.trackError(LoggerCategory.BehaviorEvent, err);
