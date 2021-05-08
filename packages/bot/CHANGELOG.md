@@ -1,5 +1,8 @@
 # **2.4.0**
-* Rolemaster-style open-ended rolls. Courtesy of hypnobeard. <https://github.com/rollem-discord/rollem-discord/pull/66>
+* Add `rollem:beta` role-configured option for beta syntax
+* Re-factor dice-rolling behavior base to allow for more syntax versions
+* Beta (give rollem the role `rollem:beta` to use beta syntax)
+  * Rolemaster-style open-ended rolls. Courtesy of hypnobeard. <https://github.com/rollem-discord/rollem-discord/pull/66>
 
 # **2.3.0**
 * Convert to monorepo
