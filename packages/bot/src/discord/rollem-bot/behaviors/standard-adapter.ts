@@ -103,6 +103,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   private async handleAll(message: Message, context: BehaviorContext): Promise<void> {
+    console.log({context})
     const preparedMessage = await this.prepareMessage(message, context);
     if (!preparedMessage) { return; }
 
@@ -130,6 +131,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
     if (!me) { return []; }
     const roleNames = me.roles.cache.map(r => r.name);
     const roles = roleNames.filter(rn => rn.startsWith(prefix));
+    console.log({roles})
     return roles;
   }
 
@@ -146,8 +148,8 @@ export class StandardAdapter extends DiscordBehaviorBase {
     const v1BetaRole = 'rollem:beta';
     const v2Role = 'rollem:v2';
     if (!message.guild) { return 'v1'; } // DMs never use the new parser. For now.
-    if (this.getRelevantRoleNames(message, v2Role).length === 0) { return 'v2'; }
-    if (this.getRelevantRoleNames(message, v1BetaRole).length === 0) { return 'v1-beta'; }
+    if (this.getRelevantRoleNames(message, v1BetaRole).length > 0) { return 'v1-beta'; }
+    if (this.getRelevantRoleNames(message, v2Role).length > 0) { return 'v2'; }
 
     return 'v1';
   }

@@ -22,7 +22,6 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
    * @returns The response message(s) or null
    */
   protected rollMany(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
-    let parserVersion = "unknown";
     try {
       switch(context.roleConfiguredOptions.whichParser) {
         case 'v2': 
