@@ -24,12 +24,14 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
   protected rollMany(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     let parserVersion = "unknown";
     try {
-      if (context.roleConfiguredOptions.shouldUseNewParser) {
-        parserVersion = "v2";
-        return this.rollManyV2(trigger, logTag, content, context, requireDice);
-      } else {
-        parserVersion = "v1";
-        return this.rollManyV1(trigger, logTag, content, context, requireDice);
+      switch(context.roleConfiguredOptions.whichParser) {
+        case 'v2': 
+          return this.rollManyV2(trigger, logTag, content, context, requireDice);
+        case 'v1-beta':
+          return this.rollManyV1Beta(trigger, logTag, content, context, requireDice);
+        case 'v1':
+        default:
+          return this.rollManyV1(trigger, logTag, content, context, requireDice);
       }
     } catch (ex) {
       this.logger.trackMessageError(LoggerCategory.BehaviorEvent, `Roll Many, ${logTag}: ${content}`, trigger);
@@ -39,6 +41,41 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
 
   protected rollManyV2(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     return ["the v2 parser is not yet ready"];
+  }
+
+  protected rollManyV1Beta(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+    let count = 1;
+    const match = content.match(/(?:(\d+)#\s*)?(.*)/);
+    const countRaw = match ? match[1] : false;
+    if (countRaw) {
+      count = parseInt(countRaw, 10);
+      if (count > 100) { return null; }
+      if (count < 1) { return null; }
+    }
+
+    count = count || 1;
+    const contentAfterCount = match ? match[2] : content;
+
+    const lines: string[] = [];
+    for (let i = 0; i < count; i++) {
+      const result = this.parsers.v1beta.tryParse(contentAfterCount);
+      if (!result) { return null; }
+
+      const shouldReply = context.messageConfiguredOptions?.isPrefixed || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+      if (!shouldReply) { return null; }
+
+      const response = this.buildMessage(result, requireDice);
+
+      if (response && shouldReply) {
+        lines.push(response);
+      }
+    }
+
+    if (lines.length > 0) {
+      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v1, ${logTag}: ${content}`, trigger);
+    }
+
+    return lines;
   }
 
   protected rollManyV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {

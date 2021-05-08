@@ -4,7 +4,7 @@ import { Inject, Injectable } from "injection-js";
 import { BehaviorBase } from "@common/behavior.base";
 import { Config } from "../config";
 import { RepliedMessageCache } from "../lib/replied-message-cache";
-import { BehaviorContext } from "@common/behavior-context";
+import { BehaviorContext, ParserVersion } from "@common/behavior-context";
 import { Storage } from "@rollem/common";
 import { DiscordBehaviorBase } from './discord-behavior-base';
 
@@ -49,13 +49,13 @@ export class StandardAdapter extends DiscordBehaviorBase {
   private async buildContext(message: Message): Promise<BehaviorContext> {
     const user = await this.storage.getOrCreateUser(message.author.id);
 
-    const shouldUseNewParser = this.shouldUseNewParser(message);
+    const whichParser = this.selectParser(message);
     const requiredPrefix = this.getPrefix(message);
 
     return {
       user: user,
       roleConfiguredOptions: {
-        shouldUseNewParser,
+        whichParser,
         requiredPrefix,
       },
       messageConfiguredOptions: {
@@ -142,11 +142,13 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   /** Checks for the role 'rollem:v2' being applied to rollem. */
-  private shouldUseNewParser(message: Message) {
-    const prefixRolePrefix = 'rollem:v2';
-    if (!message.guild) { return false; } // DMs never use the new parser. For now.
-    const prefixRoles = this.getRelevantRoleNames(message, prefixRolePrefix);
-    if (prefixRoles.length === 0) { return false; }
-    return true;
+  private selectParser(message: Message): ParserVersion {
+    const v1BetaRole = 'rollem:beta';
+    const v2Role = 'rollem:v2';
+    if (!message.guild) { return 'v1'; } // DMs never use the new parser. For now.
+    if (this.getRelevantRoleNames(message, v2Role).length === 0) { return 'v2'; }
+    if (this.getRelevantRoleNames(message, v1BetaRole).length === 0) { return 'v1-beta'; }
+
+    return 'v1';
   }
 }

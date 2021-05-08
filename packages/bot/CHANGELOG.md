@@ -1,3 +1,6 @@
+# **2.4.0**
+* Rolemaster-style open-ended rolls. Courtesy of hypnobeard. <https://github.com/rollem-discord/rollem-discord/pull/66>
+
 # **2.3.0**
 * Convert to monorepo
 * Create new website

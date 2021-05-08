@@ -1,5 +1,7 @@
 import { User } from "@rollem/common";
 
+export type ParserVersion = 'v1' | 'v1-beta' | 'v2';
+
 /** The retrieved context for a behavior. */
 export interface BehaviorContext {
   /** The stored user object. */
@@ -14,7 +16,7 @@ export interface BehaviorContext {
 
 /** Options configured by setting bot roles. */
 export interface RoleConfiguredOptions {
-  shouldUseNewParser: boolean;
+  whichParser: ParserVersion,
   requiredPrefix: string;
 }
 
