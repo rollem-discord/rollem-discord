@@ -17,6 +17,8 @@ spec:
         image: lemtzas/rollem-discord:2.4.1
         #imagePullPolicy: Never
         env:
+        - name: 'reboot'
+          value: '2021-05-07'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
