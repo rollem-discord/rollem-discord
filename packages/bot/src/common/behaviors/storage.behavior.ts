@@ -25,7 +25,7 @@ export class StorageBehavior extends BehaviorBase {
 
     switch (commands[++i]) {
       case "dump":
-        const dumpResponse = ["```json", JSON.stringify(context.user, undefined, " "), "```"].join('\n');
+        const dumpResponse = ["```json", JSON.stringify(context, undefined, " "), "```"].join('\n');
         return { response: dumpResponse };
 
       case "forget":

@@ -1,8 +1,9 @@
-# **2.4.0**
+# **2.4.1**
 * Add `rollem:beta` role-configured option for beta syntax
 * Re-factor dice-rolling behavior base to allow for more syntax versions
 * Beta (give rollem the role `rollem:beta` to use beta syntax)
   * Rolemaster-style open-ended rolls. Courtesy of hypnobeard. <https://github.com/rollem-discord/rollem-discord/pull/66>
+* Allow configuring the bot per-user by applying `rollem:beta`, `rollem:v1`, or `rollem:v2` roles to the user.
 
 # **2.3.0**
 * Convert to monorepo
