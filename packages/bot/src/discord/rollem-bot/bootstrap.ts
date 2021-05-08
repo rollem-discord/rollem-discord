@@ -19,6 +19,7 @@ import { ClassProvider } from "injection-js";
 import { BehaviorStatsBase } from "@common/stats-base";
 import { DiscordStats } from "../discord-stats";
 import { strict } from "assert";
+import { RollemParserV1Beta } from "@language-v1-beta/rollem-parser";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -34,6 +35,7 @@ export namespace Bootstrapper {
           { provide: Storage, useValue: new Storage() },
           ChangeLog,
           RollemParserV1,
+          RollemParserV1Beta,
           RollemParserV2,
           Parsers,
           RepliedMessageCache,
@@ -42,19 +44,21 @@ export namespace Bootstrapper {
     const logger = topLevelInjector.get(Logger);
     strict(!!logger, "DI failed to resolve logger");
     const config = topLevelInjector.get(Config);
-    // assert(!!config, "DI failed to resolve config");
+    strict(!!config, "DI failed to resolve config");
     const changelog = topLevelInjector.get(ChangeLog);
-    // assert(!!changelog, "DI failed to resolve changelog");
+    strict(!!changelog, "DI failed to resolve changelog");
     const parserv1 = topLevelInjector.get(RollemParserV1);
-    // assert(!!parserv1, "DI failed to resolve parser v1");
+    strict(!!parserv1, "DI failed to resolve parser v1");
+    const parserv1beta = topLevelInjector.get(RollemParserV1Beta);
+    strict(!!parserv1beta, "DI failed to resolve parser v1-beta");
     const parserv2 = topLevelInjector.get(RollemParserV2);
-    // assert(!!parserv2, "DI failed to resolve parser v2");
+    strict(!!parserv2, "DI failed to resolve parser v2");
     const parsers = topLevelInjector.get(Parsers);
-    // assert(!!parsers, "DI failed to resolve parsers");
+    strict(!!parsers, "DI failed to resolve parsers");
     const repliedMessageCache = topLevelInjector.get(RepliedMessageCache);
-    // assert(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
+    strict(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
     const storage = topLevelInjector.get(Storage);
-    // assert(!!storage, "DI failed to resolve storage");
+    strict(!!storage, "DI failed to resolve storage");
 
     return topLevelInjector;
   }

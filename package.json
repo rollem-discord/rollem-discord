@@ -3,6 +3,9 @@
   "private": true,
   "scripts": {
     "lerna": "lerna",
+    "watch": "lerna run watch --stream",
+    "watch:ui": "lerna run watch:ui --stream",
+    "watch:bot": "lerna run watch:bot --stream",
     "dev": "lerna run dev --stream",
     "dev:ui": "lerna run dev:ui --stream",
     "dev:bot": "lerna run dev:bot --stream",
@@ -17,9 +20,9 @@
     "publish:patch": "lerna version patch --no-push -y && lerna publish from-package -y",
     "publish:prepatch": "lerna version prepatch --no-push -y && lerna publish from-package -y",
     "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
-    "replace-rollem-beta": "kubectl replace -f ./infra/k8s/rollem-beta/",
-    "replace-rollem-prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
-    "delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
+    "infra:replace:next": "kubectl replace -f ./infra/k8s/rollem-next/",
+    "infra:replace:prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
+    "infra:delete:evicted": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
     "postpublish": "git push --tags"
   },
   "dependencies": {

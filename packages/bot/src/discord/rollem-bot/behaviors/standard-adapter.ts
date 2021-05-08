@@ -4,7 +4,7 @@ import { Inject, Injectable } from "injection-js";
 import { BehaviorBase } from "@common/behavior.base";
 import { Config } from "../config";
 import { RepliedMessageCache } from "../lib/replied-message-cache";
-import { BehaviorContext } from "@common/behavior-context";
+import { BehaviorContext, ParserVersion } from "@common/behavior-context";
 import { Storage } from "@rollem/common";
 import { DiscordBehaviorBase } from './discord-behavior-base';
 
@@ -49,13 +49,13 @@ export class StandardAdapter extends DiscordBehaviorBase {
   private async buildContext(message: Message): Promise<BehaviorContext> {
     const user = await this.storage.getOrCreateUser(message.author.id);
 
-    const shouldUseNewParser = this.shouldUseNewParser(message);
+    const whichParser = this.selectParser(message);
     const requiredPrefix = this.getPrefix(message);
 
     return {
       user: user,
       roleConfiguredOptions: {
-        shouldUseNewParser,
+        whichParser,
         requiredPrefix,
       },
       messageConfiguredOptions: {
@@ -103,6 +103,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   private async handleAll(message: Message, context: BehaviorContext): Promise<void> {
+    console.log({context})
     const preparedMessage = await this.prepareMessage(message, context);
     if (!preparedMessage) { return; }
 
@@ -124,29 +125,59 @@ export class StandardAdapter extends DiscordBehaviorBase {
     }
   }
 
-  private getRelevantRoleNames(message: Message, prefix: string) {
-    if (!message.guild) { return []; }
+  private getRelevantRoleNames(message: Message, prefix: string): { rollemRoles: string[], authorRoles: string[] } {
+    if (!message.guild) {
+      return {
+        rollemRoles: [],
+        authorRoles: [],
+      };
+    }
+
     const me = message.guild.members.cache.get(this.client.user?.id || "0");
-    if (!me) { return []; }
-    const roleNames = me.roles.cache.map(r => r.name);
-    const roles = roleNames.filter(rn => rn.startsWith(prefix));
-    return roles;
+    const myRoleNames = me?.roles.cache.map(r => r.name) ?? [];
+    const myRoles = myRoleNames.filter(rn => rn.startsWith(prefix));
+
+    const author = message.guild.members.cache.get(message.author?.id || "0");
+    const authorRoleNames = author?.roles.cache.map(r => r.name) ?? [];
+    const authorRoles = authorRoleNames.filter(rn => rn.startsWith(prefix));
+    return {
+      rollemRoles: myRoles,
+      authorRoles: authorRoles,
+    };
   }
 
   private getPrefix(message: Message) {
     const prefixRolePrefix = 'rollem:prefix:';
     const prefixRoles = this.getRelevantRoleNames(message, prefixRolePrefix);
-    if (prefixRoles.length === 0) { return ""; }
+    if (prefixRoles.rollemRoles.length === 0) { return ""; }
     const prefix = prefixRoles[0].substring(prefixRolePrefix.length);
     return prefix;
   }
 
   /** Checks for the role 'rollem:v2' being applied to rollem. */
-  private shouldUseNewParser(message: Message) {
-    const prefixRolePrefix = 'rollem:v2';
-    if (!message.guild) { return false; } // DMs never use the new parser. For now.
-    const prefixRoles = this.getRelevantRoleNames(message, prefixRolePrefix);
-    if (prefixRoles.length === 0) { return false; }
-    return true;
+  private selectParser(message: Message): ParserVersion {
+    const v1Role = 'rollem:v1';
+    const v1BetaRole = 'rollem:beta';
+    const v2Role = 'rollem:v2';
+
+    // DMs never use the new parser. For now.
+    if (!message.guild) { return 'v1'; }
+
+    const v1Status = this.getRelevantRoleNames(message, v1Role);
+    const betaStatus = this.getRelevantRoleNames(message, v1BetaRole);
+    const v2Status = this.getRelevantRoleNames(message, v2Role);
+
+    // prioritze user settings
+    if (v1Status.authorRoles.length > 0) { return 'v1-beta'; }
+    if (betaStatus.authorRoles.length > 0) { return 'v1-beta'; }
+    if (v2Status.authorRoles.length > 0) { return 'v2'; }
+
+    // then guild settings
+    if (v1Status.rollemRoles.length > 0) { return 'v1-beta'; }
+    if (betaStatus.rollemRoles.length > 0) { return 'v1-beta'; }
+    if (v2Status.rollemRoles.length > 0) { return 'v2'; }
+
+    // default to v1
+    return 'v1';
   }
 }
