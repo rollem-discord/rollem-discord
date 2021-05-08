@@ -16,6 +16,8 @@
     "build:dockerfile": "NODE_ENV=development webpack",
     "dev": "yarn run dev:bot",
     "dev:bot": "NODE_ENV=development webpack --watch",
+    "start": "yarn run start:bot",
+    "start:bot": "yarn run webpack:launch",
     "webpack:launch": "NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "package": "docker build -t rollem-bot .",
     "package:start": "docker run --env-file ../../secrets/vscode.env rollem-bot",

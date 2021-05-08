@@ -4,25 +4,23 @@
 
 A feature-filled dicebot that allows you to just roll.
 
-[Add this bot to your server.](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=0)
+[Add this bot to your server.](https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=68608)
 
 [View the change log.](CHANGELOG.md) (or type `@rollem changelog` in chat)
 
-## Beta Channel
+## Beta Channel (Rollem Next)
 
 Changes will be vetted in the beta channel before being moved to the main bot.
 
-It is recommended to also have the main bot on your server. The beta bot will only be online while changes are being vetted.
+You may have both Rollem Next and Rollem active in the same server, but they should not be allowed in the same channels.
 
-If both exist, the main bot will defer to the beta bot. This is per-channel.
-
-[Add the beta bot to your server.](https://discordapp.com/oauth2/authorize?client_id=263621237127905280&scope=bot&permissions=0)
+[Add the beta bot to your server.]( https://discordapp.com/oauth2/authorize?client_id=840409146738475028&scope=bot&permissions=68608)
 
 ## Links
 
 * [Patreon](https://patreon.com/david_does)
 * [Rollem Support Server](https://discord.gg/VhYX9u7)
-* [Issues Tracker](https://github.com/lemtzas/rollem-discord/issues)
+* [Issues Tracker](https://github.com/rollem-discord/rollem-discord/issues)
 
 # How to use this bot
 
@@ -118,41 +116,54 @@ With this role:
 * Rollem with not aggressively parse lines `2d20 for justice`
 * Rollem will aggressively parse lines prefixed with `<your prefix here>`
 
+## Preview Syntaxes
+Give Rollem one of the following roles to enable different versions of the syntax for an entire guild:
+- `rollem:beta` - use the unstable preview syntax for v1
+- `rollem:v2` - use the in-development v2 syntax
+
+Give a user one of the following roles to enable different versions of the syntax for that specific user (this overrides the above):
+- `rollem:v1` - use the stable v1 syntax
+- `rollem:beta` - use the unstable preview syntax for v1
+- `rollem:v2` - use the in-development v2 syntax
+
 ## Commands
 
 All commands are performed by mentioning `@rollem` in server chat, and without prefix in private chat.
 
-| Command                                      | Example             | Purpose                                 |
-|----------------------------------------------|---------------------|-----------------------------------------|
-| `stats`, `help`                              | `@rollem stats`     | Dump stats, uptime and credit.          |
-| `changelog`, `changes`, `change log`, `diff` | `@rollem changelog` | View the most recent changelog entries. |
+| Command                                      | Example                  | Purpose                                      |
+|----------------------------------------------|--------------------------|----------------------------------------------|
+| `stats`, `help`                              | `@rollem stats`          | Dump stats, uptime and credit.               |
+| `storage dump`                               | `@rollem storage dump`   | View everything we know about you.           |
+| `storage forget`                             | `@rollem storage forget` | Have us delete everything we know about you. |
+| `changelog`, `changes`, `change log`, `diff` | `@rollem changelog`      | View the most recent changelog entries.      |
 
 # Development
-
-## Single Shard development
-* You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me) 
-* Set up [yarn](https://yarnpkg.com/en/)
-* Run `yarn install` in the root directory
-* Install typescript `yarn global add typescript`
-* Rename and update `./secrets/sample-vscode.env`
+## First-time setup
+1. Set up [yarn](https://yarnpkg.com/en/)
+2. You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me) 
+3. Rename and update `./secrets/sample-vscode.env`
   * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
   * The Application Insights line may be deleted to switch to console-only logging.
 
-### From VSCode (with debugging)
+### Run Bot From VSCode (with debugging)
 1. Rename and update `./secrets/sample-vscode.env`
-2. Press F5 while the project folder is open. Launch configuration is in `./.vscode/launch.json`
+2. Link packages with `yarn bootstrap`
+3. Build with one of:
+  * `yarn build:bot`
+  * `yarn watch:bot` and allow it to idle in the background
+4. Press F5 while the project folder is open. Launch configuration is in `.vscode/launch.json`
 
-### Single Shard (no debugging)
+### Run Single Shard
 1. Rename and update `./secrets/sample-vscode.env`
-2. Run `yarn run start`
+2. Run `yarn bootstrap`
+3. Build with one of:
+  * `yarn build:bot`
+  * `yarn watch:bot` and allow it to idle in the background
+4. Run `yarn run start:bot`
 
-## Multiple Shards (no debugging)
-1. Rename and update `./secrets/sample-vscode.env`
-2. Run `yarn run start-sharder`
-
-## Running in Docker
-1. `yarn run package` (The container will compile it)
-2. `yarn run start-package`
+## Running Single Shard in Docker
+1. `yarn run package:bot` (The container will compile it)
+2. `yarn run package:bot:start`
 
 ## ~~Local Kubernetes Development~~
 These are incomplete and are a massive pain on Windows anyway.
@@ -175,41 +186,10 @@ These are incomplete and are a massive pain on Windows anyway.
 
 ## Publishing
 
-* Bump the version number. Follow [semver](http://semver.org/).
-* `npm publish`
-
-## Using rollem.js as a library
-
-* npm install rollem-discord
-* `const Rollem = require ('rollem-discord');`
-* `var result = Rollem.tryParse(text)` (or `Rollem.parse(text)` to get the errors from valid rolls)
-
-* If `text` did not look like a valid roll, `result === null`.
-* If `text` looked like a roll, but was illegal. `typeof(result) === "string"`, where the value is the error message.
-* If `text` was a valid roll, `typeof(result) === "object"` and follows this format:
-
-
-```js
-{
-  "value": 27,
-  "values": [ value1, value2, value3 ],
-  "pretties": "[value1, value2, **value3**]",
-  "label": "Anything you want",
-  "depth": 5,
-  "dice": 7
-}
-```
-
-Breakdown:
-
-| Field      |                                                                                                                                                                                 |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `value`    | The final value. Usually a number. Will be `boolean` if the last statement was of the type `x < y`. If dice were involved, it will be the collapsed result of summing `values`. |
-| `values`   | The most recent array of results. `2d2 * 2` will result in an array of length 2 with values of either 2 or 4. Probably not useful.                                              |
-| `pretties` | The pretty-printed result. Markdown-compatible. Designed for use with discord. Min/max values are **bolded**.                                                                   |
-| `depth`    | The depth of the operations. Ex: `5` is 1. `5+5` is 2. `d5` is 2. `(d5+7)*3` is 4. Use this to avoid matching on `5`.                                                           |
-| `label`    | Any junk text that was passed after the parsed text. Ex: `5 And Some Junk` has `And Some Junk` for this value.                                                                  |
-| `dice`     | The total number of dice used for this roll. Does not include explosions.                                                                                                       |
+Run one of the following; Follow [semver](http://semver.org/):
+* `yarn publish:major`
+* `yarn publish:minor`
+* `yarn publish:patch`
 
 ## Some useful links
 
@@ -240,7 +220,7 @@ Avatar by Kagura on Charisma Bonus.
 
 # License: MIT
 
-Copyright (c) 2018 Lemtzas
+Copyright (c) 2018 David Sharer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
