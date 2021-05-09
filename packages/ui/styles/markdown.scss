@@ -1,0 +1,13 @@
+.markdown {
+  a:not(.MuiButtonBase-root) {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+  }
+
+  code {
+    background-color: lightgrey;
+    border-radius: 4px;
+    margin-bottom: 1px;
+    display: inline-block;
+  }
+}

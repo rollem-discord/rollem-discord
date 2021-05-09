@@ -27,7 +27,7 @@ const components: Components = {
   }: ReactBaseProps & ReactMarkdownProps & { href: string; title: string }) => {
     // if the first child of the button is a bold element, make this a CTA button
     if ((first(children) as ReactElement)?.type === "strong") {
-      const splitTitle = title.split(' ');
+      const splitTitle = (title ?? '').split(' ');
       const titleAttrEntries = splitTitle.filter(t => t.includes(':'));
       const remainingTitleEntries = splitTitle.filter(t => !t.includes(':'));
       const finalTitle = remainingTitleEntries.join(' ');
@@ -47,6 +47,7 @@ const components: Components = {
 export function renderMarkdown(markdown: string) {
   return (
     <ReactMarkdown
+      className="markdown"
       plugins={[remarkGfm]}
       children={markdown}
       components={components}
