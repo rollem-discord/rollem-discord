@@ -31,6 +31,7 @@
     "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
     "watch:test": "yarn watch:lang:test",
     "watch:lang:test": "mocha --recursive --watch -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
     "test:cov": "jest --coverage --no-cache --runInBand",
