@@ -28,22 +28,22 @@ This bot is kept running and fast thanks to community help.
 
 Just roll.
 
-![](assets/just-roll.png)
+![](/assets/just-roll.png)
 
 Inline rolls.
 
-![](assets/inline-rolls.png)
+![](/assets/inline-rolls.png)
 
 Repeated rolls.
 
-![](assets/repeated-rolls.png)
+![](/assets/repeated-rolls.png)
 
 Stat generation.
 
-![](assets/stat-generation.png)
+![](/assets/stat-generation.png)
 
 Math.
 
-![](assets/math.png)
+![](/assets/math.png)
 
 Need more? Check out [the syntax](./syntax)
