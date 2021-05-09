@@ -1,4 +1,5 @@
 [![Docker](https://github.com/rollem-discord/rollem-discord/actions/workflows/dockerpublish.yml/badge.svg)](https://github.com/rollem-discord/rollem-discord/actions/workflows/dockerpublish.yml)
+[![CI Syntax](https://github.com/rollem-discord/rollem-discord/actions/workflows/ci-syntax.yml/badge.svg)](https://github.com/rollem-discord/rollem-discord/actions/workflows/ci-syntax.yml)
 
 # Rollem for Discord
 
