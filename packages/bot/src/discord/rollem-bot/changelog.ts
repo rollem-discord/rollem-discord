@@ -3,7 +3,7 @@ import util from 'util';
 import { Logger, LoggerCategory } from './logger';
 import { Injectable } from 'injection-js';
 
-const CHANGELOG_LINK = "<https://github.com/lemtzas/rollem-discord/blob/master/CHANGELOG.md>\n\n";
+const CHANGELOG_LINK = "<https://github.com/rollem-discord/rollem-discord/blob/master/CHANGELOG.md>\n\n";
 const INITIAL_CHANGELOG = CHANGELOG_LINK + "(Sorry, we're still reading it from disk.)";
 let INITIAL_VERSION = "v1.x.x";
 
