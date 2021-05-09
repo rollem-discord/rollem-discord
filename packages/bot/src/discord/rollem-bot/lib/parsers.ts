@@ -1,6 +1,4 @@
-import { RollemParserV1 } from "@language-v1/rollem-parser";
-import { RollemParserV2 } from "@language-v2/rollem-parser";
-import { RollemParserV1Beta } from "@language-v1-beta/rollem-parser";
+import { RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language";
 import { Injectable } from "injection-js";
 
 @Injectable()

@@ -2,8 +2,6 @@ import { Logger, LoggerCategory } from "./logger";
 
 import { Config } from "./config";
 
-import { RollemParserV1 } from "@language-v1/rollem-parser";
-import { RollemParserV2 } from "@language-v2/rollem-parser";
 import { Parsers } from "@bot/lib/parsers";
 
 import { Client, ClientOptions } from "discord.js";
@@ -19,7 +17,7 @@ import { ClassProvider } from "injection-js";
 import { BehaviorStatsBase } from "@common/stats-base";
 import { DiscordStats } from "../discord-stats";
 import { strict } from "assert";
-import { RollemParserV1Beta } from "@language-v1-beta/rollem-parser";
+import { RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language/dist/types";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {

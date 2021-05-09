@@ -71,15 +71,6 @@
       "@common/*": [
         "src/common/*"
       ],
-      "@language-v1/*": [
-        "src/rollem-language-1/*"
-      ],
-      "@language-v1-beta/*": [
-        "src/rollem-language-1-beta/*"
-      ],
-      "@language-v2/*": [
-        "src/rollem-language-2/*"
-      ],
       "@bot/*": [
         "src/discord/rollem-bot/*"
       ],

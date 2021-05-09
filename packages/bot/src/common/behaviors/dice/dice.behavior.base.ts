@@ -4,7 +4,7 @@ import { Logger, LoggerCategory } from "@bot/logger";
 import { BehaviorContext } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
-import { ContainerV1 } from "@language-v1/container";
+import { ContainerV1 } from "@rollem/language";
 import { Injectable } from "injection-js";
 import _ from "lodash";
 
