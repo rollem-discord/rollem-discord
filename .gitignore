@@ -17,3 +17,5 @@ node_modules/
 .nyc_output
 coverage
 dist/
+
+.yarn-error.log

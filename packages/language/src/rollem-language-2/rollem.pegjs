@@ -16,8 +16,8 @@ Label "label"
  }
 
 Expression0 "expression 0"
-  = Expression1
-  / UnaryMinus
+  = UnaryMinus
+  / Expression1
 
 Expression1 "expression 1"
   = RollSimple

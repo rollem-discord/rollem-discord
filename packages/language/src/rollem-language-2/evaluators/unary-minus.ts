@@ -12,8 +12,16 @@ export function unaryMinus($$container: Delayed<Dice | Values | Value>): Delayed
     const $container = $$container(ctx);
     ctx.trace("unary-minus: " + $container.pretties);
 
-    const rightSidePretties = `-(${$container.pretties})`;
+    // if the attached type is already simple, just pass through the value
+    if ($container instanceof Integer) {
+      return new Value({
+        value: -$container.value,
+        pretties: `-${$container.pretties}`,
+        parentValues: [$container]
+      });
+    }
 
+    const rightSidePretties = `-(${$container.pretties})`;
     if ($container instanceof Value) {
       const newValue = -$container.value;
       return new Value({

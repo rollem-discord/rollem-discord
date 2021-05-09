@@ -12,8 +12,8 @@ describe('unary-minus (syntax)', () => {
     const value = delayedValue(ctx) as Value;
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(-10);
-    expect(value.dice).to.equal(0);
-    expect(value.depth).to.equal(3);
+    expect(value.dice()).to.equal(0);
+    expect(value.depth()).to.equal(4);
   });
 
   it('should handle inverted die rolls', () => {
@@ -23,8 +23,8 @@ describe('unary-minus (syntax)', () => {
     expect(ctx.callCount).to.equal(10);
     expect(value.value).to.equal(-52);
     expect(value.values).to.eql([-1, -2, -2, -5, -5, -6, -7, -7, -8, -9]);
-    expect(value.dice).to.equal(10);
-    expect(value.depth).to.equal(3);
+    expect(value.dice()).to.equal(10);
+    expect(value.depth()).to.equal(3);
   });
 
   it('should handle negative elided die count', () => {
@@ -35,7 +35,7 @@ describe('unary-minus (syntax)', () => {
     expect(value.value).to.equal(-5);
     expect(value.values).to.eql([-5]);
     expect(value.pretties).to.equal("[-5] ⟵ -([5] ⟵ 1d10)");
-    expect(value.dice).to.equal(1);
-    expect(value.depth).to.equal(3);
+    expect(value.dice()).to.equal(1);
+    expect(value.depth()).to.equal(3);
   });
 });

@@ -12,8 +12,8 @@ describe('make-integer (syntax)', () => {
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(5);
     expect(value.pretties).to.equal("5");
-    expect(value.dice).to.equal(0);
-    expect(value.depth).to.equal(1);
+    expect(value.dice()).to.equal(0);
+    expect(value.depth()).to.equal(1);
   });
 
   const context = new TestContext("test");
@@ -24,19 +24,18 @@ describe('make-integer (syntax)', () => {
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(189465);
     expect(value.pretties).to.equal("189465");
-    expect(value.dice).to.equal(0);
-    expect(value.depth).to.equal(1);
+    expect(value.dice()).to.equal(0);
+    expect(value.depth()).to.equal(1);
   });
 
   it('should handle negative numbers', () => {
     const ctx = new TestContext("test");
     const delayedValue = parser.parse("-189465");
     const value = delayedValue(ctx);
-    debugger;
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(-189465);
     expect(value.pretties).to.equal("-189465");
-    expect(value.dice).to.equal(0);
-    expect(value.depth).to.equal(1);
+    expect(value.dice()).to.equal(0);
+    expect(value.depth()).to.equal(2);
   });
 });
