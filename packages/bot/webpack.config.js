@@ -52,15 +52,17 @@ const config = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
+        exclude: /node_modules/,
       },
       {
         test: /\.pegjs$/,
         use: "pegjs-loader",
+        exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".pegjs"],
     alias: {
       "@bot": path.resolve(__dirname, "src/discord/rollem-bot/"),
       "@common": path.resolve(__dirname, "src/common/"),
