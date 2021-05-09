@@ -17,7 +17,7 @@ import { ClassProvider } from "injection-js";
 import { BehaviorStatsBase } from "@common/stats-base";
 import { DiscordStats } from "../discord-stats";
 import { strict } from "assert";
-import { RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language/dist/types";
+import { RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {

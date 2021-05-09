@@ -1,7 +1,5 @@
-import { Delayed, Dice, Integer, Values } from "@language-v2/types";
-import { DicePassthru } from "@language-v2/types/dice-passthru";
-import { Value } from "@language-v2/types/value";
 import _ from "lodash";
+import { Delayed, Dice, DicePassthru, Integer, Value, Values } from "../..";
 import { dieFormatter } from "./roll-simple";
 
 export function unaryMinus($$container: Delayed<Dice>): Delayed<DicePassthru>

@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { RollemParserV2 } from '@language-v2/rollem-parser';
-import { TestContext } from '@language-v2/types/context';
-import { Dice, Value } from '@language-v2/types';
+import { Dice, RollemParserV2, TestContext, Value } from '../..';
 
 const parser = new RollemParserV2()
 describe('unary-minus (syntax)', () => {

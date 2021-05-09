@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 import 'mocha';
+import { Integer, TestContext } from '../..';
 import { makeInteger } from './make-integer';
-import { TestContext } from '@language-v2/types/context';
-import { Integer } from '@language-v2/types';
 
 describe('make-integer', () => {
   it('should handle single digits', () => {

@@ -1,4 +1,4 @@
-import { Delayed, Integer, Dice } from "@language-v2/types";
+import { Delayed, Dice, Integer } from "../..";
 
 function minFormatter(formatted) {
   return "**" + formatted + "**";

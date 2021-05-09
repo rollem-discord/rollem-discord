@@ -1,6 +1,4 @@
-import { Delayed } from "@language-v2/types/delayed";
-import { Integer } from "@language-v2/types/integer";
-import { OldContainer } from "@language-v2/types/old-container";
+import { Delayed, Integer, OldContainer } from "../..";
 
 export function makeInteger(text: string): Delayed<OldContainer> {
   const v = parseInt(text, 10);

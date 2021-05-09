@@ -66,22 +66,6 @@
     /* Advanced Options */
     // "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": ".",
-    "paths": {
-      "@language-v1/*": [
-        "src/rollem-language-1/*"
-      ],
-      "@language-v1-beta/*": [
-        "src/rollem-language-1-beta/*"
-      ],
-      "@language-v2/*": [
-        "src/rollem-language-2/*"
-      ],
-      "*": [
-        "src/types/*",
-        "node_modules/*"
-      ]
-    },
   },
   "include": ["src/**/*"]
 }
