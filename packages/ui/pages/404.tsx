@@ -1,5 +1,5 @@
 import DocsLayout from "../components/layouts/docs/DocsLayout"
-import { DocsDataTree, makePropsAllDocData } from "../lib/get-docs-data"
+import { DocsDataTree, makePropsAllDocData } from "../lib/docs/get-docs-data"
 
 export default function Custom404({ allDocsData }: { allDocsData: DocsDataTree[] }) {
   return (

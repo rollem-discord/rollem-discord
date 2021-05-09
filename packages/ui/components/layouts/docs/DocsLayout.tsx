@@ -1,4 +1,4 @@
-import { DocsDataTree } from "../../../lib/get-docs-data";
+import { DocsDataTree } from "../../../lib/docs/get-docs-data";
 import DocTree from "./DocTree";
 import NavTop from "../../navtop/Navtop";
 import styles from "./DocsLayout.module.scss";

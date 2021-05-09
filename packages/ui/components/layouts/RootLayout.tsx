@@ -1,5 +1,5 @@
 import { RollemSessionData } from "@rollem/ui/lib/withSession";
-import { DocsDataTree } from "../../lib/get-docs-data";
+import { DocsDataTree } from "../../lib/docs/get-docs-data";
 import DocTree from "./docs/DocTree";
 import NavTop from "../navtop/Navtop";
 import styles from "./RootLayout.module.scss";

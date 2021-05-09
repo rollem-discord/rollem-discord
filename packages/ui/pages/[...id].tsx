@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import utilStyles from '../styles/utils.module.scss'
 import { GetStaticProps, GetStaticPaths, NextApiResponse, GetServerSideProps } from 'next'
-import { DocsDataTree, getAllDocIds, getDocData, makePropsAllDocData } from '../lib/get-docs-data'
+import { DocsDataTree, getAllDocIds, getDocData, makePropsAllDocData } from '../lib/docs/get-docs-data'
 import RootLayout from '../components/layouts/RootLayout'
 import { applySession } from 'next-session'
 import { RollemApiRequest, RollemSessionData, RollemIncomingMessage } from '../lib/withSession'

@@ -46,4 +46,4 @@ Math.
 
 ![](assets/math.png)
 
-Need more? Check out [the syntax](/syntax)
+Need more? Check out [the syntax](./syntax)

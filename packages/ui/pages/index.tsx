@@ -1,4 +1,4 @@
-import { DocsDataTree, getDocData, getSortedDocsData, makePropsAllDocData } from '../lib/get-docs-data';
+import { DocsDataTree, getDocData, getSortedDocsData, makePropsAllDocData } from '../lib/docs/get-docs-data';
 import RootLayout from '../components/layouts/RootLayout';
 import Head from 'next/head';
 
