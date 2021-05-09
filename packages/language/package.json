@@ -1,6 +1,6 @@
 {
   "name": "@rollem/language",
-  "version": "2.4.5-alpha.0",
+  "version": "2.4.5",
   "description": "Rollem (Language) - Shared package for a dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax",
   "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
@@ -31,7 +31,7 @@
     "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
-    "watch:test":  "yarn watch:lang:test",
+    "watch:test": "yarn watch:lang:test",
     "watch:lang:test": "mocha --recursive --watch -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
     "test:cov": "jest --coverage --no-cache --runInBand",
     "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
