@@ -23,7 +23,7 @@ export default function Post({
 }) {
   return (
     <>
-      Sorry this page was supposed to be a redirect from the old docs url to the new.
+      Sorry this page was supposed to be a redirect from the old docs url to the new one.
     </>
   )
 }
