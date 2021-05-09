@@ -10,7 +10,7 @@ permalink: /syntax/bulk/
 
 Can be used for generating stats. 4d6 Drop Lowest is common in some D&D-type games.
 
-![](assets/stat-generation.png)
+![](/assets/stat-generation.png)
 
 | Syntax            |                                                                                                                                                          |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
