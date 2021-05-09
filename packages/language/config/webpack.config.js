@@ -1,6 +1,7 @@
 const path = require('path')
 const { IgnorePlugin } = require('webpack');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 module.exports = {
   mode: 'production',
@@ -13,6 +14,20 @@ module.exports = {
   },
   plugins: [
     new IgnorePlugin({ resourceRegExp: /^pg-native$/}),
+    new WebpackShellPluginNext({
+      onBuildStart: {
+        scripts: ['yarn run watch:lang:pegjs'],
+        blocking: false,
+        parallel: false,
+      },
+    }),
+    new WebpackShellPluginNext({
+      onBuildStart: {
+        scripts: ['yarn run build:lang:pegjs'],
+        blocking: true,
+        parallel: false,
+      },
+    }),
     new FilterWarningsPlugin({
       exclude: [/hdb-pool/, /@sap\/hana-client/, /mongodb/, /mssql/, /mysql/, /mysql2/, /oracledb/, /pg/, /pg-query-stream/, /react-native-sqlite-storage/, /redis/, /sqlite3/, /sql.js/, /typeorm-aurora-data-api-driver/]
     }),
@@ -48,7 +63,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".pegjs"],
     alias: {
       "@language-v1": path.resolve(__dirname, "../src/rollem-language-1/"),
       "@language-v1-beta": path.resolve(__dirname, "../src/rollem-language-1-beta/"),

@@ -24,13 +24,18 @@
     "build:lang:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
     "build:lang:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
     "build:lang:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "build:pegjs-typescript": "gulp build-pegjs-v2",
+    "watch": "yarn watch:lang",
+    "watch:lang": "NODE_ENV=development webpack --config config/webpack.config.js --watch --progress",
+    "watch:lang:pegjs": "gulp watch-pegjs",
+    "build:lang:pegjs": "gulp build-pegjs",
     "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
     "addscope": "node tools/packagejson name @tomchen/example-typescript-package",
-    "prepare": "yarn run build"
+    "prepublish": "yarn run build"
   },
   "mocha": {
     "require": [
@@ -57,7 +62,7 @@
     "discord.js": "12",
     "dotenv": "^8.2.0",
     "dotenv-cli": "^4.0.0",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-ext-replace": "^0.3.0",
     "gulp-pegjs": "^0.2.0",
     "gulp-sourcemaps": "^2.6.5",
@@ -98,7 +103,8 @@
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.0",
     "webpack": "^5.21.2",
-    "webpack-cli": "^4.5.0"
+    "webpack-cli": "^4.5.0",
+    "webpack-shell-plugin-next": "^2.2.2"
   },
   "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878"
 }
