@@ -29,7 +29,8 @@
     "package": "yarn run build && yarn pack",
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
-    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
+    "addscope": "node tools/packagejson name @tomchen/example-typescript-package",
+    "prepare": "yarn run build"
   },
   "mocha": {
     "require": [
@@ -99,5 +100,5 @@
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   },
-  "gitHead": "29be897859edc9a36e71163fb867f88e1bebdda3"
+  "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878"
 }

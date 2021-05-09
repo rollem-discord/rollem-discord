@@ -50,9 +50,9 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
-      "@language-v1": path.resolve(__dirname, "src/rollem-language-1/"),
-      "@language-v1-beta": path.resolve(__dirname, "src/rollem-language-1-beta/"),
-      "@language-v2": path.resolve(__dirname, "src/rollem-language-2/"),
+      "@language-v1": path.resolve(__dirname, "../src/rollem-language-1/"),
+      "@language-v1-beta": path.resolve(__dirname, "../src/rollem-language-1-beta/"),
+      "@language-v2": path.resolve(__dirname, "../src/rollem-language-2/"),
     },
   },
 }
