@@ -1,4 +1,4 @@
-# **2.4.7**
+# **2.4.8**
 * Add `rollem:beta` role-configured option for beta syntax
 * Re-factor dice-rolling behavior base to allow for more syntax versions
 * Split language files into their own package
