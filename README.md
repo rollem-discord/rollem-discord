@@ -165,6 +165,14 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 1. `yarn run package:bot` (The container will compile it)
 2. `yarn run package:bot:start`
 
+### Language Development
+Current version of the language is in `packages/language/src/rollem-language-2`.
+1. `cd` into `packages/language`
+2. Run `yarn watch` in one terminal
+3. Run `yarn watch:test` in another terminal
+4. Modify any file under `packages/language`
+5. Test output is for `src/rollem-language-2/rollem.pegjs`
+
 ## ~~Local Kubernetes Development~~
 These are incomplete and are a massive pain on Windows anyway.
 
