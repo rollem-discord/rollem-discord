@@ -38,9 +38,7 @@
     "old:start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
     "old:start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
     "old:build": "gulp build",
-    "old:watch": "gulp watch",
-    "publish:prepare-subdirectory": "mkdir -p dist && cp package.json dist/package.json",
-    "prepare": "yarn run build"
+    "old:watch": "gulp watch"
   },
   "files": [
     "./"

@@ -26,7 +26,7 @@
     "build:lang:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
     "build:pegjs-typescript": "gulp build-pegjs-v2",
     "watch": "yarn watch:lang",
-    "watch:lang": "NODE_ENV=development webpack --config config/webpack.config.js --watch --progress",
+    "watch:lang": "NODE_ENV=development webpack --config config/webpack.config.dev.js --watch --progress",
     "watch:lang:pegjs": "gulp watch-pegjs",
     "build:lang:pegjs": "gulp build-pegjs",
     "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",

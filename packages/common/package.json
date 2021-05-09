@@ -29,8 +29,7 @@
     "package": "yarn run build && yarn pack",
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
-    "addscope": "node tools/packagejson name @tomchen/example-typescript-package",
-    "prepare": "npm run build"
+    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
   },
   "mocha": {
     "require": [
