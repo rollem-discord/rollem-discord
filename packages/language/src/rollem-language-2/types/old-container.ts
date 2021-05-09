@@ -12,15 +12,15 @@ export abstract class OldContainer {
     this.parentValues = input.parentValues;
   }
 
-  public get depth(): number {
-    return Math.max(0, ...this.parentValues.map(parent => parent.depth)) + 1;
+  public depth(): number {
+    return Math.max(0, ...this.parentValues.map(parent => parent.depth())) + 1;
   }
 
-  public get dice(): number {
-    return this.dicePassthru;
+  public dice(): number {
+    return this.dicePassthru();
   }
 
-  protected get dicePassthru(): number {
-    return _.sum([0, ...this.parentValues.map(parent => parent.dice)]);
+  protected dicePassthru(): number {
+    return _.sum([0, ...this.parentValues.map(parent => parent.dice())]);
   }
 }

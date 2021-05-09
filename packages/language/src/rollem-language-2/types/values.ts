@@ -11,12 +11,12 @@ export class Values extends OldContainer {
     this.values = input.values;
   }
 
-  public get depth(): number {
-    return Math.max(0, ...this.parentValues.map(parent => parent.depth)) + 1;
+  public depth(): number {
+    return Math.max(0, ...this.parentValues.map(parent => parent.depth())) + 1;
   }
 
-  public get dice(): number {
-    return this.dicePassthru;
+  public dice(): number {
+    return this.dicePassthru();
   }
 
   public static fromNumbers(inputs: number[]): Values {

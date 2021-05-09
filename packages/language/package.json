@@ -1,7 +1,7 @@
 {
-  "name": "@rollem/common",
+  "name": "@rollem/language",
   "version": "2.4.0",
-  "description": "Rollem (Common) - Shared package for Rollem deployables",
+  "description": "Rollem (Language) - Shared package for a dicebot and parser that aggressively matches rolls, and supports a variety of roll syntax",
   "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
   "bugs": {
@@ -18,19 +18,18 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn run build:common",
-    "build:common": "yarn run build:common:cjs && yarn run build:common:esm && yarn run build:common:umd && yarn run build:common:types",
-    "build:common:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
-    "build:common:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
-    "build:common:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
-    "build:common:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "build": "yarn run build:lang",
+    "build:lang": "yarn run build:lang:cjs && yarn run build:lang:esm && yarn run build:lang:umd && yarn run build:lang:types",
+    "build:lang:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "build:lang:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "build:lang:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
+    "build:lang:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
     "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
     "test": "jest --no-cache --runInBand",
     "test:cov": "jest --coverage --no-cache --runInBand",
-    "addscope": "node tools/packagejson name @tomchen/example-typescript-package",
-    "prepare": "npm run build"
+    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
   },
   "mocha": {
     "require": [
@@ -41,13 +40,6 @@
     "extension": [
       "ts"
     ]
-  },
-  "_moduleAliases": {
-    "@root": ".",
-    "@language-v1": "rollem-dist/rollem-language-1/",
-    "@language-v2": "rollem-dist/rollem-language-2/",
-    "@bot": "rollem-dist/rollem-bot",
-    "@storage": "rollem-dist/storage/"
   },
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
@@ -80,14 +72,16 @@
     "npm": "^6.3.0",
     "nyc": "^15.0.1",
     "pegjs": "0.10.0",
+    "pegjs-loader": "^0.5.6",
     "pg": "^8.3.3",
     "reflect-metadata": "^0.1.13",
+    "ts-loader": "^8.0.16",
     "ts-mocha": "^7.0.0",
     "ts-node": "^8.9.1",
     "ts-pegjs": "^0.2.6",
     "tsconfig-paths": "^3.9.0",
     "typeorm": "0.3.0-rc.21",
-    "typescript": "^3.0.3",
+    "typescript": "^4.2.4",
     "watchify": "^3.9.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
@@ -102,7 +96,6 @@
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.0",
-    "ts-loader": "^8.0.16",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   },
