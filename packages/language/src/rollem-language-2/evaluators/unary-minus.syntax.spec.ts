@@ -32,7 +32,7 @@ describe('unary-minus (syntax)', () => {
     expect(ctx.callCount).to.equal(1);
     expect(value.value).to.equal(-5);
     expect(value.values).to.eql([-5]);
-    expect(value.pretties).to.equal("[-5] ⟵ -([5] ⟵ 1d10)");
+    expect(value.pretties).to.equal("[-5] ⟵    -([5] ⟵ 1d10)");
     expect(value.dice()).to.equal(1);
     expect(value.depth()).to.equal(3);
   });
