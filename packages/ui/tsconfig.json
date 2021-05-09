@@ -30,7 +30,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "lib/docs/render-markdown.tss"  ],
+, "lib/markdown/docs/render-markdown.tss"  ],
   "exclude": [
     "node_modules"
   ]

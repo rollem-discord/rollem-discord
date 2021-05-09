@@ -12,6 +12,7 @@ import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { DiscordProfile } from './DiscordProfile';
+import styles from '@rollem/ui/styles/standard.module.scss';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -77,16 +78,29 @@ export default function NavTop() {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6">
-            <Link href={'/'}>
+            <Link href={"/"}>
               <a className={classes.homeWrapper}>
-                <img className={classes.iconImage} src="/images/rollem-transparent.png"></img>
+                <img
+                  className={classes.iconImage}
+                  src="/images/rollem-transparent.png"
+                ></img>
                 Rollem Rocks
               </a>
             </Link>
           </Typography>
-          <ActiveLink href={`/docs`} activeClassName={classes.activeLink} className={classes.link}><a>Docs</a></ActiveLink>
-          <Link href={`/invite`}><a className={classes.link}>Invite</a></Link>
-          <Link href={`/docs/rollem-next`}><a className={classes.link}>vNext</a></Link>
+          <ActiveLink
+            href={`/docs`}
+            activeClassName={classes.activeLink}
+            className={classes.link}
+          >
+            <a>Docs</a>
+          </ActiveLink>
+          <Link href={`/invite`}>
+            <a className={classes.link}>
+              <img className={styles.textImage} src="/images/rollem-transparent.png"></img>
+              Invite
+            </a>
+          </Link>
           <div className={classes.spacer}></div>
           <DiscordProfile></DiscordProfile>
         </Toolbar>

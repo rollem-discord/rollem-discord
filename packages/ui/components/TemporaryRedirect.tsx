@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { DocsDataTree, getAllDocIds } from '../lib/docs/get-docs-data'
+import { DocsDataTree, getAllDocIds } from '../lib/markdown/docs/get-docs-data'
 
 export function ServerSideTemporaryRedirectPage(targetUrl: string, blurb: string = "Click here to continue") {
   return function({

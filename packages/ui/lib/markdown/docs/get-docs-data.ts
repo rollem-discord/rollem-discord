@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import { chain, flatMapDeep, sortBy } from "lodash";
 
 
-const docsDirectory = path.join(process.cwd(), "docs");
+const docsDirectory = path.join(process.cwd(), "markdown", "docs");
 
 export interface DocsData {
   id: string;

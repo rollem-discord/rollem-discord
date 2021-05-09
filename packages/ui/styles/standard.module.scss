@@ -1,0 +1,15 @@
+.card {
+  max-width: 748px;
+  margin: 2rem auto;
+}
+
+.evenlySpace {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.textImage {
+  max-height: 1em;
+  margin-right: 0.25em;
+}

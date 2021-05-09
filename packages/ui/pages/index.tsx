@@ -1,6 +1,11 @@
-import { DocsDataTree, getDocData, getSortedDocsData, makePropsAllDocData } from '../lib/docs/get-docs-data';
 import RootLayout from '../components/layouts/RootLayout';
 import Head from 'next/head';
+import { Button, Card, CardContent } from '@material-ui/core';
+
+import styles from '../styles/standard.module.scss';
+import { GetStaticProps } from 'next';
+import { getMarkdownData, makePropsAllMarkdownData, MarkdownDataTree } from '../lib/markdown/get-markdown-data';
+import { renderMarkdown } from '../lib/markdown/render-markdown';
 
 export default function Home({
   postData,
@@ -8,9 +13,9 @@ export default function Home({
   postData: {
     title: string
     date: string
-    contentHtml: string
+    content: string
   },
-  allDocsData: DocsDataTree[],
+  allMarkdownData: MarkdownDataTree[],
 }) {
   return (
     <>
@@ -18,10 +23,64 @@ export default function Home({
         <title>Rollem Rocks</title>
       </Head>
       <RootLayout>
-        <article>
-          <h1>Rollem Rocks</h1>
-        </article>
+        <Card className={styles.card}>
+          <CardContent>
+            <article className={styles.evenlySpace}>
+              <Button variant="contained" href={"https://old.rollem.rocks"}>
+                Old Docs
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                href={"https://rollem.rocks/invite"}
+              >
+                <>
+                  <img
+                    className={styles.textImage}
+                    src="/images/rollem-transparent.png"
+                  ></img>
+                  Invite Rollem
+                </>
+              </Button>
+              <Button
+                variant="contained"
+                href={"https://rollem.rocks/docs/rollem-next"}
+              >
+                <>
+                  <img
+                    className={styles.textImage}
+                    src="/images/rollem-next-transparent.png"
+                  ></img>
+                  Rollem-Next
+                </>
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href={"https://patreon.com/david_does"}
+              >
+                Patreon
+              </Button>
+            </article>
+          </CardContent>
+        </Card>
+
+        <Card className={styles.card}>
+          <CardContent>
+            <div>{renderMarkdown(postData.content)}</div>
+          </CardContent>
+        </Card>
       </RootLayout>
     </>
-  )
+  );
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }: { params: { id: string[] }}) => {
+  const postData = await getMarkdownData([]);
+  return {
+    props: {
+      postData,
+      ...makePropsAllMarkdownData(),
+    }
+  }
 }
