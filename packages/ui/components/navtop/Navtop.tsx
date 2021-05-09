@@ -85,6 +85,8 @@ export default function NavTop() {
             </Link>
           </Typography>
           <ActiveLink href={`/docs`} activeClassName={classes.activeLink} className={classes.link}><a>Docs</a></ActiveLink>
+          <Link href={`/invite`}><a className={classes.link}>Invite</a></Link>
+          <Link href={`/docs/rollem-next`}><a className={classes.link}>vNext</a></Link>
           <div className={classes.spacer}></div>
           <DiscordProfile></DiscordProfile>
         </Toolbar>

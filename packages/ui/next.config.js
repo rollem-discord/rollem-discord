@@ -5,6 +5,20 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 // - nextjs TS module import https://github.com/vercel/next.js/issues/9474
 
 module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/invite',
+        destination: 'https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=68608',
+        permanent: false,
+      },
+      {
+        source: '/invite/next',
+        destination: 'https://discordapp.com/oauth2/authorize?client_id=840409146738475028&scope=bot&permissions=68608',
+        permanent: false,
+      },
+    ];
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Note: webpack is provided, so we do not need to `require` it
 
