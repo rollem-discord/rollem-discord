@@ -21,5 +21,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install
+      working-directory: ./packages/language
     - run: yarn build
+      working-directory: ./packages/language
     - run: yarn test
+      working-directory: ./packages/language
