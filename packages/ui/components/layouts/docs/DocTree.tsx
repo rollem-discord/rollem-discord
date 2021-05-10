@@ -17,7 +17,7 @@ function makeTree(treeNode: DocsDataTree): JSX.Element {
   let hasChildren = treeNode.children && treeNode.children.length > 0;
   let children = hasChildren ? <ul>{treeNode.children.map(child => makeTree(child))}</ul> : <></>;
   return (
-    <li className={hasChildren ? styles.hasChildren : null}>
+    <li className={hasChildren ? styles.hasChildren : null} key={treeNode?.item?.id}>
       {makeEntry(treeNode?.item)}
       {children}
     </li>

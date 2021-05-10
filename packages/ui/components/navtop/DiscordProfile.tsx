@@ -15,6 +15,9 @@ import { Avatar, SvgIcon, Tooltip } from '@material-ui/core';
 import { ExitToApp, Settings } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import { isUndefined } from 'lodash';
+import { AppContext } from '@rollem/ui/lib/contexts/request-context';
+import { exorciseCircularReferences } from '@rollem/ui/lib/helpers/exorcise-circular-references';
+import { useContext } from 'react';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -52,8 +55,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function DiscordProfile() {
+  const context = useContext(AppContext);
   const classes = useStyles();
   const { data, error } = useSWR<RollemSessionData>(API_URL, fetcher);
+  
 
   if (data?.discord?.user) {
     const avatar = data?.discord?.user?.avatar;
@@ -94,13 +99,10 @@ export function DiscordProfile() {
       </>
     );
   }
-  
-  let loginUrl = '#';
-  if (typeof window !== 'undefined') {
-    const callback = `${window.location.origin}/api/auth/discord/callback`;
-    const encodedCallback = encodeURI(callback);
-    loginUrl = `https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=${encodedCallback}&response_type=code&scope=identify%20guilds`;
-  }
+
+  const callback = `${context.baseUrl}/api/auth/discord/callback`;
+  const encodedCallback = encodeURIComponent(callback);
+  const loginUrl = `https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=${encodedCallback}&response_type=code&scope=identify%20guilds`;
 
   return (
     <>

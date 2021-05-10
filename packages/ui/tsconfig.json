@@ -29,8 +29,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "lib/markdown/docs/render-markdown.tss"  ],
+    "**/*.tsx",
+    "lib/markdown/docs/render-markdown.tss"
+  ],
   "exclude": [
     "node_modules"
   ]

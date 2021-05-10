@@ -1,9 +1,13 @@
 import Head from 'next/head'
+import App, { AppContext } from 'next/app'
 import { useEffect } from 'react';
 import '../styles/globals.scss'
 import '../styles/markdown.scss';
+import { AppContext as MyAppContext, AppContextValue} from '../lib/contexts/request-context';
+import { exorciseCircularReferences } from '../lib/helpers/exorcise-circular-references';
+import { NextPageContext } from 'next';
 
-function MyApp({ Component, pageProps }): JSX.Element {
+function MyApp({ Component, passedContext, pageProps }): JSX.Element {
 
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -29,9 +33,35 @@ function MyApp({ Component, pageProps }): JSX.Element {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      <Component {...pageProps} />
+      <MyAppContext.Provider value={passedContext}>
+        <Component {...pageProps} />
+      </MyAppContext.Provider>
     </>
   )
+}
+
+// Only uncomment this method if you have blocking data requirements for
+// every single page in your application. This disables the ability to
+// perform automatic static optimization, causing every page in your app to
+// be server-side rendered.
+//
+MyApp.getInitialProps = async (appContext) => {
+  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const appProps = await App.getInitialProps(appContext);
+  const { ctx, router } = appContext as AppContext;
+  const { req, query, res, asPath, pathname } = ctx;
+  const host = req.headers.host;
+  const protocol = host.toLowerCase().startsWith('localhost') ? 'http' : 'https';
+  const passedContext: AppContextValue = {
+    req: exorciseCircularReferences(req),
+    baseUrl: `${protocol}://${host}`,
+    headers: req.headers,
+    asPath,
+    pathname,
+    query,
+  };
+
+  return { passedContext, ...appProps }
 }
 
 export default MyApp

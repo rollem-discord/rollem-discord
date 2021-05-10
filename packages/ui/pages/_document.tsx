@@ -2,6 +2,7 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/styles'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { AppContext } from '../lib/contexts/request-context'
 
 const theme = responsiveFontSizes(createMuiTheme())
 
@@ -59,6 +60,7 @@ MyDocument.getInitialProps = async ctx => {
 
   return {
     ...initialProps,
+    ctx,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [
       <React.Fragment key="styles">
