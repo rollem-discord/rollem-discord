@@ -51,7 +51,7 @@ MyApp.getInitialProps = async (appContext) => {
   const { ctx, router } = appContext as AppContext;
   const { req, query, res, asPath, pathname } = ctx;
   const host = req.headers.host;
-  const protocol = host.toLowerCase().startsWith('localhost') ? 'http' : 'https';
+  const protocol = host?.toLowerCase().startsWith('localhost') ? 'http' : 'https';
   const passedContext: AppContextValue = {
     req: exorciseCircularReferences(req),
     baseUrl: `${protocol}://${host}`,
