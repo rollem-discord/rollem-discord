@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent } from "react";
+import { createContext, FunctionComponent, useEffect } from "react";
 
 const defaultUrl = "https://rollem.rocks"
 
@@ -10,13 +10,18 @@ export interface AppContextValue extends Record<string, unknown> {
 export const AppContext = createContext({ baseUrl: defaultUrl } as AppContextValue);
 
 export const AppContextProvider: FunctionComponent<{ value: AppContextValue }> = ({ value, ...props }) => {
-  if (typeof window !== "undefined") {
-    const host = window.location.host;
-    const protocol = host?.toLowerCase().startsWith('localhost') ? 'http' : 'https';
-    value.baseUrl = `${protocol}://${window.location.host}`;
-  }
 
-  console.log({value});
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.host;
+      const protocol = host?.toLowerCase().startsWith('localhost') ? 'http' : 'https';
+      value.baseUrl = `${protocol}://${window.location.host}`;
+    }
+
+    console.log({inEffect: value});
+  })
+
+  console.log({inMethod: value});
 
   return (
     <AppContext.Provider value={value}>
