@@ -6,7 +6,7 @@ import '../styles/markdown.scss';
 import { AppContextProvider, AppContextValue} from '../lib/contexts/request-context';
 import { exorciseCircularReferences } from '../lib/helpers/exorcise-circular-references';
 
-function MyApp({ Component, passedContext, pageProps }): JSX.Element {
+function MyApp({ Component, pageProps }): JSX.Element {
 
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -32,7 +32,7 @@ function MyApp({ Component, passedContext, pageProps }): JSX.Element {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      <AppContextProvider value={passedContext}>
+      <AppContextProvider>
         <Component {...pageProps} />
       </AppContextProvider>
     </>
@@ -49,18 +49,8 @@ MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const { ctx, router } = appContext as AppContext;
   const { req, query, res, asPath, pathname } = ctx;
-  const host = req.headers.host;
-  const protocol = host?.toLowerCase().startsWith('localhost') ? 'http' : 'https';
-  const passedContext: AppContextValue = {
-    req: exorciseCircularReferences(req),
-    baseUrl: `${protocol}://${host}`,
-    headers: req.headers,
-    asPath,
-    pathname,
-    query,
-  };
 
-  return { passedContext, ...appProps }
+  return { ...appProps }
 }
 
 export default MyApp

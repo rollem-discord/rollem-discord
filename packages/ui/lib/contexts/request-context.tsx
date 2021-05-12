@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent, useEffect } from "react";
+import { createContext, FunctionComponent, useContext, useEffect } from "react";
 
 const defaultUrl = "https://rollem.rocks"
 
@@ -9,22 +9,24 @@ export interface AppContextValue extends Record<string, unknown> {
 /** The NextJS app context. Provided from getInitialProps */
 export const AppContext = createContext({ baseUrl: defaultUrl } as AppContextValue);
 
-export const AppContextProvider: FunctionComponent<{ value: AppContextValue }> = ({ value, ...props }) => {
+export const AppContextProvider: FunctionComponent = ({ ...props }) => {
+
+  const context = useContext(AppContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const host = window.location.host;
       const protocol = host?.toLowerCase().startsWith('localhost') ? 'http' : 'https';
-      value.baseUrl = `${protocol}://${window.location.host}`;
+      context.baseUrl = `${protocol}://${window.location.host}`;
     }
 
-    console.log({inEffect: value});
+    console.log({inEffect: context});
   })
 
-  console.log({inMethod: value});
+  console.log({inMethod: context});
 
   return (
-    <AppContext.Provider value={value}>
+    <AppContext.Provider value={context}>
       {props.children}
     </AppContext.Provider>
   );
