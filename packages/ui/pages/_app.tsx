@@ -3,9 +3,8 @@ import App, { AppContext } from 'next/app'
 import { useEffect } from 'react';
 import '../styles/globals.scss'
 import '../styles/markdown.scss';
-import { AppContext as MyAppContext, AppContextValue} from '../lib/contexts/request-context';
+import { AppContextProvider, AppContextValue} from '../lib/contexts/request-context';
 import { exorciseCircularReferences } from '../lib/helpers/exorcise-circular-references';
-import { NextPageContext } from 'next';
 
 function MyApp({ Component, passedContext, pageProps }): JSX.Element {
 
@@ -33,9 +32,9 @@ function MyApp({ Component, passedContext, pageProps }): JSX.Element {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      <MyAppContext.Provider value={passedContext}>
+      <AppContextProvider value={passedContext}>
         <Component {...pageProps} />
-      </MyAppContext.Provider>
+      </AppContextProvider>
     </>
   )
 }
