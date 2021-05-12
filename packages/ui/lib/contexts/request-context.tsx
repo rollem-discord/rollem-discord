@@ -16,6 +16,8 @@ export const AppContextProvider: FunctionComponent<{ value: AppContextValue }> =
     value.baseUrl = `${protocol}://${window.location.host}`;
   }
 
+  console.log({value});
+
   return (
     <AppContext.Provider value={value}>
       {props.children}
