@@ -1,5 +1,6 @@
 export * from './entity/User';
 export * from './entity/UserFlags';
+export * from './entity/UserSiteData';
 export * from './storage';
 
 // import "reflect-metadata";

@@ -1,4 +1,4 @@
-import { User, UserFlags } from "./src";
+import { User, UserFlags, UserSiteData } from "./src";
 import dotenv from "dotenv";
 dotenv.config({path: "../../secrets/vscode.env"})
 
@@ -9,7 +9,7 @@ module.exports = {
    "synchronize": true,
    "logging": false,
    "entities": [
-      User, UserFlags, 
+      User, UserFlags, UserSiteData,
    ],
    "migrations": [
       "src/storage/migration/**/*.ts"
