@@ -1,6 +1,6 @@
-import { User, UserConnections } from "./src";
-
-require("dotenv").config({path: "../../secrets/vscode.env"});
+import { User, UserFlags } from "./src";
+import dotenv from "dotenv";
+dotenv.config({path: "../../secrets/vscode.env"})
 
 module.exports = {
    "type": "postgres",
@@ -9,7 +9,7 @@ module.exports = {
    "synchronize": true,
    "logging": false,
    "entities": [
-      User, UserConnections, 
+      User, UserFlags, 
    ],
    "migrations": [
       "src/storage/migration/**/*.ts"

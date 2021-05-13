@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique, Index} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique, Index, OneToOne, JoinColumn} from "typeorm";
+import { UserFlags } from "./UserFlags";
 
 @Entity()
 export class User {
@@ -14,4 +15,8 @@ export class User {
 
     @UpdateDateColumn()
     updated!: Date;
+
+    @OneToOne(type => UserFlags, userFlags => userFlags.user, { cascade: true })
+    @JoinColumn()
+    flags!: User;
 }

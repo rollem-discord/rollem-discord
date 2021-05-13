@@ -3,7 +3,7 @@ import { Injectable } from "injection-js";
 import { createConnection, Connection, getConnection, Repository, ConnectionOptions, getRepository, getConnectionManager } from "typeorm";
 import { User } from "./entity/User";
 import path from 'path';
-import { UserConnections } from './entity/UserConnections';
+import { UserFlags } from './entity/UserFlags';
 
 @Injectable()
 export class Storage {
@@ -12,8 +12,6 @@ export class Storage {
   public constructor() { }
 
   private get usersRepository(): Repository<User> { return this.connection.getRepository(User); }
-
-  private get userConnectionsRepository(): Repository<UserConnections> { return this.connection.getRepository(UserConnections); }
 
   public async getOrCreateUser(discordUserId): Promise<User> {
     const retrieveById = async () => await this.usersRepository.findOne({where: { discordUserId: discordUserId }});
@@ -40,23 +38,6 @@ export class Storage {
     return existingUser;
   }
 
-  public async getOrCreateUserConnections(from: {id: string}): Promise<UserConnections> {
-    const retrieve = async () => await this.userConnectionsRepository.findOne({where: { id: from.id }});
-
-    const existingUserConnections = await retrieve();
-    if (existingUserConnections) { return existingUserConnections; }
-
-    const newUserConnections = await this.userConnectionsRepository.create({id: from.id});
-    const createdUser = await this.userConnectionsRepository.save(newUserConnections);
-    const retrievedUser = await retrieve();
-
-    return retrievedUser || createdUser;
-  }
-
-  public async updateUserConnections(userConnections: UserConnections): Promise<UserConnections> {
-    return await this.userConnectionsRepository.save(userConnections);
-  }
-
   public async initialize() {
     if (this.connection) { return; }
 
@@ -68,7 +49,7 @@ export class Storage {
       connectTimeoutMS: 500,
       entities: [
         User,
-        UserConnections,
+        UserFlags,
       ],
       migrations: [
         path.join(__dirname, '/migration/**/*.js'),

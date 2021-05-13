@@ -55,7 +55,7 @@
     "@types/keyv": "^3.1.1",
     "@types/lodash": "^4.14.136",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^14.10.2",
+    "@types/node": "^15.0.3",
     "applicationinsights": "^1.0.2",
     "chai": "^3.5.0",
     "chance": "^1.1.5",
