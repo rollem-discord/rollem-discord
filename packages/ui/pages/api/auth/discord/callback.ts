@@ -21,9 +21,6 @@ export default withSession(
       await req.session.commit();
 
       const userData = await storage.getOrCreateUser(user.id /* Discord ID */);
-      const userConnections = await storage.getOrCreateUserConnections({
-        id: userData.id, /** Rollem ID */
-      });
 
       req.session.discord = req.session.discord || {} as any;
       req.session.discord.auth = response;
@@ -34,7 +31,6 @@ export default withSession(
       req.session.discord.guilds = guilds;
       req.session.data = req.session.data || {} as any;
       req.session.data.user = userData;
-      req.session.data.userConnections = userConnections;
 
       res.redirect(
         `/account`

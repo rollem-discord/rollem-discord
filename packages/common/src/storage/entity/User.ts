@@ -17,11 +17,11 @@ export class User {
     @UpdateDateColumn()
     updated!: Date;
 
-    @OneToOne(type => UserFlags, o => o.user, { cascade: true })
+    @OneToOne(type => UserFlags, o => o?.user, { cascade: true })
     @JoinColumn()
     flags: User | undefined;
 
-    @OneToOne(type => UserSiteData, o => o.user, { cascade: true })
+    @OneToOne(type => UserSiteData, o => o?.user, { cascade: true })
     @JoinColumn()
     siteData: User | undefined;
 }

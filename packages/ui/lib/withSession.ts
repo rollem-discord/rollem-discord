@@ -1,4 +1,4 @@
-import { User, UserConnections } from '@rollem/common';
+import { User } from '@rollem/common';
 import { IncomingMessage } from 'http';
 import { NextApiRequest } from 'next';
 import { Session, SessionCookieData } from 'next-session/dist/types';
@@ -13,7 +13,6 @@ export interface DiscordSessionData {
 
 export interface RollemData {
   user: User,
-  userConnections: UserConnections,
 }
 
 export interface RollemSessionData {

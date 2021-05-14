@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: rollem
-        image: lemtzas/rollem-discord:2.4.16
+        image: lemtzas/rollem-discord:2.4.18
         #imagePullPolicy: Never
         env:
         - name: 'reboot'
-          value: '2021-05-07'
+          value: '2021-05-14'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:

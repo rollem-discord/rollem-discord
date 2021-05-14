@@ -14,9 +14,6 @@ export default withSession(
       await req.session.commit();
 
       const userData = await storage.getOrCreateUser(user.id /* discord id */);
-      const userConnections = await storage.getOrCreateUserConnections({
-        id: userData.id,
-      });
 
       req.session.discord = req.session.discord || {} as any;
       req.session.discord.auth = req.session.discord.auth;

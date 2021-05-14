@@ -275,10 +275,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@rollem/common@^2.4.5":
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.5.tgz#fb30c7df59baf4d2748af379026924a3b34409f5"
-  integrity sha512-DtmvvSs+9MccBA6JuzsM3Po0/eX/BE/KvI/EH6ASMUowsBSgFkukq+mk02HIKOasvDeqn+Vv1RxQtoOC0DTm5Q==
+"@rollem/common@^2.4.18":
+  version "2.4.18"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.18.tgz#6f02713b434b6673271028b76217a9e891246b64"
+  integrity sha512-K8MDUaY56iQhlsUYm5IOGkigPAwfy4zAC9wT28mxw1Ls9CjHbXdHPwhCxv1IHQ/fq77IYBhsWcO7YCvl+lHWHA==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -286,7 +286,7 @@
     "@types/keyv" "^3.1.1"
     "@types/lodash" "^4.14.136"
     "@types/mocha" "^7.0.2"
-    "@types/node" "^14.10.2"
+    "@types/node" "^15.0.3"
     applicationinsights "^1.0.2"
     chai "^3.5.0"
     chance "^1.1.5"
@@ -321,10 +321,10 @@
     watchify "^3.9.0"
     webpack-filter-warnings-plugin "^1.2.1"
 
-"@rollem/language@^2.4.5":
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.4.5.tgz#44c341d788f7c675b32cffc75646a3b9df2a2d73"
-  integrity sha512-XPP2AH1wEHpKPOypGVGEkF28dAGqh0S2hHenhQxqruzh4+xCqyfZtkxg6ibgrfHd4PTBizQvy8Nn1kReu3jxDA==
+"@rollem/language@^2.4.16":
+  version "2.4.16"
+  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.4.16.tgz#46823e47cbda5f9f7024e0936acd0825839ecccb"
+  integrity sha512-ztiYBUOzaBkTnx+xhBzc18qh463bAvy/uaJa7Ip6Fbo0E7oQgYj71shEjIOc8gxqgi/djoHYAPWQBDaFhXNCng==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -461,6 +461,11 @@
   version "15.0.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.0.2.tgz#51e9c0920d1b45936ea04341aa3e2e58d339fb67"
   integrity sha512-p68+a+KoxpoB47015IeYZYRrdqMUcpbK8re/zpFB8Ld46LHC1lPEbp3EXgkEhAYEcPvjJF6ZO+869SQ0aH1dcA==
+
+"@types/node@^15.0.3":
+  version "15.0.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.0.3.tgz#ee09fcaac513576474c327da5818d421b98db88a"
+  integrity sha512-/WbxFeBU+0F79z9RdEOXH4CsDga+ibi5M8uEYr91u3CkT/pdWcV8MCook+4wDPnZBexRdwWS+PiVZ2xJviAzcQ==
 
 "@ungap/promise-all-settled@1.1.2":
   version "1.1.2"
