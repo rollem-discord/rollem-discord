@@ -4,6 +4,7 @@ import { createConnection, Connection, getConnection, Repository, ConnectionOpti
 import { User } from "./entity/User";
 import path from 'path';
 import { UserFlags } from './entity/UserFlags';
+import { UserSiteData } from './entity/UserSiteData';
 
 @Injectable()
 export class Storage {
@@ -50,6 +51,7 @@ export class Storage {
       entities: [
         User,
         UserFlags,
+        UserSiteData,
       ],
       migrations: [
         path.join(__dirname, '/migration/**/*.js'),
