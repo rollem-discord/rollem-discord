@@ -1,4 +1,4 @@
-# **2.4.16**
+# **2.4.17**
 * Switch randomness source to CSPRNG
 
 # **2.4.8**
