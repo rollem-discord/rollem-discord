@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Integer, TestContext } from '../..';
 import { RollemParserV1 } from './rollem-parser';
 
 describe.only('rollem-language-1', () => {
