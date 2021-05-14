@@ -16,10 +16,18 @@
 
     .left {
       flex-grow: 0;
+      * {
+        white-space: nowrap;
+      }
     }
     
     .right {
       flex-grow: 1;
     }
   }
+}
+
+.textContainer {
+  max-width: 740px;
+  margin: 0 1em;
 }

@@ -1,3 +1,5 @@
+import { randomInt } from "crypto";
+
 declare function error(message: string, location: any);
 
 // this avoids a typing issue
@@ -25,7 +27,7 @@ function clamp(value, min, max) {
   if (minimumExplodeSize <= 1) { error("Explode value must be greater than 1.", "CUSTOM"); }
   if (minimumExplodeSize < size/1000) { error("Explode chance must be less than 99.9%", "CUSTOM"); }
   do {
-    var last_roll = Math.floor(Math.random() * size) + 1;
+    var last_roll = randomInt(1, size);
     all_rolls.push(last_roll);
   } while (last_roll >= minimumExplodeSize && explodeConfiguration)
   return all_rolls;

@@ -19,7 +19,11 @@ export default function DocsLayout({
         <div className={styles.left}>
           <DocTree allDocsData={allDocsData}></DocTree>
         </div>
-        <div className={styles.right}>{children}</div>
+        <div className={styles.right}>
+          <div className={styles.textContainer}>
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );

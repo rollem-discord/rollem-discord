@@ -1,12 +1,9 @@
 ---
-layout: default
-title: Syntax
-nav_order: 2
-has_children: true
-permalink: /syntax/
+title: V1 Syntax
+nav_order: 100
 ---
 
-## Dice Syntax
+## V1 Dice Syntax
 
 This is the full syntax. Navigate to pages for specific syntax and examples / explanations.
 

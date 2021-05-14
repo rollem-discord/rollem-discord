@@ -4,6 +4,7 @@
 
 title: About
 layout: home
+nav_order: 0
 ---
 # Rollem for Discord
 A dice-rolling bot for Discord that lets you Just Roll To Roll.

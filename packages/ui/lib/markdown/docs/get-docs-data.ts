@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 
 import { chain, flatMapDeep, sortBy } from "lodash";
+import { inspect } from "util";
 
 
 const docsDirectory = path.join(process.cwd(), "markdown", "docs");
@@ -28,6 +29,7 @@ export interface DocsDataTree {
 export function getSortedDocsData(): DocsDataTree[] {
   const docs = getSortedDocsDataInternal(docsDirectory);
   docs.forEach(v => v.route.unshift('doc'));
+  console.log(inspect(docs, true, 5, true))
   return docs;
 }
 
@@ -38,7 +40,7 @@ function getSortedDocsDataInternal(
 ): DocsDataTree[] {
   const fileNames = fs.readdirSync(directoryName);
   // console.log(fileNames);
-  return fileNames
+  return chain(fileNames)
     .map((fileName) => {
       const pathId = fileName.replace(/\.md$/, "");
       const fullPath = path.join(directoryName, fileName);
@@ -71,7 +73,9 @@ function getSortedDocsDataInternal(
         };
       }
     })
-    .filter((v) => !!v);
+    .filter((v) => !!v)
+    .orderBy(v => v.item?.nav_order)
+    .value();
 }
 
 export function tryGetSingleDocData(

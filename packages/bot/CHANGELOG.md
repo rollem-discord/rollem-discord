@@ -1,3 +1,6 @@
+# **2.4.15**
+* Switch randomness source to CSPRNG
+
 # **2.4.8**
 * Add `rollem:beta` role-configured option for beta syntax
 * Re-factor dice-rolling behavior base to allow for more syntax versions

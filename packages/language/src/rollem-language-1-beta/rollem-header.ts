@@ -1,3 +1,5 @@
+import { randomInt } from "crypto";
+
 declare function error(message: string, location: any);
 
 // this avoids a typing issue
@@ -49,7 +51,7 @@ function rollEvaluator(size, explodeConfiguration?: { value: number, operator: s
     } while (last_roll >= minimumExplodeUpSize && explodeConfiguration);
   } else {
     do {
-      var last_roll = Math.floor(Math.random() * size) + 1;
+      var last_roll = randomInt(1, size);
       all_rolls.push(last_roll);
     } while (last_roll >= minimumExplodeSize && explodeConfiguration);
   }
