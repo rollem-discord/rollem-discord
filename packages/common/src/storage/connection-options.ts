@@ -12,6 +12,7 @@ export const connectionOptions: ConnectionOptions = {
   entities: [User, UserFlags, UserSiteData],
   migrations: ["src/storage/migrations/**/*.ts"],
   subscribers: ["src/storage/subscriber/**/*.ts"],
+  
   cli: {
     migrationsDir: "src/storage/migrations",
   },

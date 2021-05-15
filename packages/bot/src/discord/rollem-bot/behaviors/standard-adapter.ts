@@ -47,7 +47,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   private async buildContext(message: Message): Promise<BehaviorContext> {
-    console.log({event: 'buildContext-1', authorId: message.author.id, content: message.content});
+    console.log({event: 'buildContext-1', authorId: message.author.id, content: message.content, timestamp: new Date().toISOString()});
     const user = await this.storage.getOrCreateUser(message.author.id);
 
     const whichParser = this.selectParser(message);
