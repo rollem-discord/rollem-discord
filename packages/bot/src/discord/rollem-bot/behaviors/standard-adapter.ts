@@ -4,8 +4,8 @@ import { Inject, Injectable } from "injection-js";
 import { BehaviorBase } from "@common/behavior.base";
 import { Config } from "../config";
 import { RepliedMessageCache } from "../lib/replied-message-cache";
-import { BehaviorContext, ParserVersion } from "@common/behavior-context";
-import { Storage } from "@rollem/common";
+import { BehaviorContext, DatabaseFailure, ParserVersion } from "@common/behavior-context";
+import { Storage, User } from "@rollem/common";
 import { DiscordBehaviorBase } from './discord-behavior-base';
 
 /** A base for behaviors to be applied to a discord client. */
@@ -48,7 +48,12 @@ export class StandardAdapter extends DiscordBehaviorBase {
 
   private async buildContext(message: Message): Promise<BehaviorContext> {
     console.log({event: 'buildContext-1', authorId: message.author.id, content: message.content, timestamp: new Date().toISOString()});
-    const user = await this.storage.getOrCreateUser(message.author.id);
+    let user: DatabaseFailure | User;
+    try {
+      user = await this.storage.getOrCreateUser(message.author.id);
+    } catch (ex) {
+      user = <DatabaseFailure>{ error: (ex as Error).message };
+    }
 
     const whichParser = this.selectParser(message);
     const requiredPrefix = this.getPrefix(message);

@@ -1,5 +1,5 @@
 import { Logger } from "@bot/logger";
-import { BehaviorContext } from "@common/behavior-context";
+import { BehaviorContext, isDatabaseFailure } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
 import { Storage } from "@rollem/common";
@@ -22,6 +22,17 @@ export class StorageBehavior extends BehaviorBase {
     var i = 0;
     console.log({source: this.label, trigger, content, context});
     if (commands[i].toLowerCase() !== "storage") { return null; }
+
+    if (isDatabaseFailure(context.user)) {
+      const response =
+        [
+          "Database access failure",
+          "```json",
+          JSON.stringify(context, undefined, " "),
+          "```"
+        ].join('\n');
+      return { response }
+    }
 
     switch (commands[++i]) {
       case "dump":
