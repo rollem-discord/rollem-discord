@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import 'mocha';
 import { RollemParserV1 } from './rollem-parser';
 
-describe.only('rollem-language-1', () => {
+describe('rollem-language-1', () => {
   it('should handle single digits', () => {
     const parser = new RollemParserV1();
     const result = parser.parse('5');

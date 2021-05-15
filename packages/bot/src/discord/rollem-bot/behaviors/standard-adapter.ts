@@ -47,6 +47,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   private async buildContext(message: Message): Promise<BehaviorContext> {
+    console.log({event: 'buildContext-1', authorId: message.author.id, content: message.content});
     const user = await this.storage.getOrCreateUser(message.author.id);
 
     const whichParser = this.selectParser(message);
@@ -103,13 +104,12 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   private async handleAll(message: Message, context: BehaviorContext): Promise<void> {
-    console.log({context})
     const preparedMessage = await this.prepareMessage(message, context);
     if (!preparedMessage) { return; }
 
     context.messageConfiguredOptions = { isPrefixed: preparedMessage.isPrefixed }
 
-    // console.log({event: 'handleAll-1', context, preparedMessage});
+    console.log({event: 'handleAll-1', context, preparedMessage});
 
     for (const behavior of this.behaviors) {
       const result =
@@ -117,7 +117,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
         ? await behavior.onTaggedMessage(message, preparedMessage.content, context)
         : await behavior.onUntaggedMessage(message, preparedMessage.content, context);
 
-      // console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior});
+      console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior});
       if (result) {
         this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `${behavior.label}`, message, { result });
         message.reply(result.response).catch(rejected => this.handleSendRejection(message));

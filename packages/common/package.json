@@ -24,11 +24,11 @@
     "build:common:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
     "build:common:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
     "build:common:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
-    "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js dotenv_config_path=../../secrets/vscode.env",
     "clean": "node tools/cleanup",
     "package": "yarn run build && yarn pack",
-    "test": "jest --no-cache --runInBand",
-    "test:cov": "jest --coverage --no-cache --runInBand",
+    "test": "mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts dotenv_config_path=../../secrets/vscode.env",
+    "old:test:cov": "jest --coverage --no-cache --runInBand",
     "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
   },
   "mocha": {

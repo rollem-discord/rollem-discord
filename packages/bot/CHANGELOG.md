@@ -1,5 +1,6 @@
-# **2.4.17**
+# **2.4.20**
 * Switch randomness source to CSPRNG
+* Resolving database issues
 
 # **2.4.8**
 * Add `rollem:beta` role-configured option for beta syntax

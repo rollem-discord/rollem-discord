@@ -5,6 +5,7 @@ import { User } from "./entity/User";
 import path from 'path';
 import { UserFlags } from './entity/UserFlags';
 import { UserSiteData } from './entity/UserSiteData';
+import { connectionOptions } from './connection-options';
 
 @Injectable()
 export class Storage {
@@ -42,24 +43,7 @@ export class Storage {
   public async initialize() {
     if (this.connection) { return; }
 
-    const config: ConnectionOptions = {
-      type: "postgres",
-      url: process.env.DB_CONNECTION_STRING,
-      ssl: { rejectUnauthorized: false },
-      synchronize: true,
-      connectTimeoutMS: 500,
-      entities: [
-        User,
-        UserFlags,
-        UserSiteData,
-      ],
-      migrations: [
-        path.join(__dirname, '/migration/**/*.js'),
-      ],
-      subscribers: [
-        path.join(__dirname, '/subscriber/**/*.js'),
-      ],
-    };
+    const config = connectionOptions;
 
     try {
       this.connection = await createConnection(config);
