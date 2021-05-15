@@ -117,7 +117,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
         ? await behavior.onTaggedMessage(message, preparedMessage.content, context)
         : await behavior.onUntaggedMessage(message, preparedMessage.content, context);
 
-      console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior});
+      console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior, result});
       if (result) {
         this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `${behavior.label}`, message, { result });
         message.reply(result.response).catch(rejected => this.handleSendRejection(message));
