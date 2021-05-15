@@ -1,6 +1,6 @@
 {
   "name": "@rollem/common",
-  "version": "2.4.20",
+  "version": "2.4.21",
   "description": "Rollem (Common) - Shared package for Rollem deployables",
   "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
