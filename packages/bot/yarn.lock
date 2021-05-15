@@ -275,10 +275,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@rollem/common@^2.4.18":
-  version "2.4.18"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.18.tgz#6f02713b434b6673271028b76217a9e891246b64"
-  integrity sha512-K8MDUaY56iQhlsUYm5IOGkigPAwfy4zAC9wT28mxw1Ls9CjHbXdHPwhCxv1IHQ/fq77IYBhsWcO7YCvl+lHWHA==
+"@rollem/common@^2.4.21":
+  version "2.4.21"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.21.tgz#2b49a18d341f9b49e4e0f1919f40220dad761471"
+  integrity sha512-tyz+u6REaM+2Uy5utCbQwyQ9XGiqlVlcWzutYPpctdmRdVGuPhNNsWUW1HKZnlkSR6uaPrBPqFTqXRPtZh1MAw==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -321,10 +321,10 @@
     watchify "^3.9.0"
     webpack-filter-warnings-plugin "^1.2.1"
 
-"@rollem/language@^2.4.16":
-  version "2.4.16"
-  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.4.16.tgz#46823e47cbda5f9f7024e0936acd0825839ecccb"
-  integrity sha512-ztiYBUOzaBkTnx+xhBzc18qh463bAvy/uaJa7Ip6Fbo0E7oQgYj71shEjIOc8gxqgi/djoHYAPWQBDaFhXNCng==
+"@rollem/language@^2.4.20":
+  version "2.4.20"
+  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.4.20.tgz#5a2a35af3bcd7fbbc26809fadf8a17dd35cc73f9"
+  integrity sha512-gf5dwHRNiXsAGQIzUCy4d1zIEipVUV7KZcpm43wEJObSML4vlBGHJFUcjHu8FSb3EawjPajm/nkEjoyA7krYEw==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
