@@ -1,4 +1,4 @@
-# **2.4.20**
+# **2.4.24**
 * Switch randomness source to CSPRNG
 * Resolving database issues
 

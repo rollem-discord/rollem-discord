@@ -51,7 +51,7 @@ function rollEvaluator(size, explodeConfiguration?: { value: number, operator: s
     } while (last_roll >= minimumExplodeUpSize && explodeConfiguration);
   } else {
     do {
-      var last_roll = randomInt(1, size);
+      var last_roll = randomInt(size)+1;
       all_rolls.push(last_roll);
     } while (last_roll >= minimumExplodeSize && explodeConfiguration);
   }
