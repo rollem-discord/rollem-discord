@@ -88,8 +88,10 @@ function makeTree(treeNode: DocsDataTree, nested: boolean = false): JSX.Element 
     );
     
     handleClick = (event: React.MouseEvent) => {
-      setOpen(!open);
+      event.nativeEvent.stopImmediatePropagation();
       event.stopPropagation();
+      event.preventDefault();
+      setOpen(!open);
     };
 
     openToggle = (
