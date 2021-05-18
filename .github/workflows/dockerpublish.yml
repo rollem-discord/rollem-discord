@@ -5,9 +5,6 @@ on:
     tags:
       - '*'
 
-  # Run tests for any PRs.
-  pull_request:
-
 env:
   # TODO: Change variable to your image's name.
   BOT_IMAGE_NAME: rollem-discord
@@ -143,3 +140,15 @@ jobs:
 
           docker tag image2 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+  mark-as-release:
+    name: "Mark as Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@1.2.0"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE.txt
+            **/*
