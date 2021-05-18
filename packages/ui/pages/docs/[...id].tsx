@@ -15,7 +15,8 @@ export default function Post({
   postData: {
     title: string
     date: string
-    content: string
+    content: string,
+    id: string[],
   },
   allDocsData: DocsDataTree[],
   session: any,
@@ -26,7 +27,7 @@ export default function Post({
         <title>{postData.title}</title>
       </Head>
       <article>
-        {renderDocsMarkdown(postData.content)}
+        {renderDocsMarkdown(postData.content, postData.id)}
       </article>
     </DocsLayout>
   )

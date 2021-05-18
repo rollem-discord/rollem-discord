@@ -29,7 +29,7 @@ export interface DocsDataTree {
 export function getSortedDocsData(): DocsDataTree[] {
   const docs = getSortedDocsDataInternal(docsDirectory);
   docs.forEach(v => v.route.unshift('doc'));
-  console.log(inspect(docs, true, 5, true))
+  // console.log(inspect(docs, true, 5, true))
   return docs;
 }
 

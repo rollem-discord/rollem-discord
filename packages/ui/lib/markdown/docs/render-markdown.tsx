@@ -5,12 +5,21 @@ import { Components, ReactBaseProps, ReactMarkdownProps } from "react-markdown/s
 import remarkGfm from "remark-gfm";
 import { first, fromPairs } from "lodash";
 import { Button } from "@material-ui/core";
+import path from "path";
 
 function transformLinkUri(relativeBase: string = '/docs/') {
   return function(uri: string) {
-    if (uri.startsWith('./')) {
-      const relativePath = uri.substr(2);
-      uri = relativeBase + relativePath;
+    // convert relative URIs to normalized paths from root
+    const isRelative = uri.startsWith('./') || uri.startsWith('../');
+    if (isRelative) {
+      const concatPath = relativeBase + uri;
+      const normalizedConcatPath = path.normalize(concatPath);
+      uri = normalizedConcatPath;
+    }
+
+    // no trailing .md
+    if (uri.endsWith('.md')) {
+      uri = uri.substring(0, uri.length - '.md'.length);
     }
 
     return uriTransformer(uri);
@@ -44,13 +53,16 @@ const components: Components = {
   },
 };
 
-export function renderDocsMarkdown(markdown: string) {
+export function renderDocsMarkdown(markdown: string, id?: string[]) {
+  const fullRoute = id ? ['/docs', ...id, ''] : ['/docs/'];
+  const relativeTo = fullRoute.join('/');
+  console.log({renderMarkdown: id, relativeTo})
   return (
     <ReactMarkdown
       className="markdown"
       plugins={[remarkGfm]}
       children={markdown}
       components={components}
-      transformLinkUri={transformLinkUri()}/>
+      transformLinkUri={transformLinkUri(relativeTo)}/>
   );
 }
