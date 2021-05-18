@@ -25,7 +25,7 @@ export default function Home({
       <RootLayout>
         <Card className={styles.card}>
           <CardContent>
-            <article className={styles.evenlySpace}>
+            <div className={styles.evenlySpace}>
               <Button variant="contained" href={"https://old.rollem.rocks"}>
                 Old Docs
               </Button>
@@ -61,7 +61,7 @@ export default function Home({
               >
                 Patreon
               </Button>
-            </article>
+            </div>
           </CardContent>
         </Card>
 
