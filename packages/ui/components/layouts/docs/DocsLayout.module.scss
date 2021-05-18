@@ -23,8 +23,10 @@
     }
     
     .right {
-      padding-left: 1em;
       flex-grow: 1;
+      main {
+        margin: 0 1em;
+      }
     }
   }
 }
@@ -32,4 +34,9 @@
 .textContainer {
   max-width: 740px;
   margin: 0 1em;
+}
+
+.wideButton.wideButton {
+  width: 100%;
+  margin: 1em;
 }
