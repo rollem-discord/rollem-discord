@@ -1,7 +1,7 @@
 import { RollemSessionData } from "@rollem/ui/lib/withSession";
 import { DocsDataTree } from "../../lib/markdown/docs/get-docs-data";
 import DocTree from "./docs/DocTree";
-import NavTop from "../navtop/Navtop";
+import NavTop from "../navtop/NavTop";
 import styles from "./RootLayout.module.scss";
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 import { DocsDataTree } from "../../../lib/markdown/docs/get-docs-data";
 import DocTree from "./DocTree";
-import NavTop from "../../navtop/Navtop";
+import NavTop from "../../navtop/NavTop";
 import styles from "./DocsLayout.module.scss";
 
 export default function DocsLayout({

@@ -12,7 +12,9 @@ import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { DiscordProfile } from './DiscordProfile';
-import styles from '@rollem/ui/styles/standard.module.scss';
+import { useState } from 'react';
+import { Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText, Tooltip } from '@material-ui/core';
+import NavSide from './NavSide';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexFlow: "row nowrap",
       alignItems: "center",
+      justifyContent: "center",
     },
     iconImage: {
       maxHeight: "64px",
@@ -53,58 +56,96 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: {
       "& > *": {
         "&:not(:last-child)": {
-          marginRight: theme.spacing(2),
+          marginRight: theme.spacing(1),
         },
         "&:not(:first-child)": {
-          marginLeft: theme.spacing(2),
+          marginLeft: theme.spacing(1),
         },
       },
     },
     spacer: {
       flexGrow: 1,
     },
+    menuButton: {
+      marginRight: 0,
+    },
+    list: {
+      minWidth: '250px',
+      marginRight: theme.spacing(2),
+    },
+    panel: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+    }
   }),
 );
 
 export default function NavTop() {
   const classes = useStyles();
   const { data, error } = useSWR<RollemSessionData>(API_URL, fetcher);
+  const [state, setState] = useState({ drawerOpen: false, });
+
+  const toggleDrawer = (open: boolean) => (
+    event: React.KeyboardEvent | React.MouseEvent,
+  ) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, drawerOpen: open });
+  };
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
-          <Typography variant="h6">
-            <Link href={"/"}>
-              <a className={classes.homeWrapper}>
-                <img
-                  className={classes.iconImage}
-                  src="/images/rollem-transparent.png"
-                ></img>
-                Rollem Rocks
-              </a>
-            </Link>
-          </Typography>
-          <ActiveLink
-            href={`/docs`}
-            activeClassName={classes.activeLink}
-            className={classes.link}
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            onClick={toggleDrawer(true)}
+            color="inherit"
+            aria-label="menu"
           >
-            <a>Docs</a>
-          </ActiveLink>
-          <Link href={`/invite`}>
-            <a className={classes.link}>
-              <img className={styles.textImage} src="/images/rollem-transparent.png"></img>
-              Invite
-            </a>
-          </Link>
+            <MenuIcon />
+          </IconButton>
+          <Tooltip title="Rollem Rocks">
+            <Typography variant="h6">
+              <Link href={"/"}>
+                <a className={classes.homeWrapper}>
+                  <img
+                    className={classes.iconImage}
+                    src="/images/rollem-transparent.png"
+                  ></img>
+                </a>
+              </Link>
+            </Typography>
+          </Tooltip>
           <div className={classes.spacer}></div>
           <DiscordProfile></DiscordProfile>
         </Toolbar>
       </AppBar>
+
+      <Hidden xsDown implementation="css">
+
+        <Drawer
+          anchor="left"
+          variant="permanent"
+          open={state.drawerOpen}
+          onClose={toggleDrawer(false)}
+        >
+          <div
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+            className={classes.list}
+          >
+            <NavSide></NavSide>
+          </div>
+        </Drawer>
+      </Hidden>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/styles'
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 import { AppContext } from '../lib/contexts/request-context'
-
-const theme = responsiveFontSizes(createMuiTheme())
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
+import { theme } from '../lib/theme'
 
 class MyDocument extends Document {
   render() {
@@ -23,6 +24,8 @@ class MyDocument extends Document {
               body {
                 height: 100%;
                 width: 100%;
+                background-color: ${theme.palette.background.default};
+                color: ${theme.palette.text.primary};
               }
               *,
               *:after,

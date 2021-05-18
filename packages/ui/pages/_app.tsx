@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import '../styles/globals.scss'
 import '../styles/markdown.scss';
 import { AppContextProvider, AppContextValue} from '../lib/contexts/request-context';
-import { exorciseCircularReferences } from '../lib/helpers/exorcise-circular-references';
+import { theme } from '../lib/theme';
+import { ThemeProvider } from '@material-ui/styles';
 
 function MyApp({ Component, pageProps }): JSX.Element {
 
@@ -32,9 +33,11 @@ function MyApp({ Component, pageProps }): JSX.Element {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      <AppContextProvider>
-        <Component {...pageProps} />
-      </AppContextProvider>
+      <ThemeProvider theme={theme}>
+        <AppContextProvider>
+          <Component {...pageProps} />
+        </AppContextProvider>
+      </ThemeProvider>
     </>
   )
 }
