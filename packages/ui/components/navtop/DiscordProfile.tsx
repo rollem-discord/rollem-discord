@@ -1,22 +1,12 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
-import classes from './Navtop.module.scss';
 import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { Avatar, SvgIcon, Tooltip } from '@material-ui/core';
 import { ExitToApp, Settings } from '@material-ui/icons';
-import { useRouter } from 'next/router';
-import { isUndefined } from 'lodash';
 import { AppContext } from '@rollem/ui/lib/contexts/request-context';
-import { exorciseCircularReferences } from '@rollem/ui/lib/helpers/exorcise-circular-references';
 import { useContext } from 'react';
 
 const API_URL = '/api/auth/discord/getData';
