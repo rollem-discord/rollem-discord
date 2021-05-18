@@ -1,8 +1,8 @@
 import { DocsDataTree } from "../../../lib/markdown/docs/get-docs-data";
 import DocTree from "./DocTree";
-import NavTop from "../../navtop/NavTop";
+import NavTop from "../../nav/NavTop";
 import styles from "./DocsLayout.module.scss";
-import NavSide from "../../navtop/NavSide";
+import NavSide from "../../nav/NavSide";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
 import { Button, Container, Hidden } from "@material-ui/core";
 

@@ -1,5 +1,5 @@
-import NavSide from "../navtop/NavSide";
-import NavTop from "../navtop/NavTop";
+import NavSide from "../nav/NavSide";
+import NavTop from "../nav/NavTop";
 import styles from "./RootLayout.module.scss";
 
 export default function RootLayout({
