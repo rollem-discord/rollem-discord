@@ -6,6 +6,7 @@ import '../styles/markdown.scss';
 import { AppContextProvider, AppContextValue} from '../lib/contexts/request-context';
 import { theme } from '../lib/theme';
 import { ThemeProvider } from '@material-ui/styles';
+import { SidePanelContextProvider } from '../lib/contexts/sidepanel-context';
 
 function MyApp({ Component, pageProps }): JSX.Element {
 
@@ -34,9 +35,11 @@ function MyApp({ Component, pageProps }): JSX.Element {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <AppContextProvider>
-          <Component {...pageProps} />
-        </AppContextProvider>
+        <SidePanelContextProvider>
+          <AppContextProvider>
+            <Component {...pageProps} />
+          </AppContextProvider>
+        </SidePanelContextProvider>
       </ThemeProvider>
     </>
   )

@@ -1,4 +1,6 @@
 import {
+  Drawer,
+  Hidden,
   Link,
   List,
   ListItem,
@@ -9,20 +11,31 @@ import {
 } from "@material-ui/core";
 import DescriptionIcon from "@material-ui/icons/Description";
 import { createStyles, makeStyles } from "@material-ui/styles";
-import styles from '@rollem/ui/styles/standard.module.scss';
-import ActiveLink from "../ActiveLink";
+import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
+
+const drawerWidth = '240px';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    drawer: {
+      [theme.breakpoints.up('md')]: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
+    },
     homeWrapper: {
       display: "flex",
       flexFlow: "row nowrap",
       alignItems: "center",
       justifyContent: "center",
+      color: theme.palette.text.primary,
     },
     iconImage: {
       maxHeight: "64px",
       marginRight: ".5em",
+    },
+    textImage: {
+      maxHeight: "1.5em",
     },
     profileImage: {
       maxHeight: "48px",
@@ -58,8 +71,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 0,
     },
     list: {
-      minWidth: "250px",
-      marginRight: theme.spacing(2),
+      minWidth: drawerWidth,
+      paddingRight: theme.spacing(1),
     },
     panel: {
       backgroundColor: theme.palette.primary.main,
@@ -69,6 +82,44 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function NavSide() {
+  const classes = useStyles();
+
+  return (
+    <nav className={classes.drawer}>
+      <SidePanelContext.Consumer>
+        {({ mobileDrawerOpen, toggleDrawer }) => (
+          <>
+            <Hidden smDown implementation="css">
+              <Drawer anchor="left" variant="permanent" open>
+                <div className={classes.list}>
+                  <SideNavContent></SideNavContent>
+                </div>
+              </Drawer>
+            </Hidden>
+
+            <Hidden mdUp implementation="css">
+              <Drawer
+                anchor="left"
+                open={mobileDrawerOpen}
+                onClose={toggleDrawer(false)}
+              >
+                <div
+                  onClick={toggleDrawer(false)}
+                  onKeyDown={toggleDrawer(false)}
+                  className={classes.list}
+                >
+                  <SideNavContent></SideNavContent>
+                </div>
+              </Drawer>
+            </Hidden>
+          </>
+        )}
+      </SidePanelContext.Consumer>
+    </nav>
+  );
+}
+
+function SideNavContent() {
   const classes = useStyles();
 
   return (
@@ -85,32 +136,20 @@ export default function NavSide() {
         </Link>
       </Typography>
       <List>
-        <ListItem>
+        <ListItem button component="a" href={`/docs`}>
           <ListItemIcon>
             <DescriptionIcon></DescriptionIcon>
           </ListItemIcon>
-          <ListItemText>
-            <ActiveLink
-              href={`/docs`}
-              activeClassName={classes.activeLink}
-              className={classes.link}
-            >
-              <a>Docs</a>
-            </ActiveLink>
-          </ListItemText>
+          <ListItemText>Docs</ListItemText>
         </ListItem>
-        <ListItem>
+        <ListItem button component="a" href={`/invite`}>
           <ListItemIcon>
             <img
-              className={styles.textImage}
+              className={classes.textImage}
               src="/images/rollem-transparent.png"
             />
           </ListItemIcon>
-          <ListItemText>
-            <Link href={`/invite`}>
-              <a className={classes.link}>Invite</a>
-            </Link>
-          </ListItemText>
+          <ListItemText>Invite</ListItemText>
         </ListItem>
       </List>
     </>

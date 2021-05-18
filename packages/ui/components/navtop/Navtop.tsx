@@ -12,9 +12,10 @@ import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { DiscordProfile } from './DiscordProfile';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText, Tooltip } from '@material-ui/core';
 import NavSide from './NavSide';
+import { SidePanelContext } from '@rollem/ui/lib/contexts/sidepanel-context';
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -71,7 +72,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     list: {
       minWidth: '250px',
-      marginRight: theme.spacing(2),
     },
     panel: {
       backgroundColor: theme.palette.primary.main,
@@ -83,69 +83,42 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function NavTop() {
   const classes = useStyles();
   const { data, error } = useSWR<RollemSessionData>(API_URL, fetcher);
-  const [state, setState] = useState({ drawerOpen: false, });
-
-  const toggleDrawer = (open: boolean) => (
-    event: React.KeyboardEvent | React.MouseEvent,
-  ) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-
-    setState({ ...state, drawerOpen: open });
-  };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            onClick={toggleDrawer(true)}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Tooltip title="Rollem Rocks">
-            <Typography variant="h6">
-              <Link href={"/"}>
-                <a className={classes.homeWrapper}>
-                  <img
-                    className={classes.iconImage}
-                    src="/images/rollem-transparent.png"
-                  ></img>
-                </a>
-              </Link>
-            </Typography>
-          </Tooltip>
-          <div className={classes.spacer}></div>
-          <DiscordProfile></DiscordProfile>
-        </Toolbar>
-      </AppBar>
-
-      <Hidden xsDown implementation="css">
-
-        <Drawer
-          anchor="left"
-          variant="permanent"
-          open={state.drawerOpen}
-          onClose={toggleDrawer(false)}
-        >
-          <div
-            onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-            className={classes.list}
-          >
-            <NavSide></NavSide>
-          </div>
-        </Drawer>
-      </Hidden>
-    </div>
+    <SidePanelContext.Consumer>
+      {({ toggleDrawer }) => (
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar className={classes.toolbar}>
+              <Hidden mdUp implementation="css">
+                <IconButton
+                  edge="start"
+                  className={classes.menuButton}
+                  onClick={toggleDrawer(true)}
+                  color="inherit"
+                  aria-label="menu"
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Hidden>
+              <Tooltip title="Rollem Rocks">
+                <Typography variant="h6">
+                  <Link href={"/"}>
+                    <a className={classes.homeWrapper}>
+                      <img
+                        className={classes.iconImage}
+                        src="/images/rollem-transparent.png"
+                      ></img>
+                    </a>
+                  </Link>
+                </Typography>
+              </Tooltip>
+              <div className={classes.spacer}></div>
+              <DiscordProfile></DiscordProfile>
+            </Toolbar>
+          </AppBar>
+        </div>
+      )}
+    </SidePanelContext.Consumer>
   );
 }
