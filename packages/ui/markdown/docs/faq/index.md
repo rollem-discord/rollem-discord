@@ -3,8 +3,8 @@ title: FAQ
 nav_order: 1000
 ---
 
-## FAQ
+# FAQ
 
 Some frequently asked questions.
 
-1. []
+1. [Is it possible to cheat with Rollem? No.](./cheating.md)

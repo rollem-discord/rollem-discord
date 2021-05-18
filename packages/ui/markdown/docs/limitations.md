@@ -6,9 +6,10 @@ has_children: false
 permalink: /limits/
 ---
 
+# Limits
+
 In order to keep things fast and avoid spamming the chat, there are some limits on what Rollem will do.
 
-## Limitations
 * Rollem will not roll more than 100 dice.
 * Rollem will not roll "one-sided" dice.
 * Rollem will not roll single numbers.

@@ -1,4 +1,4 @@
-import { Collapse, List, ListItem, ListItemText, ListSubheader, Typography } from '@material-ui/core';
+import { Button, Collapse, IconButton, List, ListItem, ListItemText, ListSubheader, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useState } from 'react';
@@ -64,19 +64,23 @@ function makeTree(treeNode: DocsDataTree, nested: boolean = false): JSX.Element 
         </List>
       </Collapse>
     );
-
-    openToggle = open ? <ExpandLess /> : <ExpandMore />;
     
     handleClick = (event: React.MouseEvent) => {
       setOpen(!open);
       event.stopPropagation();
     };
+
+    openToggle = (
+      <IconButton size="small" onClick={handleClick}>
+        {open ? <ExpandLess/> : <ExpandMore />}
+      </IconButton>
+    );
   }
 
   const path = '/docs/' + treeNode.item.route.join('/');
   return (
     <>
-      <ListItem button component="a" href={path} onClick={handleClick} className={nested ? classes.nested : null}>
+      <ListItem button component="a" href={path} className={nested ? classes.nested : null}>
         <ListItemText primary={treeNode.item.title} />
         {openToggle}
       </ListItem>

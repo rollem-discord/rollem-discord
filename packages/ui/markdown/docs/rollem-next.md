@@ -6,6 +6,8 @@ has_children: false
 permalink: /prefix/
 ---
 
+# Rollem Next
+
 If you want the latest updates, you can invite Rollem Next to your server.
 
 [**Invite Rollem-Next**](/invite/next/ "color:primary")

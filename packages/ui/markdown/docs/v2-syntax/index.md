@@ -3,6 +3,8 @@ title: V2 Syntax (WIP)
 nav_order: 200
 ---
 
+# V2 Syntax (WIP)
+
 The v2 dice syntax is in the works.
 
 Planned support for:
