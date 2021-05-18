@@ -20,6 +20,6 @@ Prior to Late May 2021, Rollem used [Node's PRNG][PRNG-NODE] which, while [proba
 [PRNG-NODE-BREAK-2]: https://www.youtube.com/watch?v=_Iv6fBrcbAM "Lecture on the topic of predicting the results of Math.Floor(CONST*Math.random())+CONST"
 
 [GITHUB-language]: https://github.com/rollem-discord/rollem-discord#language-development "How to test the language"
-[GITHUB-roll]: https://github.com/rollem-discord/rollem-discord/blob/15a9f5d6f7ab2d6e16229cd9aff328f57a08f673/packages/language/src/rollem-language-1/rollem-header.ts#L28 "The line in Rollem that does the rolling"
+[GITHUB-roll]: https://github.com/rollem-discord/rollem-discord/blob/f4d1cb4ae319728080e9b7dd8bfce331f6ad0b24/packages/language/src/rollem-language-1/rollem-header.ts#L30 "The line in Rollem that does the rolling"
 
 [CSPRNG]: https://en.wikipedia.org/wiki/Cryptographically-secure_pseudorandom_number_generator "Cryptographically-Secure Pseudo-Random Number Generators"
