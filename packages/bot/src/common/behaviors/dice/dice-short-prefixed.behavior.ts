@@ -20,7 +20,7 @@ export class DiceShortPrefixedBehavior extends DiceBehaviorBase {
   constructor(parsers: Parsers, config: Config, logger: Logger) { super(parsers, config, logger); }
 
   public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
-    return null;
+    return await this.onUntaggedMessage(trigger, content, context);
   }
 
   public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {

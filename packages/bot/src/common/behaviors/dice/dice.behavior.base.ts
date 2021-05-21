@@ -95,7 +95,9 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
       const result = this.parsers.v1.tryParse(contentAfterCount);
       if (!result) { return null; }
 
-      const shouldReply = context.messageConfiguredOptions?.isPrefixed || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+      // don't be too aggressive with the replies
+      const hasEnoughDice = requireDice ? result.dice > 0 : true;
+      const shouldReply = context.messageConfiguredOptions?.isPrefixed || (result.depth > 1 && hasEnoughDice);
       if (!shouldReply) { return null; }
 
       const response = this.buildMessage(result, requireDice);
