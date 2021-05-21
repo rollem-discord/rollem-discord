@@ -1,3 +1,6 @@
+# **2.4.36**
+* Fix issue with `&` and `r`-prefixed rolls
+
 # **2.4.25**
 * Switch randomness source to CSPRNG
 * Resolving database issues
