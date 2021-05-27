@@ -27,8 +27,7 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
       console.log('username: ' + this.client.user?.username);
       console.log('id: ' + this.client.user?.id);
 
-      const shard = this.config.ShardId;
-      this.client.user!
+      await this.client.user!
         .setPresence({
           activity: {
             type: 'PLAYING',
@@ -36,6 +35,7 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
           },
           status: 'online',
         })
+        .then(console.log)
         .catch(error => this.handleRejection("setActivity", error))
 
       const mentionRegex = '^<@!' + this.client.user?.id + '>\\s+|^<@' + this.client.user?.id + '>\\s+';

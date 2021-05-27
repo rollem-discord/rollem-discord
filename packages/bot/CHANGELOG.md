@@ -1,4 +1,4 @@
-# **2.4.38**
+# **2.4.39**
 * Fix issue with `&` and `r`-prefixed rolls
 * Fix issue with roll-assigned prefix
 * Fix issue with prod-bot status updates?
