@@ -1,5 +1,7 @@
-# **2.4.37**
+# **2.4.38**
 * Fix issue with `&` and `r`-prefixed rolls
+* Fix issue with roll-assigned prefix
+* Fix issue with prod-bot status updates?
 
 # **2.4.25**
 * Switch randomness source to CSPRNG
