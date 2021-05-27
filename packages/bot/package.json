@@ -54,7 +54,6 @@
     ]
   },
   "dependencies": {
-    "@discordjs/uws": "^10.149.0",
     "@rollem/common": "^2.4.21",
     "@rollem/language": "^2.4.25",
     "@types/chai": "^4.2.11",
