@@ -19,12 +19,19 @@ export class DiceShortPrefixedBehavior extends DiceBehaviorBase {
 
   constructor(parsers: Parsers, config: Config, logger: Logger) { super(parsers, config, logger); }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
-    return await this.onUntaggedMessage(trigger, content, context);
+  public onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return this.onAll(trigger, content, context);
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
-    // ignore the dice requirement with prefixed strings
+  public onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return this.onAll(trigger, content, context);
+  }
+
+  public onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return this.onAll(trigger, content, context);
+  }
+
+  public async onAll(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     if (content.startsWith('r') || content.startsWith('&')) {
       let subMessage = content.substring(1);
       let requireDice = false;

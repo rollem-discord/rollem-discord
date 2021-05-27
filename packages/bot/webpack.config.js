@@ -68,9 +68,11 @@ const config = {
       "@common": path.resolve(__dirname, "src/common/"),
     },
   },
+  devtool: 'cheap-module-source-map',
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    devtoolModuleFilenameTemplate: '[absolute-resource-path]',
   },
 };
 

@@ -17,11 +17,15 @@ export class DiceBracketedBehavior extends DiceBehaviorBase {
 
   constructor(parsers: Parsers, config: Config, logger: Logger) { super(parsers, config, logger); }
 
-  public onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return this.onAll(trigger, content, context);
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return this.onAll(trigger, content, context);
+  }
+
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return this.onAll(trigger, content, context);
   }
 

@@ -33,6 +33,29 @@ export interface RoleConfiguredOptions {
 
 /** Options configured by inspecting the message. */
 export interface MessageConfiguredOptions {
-  /** True when the message came in as a prefixed command. */
-  isPrefixed: boolean;
+  /** How this message was originally interpreted by the adapter. */
+  prefixStyle: PrefixStyle;
+}
+
+/** The way this command was initiated */
+export enum PrefixStyle {
+  /** Prefix is not known */
+  Unknown,
+  /** Prefix Required and Not Provided */
+  Missing,
+  /** A prefixed roll ( eg /roll 2d20dl1 ) */
+  ProvidedOrNotRequired,
+  /** A @ping-prefixed message  */
+  DirectPing,
+}
+
+/** True if any known prefix style was provided. */
+export function isKnownPrefix(style: PrefixStyle): boolean {
+  switch (style) {
+    case PrefixStyle.Unknown:
+    case PrefixStyle.Missing:
+      return false;
+    default:
+      return true;
+  }
 }

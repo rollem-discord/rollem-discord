@@ -16,6 +16,12 @@ export abstract class BehaviorBase {
   /** The label for this behavior. Used in logging. */
   public abstract get label(): string;
 
-  public abstract onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
-  public abstract onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
+  /** Called when the no prefix was provided. */
+  public abstract onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
+
+  /** Called when the message has been Soft Prefixed (required prefix was provided and stripped from the content) */
+  public abstract onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
+
+  /** Called when the message has been prefixed by an @botname ping */
+  public abstract onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null>;
 }

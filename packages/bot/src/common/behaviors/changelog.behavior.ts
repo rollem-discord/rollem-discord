@@ -17,7 +17,11 @@ export class ChangelogBehavior extends BehaviorBase {
     super(logger);
   }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return null;
+  }
+
+  public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     if (content.startsWith('changelog') ||
       content.startsWith('change log') ||
       content.startsWith('changes') ||
@@ -31,7 +35,7 @@ export class ChangelogBehavior extends BehaviorBase {
     }
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 }

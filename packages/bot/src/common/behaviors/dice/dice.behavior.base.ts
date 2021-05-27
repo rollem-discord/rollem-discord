@@ -1,7 +1,7 @@
 import { Config } from "@bot/config";
 import { Parsers } from "@bot/lib/parsers";
 import { Logger, LoggerCategory } from "@bot/logger";
-import { BehaviorContext } from "@common/behavior-context";
+import { BehaviorContext, isKnownPrefix } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
 import { ContainerV1 } from "@rollem/language";
@@ -60,7 +60,8 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
       const result = this.parsers.v1beta.tryParse(contentAfterCount);
       if (!result) { return null; }
 
-      const shouldReply = context.messageConfiguredOptions?.isPrefixed || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
+      const hasPrefix = isKnownPrefix(context.messageConfiguredOptions?.prefixStyle);
+      const shouldReply = hasPrefix || (result.depth > 1 && result.dice > 0); // don't be too aggressive with the replies
       if (!shouldReply) { return null; }
 
       const response = this.buildMessage(result, requireDice);
@@ -97,7 +98,8 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
 
       // don't be too aggressive with the replies
       const hasEnoughDice = requireDice ? result.dice > 0 : true;
-      const shouldReply = context.messageConfiguredOptions?.isPrefixed || (result.depth > 1 && hasEnoughDice);
+      const hasPrefix = isKnownPrefix(context.messageConfiguredOptions?.prefixStyle);
+      const shouldReply = hasPrefix || (result.depth > 1 && hasEnoughDice);
       if (!shouldReply) { return null; }
 
       const response = this.buildMessage(result, requireDice);

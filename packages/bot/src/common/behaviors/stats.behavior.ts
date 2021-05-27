@@ -18,8 +18,12 @@ export class StatsBehavior extends BehaviorBase {
   }
 
   public label = "stats";
+  
+  public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return null;
+  }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     if (content.startsWith('stats') || content.startsWith('help')) {
       const stats = await this.statsProvider.getStats();
       const statsPairs = toPairs(stats);
@@ -48,7 +52,7 @@ export class StatsBehavior extends BehaviorBase {
     }
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 }

@@ -16,8 +16,12 @@ export class StorageBehavior extends BehaviorBase {
   ) {
     super(logger);
   }
+  
+  public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return null;
+  }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     var commands = content.split(/\s+/);
     var i = 0;
     console.log({source: this.label, trigger, content, context});
@@ -61,7 +65,7 @@ export class StorageBehavior extends BehaviorBase {
     }
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 }

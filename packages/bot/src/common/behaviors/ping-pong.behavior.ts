@@ -11,7 +11,11 @@ export class PingPongBehavior extends BehaviorBase {
 
   constructor(logger: Logger) { super(logger); }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return null;
+  }
+
+  public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     if (content.startsWith('ping')) {
       return {
         response: "pong",
@@ -21,7 +25,7 @@ export class PingPongBehavior extends BehaviorBase {
     }
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 }

@@ -17,16 +17,24 @@ export class DiceSoftParseBehavior extends DiceBehaviorBase {
 
   constructor(parsers: Parsers, config: Config, logger: Logger) { super(parsers, config, logger); }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
-     // apparently D8 is a common emote, so avoid responding to that
-    if (content.startsWith('D')) { return null; }
+  public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return null;
+  }
 
-    const requireDice = true;
-    const lines = this.rollMany(content, this.label, content, context, requireDice);
-    return await this.makeReplyAndLog(content, this.label, lines);
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return this.onAllHandled(trigger, content, context);
+  }
+
+  private async onAllHandled(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    // apparently D8 is a common emote, so avoid responding to that
+   if (content.startsWith('D')) { return null; }
+
+   const requireDice = true;
+   const lines = this.rollMany(content, this.label, content, context, requireDice);
+   return await this.makeReplyAndLog(content, this.label, lines);
   }
 }

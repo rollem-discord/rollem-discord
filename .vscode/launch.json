@@ -16,7 +16,7 @@
       "program": "${workspaceFolder}/packages/bot/dist/bundle.js",
       "envFile": "${workspaceFolder}/secrets/vscode.env",
       "cwd": "${workspaceFolder}/packages/bot/",
-      "sourceMaps": true
+      "sourceMaps": true,
     },
     {
       "type": "node",

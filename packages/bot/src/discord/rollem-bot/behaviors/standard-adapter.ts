@@ -4,9 +4,10 @@ import { Inject, Injectable } from "injection-js";
 import { BehaviorBase } from "@common/behavior.base";
 import { Config } from "../config";
 import { RepliedMessageCache } from "../lib/replied-message-cache";
-import { BehaviorContext, DatabaseFailure, ParserVersion } from "@common/behavior-context";
+import { BehaviorContext, DatabaseFailure, ParserVersion, PrefixStyle } from "@common/behavior-context";
 import { Storage, User } from "@rollem/common";
 import { DiscordBehaviorBase } from './discord-behavior-base';
+import { BehaviorResponse } from "@common/behavior-response";
 
 /** A base for behaviors to be applied to a discord client. */
 @Injectable()
@@ -65,13 +66,13 @@ export class StandardAdapter extends DiscordBehaviorBase {
         requiredPrefix,
       },
       messageConfiguredOptions: {
-        isPrefixed: false,
-      }
-    }
+        prefixStyle: PrefixStyle.Unknown,
+      },
+    };
   }
 
   /** Returns the processed content or null (if it should not be handled). */
-  private async prepareMessage(message: Message, context: BehaviorContext): Promise<{ content: string, isPrefixed: boolean } | null> {
+  private async prepareMessage(message: Message, context: BehaviorContext): Promise<{ content: string, prefixStyle: PrefixStyle } | null> {
     let content = message.content;
 
     // ignore without prefix
@@ -81,46 +82,54 @@ export class StandardAdapter extends DiscordBehaviorBase {
       strippedContent = content.substring(match[0].length).trim();
     }
 
-    // treat all DMs as prefixed messages
+    // treat all DMs as pinged messages
     if (!message.guild) {
-      return { content: strippedContent, isPrefixed: true };
+      return { content: strippedContent, prefixStyle: PrefixStyle.DirectPing };
     }
 
-    // if we are pinged, pass that through
+    // if we are in a guild and pinged, pass that through
     if (!!match) {
-      return { content: strippedContent, isPrefixed: true };
+      return { content: strippedContent, prefixStyle: PrefixStyle.DirectPing };
     }
 
+    // if this guild has configured a required prefix
     if (context.roleConfiguredOptions.requiredPrefix) {
       const startsWithPrefix = strippedContent.startsWith(context.roleConfiguredOptions.requiredPrefix);
 
       if (!startsWithPrefix) {
-        // if a prefix is required and not provided, do not handle at all
-        return null;
+        return { content: strippedContent, prefixStyle: PrefixStyle.Missing };
       } else {
-        // if a prefix is required and provided, treat it as unpinged
         const finalContent = strippedContent.substr(context.roleConfiguredOptions.requiredPrefix.length).trim();
-        return { content: finalContent, isPrefixed: false };
+        return { content: finalContent, prefixStyle: PrefixStyle.ProvidedOrNotRequired };
       }
     }
 
-    // otherwise assume we were not pinged
-    return { content: strippedContent, isPrefixed: false };
+    // otherwise assume we were not tagged in
+    return { content: strippedContent, prefixStyle: PrefixStyle.ProvidedOrNotRequired };
   }
 
   private async handleAll(message: Message, context: BehaviorContext): Promise<void> {
     const preparedMessage = await this.prepareMessage(message, context);
     if (!preparedMessage) { return; }
 
-    context.messageConfiguredOptions = { isPrefixed: preparedMessage.isPrefixed }
+    context.messageConfiguredOptions = { prefixStyle: preparedMessage.prefixStyle };
 
     console.log({event: 'handleAll-1', context, preparedMessage});
 
     for (const behavior of this.behaviors) {
-      const result =
-        preparedMessage.isPrefixed
-        ? await behavior.onTaggedMessage(message, preparedMessage.content, context)
-        : await behavior.onUntaggedMessage(message, preparedMessage.content, context);
+      let result: BehaviorResponse | null = null;
+      switch (preparedMessage.prefixStyle) {
+        case PrefixStyle.DirectPing:
+          result = await behavior.onDirectPing(message, preparedMessage.content, context);
+          break;
+        case PrefixStyle.ProvidedOrNotRequired:
+          result = await behavior.onPrefixProvidedOrNotRequired(message, preparedMessage.content, context);
+          break;
+        default:
+        case PrefixStyle.Missing:
+          result = await behavior.onPrefixMissing(message, preparedMessage.content, context);
+          break;
+      }
 
       console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior, result});
       if (result) {
@@ -155,7 +164,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
     const prefixRolePrefix = 'rollem:prefix:';
     const prefixRoles = this.getRelevantRoleNames(message, prefixRolePrefix);
     if (prefixRoles.rollemRoles.length === 0) { return ""; }
-    const prefix = prefixRoles[0].substring(prefixRolePrefix.length);
+    const prefix = prefixRoles.rollemRoles[0].substring(prefixRolePrefix.length);
     return prefix;
   }
 

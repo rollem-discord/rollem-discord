@@ -17,13 +17,17 @@ export class DiceTaggedBehavior extends DiceBehaviorBase {
 
   constructor(parsers: Parsers, config: Config, logger: Logger) { super(parsers, config, logger); }
 
-  public async onTaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+    return null;
+  }
+
+  public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     let requireDice = false;
     var lines = this.rollMany(trigger, this.label, content, context, requireDice);
     return await this.makeReplyAndLog(trigger, this.label, lines);
   }
 
-  public async onUntaggedMessage(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
+  public async onPrefixProvidedOrNotRequired(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;
   }
 }
