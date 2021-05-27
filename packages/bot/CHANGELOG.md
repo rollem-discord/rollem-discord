@@ -1,4 +1,4 @@
-# **2.4.36**
+# **2.4.37**
 * Fix issue with `&` and `r`-prefixed rolls
 
 # **2.4.25**
