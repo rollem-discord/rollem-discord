@@ -15,6 +15,8 @@ export interface DocsData {
   title: string;
   parent: string;
   nav_order: number;
+  hide_in_sidebar: boolean;
+  redirect_to: string;
 }
 
 export interface DocsDataTree {

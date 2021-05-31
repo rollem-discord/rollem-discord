@@ -63,7 +63,7 @@ function DocTreeListRoot({ allDocsData }: { allDocsData: DocsDataTree[]}): JSX.E
         className={classes.root}
         dense
       >
-        {allDocsData.map((node) => makeTree(node))}
+        {allDocsData.filter(child => !child.item.hide_in_sidebar).map((node) => makeTree(node))}
       </List>
     </section>
   );
@@ -73,16 +73,17 @@ function makeTree(treeNode: DocsDataTree, nested: boolean = false): JSX.Element 
   const [open, setOpen] = useState(true);
   const classes = useStyles();
 
-  let hasChildren = treeNode.children && treeNode.children.length > 0;
+  const children = treeNode.children?.filter(child => !child.item.hide_in_sidebar);
+  const hasChildren = children && children.length > 0;
   
-  let children = <></>;
+  let childElements = <></>;
   let openToggle = <></>;
   let handleClick = (event: React.MouseEvent) => { };
   if (hasChildren) {
-    children = (
+    childElements = (
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List disablePadding dense>
-          {treeNode.children.map(child => makeTree(child, true))}
+          {children.map(child => makeTree(child, true))}
         </List>
       </Collapse>
     );
@@ -108,7 +109,7 @@ function makeTree(treeNode: DocsDataTree, nested: boolean = false): JSX.Element 
         <ListItemText primary={treeNode.item.title} />
         {openToggle}
       </ListItem>
-      {children}
+      {childElements}
     </>
   );
 }
