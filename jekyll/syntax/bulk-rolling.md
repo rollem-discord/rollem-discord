@@ -3,7 +3,6 @@ layout: default
 title: Bulk Rolling
 parent: Syntax
 nav_order: 4
-permalink: /syntax/bulk/
 ---
 
 # Bulk Rolling

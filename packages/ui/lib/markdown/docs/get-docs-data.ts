@@ -15,7 +15,6 @@ export interface DocsData {
   title: string;
   parent: string;
   nav_order: number;
-  permalink: string;
 }
 
 export interface DocsDataTree {

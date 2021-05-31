@@ -3,7 +3,6 @@ layout: default
 title: Limits
 nav_order: 3
 has_children: false
-permalink: /limits/
 ---
 
 In order to keep things fast and avoid spamming the chat, there are some limits on what Rollem will do.

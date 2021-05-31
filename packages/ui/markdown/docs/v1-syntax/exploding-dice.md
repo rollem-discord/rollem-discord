@@ -3,7 +3,6 @@ layout: default
 title: Exploding Dice
 parent: Syntax
 nav_order: 3
-permalink: /syntax/exploding/
 ---
 
 # Exploding Dice Notation

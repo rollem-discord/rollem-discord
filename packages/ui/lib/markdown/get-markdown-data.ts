@@ -14,7 +14,6 @@ export interface MarkdownData {
   title: string;
   parent: string;
   nav_order: number;
-  permalink: string;
 }
 
 export interface MarkdownDataTree {

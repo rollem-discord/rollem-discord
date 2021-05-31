@@ -3,7 +3,6 @@ layout: default
 title: Keep/Drop
 parent: Syntax
 nav_order: 5
-permalink: /syntax/keep-drop/
 ---
 
 # Keep/Drop dice

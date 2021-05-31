@@ -3,7 +3,6 @@ layout: default
 title: Rollem Next
 nav_order: 3
 has_children: false
-permalink: /prefix/
 ---
 
 # Rollem Next

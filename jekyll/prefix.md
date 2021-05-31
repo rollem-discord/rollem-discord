@@ -3,7 +3,6 @@ layout: default
 title: Prefix
 nav_order: 3
 has_children: false
-permalink: /prefix/
 ---
 
 Normally, Rollem does not use a prefix. If it looks like a roll, Rollem will treat it like one.

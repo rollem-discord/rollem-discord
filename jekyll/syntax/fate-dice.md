@@ -3,7 +3,6 @@ layout: default
 title: Fate Dice
 parent: Syntax
 nav_order: 100
-permalink: /syntax/fate/
 ---
 
 # Fate Dice
