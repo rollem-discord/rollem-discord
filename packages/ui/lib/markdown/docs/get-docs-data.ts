@@ -141,6 +141,7 @@ export async function getDocData(id: string[]) {
   // Combine the data with the id and contentReact
   const result = {
     id,
+    frontMatter: matterResult.data as DocsData,
     content: matterResult.content,
     ...(matterResult.data as { date: string; title: string }),
   };
