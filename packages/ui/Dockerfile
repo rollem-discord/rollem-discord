@@ -24,6 +24,10 @@ FROM node:lts-alpine AS runner
 ARG X_TAG
 WORKDIR /opt/app
 ENV NODE_ENV=production
+
+# added to make it build. probably shouldn't be here?
+COPY . .
+
 COPY --from=builder /opt/app/next.config.js ./
 COPY --from=builder /opt/app/public ./public
 COPY --from=builder /opt/app/.next ./.next

@@ -440,10 +440,10 @@
   resolved "https://registry.npmjs.org/@opentelemetry/context-base/-/context-base-0.14.0.tgz"
   integrity sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw==
 
-"@rollem/common@^2.4.21":
-  version "2.4.21"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.21.tgz#2b49a18d341f9b49e4e0f1919f40220dad761471"
-  integrity sha512-tyz+u6REaM+2Uy5utCbQwyQ9XGiqlVlcWzutYPpctdmRdVGuPhNNsWUW1HKZnlkSR6uaPrBPqFTqXRPtZh1MAw==
+"@rollem/common@^2.4.39":
+  version "2.4.39"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.39.tgz#0552b2c3e3ba866a6be375b88aebbd9f9cfee1c7"
+  integrity sha512-VmvnoyPCfMg5CLzbXH2YruVo8pus+Q/X4cmxv9LQoeeLXY5aKIJdrecWD+MIPGWkwCRkErFeErHr+Z+vYhawcg==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
