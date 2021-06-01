@@ -35,23 +35,40 @@ export default function Post({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = chain(getAllDocIds()).filter(path => path.params.id.length !== 0).value();
+  const docIds = getAllDocIds().filter(path => path.params.id.length !== 0);
+
+  // remove any elements that would produce redirects
+  for (let i = docIds.length-1; i >=0; i--) {
+    const docData = await getDocData(docIds[i].params.id);
+    if (trim(docData.frontMatter.redirect_to)) {
+      docIds.splice(i, 1);
+    }
+  }
+
   return {
-    paths: paths,
-    fallback: false,
+    paths: docIds,
+    fallback: 'blocking', // required to support redirects
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }: { params: { id: string[] }}) => {
   const postData = await getDocData(params.id);
+
+  if (!postData) {
+    return {
+      notFound: true,
+    };
+  }
+
   if (trim(postData.frontMatter.redirect_to) !== '') {
     return {
       redirect: {
-        statusCode: 302,
         destination: postData.frontMatter.redirect_to,
+        permanent: false,
       }
     };
   }
+
   return {
     props: {
       postData,

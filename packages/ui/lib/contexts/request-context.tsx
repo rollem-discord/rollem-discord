@@ -1,4 +1,5 @@
 import { createContext, FunctionComponent, useContext, useEffect } from "react";
+import util from 'util';
 
 const defaultUrl = "https://rollem.rocks"
 
@@ -23,7 +24,7 @@ export const AppContextProvider: FunctionComponent = ({ ...props }) => {
     console.log({inEffect: context});
   })
 
-  console.log({inMethod: context});
+  console.log(util.inspect({inMethod: context, props}, true, 5, true));
 
   return (
     <AppContext.Provider value={context}>

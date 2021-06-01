@@ -134,6 +134,7 @@ export function getAllDocIds() {
 export async function getDocData(id: string[]) {
   id = id.filter((v) => v !== "." && v !== "..");
   const fileContents = getPathContents(id);
+  if (!fileContents) { return null; }
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -169,7 +170,7 @@ function getPathContents(id: string[]): string {
     }
   }
 
-  throw new Error(`404: ${indexPath}`);
+  return null;
 }
 
 export function makePropsAllDocData(): { allDocsData: DocsDataTree[] } {
