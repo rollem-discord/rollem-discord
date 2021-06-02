@@ -275,10 +275,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@rollem/common@^2.4.21":
-  version "2.4.21"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.21.tgz#2b49a18d341f9b49e4e0f1919f40220dad761471"
-  integrity sha512-tyz+u6REaM+2Uy5utCbQwyQ9XGiqlVlcWzutYPpctdmRdVGuPhNNsWUW1HKZnlkSR6uaPrBPqFTqXRPtZh1MAw==
+"@rollem/common@^2.4.39":
+  version "2.4.39"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.39.tgz#0552b2c3e3ba866a6be375b88aebbd9f9cfee1c7"
+  integrity sha512-VmvnoyPCfMg5CLzbXH2YruVo8pus+Q/X4cmxv9LQoeeLXY5aKIJdrecWD+MIPGWkwCRkErFeErHr+Z+vYhawcg==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -9026,15 +9026,10 @@ write-file-atomic@^3.0.0:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@^7.2.1:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
-  integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==
-
-ws@^7.4.4:
-  version "7.4.5"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.5.tgz#a484dd851e9beb6fdb420027e3885e8ce48986c1"
-  integrity sha512-xzyu3hFvomRfXKH8vOFMU3OguG6oOvhXMo3xsGy3xWExqaM2dxBbVxuD99O7m3ZUFMvvscsZDqxfgMaRr/Nr1g==
+ws@^7.2.1, ws@^7.4.4:
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.6.tgz#5654ca8ecdeee47c33a9a4bf6d28e2be2980377c"
+  integrity sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==
 
 xdg-basedir@^3.0.0:
   version "3.0.0"
