@@ -5,6 +5,9 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 // - nextjs TS module import https://github.com/vercel/next.js/issues/9474
 
 module.exports = {
+  future: {
+    webpack5: true,
+  },
   async redirects() {
     return [
       {
