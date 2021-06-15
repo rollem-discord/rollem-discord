@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import DescriptionIcon from "@material-ui/icons/Description";
+import LockIcon from "@material-ui/icons/Lock";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
 
@@ -150,6 +151,12 @@ function SideNavContent() {
             />
           </ListItemIcon>
           <ListItemText>Invite</ListItemText>
+        </ListItem>
+        <ListItem button component="a" href={`/invite`}>
+          <ListItemIcon>
+            <LockIcon></LockIcon>
+          </ListItemIcon>
+          <ListItemText>Privacy Policy</ListItemText>
         </ListItem>
       </List>
     </>

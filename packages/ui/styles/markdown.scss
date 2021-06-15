@@ -34,4 +34,30 @@
   img {
     max-width: 100%;
   }
+
+  // body content margins
+  p { margin: 0; }
+  ul { margin: 0; }
+
+  p + p {
+    margin-top: 1em;
+  }
+
+  p + ul {
+    margin-top: .5em;
+  }
+
+  li {
+    line-height: 1.6em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    margin-bottom: 0;
+  }
+
+  p code { font-size: 1em; }
 }
