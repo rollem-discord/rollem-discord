@@ -50,6 +50,7 @@ This is a list of what may be temporarily stored, at most. In rough order of lik
 
 ### Information that is stored indefinitely
 The following data is stored in [a PostgreSQL database managed by Digital Ocean][do-managed-db] until you delete it.
+Access is restricted by IP to the applications that connect to the database and a few authorized developers.
 You may [read Digital Ocean's Privacy here][do-pp].
 
 Some of the information may eventually be deleted to clean up inactive accounts and free up space.
