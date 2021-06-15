@@ -24,7 +24,7 @@ notes-from-discord: |
 
 ## What data do we collect? Why do we need it? How do we use it?
 This is an overview of the information Rollem collects.  
-All information is stored encrypted in-transit and at rest.  
+All information is stored encrypted in-transit and at rest.
 
 Related Privacy Policies:
 - [Discord's Privacy Policy][discord-pp]
