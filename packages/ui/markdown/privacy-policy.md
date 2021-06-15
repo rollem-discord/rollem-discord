@@ -85,7 +85,7 @@ Future plans for Rollem include some opt-in data storage.
 
 ## How to delete your data?
 - **Option 1:** [Visit your account page][account] and follow the steps.  
-- **Option 2a:** Use the command `@rollem storage forget` in any channel with Rollem active, or DM Rollem `storage forget`.  
+- **Option 2a:** Use the command `@rollem storage forget` in any channel with Rollem active.  
 - **Option 2b:** Use the command `storage forget` in a DM with Rollem.  
 - **Option 3:** Contact me using one of the methods above.
 
