@@ -152,7 +152,7 @@ function SideNavContent() {
           </ListItemIcon>
           <ListItemText>Invite</ListItemText>
         </ListItem>
-        <ListItem button component="a" href={`/invite`}>
+        <ListItem button component="a" href={`/privacy-policy`}>
           <ListItemIcon>
             <LockIcon></LockIcon>
           </ListItemIcon>
