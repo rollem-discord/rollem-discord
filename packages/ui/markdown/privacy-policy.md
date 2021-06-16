@@ -28,8 +28,8 @@ All information is stored encrypted in-transit and at rest.
 
 Related Privacy Policies:
 - [Discord's Privacy Policy][discord-pp]
-- [Application Insights Privacy Policy][ai-pp]
-- [Digital Ocean Privacy Policy][do-pp]
+- [Application Insights' Privacy Policy][ai-pp]
+- [Digital Ocean's Privacy Policy][do-pp]
 
 ### Information that is stored temporarily
 The following data is *sometimes* stored in Microsoft Azure's Application Insights for 7-30 days.
@@ -51,10 +51,10 @@ This is a list of what may be temporarily stored, at most. In rough order of lik
 ### Information that is stored indefinitely
 The following data is stored in [a PostgreSQL database managed by Digital Ocean][do-managed-db] until you delete it.
 Access is restricted by IP to the applications that connect to the database and a few authorized developers.
-You may [read Digital Ocean's Privacy here][do-pp].
+You may [read Digital Ocean's Privacy Policy here][do-pp].
 
 Some of the information may eventually be deleted to clean up inactive accounts and free up space.
-Active user's data will never be deleted without warning.
+Active users' data will never be deleted without warning.
 - Your Discord ID
 - An internal ID, mapped from your Discord ID
 - The first date we created a database entry for you
