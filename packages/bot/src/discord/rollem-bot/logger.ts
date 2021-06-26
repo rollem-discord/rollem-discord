@@ -19,7 +19,7 @@ const ignoredCategories: LoggerCategory[] = []
 /** Manages logging. */
 @Injectable()
 export class Logger {
-  private readonly aiClient: appInsights.TelemetryClient;
+  private readonly aiClient?: appInsights.TelemetryClient;
 
   /** The client this logger is for. */
   public client?: Client;
