@@ -31,9 +31,11 @@ export class Logger {
     /** The associated config. */
     public config: Config,
   ) {
-    if (config.AppInsightsInstrumentationKey) {
-      // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.
-      appInsights.setup()
+    if (config.AppInsightsConnectionString) {
+      try {
+        console.log("Configuring Application Insights");
+        // TODO: This reads all log messages from console. We can probably do better by logging via winston/bunyan.
+        appInsights.setup(config.AppInsightsConnectionString)
           .setAutoDependencyCorrelation(true)
           .setAutoCollectRequests(true)
           .setAutoCollectPerformance(true)
@@ -42,6 +44,15 @@ export class Logger {
           .setAutoCollectConsole(true, true)
           .setUseDiskRetryCaching(true)
           .start();
+      } catch (ex) {
+        try {
+          console.log(`Application Insights failed to connect. ${config.AppInsightsConnectionString}`, ex);
+          return;
+        } catch {
+          console.log(`Application Insights failed to connect. (2) ${config.AppInsightsConnectionString}`);
+          return;
+        }
+      }
     }
 
     // Will be `undefined` unless appInsights successfully initialized.

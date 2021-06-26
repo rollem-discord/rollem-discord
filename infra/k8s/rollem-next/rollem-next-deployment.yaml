@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem
-        image: lemtzas/rollem-discord:2.4.39
+        image: lemtzas/rollem-discord:2.5.0
         resources:
           requests:
             cpu: 200m
@@ -28,11 +28,16 @@ spec:
             secretKeyRef:
               name: rollem-next
               key: DISCORD_BOT_USER_TOKEN
-        - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+        - name: 'APPINSIGHTS_CONNECTIONSTRING'
           valueFrom:
             secretKeyRef:
               name: rollem-next
-              key: APPINSIGHTS_INSTRUMENTATIONKEY
+              key: APPINSIGHTS_CONNECTIONSTRING
+        # - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: rollem-next
+        #       key: APPINSIGHTS_INSTRUMENTATIONKEY
         - name: 'DEFER_TO_CLIENT_IDS'
           valueFrom:
             secretKeyRef:
