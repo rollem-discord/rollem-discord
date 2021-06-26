@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-ui-00
-        image: lemtzas/rollem-discord:2.4.39-test-7
+        image: lemtzas/rollem-discord:2.4.50
         resources:
           requests:
             cpu: 200m

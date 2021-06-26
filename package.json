@@ -29,9 +29,12 @@
     "publish:minor": "lerna version minor --no-push -y && lerna publish from-package -y",
     "publish:patch": "lerna version patch --no-push -y && lerna publish from-package -y",
     "publish:prepatch": "lerna version prepatch --no-push -y && lerna publish from-package -y",
-    "update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
+    "infra:update-credentials": "doctl kubernetes cluster kubeconfig save rollem-sfo2",
+    "infra:update-credentials:old": "doctl kubernetes cluster kubeconfig save rollem-old-sfo2",
     "infra:replace:next": "kubectl replace -f ./infra/k8s/rollem-next/",
     "infra:replace:prod": "kubectl replace -f ./infra/k8s/rollem-prod/",
+    "infra:replace:ui": "kubectl replace -f ./infra/k8s/rollem-ui/",
+    "infra:debug:busybox": "kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh",
     "infra:delete:evicted": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
     "postpublish": "git push --tags"
   },

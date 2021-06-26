@@ -1,0 +1,19 @@
+# Requires ingress-nginx to be installed
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rollem-ui-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: "new.rollem.rocks"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: rollem-ui
+            port:
+              number: 80

@@ -15,10 +15,14 @@ spec:
       containers:
       - name: rollem
         image: lemtzas/rollem-discord:2.4.39
+        resources:
+          requests:
+            cpu: 200m
+            memory: 400M
         #imagePullPolicy: Never
         env:
         - name: 'reboot'
-          value: '2021-05-15.1'
+          value: '2021-06-26.2'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
