@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-shard-34
-        image: lemtzas/rollem-discord:2.4.39
+        image: lemtzas/rollem-discord:2.5.3
         resources:
           requests:
             cpu: 150m
@@ -31,11 +31,11 @@ spec:
             secretKeyRef:
               name: rollem-prod-2
               key: DISCORD_BOT_USER_TOKEN
-        - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+        - name: 'APPINSIGHTS_CONNECTIONSTRING'
           valueFrom:
             secretKeyRef:
               name: rollem-prod-2
-              key: APPINSIGHTS_INSTRUMENTATIONKEY
+              key: APPINSIGHTS_CONNECTIONSTRING
         - name: 'DEFER_TO_CLIENT_IDS'
           valueFrom:
             secretKeyRef:
