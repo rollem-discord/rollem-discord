@@ -20,14 +20,6 @@ export function unaryMinus($$container: Delayed<Dice | Values | Value>): Delayed
     }
 
     const rightSidePretties = `-(${$container.pretties})`;
-    if ($container instanceof Value) {
-      const newValue = -$container.value;
-      return new Value({
-        value: newValue,
-        pretties: `${newValue} ⟵ ${rightSidePretties}`,
-        parentValues: [$container],
-      });
-    }
 
     if ($container instanceof Dice) {
       const newValues = $container.values.map(v => -v);
@@ -49,6 +41,15 @@ export function unaryMinus($$container: Delayed<Dice | Values | Value>): Delayed
         pretties: `[${newValues.join(", ")}] ⟵ ${rightSidePretties}`,
         value: newValue,
         values: newValues,
+        parentValues: [$container],
+      });
+    }
+
+    if ($container instanceof Value) {
+      const newValue = -$container.value;
+      return new Value({
+        value: newValue,
+        pretties: `${newValue} ⟵ ${rightSidePretties}`,
         parentValues: [$container],
       });
     }

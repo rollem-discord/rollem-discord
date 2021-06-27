@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Integer, TestContext } from '../..';
+import { Integer, TestContext } from '../../..';
 import { makeInteger } from './make-integer';
 
 describe('make-integer', () => {

@@ -3,7 +3,7 @@
 }
 
 start
-  = result: Expression0 label:Label? {
+  = result: Expression5 label:Label? {
     result.label = label;
     result.values = [result.value];
     return result;
@@ -14,19 +14,45 @@ Label "label"
    return label;
  }
 
-Expression0 "expression 0"
-  = UnaryMinus
+Expression5 "expression 0"
+  = AdditionSubtraction
   / Expression1
+
+AdditionSubtraction "additionsubtraction"
+  = l:Expression1 r_list:(_ ("+" / "-") _ Expression1)* {
+    // TODO: Move this out of the syntax.
+    let result = l;
+    for (let i = 0; i < r_list.length; i++) {
+      const op = r_list[i][1];
+      const r = r_list[i][3];
+      switch (op) {
+        case '+':
+          result = add(result, r);
+          break;
+        case '-':
+          result = subtract(result, r);
+          break;
+        default:
+          throw new Error('Addition-Subtraction switch case should never be hit');
+      }
+    }
+    
+    return result;
+  }
 
 Expression1 "expression 1"
   = RollSimple
     /
-    PositiveInteger
+    Expression0
     /
-    Integer
+    UnaryMinus
+
+Expression0 "expression 0"
+  = Integer
+  / PositiveInteger
 
 UnaryMinus "unary minus"
-  = "-" e:Expression0 {
+  = "-" e:Expression5 {
     return unaryMinus(e);
   }
 

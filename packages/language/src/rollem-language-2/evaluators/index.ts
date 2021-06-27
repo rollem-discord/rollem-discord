@@ -1,3 +1,3 @@
-export * from "./make-integer";
-export * from "./roll-simple";
-export * from "./unary-minus";
+export * from './binary';
+export * from './unary';
+export * from './roll';

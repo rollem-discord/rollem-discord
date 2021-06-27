@@ -1,7 +1,7 @@
 import { OldContainer } from "./old-container";
 import { ParamType } from "./param-type";
 
-/** A singular value with no constraints. */
+/** A singular value with no constraints. Be sure to  */
 export class Value extends OldContainer {
   constructor(input: ParamType<Value>) {
     super(input);

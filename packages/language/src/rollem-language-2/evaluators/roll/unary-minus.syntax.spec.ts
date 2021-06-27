@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Dice, RollemParserV2, TestContext, Value } from '../..';
+import { Dice, RollemParserV2, TestContext, Value } from '../../..';
 
 const parser = new RollemParserV2()
 describe('unary-minus (syntax)', () => {
@@ -11,17 +11,6 @@ describe('unary-minus (syntax)', () => {
     expect(ctx.callCount).to.equal(0);
     expect(value.value).to.equal(-10);
     expect(value.dice()).to.equal(0);
-    expect(value.depth()).to.equal(4);
-  });
-
-  it('should handle inverted die rolls', () => {
-    const ctx = new TestContext("test");
-    const delayedValue = parser.parse("-10d10");
-    const value = delayedValue(ctx) as Dice;
-    expect(ctx.callCount).to.equal(10);
-    expect(value.value).to.equal(-52);
-    expect(value.values).to.eql([-1, -2, -2, -5, -5, -6, -7, -7, -8, -9]);
-    expect(value.dice()).to.equal(10);
     expect(value.depth()).to.equal(3);
   });
 

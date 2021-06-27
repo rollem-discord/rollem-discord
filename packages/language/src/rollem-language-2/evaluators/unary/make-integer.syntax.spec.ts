@@ -35,6 +35,6 @@ describe('make-integer (syntax)', () => {
     expect(value.value).to.equal(-189465);
     expect(value.pretties).to.equal("-189465");
     expect(value.dice()).to.equal(0);
-    expect(value.depth()).to.equal(2);
+    expect(value.depth()).to.equal(1);
   });
 });

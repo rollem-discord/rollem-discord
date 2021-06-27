@@ -253,7 +253,7 @@ _ "whitespace"
   = [   \n\r]*
 
 _____ "forced whitespace"
-= [   \n\r]+
+ = [   \n\r]+
 
 Garbage "any characters"
  = [^]* {

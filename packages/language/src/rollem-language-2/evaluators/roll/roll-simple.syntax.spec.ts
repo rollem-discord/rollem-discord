@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Dice, RollemParserV2, TestContext } from '../..';
+import { Dice, RollemParserV2, TestContext } from '../../..';
 
 const parser = new RollemParserV2()
 describe('roll-simple (syntax)', () => {
