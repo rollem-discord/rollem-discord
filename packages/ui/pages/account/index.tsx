@@ -90,9 +90,15 @@ export default function AccountSummary() {
   const guildCount = data?.discord?.guilds?.length;
 
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded2, setExpanded2] = React.useState<string | false>(false);
 
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
+    setExpanded2(false);
+  };
+
+  const handleChange2 = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    setExpanded2(isExpanded ? panel : false);
   };
 
   return (
@@ -138,9 +144,21 @@ export default function AccountSummary() {
                   <p>This information is stored in the browser and on the server in your session. It is not stored to a database.</p>
                   <p>This value is used to verify that you are indeed yourself, and perform actions against your account.</p>
                   <p>These values are secret and will allow any imposters the same access as rollem.rocks, so do not share them.</p>
-                  <pre>
-                    { JSON.stringify(data?.discord?.auth, null, 2) }
-                  </pre>
+                  
+                  <Accordion expanded={expanded2 === 'panel1a'} onChange={handleChange2('panel1a')}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMore />}
+                      aria-controls="panel1abh-content"
+                      id="panel1abh-header"
+                    >
+                      <Typography className={classes.heading}>Click to reveal</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails className={classes.accordionDetails}>
+                      <pre>
+                        { JSON.stringify(data?.discord?.auth, null, 2) }
+                      </pre>
+                    </AccordionDetails>
+                  </Accordion>
                 </AccordionDetails>
               </Accordion>
 
