@@ -20,6 +20,7 @@ export class TestContext implements Context {
 
   constructor(
     seed: Chance.Seed,
+    private readonly options: { shouldTrace: boolean } = { shouldTrace: false }
   ) {
     const internalChance = new Chance(seed);
     this.chance = new Chance(() => {
@@ -30,6 +31,7 @@ export class TestContext implements Context {
   }
 
   public trace(...values: any[]) {
+    if (!this.options.shouldTrace) { return; }
     const hours = this.created.getHours().toString().padStart(2, '0');
     const minutes = this.created.getMinutes().toString().padStart(2, '0');
     const seconds = this.created.getSeconds().toString().padStart(2, '0');

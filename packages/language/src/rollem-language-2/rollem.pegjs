@@ -16,10 +16,11 @@ Label "label"
 
 Expression5 "expression 0"
   = AdditionSubtraction
+  / MultiplyDivide
   / Expression1
 
-AdditionSubtraction "additionsubtraction"
-  = l:Expression1 r_list:(_ ("+" / "-") _ Expression1)* {
+AdditionSubtraction "addition|subtraction"
+  = l:MultiplyDivide r_list:(_ ("+" / "-") _ MultiplyDivide)* {
     // TODO: Move this out of the syntax.
     let result = l;
     for (let i = 0; i < r_list.length; i++) {
@@ -34,6 +35,28 @@ AdditionSubtraction "additionsubtraction"
           break;
         default:
           throw new Error('Addition-Subtraction switch case should never be hit');
+      }
+    }
+    
+    return result;
+  }
+
+MultiplyDivide "multiply|divide"
+  = l:Expression1 r_list:(_ ("*" / "/") _ Expression1)* {
+    // TODO: Move this out of the syntax.
+    let result = l;
+    for (let i = 0; i < r_list.length; i++) {
+      const op = r_list[i][1];
+      const r = r_list[i][3];
+      switch (op) {
+        case '*':
+          result = multiply(result, r);
+          break;
+        case '/':
+          result = divide(result, r);
+          break;
+        default:
+          throw new Error('Multiply-Divide switch case should never be hit');
       }
     }
     
