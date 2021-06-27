@@ -1,6 +1,6 @@
 {
   "name": "@rollem/bot",
-  "version": "2.5.6",
+  "version": "2.5.9",
   "description": "Rollem (Discord Bot) - Bot Deployable",
   "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
@@ -54,8 +54,8 @@
     ]
   },
   "dependencies": {
-    "@rollem/common": "^2.5.6",
-    "@rollem/language": "^2.4.25",
+    "@rollem/common": "^2.5.9",
+    "@rollem/language": "^2.5.9",
     "@types/chai": "^4.2.11",
     "@types/chance": "^1.1.0",
     "@types/keyv": "^3.1.1",
