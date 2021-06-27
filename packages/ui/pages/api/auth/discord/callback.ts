@@ -3,6 +3,9 @@ import { RollemApiRequest, RollemSessionData } from "@rollem/ui/lib/withSession"
 import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
 import { withSession } from "next-session";
 import { oauth } from "@rollem/ui/lib/configured-discord-oauth";
+import * as util from 'util';
+import CommunicationStayPrimaryLandscape from "material-ui/svg-icons/communication/stay-primary-landscape";
+import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 export default withSession(
   async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
@@ -37,6 +40,7 @@ export default withSession(
       );
     } catch (ex) {
       console.error(ex);
+      console.error(util.inspect(ex, true, 100, false));
       res.status(500);
     }
   }

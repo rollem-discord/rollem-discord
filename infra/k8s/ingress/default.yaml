@@ -2,18 +2,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: rollem-ui-ingress
+  name: default-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: "new.rollem.rocks"
-    http:
+  - http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: rollem-ui-service
+            name: hello-kubernetes-first
             port:
               number: 80

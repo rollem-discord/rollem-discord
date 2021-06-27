@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rollem-ui
+  name: rollem-ui-service
 spec:
   type: ClusterIP
   ports:
   - port: 80
-    targetPort: 8080
+    targetPort: 3000
   selector:
-    app: rollem-ui-00-deployment
+    app: rollem-ui
