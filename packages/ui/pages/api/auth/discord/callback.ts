@@ -19,7 +19,7 @@ export default withSession(
         code: code,
         scope: "identify guilds",
         grantType: "authorization_code",
-        redirectUri: `${schema}://${req.headers.host}`
+        redirectUri: `${schema}://${req.headers.host}/api/auth/discord/callback`
       });
 
       const user = await oauth.getUser(response.access_token);
