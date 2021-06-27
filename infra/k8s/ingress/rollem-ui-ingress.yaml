@@ -17,3 +17,13 @@ spec:
             name: rollem-ui-service
             port:
               number: 80
+  - host: "rollem.rocks"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: rollem-ui-service
+            port:
+              number: 80
