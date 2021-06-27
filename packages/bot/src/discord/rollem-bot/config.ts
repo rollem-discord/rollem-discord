@@ -19,7 +19,7 @@ export class Config {
   public readonly deferToClientIds = (process.env.DEFER_TO_CLIENT_IDS || '').split(',');
 
   /** The AI Connection String. */
-  public readonly AppInsightsConnectionString = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
+  public readonly AppInsightsConnectionString = process.env.APPINSIGHTS_CONNECTIONSTRING;
 
   /** The regex to be used to determine if the bot was mentioned. Updated after login. <@!...> means the message was tab-completed, <@...> means it was typed manually and inferred. */
   public mentionRegex: RegExp = /$<@!999999999999999999>|<@999999999999999999>/i;
