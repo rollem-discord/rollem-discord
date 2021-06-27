@@ -4,8 +4,6 @@ import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
 import { withSession } from "next-session";
 import { oauth } from "@rollem/ui/lib/configured-discord-oauth";
 import * as util from 'util';
-import CommunicationStayPrimaryLandscape from "material-ui/svg-icons/communication/stay-primary-landscape";
-import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 export default withSession(
   async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
@@ -13,10 +11,15 @@ export default withSession(
     // console.log(util.inspect(req, true, null, true));
     const code = req.query["code"] as string;
     try {
+      const schema =
+        req.headers["x-forwarded-proto"]
+          ? "https"
+          : "http";
       const response = await oauth.tokenRequest({
         code: code,
         scope: "identify guilds",
         grantType: "authorization_code",
+        redirectUri: `${schema}://${req.headers.host}`
       });
 
       const user = await oauth.getUser(response.access_token);

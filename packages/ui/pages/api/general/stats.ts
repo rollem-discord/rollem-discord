@@ -22,12 +22,20 @@ export default withSession(
   async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
     try {
       await storageInitialize$;
+
       const userCount = await storage.userCount();
+
+      const schema =
+        req.headers["x-forwarded-proto"]
+          ? "https"
+          : "http";
+      const reconstructedUri = `${schema}://${req.headers.host}`;
 
       res
         .status(200)
         .json({
-          userCount
+          userCount,
+          reconstructedUri,
         });
     } catch (ex) {
       console.error(ex);
