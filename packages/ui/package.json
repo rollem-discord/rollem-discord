@@ -39,9 +39,10 @@
     "gray-matter": "^4.0.3",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
-    "next": "^10.2.3",
+    "next": "^11.0.1",
     "next-session": "^3.4.0",
-    "next-transpile-modules": "^7.2.0",
+    "next-transpile-modules": "^8.0.0",
+    "pg": "^8.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^6.0.2",
@@ -58,7 +59,7 @@
     "@types/react": "^17.0.9",
     "next-cli": "^1.0.0",
     "typescript": "^4.3.2",
-    "webpack": "^5.0.0"
+    "webpack": "^5.40.0"
   },
   "gitHead": "69a321958280a1817ff7567729d87d6b7617d318"
 }

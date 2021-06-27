@@ -1,3 +1,4 @@
+const path = require('path');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 // references:
@@ -5,9 +6,6 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 // - nextjs TS module import https://github.com/vercel/next.js/issues/9474
 
 module.exports = {
-  future: {
-    webpack5: true,
-  },
   async redirects() {
     return [
       {
@@ -27,7 +25,7 @@ module.exports = {
 
     // Do not include .native which tries to load pg-native
     // See: https://github.com/sequelize/sequelize/issues/3781#issuecomment-537979334
-    config.plugins.push(new webpack.IgnorePlugin(/^pg-native$/))
+    config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }))
 
     // https://github.com/typeorm/typeorm/blob/master/docs/faq.md#how-to-use-webpack-for-the-backend
     // ignore the drivers you don't want. This is the complete list of all drivers -- remove the suppressions for drivers you want to use.
@@ -44,7 +42,9 @@ module.exports = {
     //   test: /\.tsx?|\.ts?$/,
     //   use: [defaultLoaders.type],
     // });
-    
+
+    // config.resolve.alias = config.alias || {};
+    // config.resolve.alias['pg-native'] = path.join(__dirname, 'aliases/pg-native.js');
 
     // Important: return the modified config
     return config

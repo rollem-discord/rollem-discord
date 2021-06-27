@@ -15,6 +15,10 @@ export class Storage {
 
   private get usersRepository(): Repository<User> { return this.connection.getRepository(User); }
 
+  public async userCount(): Promise<number> {
+    return this.usersRepository.count();
+  }
+
   public async getOrCreateUser(discordUserId): Promise<User> {
     const retrieveById = async () => await this.usersRepository.findOne({where: { discordUserId: discordUserId }});
     const existingUser = await retrieveById();
