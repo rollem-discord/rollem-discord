@@ -40,7 +40,7 @@ export default withSession(
       );
     } catch (ex) {
       console.error(ex);
-      console.error(util.inspect(ex, true, 100, false));
+      console.error(util.inspect(ex?.response, true, 100, false));
       res.status(500);
     }
   }
