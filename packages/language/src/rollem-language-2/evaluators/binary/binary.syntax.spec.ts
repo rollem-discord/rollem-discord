@@ -24,4 +24,5 @@ describe.only("binary (syntax)", () => {
   shouldHandle("-10 / 2")
   shouldHandle("10 / -2")
   shouldHandle("5 / 4 * 100")
+  shouldHandle("1 + 2 * 3 - 1")
 });
