@@ -17,7 +17,7 @@ spec:
         image: lemtzas/rollem-discord:2.5.3
         resources:
           requests:
-            cpu: 150m
+            cpu: 50m
             memory: 250M
         env:
         - name: 'reboot'
