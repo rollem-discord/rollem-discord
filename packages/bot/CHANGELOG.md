@@ -1,4 +1,4 @@
-# **2.5.0**
+# **2.6.1**
 * Switch to dev branch of discord.js (this updates *very* frequently)
 * Upgrade various packages (webpack, typescript, node typings)
 * THREADS <:rollem_next:840459825976311838>
