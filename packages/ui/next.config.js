@@ -10,12 +10,12 @@ module.exports = {
     return [
       {
         source: '/invite',
-        destination: 'https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=68608',
+        destination: 'https://discordapp.com/oauth2/authorize?client_id=240732567744151553&scope=bot&permissions=103079282688',
         permanent: false,
       },
       {
         source: '/invite/next',
-        destination: 'https://discordapp.com/oauth2/authorize?client_id=840409146738475028&scope=bot&permissions=68608',
+        destination: 'https://discordapp.com/oauth2/authorize?client_id=840409146738475028&scope=bot&permissions=103079282688',
         permanent: false,
       },
     ];
