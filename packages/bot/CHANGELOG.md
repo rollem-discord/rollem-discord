@@ -1,3 +1,8 @@
+# **2.5.0**
+* Switch to dev branch of discord.js (this updates *very* frequently)
+* Upgrade various packages (webpack, typescript, node typings)
+* THREADS <:rollem_next:840459825976311838>
+
 # **2.4.39**
 * Fix issue with `&` and `r`-prefixed rolls
 * Fix issue with roll-assigned prefix

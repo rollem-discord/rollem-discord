@@ -27,16 +27,14 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
       console.log('username: ' + this.client.user?.username);
       console.log('id: ' + this.client.user?.id);
 
-      await this.client.user!
+      this.client.user!
         .setPresence({
-          activity: {
+          activities: [{
             type: 'PLAYING',
             name: `rollem.rocks|${this.changelog.version}`,
-          },
+          }],
           status: 'online',
-        })
-        .then(console.log)
-        .catch(error => this.handleRejection("setActivity", error))
+        });
 
       const mentionRegex = '^<@!' + this.client.user?.id + '>\\s+|^<@' + this.client.user?.id + '>\\s+';
       this.config.mentionRegex = new RegExp(mentionRegex);

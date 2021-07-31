@@ -4,7 +4,7 @@ import { Config } from "./config";
 
 import { Parsers } from "@bot/lib/parsers";
 
-import { Client, ClientOptions } from "discord.js";
+import { Client, ClientOptions, Intents } from "discord.js";
 import { ChangeLog } from "./changelog";
 import { DiscordBehaviorBase } from "./behaviors/discord-behavior-base";
 // import assert from "assert";
@@ -94,12 +94,31 @@ export namespace Bootstrapper {
     logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Shard Count: " + config.ShardCount)
     logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Logging in using token: " + config.Token);
 
-    const clientOptions: ClientOptions|undefined =
+    const intents = new Intents([
+      "GUILDS",
+      // "GUILD_MEMBERS", // requires authorization and we don't need it
+      "GUILD_BANS",
+      "GUILD_EMOJIS_AND_STICKERS",
+      "GUILD_INTEGRATIONS",
+      "GUILD_WEBHOOKS",
+      "GUILD_INVITES",
+      "GUILD_VOICE_STATES",
+      // "GUILD_PRESENCES", // requires authorization and we don't need it
+      "GUILD_MESSAGES",
+      "GUILD_MESSAGE_REACTIONS",
+      "GUILD_MESSAGE_TYPING",
+      "DIRECT_MESSAGES",
+      "DIRECT_MESSAGE_REACTIONS",
+      "DIRECT_MESSAGE_TYPING",
+    ]);
+
+    const clientOptions: ClientOptions =
       config.HasShardInfo
       ? {
+        intents,
         shardCount: config.ShardCount,
         shards: config.ShardId }
-      : undefined;
+      : { intents };
 
     const client = new Client(clientOptions);
     logger.client = client;
