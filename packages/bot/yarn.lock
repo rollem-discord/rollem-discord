@@ -376,10 +376,10 @@
     "@opentelemetry/semantic-conventions" "0.19.0"
     lodash.merge "^4.6.2"
 
-"@rollem/common@^2.4.39":
-  version "2.4.39"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.39.tgz#0552b2c3e3ba866a6be375b88aebbd9f9cfee1c7"
-  integrity sha512-VmvnoyPCfMg5CLzbXH2YruVo8pus+Q/X4cmxv9LQoeeLXY5aKIJdrecWD+MIPGWkwCRkErFeErHr+Z+vYhawcg==
+"@rollem/common@^2.5.9":
+  version "2.5.9"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.5.9.tgz#79a4e84ec08d1d14309c59e0d9d0a5e6c1ea9ffb"
+  integrity sha512-m1XXmJBOfiffG1zplhVWq2oreBQ/EY5K4LKehmQIXnxof/ztoIoNCvGV63zD6tdkKxlA6mpGnrFyoEfB8drmPg==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -422,10 +422,10 @@
     watchify "^3.9.0"
     webpack-filter-warnings-plugin "^1.2.1"
 
-"@rollem/language@^2.4.25":
-  version "2.4.25"
-  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.4.25.tgz#a4f70e67d8e4f4a74a05e6fdc4eeb7d3f5ee13e8"
-  integrity sha512-ZclpPRbazvZF0qCKllJlxlcTALYv7rf4+p0OUfqYhfu9VRn/WEXM0S0vNTev1i7lejJtG1PzFe3oOhro8JKvrg==
+"@rollem/language@^2.5.9":
+  version "2.5.9"
+  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.5.9.tgz#11a40726a3a8229b1ea15e52cbd3cfb877238cf6"
+  integrity sha512-L5FlZX4lWRPlsSw/aIlTM4fCsbzAblPFiaXUwW4gyW/47XLAaO1skRiFOZ/NPexgxtX0+C/t1v6gSKQKqdZ55w==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
