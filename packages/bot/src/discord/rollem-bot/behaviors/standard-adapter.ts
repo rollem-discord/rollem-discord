@@ -114,7 +114,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
 
     context.messageConfiguredOptions = { prefixStyle: preparedMessage.prefixStyle };
 
-    console.log({event: 'handleAll-1', context, preparedMessage});
+    // console.log({event: 'handleAll-1', context, preparedMessage});
 
     for (const behavior of this.behaviors) {
       let result: BehaviorResponse | null = null;
@@ -131,7 +131,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
           break;
       }
 
-      console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior, result});
+      // console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior, result});
       if (result) {
         this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `${behavior.label}`, message, { result });
         message.reply(result.response).catch(rejected => this.handleSendRejection(message));

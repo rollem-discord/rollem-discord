@@ -29,6 +29,7 @@
     "publish:minor": "lerna version minor --no-push -y && lerna publish from-package -y",
     "publish:patch": "lerna version patch --no-push -y && lerna publish from-package -y",
     "publish:prepatch": "lerna version prepatch --no-push -y && lerna publish from-package -y",
+    "infra:get:recent": "kubectl get pods --sort-by=.status.startTime",
     "infra:grafana": "yarn run infra:grafana:forward && yarn run infra:grafana:open",
     "infra:grafana:open": "start http://localhost:8080",
     "infra:grafana:forward": "kubectl port-forward svc/kube-prometheus-stack-grafana 8080:80 -n kube-prometheus-stack",
