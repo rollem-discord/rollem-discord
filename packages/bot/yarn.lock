@@ -376,10 +376,10 @@
     "@opentelemetry/semantic-conventions" "0.19.0"
     lodash.merge "^4.6.2"
 
-"@rollem/common@^2.4.39":
-  version "2.4.39"
-  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.4.39.tgz#0552b2c3e3ba866a6be375b88aebbd9f9cfee1c7"
-  integrity sha512-VmvnoyPCfMg5CLzbXH2YruVo8pus+Q/X4cmxv9LQoeeLXY5aKIJdrecWD+MIPGWkwCRkErFeErHr+Z+vYhawcg==
+"@rollem/common@^2.5.9":
+  version "2.5.9"
+  resolved "https://registry.yarnpkg.com/@rollem/common/-/common-2.5.9.tgz#79a4e84ec08d1d14309c59e0d9d0a5e6c1ea9ffb"
+  integrity sha512-m1XXmJBOfiffG1zplhVWq2oreBQ/EY5K4LKehmQIXnxof/ztoIoNCvGV63zD6tdkKxlA6mpGnrFyoEfB8drmPg==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -422,10 +422,10 @@
     watchify "^3.9.0"
     webpack-filter-warnings-plugin "^1.2.1"
 
-"@rollem/language@^2.4.25":
-  version "2.4.25"
-  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.4.25.tgz#a4f70e67d8e4f4a74a05e6fdc4eeb7d3f5ee13e8"
-  integrity sha512-ZclpPRbazvZF0qCKllJlxlcTALYv7rf4+p0OUfqYhfu9VRn/WEXM0S0vNTev1i7lejJtG1PzFe3oOhro8JKvrg==
+"@rollem/language@^2.5.9":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@rollem/language/-/language-2.6.0.tgz#d4d4f9c80bba33d25a55db2b942c350502fd0360"
+  integrity sha512-8DegF5TK17uN5nLE3yomEr4Z08Yx9OSwO6kQ1Bmd8SKKmLPbRz1i3aIbumv97iS5w0jjPkNdvHTKLdNrKTkKAQ==
   dependencies:
     "@discordjs/uws" "^10.149.0"
     "@types/chai" "^4.2.11"
@@ -8222,9 +8222,9 @@ tapable@^2.1.1, tapable@^2.2.0:
   integrity sha512-FBk4IesMV1rBxX2tfiK8RAmogtWn53puLOQlvO8XuwlgxcYbP4mVPS9Ph4aeamSyyVjOl24aYWAuc8U5kCVwMw==
 
 tar@^4.4.10, tar@^4.4.12, tar@^4.4.13:
-  version "4.4.13"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.13.tgz#43b364bc52888d555298637b10d60790254ab525"
-  integrity sha512-w2VwSrBoHa5BsSyH+KxEqeQBAllHhccyMFVHtGtdMpF4W7IRWfZjFiQceJPChOeTsSDVUpER2T8FA93pr0L+QA==
+  version "4.4.15"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.15.tgz#3caced4f39ebd46ddda4d6203d48493a919697f8"
+  integrity sha512-ItbufpujXkry7bHH9NpQyTXPbJ72iTlXgkBAYsAjDXk3Ds8t/3NfO5P4xZGy7u+sYuQUbimgzswX4uQIEeNVOA==
   dependencies:
     chownr "^1.1.1"
     fs-minipass "^1.2.5"
