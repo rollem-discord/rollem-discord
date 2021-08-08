@@ -4,7 +4,7 @@ import { Config } from "./config";
 
 import { Parsers } from "@bot/lib/parsers";
 
-import { Client, ClientOptions, Intents } from "discord.js";
+import { Client, ClientOptions, Intents, PartialTypes } from "discord.js";
 import { ChangeLog } from "./changelog";
 import { DiscordBehaviorBase } from "./behaviors/discord-behavior-base";
 // import assert from "assert";
@@ -112,13 +112,16 @@ export namespace Bootstrapper {
       "DIRECT_MESSAGE_TYPING",
     ]);
 
+    const partials: PartialTypes[] = [ 'CHANNEL' ];
+
     const clientOptions: ClientOptions =
       config.HasShardInfo
       ? {
         intents,
+        partials,
         shardCount: config.ShardCount,
         shards: config.ShardId }
-      : { intents };
+      : { intents, partials };
 
     const client = new Client(clientOptions);
     logger.client = client;
