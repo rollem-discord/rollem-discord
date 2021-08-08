@@ -1,3 +1,6 @@
+# **2.6.4**
+* Fix DMs (Enable MESSAGE partials w/ discord.js)
+
 # **2.6.2**
 * Switch to dev branch of discord.js (this updates *very* frequently)
 * Upgrade various packages (webpack, typescript, node typings)

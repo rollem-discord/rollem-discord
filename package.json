@@ -25,6 +25,7 @@
     "build:common": "lerna run build:common --stream",
     "build:lang": "lerna run build:lang --stream",
     "bootstrap": "lerna bootstrap",
+    "publish:info": "lerna ls -l",
     "publish:major": "lerna version major --no-push -y && lerna publish from-package -y",
     "publish:minor": "lerna version minor --no-push -y && lerna publish from-package -y",
     "publish:patch": "lerna version patch --no-push -y && lerna publish from-package -y",
