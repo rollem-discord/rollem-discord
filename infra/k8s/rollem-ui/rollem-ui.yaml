@@ -9,6 +9,8 @@ spec:
       app: rollem-ui
   template:
     metadata:
+      annotations:
+        service.beta.kubernetes.io/do-loadbalancer-name: "rollem.rocks"
       labels:
         app: rollem-ui
     spec:
