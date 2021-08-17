@@ -9,8 +9,6 @@ spec:
       app: rollem-ui
   template:
     metadata:
-      annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: "rollem.rocks"
       labels:
         app: rollem-ui
     spec:
@@ -19,6 +17,7 @@ spec:
         image: lemtzas/rollem-discord-ui:2.6.2
         ports:
         - containerPort: 3000
+          protocol: TCP
         resources:
           requests:
             cpu: 200m
