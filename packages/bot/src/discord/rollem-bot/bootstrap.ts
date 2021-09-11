@@ -1,3 +1,7 @@
+// Logger2 and App imports should stay at the top, as they start the metrics early.
+import { Logger2 } from "./logger2";
+import { App } from "./app";
+
 import { Logger, LoggerCategory } from "./logger";
 
 import { Config } from "./config";
@@ -29,8 +33,10 @@ export namespace Bootstrapper {
     const topLevelInjector =
       InjectorWrapper.createTopLevelContext(
         [
-          RollemRandomSources,
+          Logger2,
+          App,
           Logger,
+          RollemRandomSources,
           Config,
           { provide: Storage, useValue: new Storage() },
           ChangeLog,
@@ -41,6 +47,10 @@ export namespace Bootstrapper {
           RepliedMessageCache,
         ]);
 
+    const logger2 = topLevelInjector.get(Logger);
+    strict(!!logger2, "DI failed to resolve logger2 (prometheus)");
+    const app = topLevelInjector.get(Logger);
+    strict(!!app, "DI failed to resolve app (express api)");
     const logger = topLevelInjector.get(Logger);
     strict(!!logger, "DI failed to resolve logger");
     const config = topLevelInjector.get(Config);

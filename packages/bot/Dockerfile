@@ -12,4 +12,5 @@ RUN yarn install
 RUN yarn run tsc --version
 RUN yarn build:dockerfile
 
+
 CMD ["/bin/bash", "-c", "yarn run start-for-dockerfile"]

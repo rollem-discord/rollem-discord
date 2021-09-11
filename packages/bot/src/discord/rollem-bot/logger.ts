@@ -16,7 +16,7 @@ export enum LoggerCategory {
 
 const ignoredCategories: LoggerCategory[] = []
 
-/** Manages logging. */
+/** Manages logging to application insights/console. */
 @Injectable()
 export class Logger {
   private readonly aiClient?: appInsights.TelemetryClient;
