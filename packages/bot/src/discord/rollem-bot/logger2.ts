@@ -1,6 +1,6 @@
 import * as client from 'prom-client';
 
-client.collectDefaultMetrics({ prefix: 'rollem_' });
+client.collectDefaultMetrics();
 
 /** Manages logging to prometheus. */
 export class Logger2 {
