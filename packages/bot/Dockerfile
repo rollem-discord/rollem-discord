@@ -1,4 +1,4 @@
-FROM node:15.8.0
+FROM node:16.9.1
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -11,6 +11,5 @@ COPY . .
 RUN yarn install
 RUN yarn run tsc --version
 RUN yarn build:dockerfile
-
 
 CMD ["/bin/bash", "-c", "yarn run start-for-dockerfile"]

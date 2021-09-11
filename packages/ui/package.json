@@ -55,7 +55,7 @@
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
+    "@types/node": "^16.9.1",
     "@types/react": "^17.0.9",
     "next-cli": "^1.0.0",
     "typescript": "^4.3.2",

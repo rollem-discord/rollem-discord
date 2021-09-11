@@ -2,17 +2,18 @@ import fs from 'fs';
 import util from 'util';
 import { Logger, LoggerCategory } from './logger';
 import { Injectable } from 'injection-js';
+import packageInfo from '../../../package.json';
 
 const CHANGELOG_LINK = "<https://github.com/rollem-discord/rollem-discord/blob/master/packages/bot/CHANGELOG.md>\n\n";
 const INITIAL_CHANGELOG = CHANGELOG_LINK + "(Sorry, we're still reading it from disk.)";
-let INITIAL_VERSION = "v1.x.x";
+const INITIAL_VERSION = `v${packageInfo.version}`;
 
 /** Loads and stores the changelog/version. */
 @Injectable()
 export class ChangeLog {
   /** The current version number. */
   public version: string = INITIAL_VERSION;
-  
+
   /** The current changelog. */
   public changelog: string = INITIAL_CHANGELOG;
 
@@ -28,27 +29,23 @@ export class ChangeLog {
 
     try {
       const data = await util.promisify(fs.readFile)("./CHANGELOG.md", 'utf8');
-    
+
+      // add the version
+      const newData = `# **${packageInfo.version}**\n${data}`;
+
       // don't go over the max discord message length
-      let maxLengthChangelog = data.substring(0, MAX_LENGTH);
-    
+      const maxLengthChangelog = newData.substring(0, MAX_LENGTH);
+
       // don't go over a reasonable number of lines
-      let reasonableLengthChangeLog = maxLengthChangelog.split("\n").slice(0, MAX_LINES).join("\n");
-    
+      const reasonableLengthChangeLog = maxLengthChangelog.split("\n").slice(0, MAX_LINES).join("\n");
+
       // don't show partial sections
-      let lastSectionIndex = reasonableLengthChangeLog.lastIndexOf("\n#");
-      let noPartialSectionsChangeLog = reasonableLengthChangeLog.substring(0, lastSectionIndex);
-    
+      const lastSectionIndex = reasonableLengthChangeLog.lastIndexOf("\n#");
+      const noPartialSectionsChangeLog = reasonableLengthChangeLog.substring(0, lastSectionIndex);
+
       // set the changelog
       this.changelog = CHANGELOG_LINK + noPartialSectionsChangeLog
-    
-      // set the version
-      let firstLine = data.substring(0, data.indexOf("\n"));
-      let versionMatch = firstLine.match(/\d+(?:\.\d+){2}/i);
-      let versionText = versionMatch ? versionMatch[0] : null;
-      if (versionText) {
-        this.version = `${versionText}`;
-      }
+
     } catch (err) {
       this.logger.trackError(LoggerCategory.BehaviorEvent, err);
       this.changelog = CHANGELOG_LINK + "(Sorry, there was an issue reading the file fom disk.) \n\n" + err;
