@@ -1,10 +1,11 @@
 import { Config } from "@bot/config";
 import { Parsers } from "@bot/lib/parsers";
+import { RollemRandomSources } from "@bot/lib/rollem-random-sources";
 import { Logger, LoggerCategory } from "@bot/logger";
 import { BehaviorContext, isKnownPrefix } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
-import { ContainerV1 } from "@rollem/language";
+import { ContainerV1, OldContainer } from "@rollem/language";
 import { Injectable } from "injection-js";
 import _ from "lodash";
 
@@ -14,6 +15,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
   constructor(
     protected readonly parsers: Parsers,
     protected readonly config: Config,
+    protected readonly rng: RollemRandomSources,
     logger: Logger,
   ) { super(logger); }
 
@@ -39,7 +41,40 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
   }
 
   protected rollManyV2(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
-    return ["the v2 parser is not yet ready"];
+    let count = 1;
+    const match = content.match(/(?:(\d+)#\s*)?(.*)/);
+    const countRaw = match ? match[1] : false;
+    if (countRaw) {
+      count = parseInt(countRaw, 10);
+      if (count > 100) { return null; }
+      if (count < 1) { return null; }
+    }
+
+    count = count || 1;
+    const contentAfterCount = match ? match[2] : content;
+
+    const lines: string[] = [];
+    for (let i = 0; i < count; i++) {
+      const result = this.parsers.v2.tryParse(contentAfterCount);
+      if (!result) { return null; }
+
+      const hasPrefix = isKnownPrefix(context.messageConfiguredOptions?.prefixStyle);
+      const result2 = result({ randomSource: this.rng.csprng, hello: "hello", trace: () => {} });
+      const shouldReply = hasPrefix || (result2.depth() > 1 && result2.dice() > 0); // don't be too aggressive with the replies
+      if (!shouldReply) { return null; }
+
+      const response = this.buildMessageV2(result2);
+
+      if (response && shouldReply) {
+        lines.push(response);
+      }
+    }
+
+    if (lines.length > 0) {
+      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v1, ${logTag}: ${content}`, trigger);
+    }
+
+    return lines;
   }
 
   protected rollManyV1Beta(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
@@ -116,7 +151,21 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     return lines;
   }
 
-  // TODO: Handle response type of rollem parser
+  protected buildMessageV2(result: OldContainer) {
+    if (!result) { return false; }
+
+    let response = "";
+
+    // if (result.label && result.label !== "") {
+    //   response += "'" + result.label + "', ";
+    // }
+
+    //spacing out along with a nice formatting of the role number. 
+    response += '` ' + result.value + ' `' + ' ⟵ ' + result.pretties.split(']').join('] ');
+
+    return response;
+  }
+
   protected buildMessage(result: ContainerV1 | false, requireDice = true) {
     if (result === false) { return false; }
     if (result.error) { return result.error; }

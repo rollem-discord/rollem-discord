@@ -1,5 +1,6 @@
 import { Config } from "@bot/config";
 import { Parsers } from "@bot/lib/parsers";
+import { RollemRandomSources } from "@bot/lib/rollem-random-sources";
 import { Logger } from "@bot/logger";
 import { BehaviorContext } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
@@ -15,7 +16,7 @@ import { DiceBehaviorBase } from "./dice.behavior.base";
 export class DiceSoftParseBehavior extends DiceBehaviorBase {
   public label = 'dice-soft-parse';
 
-  constructor(parsers: Parsers, config: Config, logger: Logger) { super(parsers, config, logger); }
+  constructor(parsers: Parsers, config: Config, rng: RollemRandomSources, logger: Logger) { super(parsers, config, rng, logger); }
 
   public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     return null;

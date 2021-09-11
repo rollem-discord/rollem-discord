@@ -36,7 +36,7 @@ export function rollSimple($$howMany: Delayed<Integer> | null | undefined, $$die
     ctx.trace(`roll-simple: how-many: ${howMany}`);
 
     for (let i = 0; i < howMany; i++) {
-      allRolls.push(ctx.chance.integer({min: 1, max: $dieSize.value}));
+      allRolls.push(ctx.randomSource.nextInteger({min: 1, max: $dieSize.value}));
     }
 
     allRolls.sort();

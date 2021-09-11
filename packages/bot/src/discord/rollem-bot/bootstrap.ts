@@ -18,6 +18,7 @@ import { BehaviorStatsBase } from "@common/stats-base";
 import { DiscordStats } from "../discord-stats";
 import { strict } from "assert";
 import { RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language";
+import { RollemRandomSources } from "./lib/rollem-random-sources";
 
 // tslint:disable-next-line: no-namespace
 export namespace Bootstrapper {
@@ -28,6 +29,7 @@ export namespace Bootstrapper {
     const topLevelInjector =
       InjectorWrapper.createTopLevelContext(
         [
+          RollemRandomSources,
           Logger,
           Config,
           { provide: Storage, useValue: new Storage() },
@@ -57,6 +59,8 @@ export namespace Bootstrapper {
     strict(!!repliedMessageCache, "DI failed to resolve repliedMessageCache");
     const storage = topLevelInjector.get(Storage);
     strict(!!storage, "DI failed to resolve storage");
+    const rollemRandomSources = topLevelInjector.get(RollemRandomSources);
+    strict(!!rollemRandomSources, "DI failed to resolve rollemRandomSources");
 
     return topLevelInjector;
   }
