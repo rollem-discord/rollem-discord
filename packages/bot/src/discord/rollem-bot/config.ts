@@ -12,6 +12,24 @@ export class Config {
   /** True if the config has all needed shard info. */
   public readonly HasShardInfo = this.ShardId != undefined && this.ShardCount != undefined;
 
+  /** Gets a machine-ready shard label. */
+  public get ShardLabel(): string {
+    if (this.ShardId !== undefined && this.ShardCount !== undefined) {
+      return `${this.ShardId+1}-of-${this.ShardCount}`
+    } else {
+      return '1-of-1';
+    }
+  }
+
+  /** Gets a human-readable shard label */
+  public get ShardName(): string {
+    if (this.ShardId !== undefined && this.ShardCount !== undefined) {
+      return `${this.ShardId+1} of ${this.ShardCount}`
+    } else {
+      return 'only';
+    }
+  }
+
   /** The user token for Discord. */
   public readonly Token = process.env.DISCORD_BOT_USER_TOKEN;
 
