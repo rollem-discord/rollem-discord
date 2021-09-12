@@ -11,5 +11,6 @@ COPY . .
 RUN yarn install
 RUN yarn run tsc --version
 RUN yarn build:dockerfile
+EXPOSE 8080
 
 CMD ["/bin/bash", "-c", "yarn run start-for-dockerfile"]
