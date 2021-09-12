@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rollem-next-deployment
-spec: 
+spec:
   selector:
     matchLabels:
       app: rollem-next
@@ -19,7 +19,6 @@ spec: 
           requests:
             cpu: 200m
             memory: 400M
-        #imagePullPolicy: Never
         env:
         - name: 'reboot'
           value: '2021-06-26.4'
@@ -33,11 +32,6 @@ spec: 
             secretKeyRef:
               name: rollem-next
               key: APPINSIGHTS_CONNECTIONSTRING
-        # - name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: rollem-next
-        #       key: APPINSIGHTS_INSTRUMENTATIONKEY
         - name: 'DEFER_TO_CLIENT_IDS'
           valueFrom:
             secretKeyRef:
