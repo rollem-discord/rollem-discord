@@ -15,6 +15,8 @@ spec:
       containers:
       - name: rollem
         image: lemtzas/rollem-discord:2.6.7
+        ports:
+        - containerPort: 8080
         resources:
           requests:
             cpu: 200m
