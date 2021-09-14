@@ -1,0 +1,9 @@
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-config
+  namespace: grafana 
+  labels:
+    app: grafana
+data:

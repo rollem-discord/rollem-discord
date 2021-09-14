@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: grafana 
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+            name: "graphana"
+        volumeMounts:
+        - name: grafana-config
+          mountPath: /config/
+        env:
+        - name: GF_INSTALL_PLUGINS
+          value: ""
+      volumes:
+        - name: grafana-config
+          configMap:
+            name: grafana-config
