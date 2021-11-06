@@ -24,7 +24,7 @@ spec:
             memory: 400M
         env:
         - name: 'reboot'
-          value: '2021-06-26.3'
+          value: '2021-10-28'
         - name: 'DISCORD_CLIENT_ID'
           valueFrom:
             secretKeyRef:

@@ -9,6 +9,9 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port:   '8080'
       labels:
         app: rollem-next
     spec:
@@ -21,7 +24,7 @@ spec:
             memory: 400M
         env:
         - name: 'reboot'
-          value: '2021-06-26.4'
+          value: '2021-10-28'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
