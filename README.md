@@ -141,12 +141,16 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 # Development
 ## First-time setup
 1. Set up [yarn](https://yarnpkg.com/en/)
-2. You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me) 
-3. Rename and update `./secrets/sample-vscode.env`
+2. You will need an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
+3. You will need access to an initialized Postgres server. See [Setting up a database][#Local Database Setup] for details.
+4. Rename and update `./secrets/sample-vscode.env`
   * You will need to replace `YOUR_TOKEN_HERE` with an app bot user token from [discord's applications page](https://discordapp.com/developers/applications/me)
   * The Application Insights line may be deleted to switch to console-only logging.
+4. Run `yarn install` in the root directory
+5. Link packages with `yarn bootstrap`
+6. Build packages with `yarn build`
 
-### Run Bot From VSCode (with debugging)
+## Run Bot From VSCode (with debugging)
 1. Rename and update `./secrets/sample-vscode.env`
 2. Link packages with `yarn bootstrap`
 3. Build with one of:
@@ -154,7 +158,7 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
   * `yarn watch:bot` and allow it to idle in the background
 4. Press F5 while the project folder is open. Launch configuration is in `.vscode/launch.json`
 
-### Run Single Shard
+## Run Single Shard
 1. Rename and update `./secrets/sample-vscode.env`
 2. Run `yarn bootstrap`
 3. Build with one of:
@@ -163,10 +167,21 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 4. Run `yarn run start:bot`
 
 ## Running Single Shard in Docker
-1. `yarn run package:bot` (The container will compile it)
-2. `yarn run package:bot:start`
+1. You will need [Docker](https://www.docker.com/get-started)
+2. `yarn run package:bot` (The container will compile it)
+3. `yarn run package:bot:start`
 
-### Language Development
+## Local Database Setup
+1. You will need [Docker](https://www.docker.com/get-started)
+2. Create database with `docker-compose up database`
+3. Initialize the database
+   1. `cd packages/common` to get to the common code directory
+   2. `yarn run typeorm schema:sync` to sync the TypeORM schema
+
+- You may have to repeat these steps when the schema changes
+- Clear the database with `docker-compose down database` and then `docker-compose up database`
+
+# Language Development
 Current version of the language is in `packages/language/src/rollem-language-2`.
 1. `cd` into `packages/language`
 2. Run `yarn watch` in one terminal

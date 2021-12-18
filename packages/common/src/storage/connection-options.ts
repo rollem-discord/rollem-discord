@@ -6,7 +6,7 @@ import { ConnectionOptions } from "typeorm";
 export const connectionOptions: ConnectionOptions = {
   type: "postgres",
   url: process.env.DB_CONNECTION_STRING,
-  ssl: { rejectUnauthorized: false },
+  ssl: process.env.DB_DISABLE_SSL ? false : { rejectUnauthorized: false },
   synchronize: false,
   logging: true,
   entities: [User, UserFlags, UserSiteData],
