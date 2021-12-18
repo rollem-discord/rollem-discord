@@ -180,6 +180,7 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 
 - You may have to repeat these steps when the schema changes
 - Clear the database with `docker-compose down database` and then `docker-compose up database`
+- To inspect the database you will likely want [pgAdmin](https://www.pgadmin.org/)
 
 # Language Development
 Current version of the language is in `packages/language/src/rollem-language-2`.
