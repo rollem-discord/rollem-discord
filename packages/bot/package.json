@@ -111,6 +111,7 @@
   "license": "MIT",
   "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878",
   "devDependencies": {
-    "copy-webpack-plugin": "^8.1.0"
+    "copy-webpack-plugin": "^8.1.0",
+    "cross-env": "^7.0.3"
   }
 }
