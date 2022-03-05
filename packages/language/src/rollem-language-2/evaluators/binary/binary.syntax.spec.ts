@@ -17,7 +17,7 @@ function shouldHandle(evalExpression: string): void {
   });
 }
 
-describe.only("binary (syntax)", () => {
+describe("binary (syntax)", () => {
   shouldHandle("5 * 4 - 2")
   shouldHandle("5 * 4 / 2")
   shouldHandle("-10 - 1 - 1- 1 -1")

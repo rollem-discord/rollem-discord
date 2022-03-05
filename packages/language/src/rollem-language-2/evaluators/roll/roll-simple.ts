@@ -1,30 +1,6 @@
+import { sum } from "lodash";
 import { Delayed, Dice, Integer } from "../..";
-
-function minFormatter(formatted) {
-  return "**" + formatted + "**";
-}
-
-function maxFormatter(formatted) {
-  return "**" + formatted + "**";
-}
-
-function dropFormatter(formatted) {
-  return "~~" + formatted + "~~";
-}
-
-// This is used to configure stylization of the individual die results.
-export function dieFormatter(value, size, isKept = true) {
-  let formatted = value
-  if (value >= size)
-    formatted = maxFormatter(formatted);
-  else if (value === 1)
-    formatted = minFormatter(formatted);
-
-  if (!isKept)
-    formatted = dropFormatter(formatted);
-
-  return formatted;
-}
+import { dieFormatter } from "./helpers";
 
 export function rollSimple($$howMany: Delayed<Integer> | null | undefined, $$dieSize: Delayed<Integer>): Delayed<Dice | Integer> {
   return (ctx) => {
@@ -40,14 +16,14 @@ export function rollSimple($$howMany: Delayed<Integer> | null | undefined, $$die
     }
 
     allRolls.sort();
-    const sum = allRolls.reduce((accum, cur) => accum + cur, 0);
+    const total = sum(allRolls);
 
     // TODO: this formatter should probably preserve the contents of the right hand side if the type is complex
     const pretties = `[${allRolls.map(v => dieFormatter(v, $dieSize.value, true)).join(", ")}] ⟵ ${howMany}d${$dieSize.value}`
     return new Dice({
       $howMany: $howMany,
       $dieSize: $dieSize,
-      value: sum,
+      value: total,
       values: allRolls,
       pretties: pretties,
       parentValues: [$howMany, $dieSize],

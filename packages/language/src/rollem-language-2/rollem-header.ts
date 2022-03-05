@@ -6,4 +6,6 @@ import {
   makeInteger,
   rollSimple,
   unaryMinus,
+  explodeAppendPostProcessor,
 } from "./evaluators";
+import { composeDelayed, pipeDelayed } from "./types";

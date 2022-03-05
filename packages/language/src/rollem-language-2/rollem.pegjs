@@ -64,7 +64,9 @@ MultiplyDivide "multiply|divide"
   }
 
 Expression1 "expression 1"
-  = RollSimple
+  = RollModified
+    /
+    RollSimple
     /
     Expression0
     /
@@ -82,6 +84,26 @@ UnaryMinus "unary minus"
 RollSimple "roll(simple)"
   = left:PositiveInteger? [dD] right:PositiveInteger {
     return rollSimple(left, right);
+  }
+
+RollModified "roll(modified)"
+  = left:PositiveInteger? [dD] right:PositiveInteger modifiers:RollModifiers {
+    return pipeDelayed(rollSimple(left, right), modifiers);
+  }
+
+RollModifiers "roll-modifiers"
+  = explodePostProcessor: ExplodeConfiguration {
+    return explodePostProcessor;
+  }
+
+ExplodeConfiguration "explode-configuration"
+  = "!" value:PositiveInteger? {
+    if (value) {
+      // TODO: value-range post-processor
+      return explodeAppendPostProcessor;
+    } else {
+      return explodeAppendPostProcessor;
+    }
   }
 
 Integer "integer"
