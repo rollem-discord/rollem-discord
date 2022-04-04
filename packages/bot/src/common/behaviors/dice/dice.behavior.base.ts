@@ -133,7 +133,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
   }
 
   protected rollFortuneV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
-    const match = content.match(/(?:fortune#\s*)?(.*)/);
+    const match = content.match(/(?:fortune#\s*)?(.*)/i);
     if (!match) {
       return null;
     }
@@ -187,12 +187,12 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
   }
 
   protected rollGroupedV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
-    const match = content.match(/(?:(ore|group|groupValue|groupCount|groupSize|groupHeight|groupWidth)#\s*)?(.*)/);
+    const match = content.match(/(?:(ore|group|groupValue|groupCount|groupSize|groupHeight|groupWidth)#\s*)?(.*)/i);
     if (!match) {
       return null;
     }
 
-    const groupType = match[1] as 'group' | 'groupValue' | 'groupCount' | 'groupSize' | 'groupHeight' | 'groupWidth' | 'ore';
+    const groupType = match[1].toLowerCase() as 'group' | 'groupValue' | 'groupCount' | 'groupSize' | 'groupHeight' | 'groupWidth' | 'ore';
     const contentAfterCount = match[2];
     const result = this.parsers.v1.tryParse(contentAfterCount);
     if (!result) { return null; }
