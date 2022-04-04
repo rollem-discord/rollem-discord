@@ -44,7 +44,7 @@ export class DiceBracketedBehavior extends DiceBehaviorBase {
           .map(match => {
             let hasPrefix = true;
             let requireDice = true;
-            let lines = this.rollMany(trigger, this.label, match, context, requireDice);
+            let lines = this.roll(trigger, this.label, match, context, requireDice);
             return lines;
           })
           .filter(x => x != null)

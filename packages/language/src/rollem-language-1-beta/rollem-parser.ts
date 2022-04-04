@@ -9,7 +9,7 @@ export class RollemParserV1Beta {
   {
     try {
       return parse(input) as (ContainerV1Beta | false)
-    } catch (ex){
+    } catch (ex: any){
       // console.warn(input + " -> " + ex);
       if (ex.location === "CUSTOM") {
         return {
@@ -32,7 +32,7 @@ export class RollemParserV1Beta {
   {
     try {
       return parse(input) as ContainerV1Beta
-    } catch (ex){
+    } catch (ex: any) {
       // console.warn(input + " -> " + ex);
         return {
           depth: 0,

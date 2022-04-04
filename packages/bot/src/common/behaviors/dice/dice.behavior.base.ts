@@ -7,7 +7,7 @@ import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
 import { ContainerV1, OldContainer } from "@rollem/language";
 import { Injectable } from "injection-js";
-import _ from "lodash";
+import _, { chain } from "lodash";
 
 /** A ping-pong behavior for testing. */
 @Injectable()
@@ -23,16 +23,16 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
    * Attempts to roll many dice from the given content
    * @returns The response message(s) or null
    */
-  protected rollMany(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+  protected roll(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     try {
       switch(context.roleConfiguredOptions.whichParser) {
         case 'v2': 
-          return this.rollManyV2(trigger, logTag, content, context, requireDice);
+          return this.rollV2(trigger, logTag, content, context, requireDice);
         case 'v1-beta':
-          return this.rollManyV1Beta(trigger, logTag, content, context, requireDice);
+          return this.rollV1Beta(trigger, logTag, content, context, requireDice);
         case 'v1':
         default:
-          return this.rollManyV1(trigger, logTag, content, context, requireDice);
+          return this.rollV1(trigger, logTag, content, context, requireDice);
       }
     } catch (ex) {
       this.logger.trackMessageError(LoggerCategory.BehaviorEvent, `Roll Many, ${logTag}: ${content}`, trigger);
@@ -40,7 +40,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     }
   }
 
-  protected rollManyV2(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+  protected rollV2(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     let count = 1;
     const match = content.match(/(?:(\d+)#\s*)?(.*)/);
     const countRaw = match ? match[1] : false;
@@ -77,7 +77,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     return lines;
   }
 
-  protected rollManyV1Beta(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+  protected rollV1Beta(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     let count = 1;
     const match = content.match(/(?:(\d+)#\s*)?(.*)/);
     const countRaw = match ? match[1] : false;
@@ -111,6 +111,129 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     }
 
     return lines;
+  }
+
+  protected rollV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+    const rollManyResults = this.rollManyV1(trigger, logTag, content, context, requireDice);
+    if ((rollManyResults?.length ?? 0) > 0) {
+      return rollManyResults;
+    }
+
+    const rollGroupedResults = this.rollGroupedV1(trigger, logTag, content, context, requireDice);
+    if ((rollGroupedResults?.length ?? 0) > 0) {
+      return rollGroupedResults;
+    }
+
+    const rollOneEngineResults = this.rollFortuneV1(trigger, logTag, content, context, requireDice);
+    if ((rollOneEngineResults?.length ?? 0) > 0) {
+      return rollOneEngineResults;
+    }
+
+    return null;
+  }
+
+  protected rollFortuneV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+    const match = content.match(/(?:fortune#\s*)?(.*)/);
+    if (!match) {
+      return null;
+    }
+
+    const contentAfterCount = match[1];
+    const result = this.parsers.v1.tryParse(contentAfterCount);
+    if (!result) { return null; }
+
+    // don't be too aggressive with the replies
+    const hasEnoughDice = requireDice ? result.dice > 0 : true;
+    const hasPrefix = isKnownPrefix(context.messageConfiguredOptions?.prefixStyle);
+    const shouldReply = hasPrefix || (result.depth > 1 && hasEnoughDice);
+    if (!shouldReply) { return null; }
+
+    const headerLine = this.buildMessage(result, requireDice);
+    if (!headerLine) { return null; }
+
+    function makeOreTag(count: number): string {
+      switch (count) {
+        case 1:
+          return '';
+        case 2:
+          return ' - Basic Success';
+        case 3:
+          return ' - Critical Success';
+        case 4:
+          return ' - Extreme Success';
+        case 5:
+          return ' - Impossible Success';
+        default:
+          return ' - IMPOSSIBLE Success';
+      }
+    }
+
+    const groupedValues =
+      chain(result.values)
+      .groupBy()
+      .entries()
+      .map(([key, values]) => ({ value: key, count: values.length }))
+      .sortBy(group => group.count)
+      .reverse()
+      .map(group => `${group.count}x ${group.value} ${makeOreTag(group.count)}`)
+      .value();
+
+    this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Grouped v1, ${logTag}: ${content}`, trigger);
+
+    return [
+      headerLine,
+      ...groupedValues,
+    ];
+  }
+
+  protected rollGroupedV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+    const match = content.match(/(?:(ore|group|groupValue|groupCount|groupSize|groupHeight|groupWidth)#\s*)?(.*)/);
+    if (!match) {
+      return null;
+    }
+
+    const groupType = match[1] as 'group' | 'groupValue' | 'groupCount' | 'groupSize' | 'groupHeight' | 'groupWidth' | 'ore';
+    const contentAfterCount = match[2];
+    const result = this.parsers.v1.tryParse(contentAfterCount);
+    if (!result) { return null; }
+
+    // don't be too aggressive with the replies
+    const hasEnoughDice = requireDice ? result.dice > 0 : true;
+    const hasPrefix = isKnownPrefix(context.messageConfiguredOptions?.prefixStyle);
+    const shouldReply = hasPrefix || (result.depth > 1 && hasEnoughDice);
+    if (!shouldReply) { return null; }
+
+    const headerLine = this.buildMessage(result, requireDice);
+    if (!headerLine) { return null; }
+
+    const groupedValues =
+      chain(result.values)
+      .groupBy()
+      .entries()
+      .map(([key, values]) => ({ value: key, count: values.length }));
+
+    let sortedGroupedValues = groupedValues;
+    switch (groupType) {
+      case 'ore':
+      case 'group':
+      case 'groupValue':
+      case 'groupHeight':
+        sortedGroupedValues = sortedGroupedValues.sortBy(group => group.value).reverse();
+        break;
+      case 'groupSize':
+      case 'groupCount':
+      case 'groupWidth':
+        sortedGroupedValues = sortedGroupedValues.sortBy(group => group.count).reverse();
+        break;
+    }
+    const groupedValueLines = sortedGroupedValues.map(group => `${group.count}x ${group.value}`).value();
+
+    this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Grouped v1, ${logTag}: ${content}`, trigger);
+
+    return [
+      headerLine,
+      ...groupedValueLines,
+    ];
   }
 
   protected rollManyV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {

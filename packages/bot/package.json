@@ -97,7 +97,7 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^6.1.3",
     "typeorm": "^0.2.31",
-    "typescript": "^4.3.5",
+    "typescript": "^4.6.3",
     "watchify": "^3.9.0",
     "webpack": "^5.47.1",
     "webpack-cli": "^4.7.2",

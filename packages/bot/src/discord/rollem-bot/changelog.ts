@@ -46,7 +46,7 @@ export class ChangeLog {
       // set the changelog
       this.changelog = CHANGELOG_LINK + noPartialSectionsChangeLog
 
-    } catch (err) {
+    } catch (err: any) {
       this.logger.trackError(LoggerCategory.BehaviorEvent, err);
       this.changelog = CHANGELOG_LINK + "(Sorry, there was an issue reading the file fom disk.) \n\n" + err;
     }

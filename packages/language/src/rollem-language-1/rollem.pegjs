@@ -5,7 +5,7 @@
 start
   = result: Comparator label:Label?{
     result.label = label;
-    result.values = [result.value];
+    result.values = result.values;
     return result;
   }
 

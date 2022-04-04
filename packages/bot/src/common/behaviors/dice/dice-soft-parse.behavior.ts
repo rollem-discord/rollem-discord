@@ -35,7 +35,7 @@ export class DiceSoftParseBehavior extends DiceBehaviorBase {
    if (content.startsWith('D')) { return null; }
 
    const requireDice = true;
-   const lines = this.rollMany(content, this.label, content, context, requireDice);
+   const lines = this.roll(content, this.label, content, context, requireDice);
    return await this.makeReplyAndLog(content, this.label, lines);
   }
 }

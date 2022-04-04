@@ -51,7 +51,7 @@ export class Storage {
 
     try {
       this.connection = await createConnection(config);
-    } catch (err) {
+    } catch (err: any) {
       // If AlreadyHasActiveConnectionError occurs, return already existent connection
       if (err.name === 'AlreadyHasActiveConnectionError') {
         const existingConnection = getConnectionManager().get("default");

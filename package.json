@@ -11,6 +11,7 @@
     "package:bot:start": "lerna run package:bot:start --stream",
     "watch": "lerna run watch --stream",
     "watch:ui": "lerna run watch:ui --stream",
+    "watch:lang": "lerna run watch:lang --stream",
     "watch:bot": "lerna run watch:bot --stream",
     "start": "lerna run start --stream",
     "start:ui": "lerna run start:ui --stream",

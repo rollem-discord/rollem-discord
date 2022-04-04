@@ -36,7 +36,7 @@ export class DiceShortPrefixedBehavior extends DiceBehaviorBase {
     if (content.startsWith('r') || content.startsWith('&')) {
       let subMessage = content.substring(1);
       let requireDice = false;
-      let lines = this.rollMany(trigger, `${this.label} (${content[0]})`, subMessage, context, requireDice);
+      let lines = this.roll(trigger, `${this.label} (${content[0]})`, subMessage, context, requireDice);
       return await this.makeReplyAndLog(trigger, `${this.label} (${content[0]})`, lines);
     }
 

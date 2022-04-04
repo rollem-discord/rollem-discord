@@ -26,7 +26,7 @@
     "build:lang:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
     "build:lang:pegjs": "gulp build-pegjs",
     "watch": "yarn watch:lang",
-    "watch:lang": "NODE_ENV=development webpack --config config/webpack.config.dev.js --watch --progress",
+    "watch:lang": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js --watch --progress",
     "watch:lang:pegjs": "gulp watch-pegjs",
     "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     "clean": "node tools/cleanup",
@@ -86,7 +86,7 @@
     "ts-pegjs": "^0.3.1",
     "tsconfig-paths": "^3.9.0",
     "typeorm": "0.3.0-rc.21",
-    "typescript": "^4.2.4",
+    "typescript": "^4.6.3",
     "watchify": "^3.9.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },

@@ -24,7 +24,7 @@ export class DiceTaggedBehavior extends DiceBehaviorBase {
 
   public async onDirectPing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
     let requireDice = false;
-    var lines = this.rollMany(trigger, this.label, content, context, requireDice);
+    var lines = this.roll(trigger, this.label, content, context, requireDice);
     return await this.makeReplyAndLog(trigger, this.label, lines);
   }
 
