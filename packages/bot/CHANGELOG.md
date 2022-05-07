@@ -7,7 +7,7 @@ __maintenance__
 - upgrade to latest stable discord.js (13.1)
   - upgrade to latest node.js (16.9.1)
 
-# **2.6.8**
+# **2.7.1**
 - Add One Roll Engine (ORE) support (via `ore#10d10`)
 - Add Fortune support (via `fortune#10d10`)
 - Add Roll-grouping support, which counts value/count (height/width)
