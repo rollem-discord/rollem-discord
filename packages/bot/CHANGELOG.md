@@ -7,6 +7,10 @@ __maintenance__
 - upgrade to latest stable discord.js (13.1)
   - upgrade to latest node.js (16.9.1)
 
+# **2.7.2**
+- Parentheticals and addition no longer collapses values.
+- Expressions like `(4d6+8d6)++5` will correctly add 5 to 12 dice.
+
 # **2.7.1**
 - Add One Roll Engine (ORE) support (via `ore#10d10`)
 - Add Fortune support (via `fortune#10d10`)

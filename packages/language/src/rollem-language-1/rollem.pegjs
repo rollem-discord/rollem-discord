@@ -62,6 +62,7 @@ Counter
 Expression
   = left:Term right:(_ ("++" / "--" / "+" / "-") _ Term)* {
       var result = left, i;
+      result.values = [...left.values];
 
       for (i = 0; i < right.length; i++) {
         var current = right[i][3];
@@ -71,12 +72,12 @@ Expression
         switch (symbol) {
           case "+":
             result.value += current.value;
-            result.values = [result.value];
+            result.values.push(...current.values);
             result.pretties = result.pretties + " + " + current.pretties;
             break;
           case "-":
             result.value -= current.value
-            result.values = [result.value];
+            result.values.push(-current.value);
             result.pretties = result.pretties + " - " + current.pretties;
             break;
           case "++":
@@ -131,6 +132,7 @@ Factor
   = "(" _ expr:Expression _ ")"
   {
     expr.depth += 1;
+    expr.pretties = `( ${expr.pretties} )`;
     return expr;
   }
   / BasicRoll
