@@ -7,7 +7,7 @@ import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
 import { ContainerV1, OldContainer } from "@rollem/language";
 import { Injectable } from "injection-js";
-import _, { chain } from "lodash";
+import _, { chain, chunk } from "lodash";
 
 /** A ping-pong behavior for testing. */
 @Injectable()
@@ -172,8 +172,12 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
       chain(result.values)
       .groupBy()
       .entries()
-      .map(([key, values]) => ({ value: key, count: values.length }))
-      .sortBy(group => group.count)
+      .flatMap(([key, values]) => {
+        const chunked = chunk(values, 5);
+        console.log(chunked);
+        return chunked.map(chunkSize => ({ value: key, count: chunkSize.length}));
+      })
+      .sortBy(group => group.count, group => group.value)
       .reverse()
       .map(group => `${group.count}x ${group.value} ${makeOreTag(group.count)}`)
       .value();
@@ -188,7 +192,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
 
   protected rollGroupedV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     const match = content.match(/(?:(ore|group|groupValue|groupCount|groupSize|groupHeight|groupWidth)#\s*)?(.*)/i);
-    if (!match) {
+    if (!(match && match[1])) {
       return null;
     }
 
@@ -218,15 +222,15 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
       case 'group':
       case 'groupValue':
       case 'groupHeight':
-        sortedGroupedValues = sortedGroupedValues.sortBy(group => group.value).reverse();
+        sortedGroupedValues = groupedValues.sortBy(group => group.value).reverse();
         break;
       case 'groupSize':
       case 'groupCount':
       case 'groupWidth':
-        sortedGroupedValues = sortedGroupedValues.sortBy(group => group.count).reverse();
+        sortedGroupedValues = groupedValues.sortBy(group => group.count).reverse();
         break;
     }
-    const groupedValueLines = sortedGroupedValues.map(group => `${group.count}x ${group.value}`).value();
+    const groupedValueLines = groupedValues.map(group => `${group.count}x ${group.value}`).value();
 
     this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Grouped v1, ${logTag}: ${content}`, trigger);
 
