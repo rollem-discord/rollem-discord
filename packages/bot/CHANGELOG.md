@@ -1,13 +1,4 @@
-__in-progress (not ready for use yet)__
-- hook up v2 syntax
-__maintenance__
-- per-shard health utilities
-  - prometheus metrics endpoints
-    - standard node.js metrics
-- upgrade to latest stable discord.js (13.1)
-  - upgrade to latest node.js (16.9.1)
-
-# **2.7.2**
+__new features__
 - Parentheticals and addition no longer collapses values.
 - Expressions like `(4d6+8d6)++5` will correctly add 5 to 12 dice.
 
@@ -17,6 +8,16 @@ __maintenance__
 - Add Roll-grouping support, which counts value/count (height/width)
   - `group` `groupValue` `groupHeight` Orders by Value
   - `groupSize` `groupCount` `groupWidth` Orders by Count
+
+# **2.6.5**
+__in-progress (not ready for use yet)__
+- hook up v2 syntax
+__maintenance__
+- per-shard health utilities
+  - prometheus metrics endpoints
+    - standard node.js metrics
+- upgrade to latest stable discord.js (13.1)
+  - upgrade to latest node.js (16.9.1)
 
 # **2.6.4**
 - Fix DMs (Enable MESSAGE partials w/ discord.js)
