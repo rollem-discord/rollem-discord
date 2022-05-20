@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: rollem
-        image: lemtzas/rollem-discord:2.7.2
+        image: lemtzas/rollem-discord:2.7.3
         resources:
           requests:
             cpu: 200m
