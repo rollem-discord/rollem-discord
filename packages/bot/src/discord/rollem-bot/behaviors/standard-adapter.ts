@@ -8,10 +8,15 @@ import { BehaviorContext, DatabaseFailure, ParserVersion, PrefixStyle } from "@c
 import { Storage, User } from "@rollem/common";
 import { DiscordBehaviorBase } from './discord-behavior-base';
 import { BehaviorResponse } from "@common/behavior-response";
+import delay from "delay";
 
 /** A base for behaviors to be applied to a discord client. */
 @Injectable()
 export class StandardAdapter extends DiscordBehaviorBase {
+  private readonly allowedBotIds = new Set([
+    '977073062426058792' // Tupperbox - https://tupperbox.app
+  ]);
+
   constructor(
     client: Client,
     logger: Logger,
@@ -34,9 +39,20 @@ export class StandardAdapter extends DiscordBehaviorBase {
   
 
   protected async register() {
+    this.client.on('messageDelete', async message => {
+      console.log('delete', message);
+    });
+
     this.client.on('message', async message => {
+
+      await delay(100);
+
       // ignore bots to avoid loops
-      if (message.author.bot) { return; }
+      console.log('### TUPPER? ###', message.author);
+      if (message.author.bot) {
+        const isAllowedBot = this.allowedBotIds.has(message.author.id);
+        if (!isAllowedBot) { return; }
+      }
 
       // ignore re-delivered messages
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "adapter")) { return; }
