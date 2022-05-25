@@ -1,3 +1,6 @@
+- upgrade discord.js version to 13.7.0
+
+# **2.7.3**
 __new features__
 - Parentheticals and addition no longer collapses values.
 - Expressions like `(4d6+8d6)++5` will correctly add 5 to 12 dice.
