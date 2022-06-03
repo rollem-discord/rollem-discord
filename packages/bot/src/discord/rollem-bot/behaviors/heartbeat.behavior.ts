@@ -1,11 +1,10 @@
 import { DiscordBehaviorBase } from "./discord-behavior-base";
-import { Client } from "discord.js";
+import { ActivityType, Client } from "discord.js";
 import { Logger, LoggerCategory } from "@bot/logger";
 import { Config } from "@bot/config";
 import { ChangeLog } from "@bot/changelog";
 import moment from "moment";
 import { Injectable } from "injection-js";
-import { Console } from "node:console";
 
 /**
  * Initializes the system after login and starts the heartbeat.
@@ -30,7 +29,7 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
       this.client.user!
         .setPresence({
           activities: [{
-            type: 'PLAYING',
+            type: ActivityType.Playing,
             name: `rollem.rocks|${this.changelog.version}`,
           }],
           status: 'online',

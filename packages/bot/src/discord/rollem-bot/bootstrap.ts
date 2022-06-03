@@ -8,7 +8,7 @@ import { Config } from "./config";
 
 import { Parsers } from "@bot/lib/parsers";
 
-import { Client, ClientOptions, Intents, PartialTypes } from "discord.js";
+import { BitFieldResolvable, Client, ClientOptions, GatewayIntentBits, GatewayIntentsString, IntentsBitField, Partials } from "discord.js";
 import { ChangeLog } from "./changelog";
 import { DiscordBehaviorBase } from "./behaviors/discord-behavior-base";
 // import assert from "assert";
@@ -108,25 +108,26 @@ export namespace Bootstrapper {
     logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Shard Count: " + config.ShardCount)
     logger.trackSimpleEvent(LoggerCategory.SystemEvent, "Logging in using token: " + config.Token);
 
-    const intents = new Intents([
-      "GUILDS",
+    const intents: BitFieldResolvable<GatewayIntentsString, number> = [
+      IntentsBitField.Flags.Guilds,
       // "GUILD_MEMBERS", // requires authorization and we don't need it
-      "GUILD_BANS",
-      "GUILD_EMOJIS_AND_STICKERS",
-      "GUILD_INTEGRATIONS",
-      "GUILD_WEBHOOKS",
-      "GUILD_INVITES",
-      "GUILD_VOICE_STATES",
+      IntentsBitField.Flags.GuildBans,
+      IntentsBitField.Flags.GuildEmojisAndStickers,
+      IntentsBitField.Flags.GuildIntegrations,
+      IntentsBitField.Flags.GuildWebhooks,
+      IntentsBitField.Flags.GuildInvites,
+      IntentsBitField.Flags.GuildVoiceStates,
+      IntentsBitField.Flags.MessageContent,
       // "GUILD_PRESENCES", // requires authorization and we don't need it
-      "GUILD_MESSAGES",
-      "GUILD_MESSAGE_REACTIONS",
-      "GUILD_MESSAGE_TYPING",
-      "DIRECT_MESSAGES",
-      "DIRECT_MESSAGE_REACTIONS",
-      "DIRECT_MESSAGE_TYPING",
-    ]);
+      IntentsBitField.Flags.GuildMessages,
+      IntentsBitField.Flags.GuildMessageReactions,
+      IntentsBitField.Flags.GuildMessageTyping,
+      IntentsBitField.Flags.DirectMessages,
+      IntentsBitField.Flags.DirectMessageReactions,
+      IntentsBitField.Flags.DirectMessageTyping,
+    ];
 
-    const partials: PartialTypes[] = [ 'CHANNEL' ];
+    const partials: Partials[] = [ Partials.Channel ];
 
     const clientOptions: ClientOptions =
       config.HasShardInfo
@@ -136,7 +137,6 @@ export namespace Bootstrapper {
         shardCount: config.ShardCount,
         shards: config.ShardId }
       : { intents, partials };
-
     const client = new Client(clientOptions);
     logger.client = client;
 

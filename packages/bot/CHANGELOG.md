@@ -1,3 +1,7 @@
+- upgrade discord.js version to 14.0.0-dev
+- enable replies in Text-in-Voice channels
+
+# **2.7.4**
 - upgrade discord.js version to 13.7.0
 
 # **2.7.3**

@@ -34,7 +34,7 @@ export class StandardAdapter extends DiscordBehaviorBase {
   
 
   protected async register() {
-    this.client.on('message', async message => {
+    this.client.on('messageCreate', async message => {
       // ignore bots to avoid loops
       if (message.author.bot) { return; }
 

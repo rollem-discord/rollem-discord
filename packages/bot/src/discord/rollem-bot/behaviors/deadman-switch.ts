@@ -24,7 +24,7 @@ export class DeadmanSwitchBehavior extends DiscordBehaviorBase {
   private messagesSinceLastReport = 0;
 
   protected async register() {
-    this.client.on('message', m => {
+    this.client.on('messageCreate', m => {
       this.messagesSinceLastReport++;
       this.logDiscordActivity();
     });
