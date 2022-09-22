@@ -24,7 +24,7 @@ spec:
             memory: 400M
         env:
         - name: 'reboot'
-          value: '2021-10-28'
+          value: '2022-06-21'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
