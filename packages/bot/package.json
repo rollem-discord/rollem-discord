@@ -67,7 +67,7 @@
     "chai": "^3.5.0",
     "chance": "^1.1.5",
     "del": "^3.0.0",
-    "discord.js": "^14.0.0-dev.1653480262-68d5169",
+    "discord.js": "^14.5.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ffmpeg-static": "^4.3.0",
