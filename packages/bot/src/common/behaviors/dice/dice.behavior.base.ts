@@ -304,12 +304,15 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     if (result.label && result.label !== "") {
       response += "'" + result.label + "', ";
     }
-    if (typeof (result.value) === "boolean") {
-      result.value = result.value ? "**Success!**" : "**Failure!**";
-    }
 
-    //spacing out along with a nice formatting of the role number. 
-    response += '` ' + result.value + ' `' + ' ⟵ ' + result.pretties.split(']').join('] ');
+    if (typeof (result.value) === "boolean") {
+      // special case for boolean results
+      result.value = result.value ? "**Success!**" : "**Failure!**";
+      response += result.value + ' ⟵ ' + result.pretties.split(']').join('] ');
+    } else {
+      //spacing out along with a nice formatting of the role number, for all other results
+      response += '` ' + result.value + ' `' + ' ⟵ ' + result.pretties.split(']').join('] ');
+    }
 
     return response;
   }

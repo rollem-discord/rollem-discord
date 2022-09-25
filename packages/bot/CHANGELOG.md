@@ -1,8 +1,9 @@
-- upgrade discord.js version to 14.0.0-dev
-- enable replies in Text-in-Voice channels
+- Correct styling for **Success!** and **Failure!** rolls
+- Upgrade discord.js version to ~~14.0.0-dev~~ 14.5.0
+- Enable replies in Text-in-Voice channels
 
 # **2.7.4**
-- upgrade discord.js version to 13.7.0
+- Upgrade discord.js version to 13.7.0
 
 # **2.7.3**
 __new features__
@@ -18,13 +19,13 @@ __new features__
 
 # **2.6.5**
 __in-progress (not ready for use yet)__
-- hook up v2 syntax
+- Hook up v2 syntax
 __maintenance__
-- per-shard health utilities
-  - prometheus metrics endpoints
-    - standard node.js metrics
-- upgrade to latest stable discord.js (13.1)
-  - upgrade to latest node.js (16.9.1)
+- Per-shard health utilities
+  - Prometheus metrics endpoints
+    - Standard node.js metrics
+- Upgrade to latest stable discord.js (13.1)
+  - Upgrade to latest node.js (16.9.1)
 
 # **2.6.4**
 - Fix DMs (Enable MESSAGE partials w/ discord.js)
