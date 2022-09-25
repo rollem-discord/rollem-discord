@@ -25,7 +25,7 @@ spec:
         - name: DISCORD_BOT_SHARD_ID
           value: '16'
         - name: DISCORD_BOT_SHARD_COUNT
-          value: '80'
+          value: '96'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
