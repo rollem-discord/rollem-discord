@@ -17,6 +17,7 @@ Counts the number of dice in a dice pool that are over a certain value.
 | `BX!` `GX!` `WX!` | Open roll notation. Explodes. Aliased to `Xd6! >> Y`  |
 
 | Letter | Minimum Die Value (inclusive) |
+|--------|-------------------------------|
 | B      | 4                             |
 | G      | 3                             |
 | W      | 2                             |
