@@ -1,5 +1,6 @@
 import { login, MastoClient, Notification, Status, Account, CreateStatusParams } from 'masto';
 import { App } from "./app";
+import { default as LRUCache } from "lru-cache";
 import { ContainerV1, RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language";
 
 function getSettings() {
@@ -26,10 +27,15 @@ class RollemMastodon {
   private followersLookup: Map<string, Account> = new Map<string, Account>();
   private lastFollowerLookupTime?: Date = undefined;
   private parser: RollemParserV1;
+  private handledPostsCache: LRUCache<string, Status>;
 
   constructor(masto: MastoClient) {
     this.masto = masto;
     this.parser = new RollemParserV1();
+    this.handledPostsCache = new LRUCache<string, Status>({
+      max: 500,
+      ttl: 5 * 60 * 1000, // 5 minutes
+    });
   }
 
   static async init() {
@@ -98,6 +104,12 @@ class RollemMastodon {
       return;
     }
 
+    if (this.handledPostsCache.has(status.id)) {
+      return;
+    }
+
+    this.handledPostsCache.set(status.id, status);
+
     console.log(`|${followTag}| ${status.account.username}: ${status.content}`);
 
     if (!followsUs && mentionedUs) {
@@ -124,12 +136,12 @@ class RollemMastodon {
     var realResponses = responses.filter(r => !!r);
     if (realResponses.length > 0) {
       console.log(realResponses);
-      const responseBody = realResponses.join("\n");
+      let responseBody = realResponses.join("\n");
+      responseBody = `𝗨𝗻𝗶𝗰𝗼𝗱𝗲?\n` + responseBody;
       const config: CreateStatusParams = {
         status: responseBody,
         inReplyToId: status.id,
         visibility: 'unlisted',
-
       };
       await this.masto.statuses.create(config);
     }
