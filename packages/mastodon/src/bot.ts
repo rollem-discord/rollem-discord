@@ -1,4 +1,4 @@
-import { login, MastoClient, Notification, Status, Account } from 'masto';
+import { login, MastoClient, Notification, Status, Account, CreateStatusParams } from 'masto';
 import { App } from "./app";
 import { ContainerV1, RollemParserV1, RollemParserV1Beta, RollemParserV2 } from "@rollem/language";
 
@@ -82,6 +82,15 @@ class RollemMastodon {
   }
 
   private handleUpdate = async (status: Status) => {
+    const followsUs = !!this.followersLookup.get(status.account.acct);
+    const mentionedUs = status.mentions.some(m => m.id === this.me?.id);
+    const followTag = mentionedUs
+      ? '@mention'
+      : followsUs
+      ? 'follower'
+      : '-REMOVE-';
+    console.log(`|${followTag}| ${status.account.username}: ${status.content}`);
+    
     if (status.account.id === this.me?.id) {
       return;
     }
@@ -90,23 +99,16 @@ class RollemMastodon {
       return;
     }
 
-    const followsUs = !!this.followersLookup.get(status.account.acct);
-    const mentionedUs = status.mentions.some(m => m.id === this.me?.id);
-    const followTag = mentionedUs
-      ? '@mention'
-      : followsUs
-      ? 'follower'
-      : '-REMOVE-';
     if (!followsUs && mentionedUs) {
       this.masto.accounts.unfollow(status.account.id);
       console.log(`Unfollowed ${status.account.acct}. No longer follows us.`);
     }
 
     if (!followsUs && !mentionedUs) {
+      console.log("no follow or mention");
+      console.log(status.mentions);
       return;
     }
-
-    console.log(`|${followTag}| ${status.account.username}: ${status.content}`);
 
     // handle inline matches
     let last: RegExpExecArray | null = null;
@@ -120,12 +122,16 @@ class RollemMastodon {
     const responses = results.map(r => this.buildMessage(r, false));
     var realResponses = responses.filter(r => !!r);
     if (realResponses.length > 0) {
+      console.log(realResponses);
       const responseBody = realResponses.join("\n");
-      await this.masto.statuses.create({
+      const config: CreateStatusParams = {
         status: responseBody,
         inReplyToId: status.id,
-        visibility: status.visibility
-      });
+        visibility: 'unlisted',
+
+      };
+      console.log(config)
+      await this.masto.statuses.create(config);
     }
   };
 
@@ -159,14 +165,10 @@ class RollemMastodon {
       console.log(`${notification.account.username} favourited your status!`);
     }
 
-    // // When you got a mention, reply
-    // if (notification.type === 'mention' && notification.status) {
-    //   await this.masto.statuses.create({
-    //     status: 'I received your mention!',
-    //     inReplyToId: notification.status.id,
-    //     visibility: notification.status.visibility
-    //   });
-    // }
+    // When you got a mention, reply
+    if (notification.type === 'mention' && notification.status) {
+      await this.handleUpdate(notification.status);
+    }
 
     // When you got followed, follow them back
     if (notification.type === 'follow') {
