@@ -6,7 +6,7 @@ const path = require('path');
 const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 const config = {
-  entry: './src/discord/rollem-bot/bot.ts',
+  entry: './src/bot.ts',
   target: 'node',
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   plugins: [

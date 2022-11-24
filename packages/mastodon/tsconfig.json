@@ -79,6 +79,9 @@
         "node_modules/*"
       ]
     },
+    "lib": [
+      "esnext.asynciterable"
+    ]
   },
   "include": ["src/**/*", "package.json"]
 }
