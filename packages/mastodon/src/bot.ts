@@ -89,7 +89,6 @@ class RollemMastodon {
       : followsUs
       ? 'follower'
       : '-REMOVE-';
-    console.log(`|${followTag}| ${status.account.username}: ${status.content}`);
     
     if (status.account.id === this.me?.id) {
       return;
@@ -98,6 +97,8 @@ class RollemMastodon {
     if (status.account.bot) {
       return;
     }
+
+    console.log(`|${followTag}| ${status.account.username}: ${status.content}`);
 
     if (!followsUs && mentionedUs) {
       this.masto.accounts.unfollow(status.account.id);
@@ -130,7 +131,6 @@ class RollemMastodon {
         visibility: 'unlisted',
 
       };
-      console.log(config)
       await this.masto.statuses.create(config);
     }
   };
