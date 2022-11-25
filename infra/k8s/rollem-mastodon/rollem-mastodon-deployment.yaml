@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollem-mastodon-deployment
+spec:
+  selector:
+    matchLabels:
+      app: rollem-mastodon
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port:   '8080'
+      labels:
+        app: rollem-mastodon
+    spec:
+      containers:
+      - name: rollem
+        image: lemtzas/rollem-mastodon:2.8.3
+        resources:
+          requests:
+            cpu: 200m
+            memory: 400M
+        env:
+        - name: 'reboot'
+          value: '2022-06-21'
+        - name: DB_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: rollem-mastodon-botsinspace
+              key: DB_CONNECTION_STRING
+        - name: APPINSIGHTS_INSTRUMENTATIONKEY
+          valueFrom:
+            secretKeyRef:
+              name: rollem-mastodon-botsinspace
+              key: APPINSIGHTS_INSTRUMENTATIONKEY
+        - name: MASTODON_URI
+          valueFrom:
+            secretKeyRef:
+              name: rollem-mastodon-botsinspace
+              key: MASTODON_URI
+        - name: MASTODON_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: rollem-mastodon-botsinspace
+              key: MASTODON_ACCESS_TOKEN
