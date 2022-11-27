@@ -240,15 +240,22 @@ class RollemMastodon {
 
     // When you got followed, follow them back
     if (notification.type === 'follow') {
-      console.log(`Followed by ${notification.account.acct}. Following back`);
-      await this.masto.accounts.follow(notification.account.id);
+      console.log(`Followed by ${notification.account.acct}`);
+      this.followUser(notification.account);
     }
 
     if (notification.type === 'follow_request') {
-      console.log(`Followed by ${notification.account.acct}. Following back`);
-      await this.masto.accounts.follow(notification.account.id);
+      console.log(`Follow request by ${notification.account.acct}`);
+      this.followUser(notification.account);
     }
-  };
+  }
+
+  private async followUser(account: Account): Promise<void> {
+    console.log(`Following user ${account.acct}`);
+    await this.masto.accounts.follow(account.id);
+    console.log(`Remembering user ${account.acct} in follower cache`);
+    this.followersLookup.set(account.id, account);
+  }
 }
 
 // main
