@@ -46,6 +46,7 @@
     "infra:replace:ingress:old": "kubectl replace -f ./infra/k8s/ingress/",
     "infra:apply:next": "kubectl apply -f ./infra/k8s/rollem-next/",
     "infra:apply:prod": "kubectl apply -f ./infra/k8s/rollem-prod/",
+    "infra:apply:masto": "kubectl apply -f ./infra/k8s/rollem-mastodon/",
     "infra:apply:ui": "kubectl apply -f ./infra/k8s/rollem-ui/",
     "infra:apply:services": "kubectl apply -f ./infra/k8s/services/",
     "infra:apply:ingress": "kubectl apply -f ./infra/k8s/ingress/",
