@@ -14,7 +14,7 @@ enum CombiningSymbols {
 }
 
 function zipWithSymbol(text: string, symbol: CombiningSymbols) {
-  return symbol + text.split('').join(symbol);
+  return text.split('').join(symbol) + symbol;
 }
 
 interface CWResponse {
@@ -167,7 +167,7 @@ class RollemMastodon {
       });
       belowFold = belowFold.replace(/\~\~\*\*(.+?)\*\*\~\~/g, s => {
         const snipped = s.substring(4, s.length - 4);
-        return zipWithSymbol(snipped, CombiningSymbols.LongStrikethru);
+        return zipWithSymbol(snipped, CombiningSymbols.ShortStrikethru);
       });
 
       // apply bold
@@ -240,7 +240,12 @@ class RollemMastodon {
 
     // When you got followed, follow them back
     if (notification.type === 'follow') {
-      console.log("Following back", notification.account.acct);
+      console.log(`Followed by ${notification.account.acct}. Following back`);
+      await this.masto.accounts.follow(notification.account.id);
+    }
+
+    if (notification.type === 'follow_request') {
+      console.log(`Followed by ${notification.account.acct}. Following back`);
       await this.masto.accounts.follow(notification.account.id);
     }
   };
