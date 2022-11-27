@@ -221,8 +221,9 @@ class RollemMastodon {
       response += '` ' + result.value + ' `' + ' ⟵ ' + result.pretties.split(']').join('] ');
     }
 
+    var header = result.label ? `${result.value} ${result.label}` : `${result.value}`
     return {
-      header: `${result.value} ${result.label}`,
+      header: header,
       belowFold: response,
     };
   }
