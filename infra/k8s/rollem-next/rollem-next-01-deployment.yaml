@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rollem-next-deployment
+  name: rollem-next-01-deployment
 spec:
   selector:
     matchLabels:
@@ -16,7 +16,7 @@ spec:
         app: rollem-next
     spec:
       containers:
-      - name: rollem
+      - name: rollem-next-01
         image: lemtzas/rollem-discord:2.8.3
         resources:
           requests:
@@ -24,7 +24,11 @@ spec:
             memory: 400M
         env:
         - name: 'reboot'
-          value: '2022-06-21'
+          value: '2022-12-07'
+        - name: DISCORD_BOT_SHARD_ID
+          value: '1'
+        - name: DISCORD_BOT_SHARD_COUNT
+          value: '2'
         - name: 'DISCORD_BOT_USER_TOKEN'
           valueFrom:
             secretKeyRef:
