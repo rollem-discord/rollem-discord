@@ -68,21 +68,24 @@ deschedulerPolicy:
   # evictLocalStoragePods: true
   strategies:
     RemoveDuplicates:
-      enabled: true
+      enabled: false
     RemoveFailedPods:
       enabled: true
-    params:
-      failedPods:
-        reasons:
-        - "Evicted"
-        - "Error"
-        - "ContainerStatusUnknown"
-        - "OOMKilled"
-        - "Completed"
-        includingInitContainers: true
-        excludeOwnerKinds:
-        - "Job"
-        minPodLifetimeSeconds: 120
+      params:
+        namespaces:
+          include:
+          - "default"
+        failedPods:
+          reasons:
+          - "Evicted"
+          - "Error"
+          - "ContainerStatusUnknown"
+          - "OOMKilled"
+          - "Completed"
+          includingInitContainers: true
+          excludeOwnerKinds:
+          - "Job"
+          minPodLifetimeSeconds: 120
     RemovePodsHavingTooManyRestarts:
       enabled: false
       params:
@@ -90,20 +93,20 @@ deschedulerPolicy:
           podRestartThreshold: 100
           includingInitContainers: true
     RemovePodsViolatingNodeTaints:
-      enabled: true
+      enabled: false
     RemovePodsViolatingNodeAffinity:
-      enabled: true
+      enabled: false
       params:
         nodeAffinityType:
         - requiredDuringSchedulingIgnoredDuringExecution
     RemovePodsViolatingInterPodAntiAffinity:
-      enabled: true
+      enabled: false
     RemovePodsViolatingTopologySpreadConstraint:
-      enabled: true
+      enabled: false
       params:
         includeSoftConstraints: false
     LowNodeUtilization:
-      enabled: true
+      enabled: false
       params:
         nodeResourceUtilizationThresholds:
           thresholds:
