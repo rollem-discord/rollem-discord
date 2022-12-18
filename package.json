@@ -36,6 +36,8 @@
     "infra:prom:forward": "kubectl port-forward svc/kube-prometheus-stack-prometheus 9090 -n monitoring",
     "infra:grafana": "yarn run infra:grafana:forward && yarn run infra:grafana:open",
     "infra:grafana:open": "start http://localhost:8080",
+    "infra:alert:forward": "kubectl port-forward statefulset/alertmanager-kube-prometheus-stack-alertmanager -n monitoring 9093",
+    "infra:alert:send": "curl -H 'Content-Type: application/json' -d '[{\"labels\":{\"alertname\":\"myalert\"}}]' http://127.0.0.1:9093/api/v1/alerts",
     "infra:grafana:forward": "kubectl port-forward svc/kube-prometheus-stack-grafana 8080:80 -n monitoring",
     "infra:update-credentials": "doctl kubernetes cluster kubeconfig save rollem-sfo2",
     "infra:update-credentials:old": "doctl kubernetes cluster kubeconfig save rollem-old-sfo2",
@@ -55,6 +57,7 @@
     "infra:delete:error": "kubectl get pods | grep Error | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:unknown": "kubectl get pods | grep ContainerStatusUnknown | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:bad": "kubectl get pods | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff | awk '{print $1}' | xargs kubectl delete pod",
+    "infra:delete:bad:monitoring": "kubectl get pods -n monitoring | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff | awk '{print $1}' | xargs kubectl delete pod -n monitoring",
     "postpublish": "git push --tags"
   },
   "dependencies": {

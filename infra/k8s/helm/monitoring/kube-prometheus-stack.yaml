@@ -202,13 +202,29 @@ alertmanager:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'null'
+      receiver: 'discord'
       routes:
-      - receiver: 'null'
+      - receiver: 'discord'
+        continue: true
         matchers:
           - alertname =~ "InfoInhibitor|Watchdog"
     receivers:
-    - name: 'null'
+    # - name: 'null'
+    - name: 'discord'
+      slack_configs:
+      - channel: '#alerts'
+        api_url: 'https://discord.com/api/webhooks/NUMBERS/SECRET/slack'
+        text: |-
+          {{- $root := . -}}
+          {{ range .Alerts }}
+            *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+            *Cluster:* {{ template "cluster" $root }}
+            *Description:* {{ .Annotations.description }}
+            *Details:*
+              {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
+              {{ end }}
+          {{ end }}
+
     templates:
     - '/etc/alertmanager/config/*.tmpl'
 
@@ -230,25 +246,23 @@ alertmanager:
   ## ref: https://prometheus.io/docs/alerting/notifications/
   ##      https://prometheus.io/docs/alerting/notification_examples/
   ##
-  templateFiles: {}
-  #
-  ## An example template:
-  #   template_1.tmpl: |-
-  #       {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
-  #
-  #       {{ define "slack.myorg.text" }}
-  #       {{- $root := . -}}
-  #       {{ range .Alerts }}
-  #         *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-  #         *Cluster:* {{ template "cluster" $root }}
-  #         *Description:* {{ .Annotations.description }}
-  #         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
-  #         *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
-  #         *Details:*
-  #           {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
-  #           {{ end }}
-  #       {{ end }}
-  #       {{ end }}
+  templateFiles:
+    template_1.tmpl: |-
+        {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
+  
+        {{ define "slack.myorg.text" }}
+        {{- $root := . -}}
+        {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+          *Cluster:* {{ template "cluster" $root }}
+          *Description:* {{ .Annotations.description }}
+          *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
+          *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+          *Details:*
+            {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
+            {{ end }}
+        {{ end }}
+        {{ end }}
 
   ingress:
     enabled: false
