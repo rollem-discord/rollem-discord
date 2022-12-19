@@ -47,9 +47,9 @@ export namespace Bootstrapper {
           RepliedMessageCache,
         ]);
 
-    const logger2 = topLevelInjector.get(Logger);
+    const logger2 = topLevelInjector.get(Logger2);
     strict(!!logger2, "DI failed to resolve logger2 (prometheus)");
-    const app = topLevelInjector.get(Logger);
+    const app = topLevelInjector.get(App);
     strict(!!app, "DI failed to resolve app (express api)");
     const logger = topLevelInjector.get(Logger);
     strict(!!logger, "DI failed to resolve logger");

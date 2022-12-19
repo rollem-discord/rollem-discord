@@ -209,21 +209,7 @@ alertmanager:
         matchers:
           - alertname =~ "InfoInhibitor|Watchdog"
     receivers:
-    # - name: 'null'
-    - name: 'discord'
-      slack_configs:
-      - channel: '#alerts'
-        api_url: 'https://discord.com/api/webhooks/NUMBERS/SECRET/slack'
-        text: |-
-          {{- $root := . -}}
-          {{ range .Alerts }}
-            *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-            *Cluster:* {{ template "cluster" $root }}
-            *Description:* {{ .Annotations.description }}
-            *Details:*
-              {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
-              {{ end }}
-          {{ end }}
+    - name: 'null'
 
     templates:
     - '/etc/alertmanager/config/*.tmpl'
