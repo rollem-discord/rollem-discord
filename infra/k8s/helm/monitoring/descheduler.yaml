@@ -75,6 +75,7 @@ deschedulerPolicy:
         namespaces:
           include:
           - "default"
+          - "monitoring"
         failedPods:
           reasons:
           - "Evicted"

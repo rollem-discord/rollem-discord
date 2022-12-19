@@ -18,6 +18,7 @@ spec:
       containers:
       - name: rollem-next-01
         image: lemtzas/rollem-discord:2.8.3
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 200m

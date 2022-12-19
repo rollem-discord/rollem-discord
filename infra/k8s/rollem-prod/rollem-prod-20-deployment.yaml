@@ -15,6 +15,7 @@ spec:
       containers:
       - name: rollem-shard-20
         image: lemtzas/rollem-discord:2.8.3
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 50m

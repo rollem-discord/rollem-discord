@@ -56,8 +56,11 @@
     "infra:delete:evicted": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:error": "kubectl get pods | grep Error | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:unknown": "kubectl get pods | grep ContainerStatusUnknown | awk '{print $1}' | xargs kubectl delete pod",
+    "infra:delete:creating": "kubectl get pods | grep ContainerCreating | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:bad": "kubectl get pods | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff | awk '{print $1}' | xargs kubectl delete pod",
-    "infra:delete:bad:monitoring": "kubectl get pods -n monitoring | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff | awk '{print $1}' | xargs kubectl delete pod -n monitoring",
+    "infra:delete:bad:monitoring": "kubectl get pods -n monitoring | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff -e Completed | awk '{print $1}' | xargs kubectl delete pod -n monitoring",
+    "infra:helm:upgrade:monitoring": "helm upgrade kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring -f ./infra/k8s/helm/monitoring/kube-prometheus-stack.yaml",
+    "infra:helm:upgrade:descheduler": "helm upgrade descheduler descheduler/descheduler -n monitoring -f ./infra/k8s/helm/monitoring/descheduler.yaml",
     "postpublish": "git push --tags"
   },
   "dependencies": {
