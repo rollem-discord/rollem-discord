@@ -15,13 +15,14 @@ spec:
       containers:
       - name: rollem-shard-53
         image: lemtzas/rollem-discord:2.8.3
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 50m
             memory: 250M
         env:
         - name: 'reboot'
-          value: '2022-11-26'
+          value: '2022-12-19'
         - name: DISCORD_BOT_SHARD_ID
           value: '53'
         - name: DISCORD_BOT_SHARD_COUNT

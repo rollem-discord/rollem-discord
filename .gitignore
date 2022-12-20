@@ -7,6 +7,10 @@ node_modules/
 !sample-*.env
 !.sample.env
 
+#ignore all *-secrets.yaml unless they start with sample-
+*.secrets.yaml
+*-secrets.yaml
+
 # Ignore logs
 *.log
 
