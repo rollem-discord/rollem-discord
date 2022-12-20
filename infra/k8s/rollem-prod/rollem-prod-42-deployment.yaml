@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rollem-shard-42
-        image: lemtzas/rollem-discord:2.8.3
+        image: lemtzas/rollem-discord:2.9.2
         imagePullPolicy: IfNotPresent
         resources:
           requests:
