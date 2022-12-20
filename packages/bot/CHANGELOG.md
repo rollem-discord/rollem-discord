@@ -1,5 +1,9 @@
+- Upgrade discord.js version to 14.7.1
+- Working toward metrics and stability
+
+# **2.8.x**
 - Correct styling for **Success!** and **Failure!** rolls
-- Upgrade discord.js version to ~~14.0.0-dev~~ ~~14.5.0~~ 14.6.0
+- Upgrade discord.js version to ~~14.0.0-dev~~ ~~14.5.0~~ ~~14.6.0~~ 14.7.1
 - Enable replies in Text-in-Voice channels
 
 # **2.7.4**
