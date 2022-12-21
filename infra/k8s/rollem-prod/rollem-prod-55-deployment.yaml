@@ -16,6 +16,9 @@ spec:
       - name: rollem-shard-55
         image: lemtzas/rollem-discord:2.9.2
         imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8081
         resources:
           requests:
             cpu: 50m
