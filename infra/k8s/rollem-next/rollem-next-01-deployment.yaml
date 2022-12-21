@@ -9,9 +9,6 @@ spec:
   replicas: 1
   template:
     metadata:
-      annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port:   '8081'
       labels:
         app: rollem-next
     spec:
@@ -19,6 +16,9 @@ spec:
       - name: rollem-next-01
         image: lemtzas/rollem-discord:2.9.2
         imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8081
         resources:
           requests:
             cpu: 200m
