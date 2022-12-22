@@ -12,6 +12,8 @@ spec:
       labels:
         app: rollem-prod
     spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-rollem
       containers:
       - name: rollem-shard-94
         image: lemtzas/rollem-discord:2.9.2
