@@ -23,8 +23,8 @@ spec:
           containerPort: 8081
         resources:
           requests:
-            cpu: 200m
-            memory: 400M
+            cpu: 75m
+            memory: 300M
         env:
         - name: 'reboot'
           value: '2022-12-07'
