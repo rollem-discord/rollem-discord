@@ -5,6 +5,9 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
+  persistence:
+    enabled: true
+    existingClaim: 'grafana-pvc'
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
   forceDeployDatasources: false

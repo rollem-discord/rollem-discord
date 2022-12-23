@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: example
+    role: alert-rules
+  name: rollem-events-processed
+spec:
+  groups:
+  - name: rollem-events-processed
+    rules:
+    - alert: RollemProdLacksEvents
+      expr: sum by(shard) (increase(rollem_events_processed{job="default/rollem-prod"}[5m])) < 5
+      for: 1m
+      labels:
+        namespace: default
+        job: rollem-prod
+        severity: critical
+      annotations:
+        summary: Rollem Prod {{ $labels.shard }} is not handling events.
+        description: Rollem Prod {{ $labels.shard }} is receiving few events over the last 5 minutes.
+    - alert: RollemNextLacksEvents
+      expr: sum by(shard) (increase(rollem_events_processed{job="default/rollem-next"}[5m])) < 5
+      for: 1m
+      labels:
+        namespace: default
+        job: rollem-next
+        severity: critical
+      annotations:
+        summary: Rollem Next {{ $labels.shard }} is not handling events.
+        description: Rollem Next {{ $labels.shard }} is receiving few events over the last 5 minutes.
