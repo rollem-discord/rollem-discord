@@ -16,7 +16,7 @@ spec:
         doks.digitalocean.com/node-pool: pool-rollem
       containers:
       - name: rollem-shard-02
-        image: lemtzas/rollem-discord:2.9.2
+        image: lemtzas/rollem-discord:2.9.3
         imagePullPolicy: IfNotPresent
         ports:
         - name: web

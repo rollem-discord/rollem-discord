@@ -5,9 +5,6 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-monitoring
-
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
   forceDeployDatasources: false
@@ -147,6 +144,9 @@ grafana:
   ##
   service:
     portName: http-web
+
+    nodeSelector:
+      doks.digitalocean.com/node-pool: pool-monitoring
 
   serviceMonitor:
     # If true, a ServiceMonitor CRD is created for a prometheus operator
