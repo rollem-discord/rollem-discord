@@ -2,6 +2,7 @@ import { Config } from "@bot/config";
 import { Parsers } from "@bot/lib/parsers";
 import { RollemRandomSources } from "@bot/lib/rollem-random-sources";
 import { Logger, LoggerCategory } from "@bot/logger";
+import { HandlerType, ParserRollType, PromLogger, RollHandlerSubtype } from "@bot/prom-logger";
 import { BehaviorContext, isKnownPrefix } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
@@ -16,8 +17,11 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     protected readonly parsers: Parsers,
     protected readonly config: Config,
     protected readonly rng: RollemRandomSources,
+    promLogger: PromLogger,
     logger: Logger,
-  ) { super(logger); }
+  ) {
+    super(promLogger, logger);
+  }
 
   /**
    * Attempts to roll many dice from the given content
@@ -71,7 +75,12 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     }
 
     if (lines.length > 0) {
-      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v1, ${logTag}: ${content}`, trigger);
+      if (count > 1) {
+        this.promLogger.incParserUse(ParserRollType.ManyInBulk, 'v2');
+      } else {
+        this.promLogger.incParserUse(ParserRollType.Many, 'v2');
+      }
+      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v2, ${logTag}: ${content}`, trigger);
     }
 
     return lines;
@@ -107,7 +116,12 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     }
 
     if (lines.length > 0) {
-      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v1, ${logTag}: ${content}`, trigger);
+      if (count > 1) {
+        this.promLogger.incParserUse(ParserRollType.ManyInBulk, 'v1-beta');
+      } else {
+        this.promLogger.incParserUse(ParserRollType.Many, 'v1-beta');
+      }
+      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v1-beta, ${logTag}: ${content}`, trigger);
     }
 
     return lines;
@@ -182,7 +196,8 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
       .map(group => `${group.count}x ${group.value} ${makeOreTag(group.count)}`)
       .value();
 
-    this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Grouped v1, ${logTag}: ${content}`, trigger);
+      this.promLogger.incParserUse(ParserRollType.Fortune, 'v1');
+    this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Fortune v1, ${logTag}: ${content}`, trigger);
 
     return [
       headerLine,
@@ -232,6 +247,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     }
     const groupedValueLines = groupedValues.map(group => `${group.count}x ${group.value}`).value();
 
+    this.promLogger.incParserUse(ParserRollType.Grouped, 'v1');
     this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Grouped v1, ${logTag}: ${content}`, trigger);
 
     return [
@@ -272,6 +288,11 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     }
 
     if (lines.length > 0) {
+      if (count > 1) {
+        this.promLogger.incParserUse(ParserRollType.ManyInBulk, 'v1');
+      } else {
+        this.promLogger.incParserUse(ParserRollType.Many, 'v1');
+      }
       this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Many v1, ${logTag}: ${content}`, trigger);
     }
 
@@ -323,8 +344,14 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
    * @param lines The grouped replies, or null.
    * @returns True if a response was sent.
    */
-  protected async makeReplyAndLog(trigger: Trigger, logTag: string, lines: string[] | null): Promise<BehaviorResponse | null> {
+  protected async makeReplyAndLog(
+    trigger: Trigger,
+    logTag: string,
+    handlerSubtype: RollHandlerSubtype,
+    lines: string[] | null
+  ): Promise<BehaviorResponse | null> {
     if (lines && lines.length > 0) {
+      this.promLogger.incHandlersUsed(HandlerType.Roll, handlerSubtype);
 
       const response = "\n" + lines.join("\n");
 

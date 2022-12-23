@@ -1,4 +1,5 @@
 import { Logger } from "@bot/logger";
+import { PromLogger } from "@bot/prom-logger";
 import { Message } from "discord.js";
 import { Injectable, InjectionToken } from "injection-js";
 import { BehaviorContext } from "./behavior-context";
@@ -10,8 +11,10 @@ export type Trigger = Message | any;
 /** A Base Behavior. */
 @Injectable()
 export abstract class BehaviorBase {
-  constructor(protected readonly logger: Logger) {
-  }
+  constructor(
+    protected readonly promLogger: PromLogger,
+    protected readonly logger: Logger,
+  ) { }
 
   /** The label for this behavior. Used in logging. */
   public abstract get label(): string;

@@ -1,4 +1,5 @@
 import { Logger } from "@bot/logger";
+import { HandlerType, PromLogger, StorageHandlerSubtype } from "@bot/prom-logger";
 import { BehaviorContext, isDatabaseFailure } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
@@ -12,9 +13,10 @@ export class StorageBehavior extends BehaviorBase {
 
   constructor(
     private readonly storage: Storage,
+    promLogger: PromLogger,
     logger: Logger,
   ) {
-    super(logger);
+    super(promLogger, logger);
   }
   
   public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
@@ -41,10 +43,12 @@ export class StorageBehavior extends BehaviorBase {
     switch (commands[++i]) {
       case "dump":
         const dumpResponse = ["```json", JSON.stringify(context, undefined, " "), "```"].join('\n');
+        this.promLogger.incHandlersUsed(HandlerType.Storage, StorageHandlerSubtype.Dump);
         return { response: dumpResponse };
 
       case "forget":
         await this.storage.forgetUser(context.user.discordUserId);
+        this.promLogger.incHandlersUsed(HandlerType.Storage, StorageHandlerSubtype.Forget);
         return { response: "You are forgotten." };
 
       case "":
@@ -61,6 +65,7 @@ export class StorageBehavior extends BehaviorBase {
             "`dump` - print everything we know about you",
             "`forget` - delete everything we know about you"
           ].join('\n');
+        this.promLogger.incHandlersUsed(HandlerType.Storage, StorageHandlerSubtype.Default);
         return { response: defaultResponse };
     }
   }
