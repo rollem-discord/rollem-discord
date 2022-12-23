@@ -4,11 +4,6 @@
 grafana:
   enabled: true
   namespaceOverride: ""
-  startupProbe:
-    failureThreshold: 120
-
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-monitoring
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
@@ -148,8 +143,10 @@ grafana:
   ## Passed to grafana subchart and used by servicemonitor below
   ##
   service:
-    portName: grafana
-    port: 3000
+    portName: http-web
+
+    nodeSelector:
+      doks.digitalocean.com/node-pool: pool-monitoring
 
   serviceMonitor:
     # If true, a ServiceMonitor CRD is created for a prometheus operator
