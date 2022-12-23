@@ -20,6 +20,7 @@ import { DiceShortPrefixedBehavior } from "@common/behaviors/dice/dice-short-pre
 import { DiceSoftParseBehavior } from "@common/behaviors/dice/dice-soft-parse.behavior";
 import { DiceTaggedBehavior } from "@common/behaviors/dice/dice-tagged.behavior";
 import { StorageBehavior } from "@common/behaviors/storage.behavior";
+import { EventMonitorBehavior } from "./behaviors/event-monitor";
 
 const ORDERED_STANDARD_BEHAVIORS: Newable<BehaviorBase>[] = [
   PingPongBehavior,
@@ -38,6 +39,7 @@ const ORDERED_DISCORD_BEHAVIORS: Newable<DiscordBehaviorBase>[] = [
   DieOnErrorBehavior,
   HeartbeatBehavior,
   DeadmanSwitchBehavior,
+  EventMonitorBehavior,
   StandardAdapter,
 ];
 

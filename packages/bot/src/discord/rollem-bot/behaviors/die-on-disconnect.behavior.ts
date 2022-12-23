@@ -3,6 +3,7 @@ import util from "util";
 import { Client } from "discord.js";
 import { Logger, LoggerCategory } from "@bot/logger";
 import { Injectable } from "injection-js";
+import { PromLogger } from "@bot/prom-logger";
 
 // TODO: there's got to be a cleaner way to handle this, but this seems to make it more resilient.
 
@@ -13,9 +14,10 @@ import { Injectable } from "injection-js";
 @Injectable()
 export class DieOnDisconnectBehavior extends DiscordBehaviorBase {
   constructor(
-    protected readonly client: Client,
-    protected readonly logger: Logger,
-  ) { super(client, logger); }
+    client: Client,
+    promLogger: PromLogger,
+    logger: Logger,
+  ) { super(client, promLogger, logger); }
 
   protected async register() {
     this.client.on('disconnect', (f) => {

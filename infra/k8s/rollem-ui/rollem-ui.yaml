@@ -12,6 +12,8 @@ spec:
       labels:
         app: rollem-ui
     spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-rollem
       containers:
       - name: rollem-ui
         image: lemtzas/rollem-discord-ui:2.7.2
@@ -20,8 +22,8 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: 200m
-            memory: 400M
+            cpu: 150m
+            memory: 200M
         env:
         - name: 'reboot'
           value: '2021-10-28'

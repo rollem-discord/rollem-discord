@@ -118,10 +118,19 @@ deschedulerPolicy:
             cpu: 50
             memory: 50
             pods: 50
+    # HighNodeUtilization:
+    #   enabled: true
+    #   params:
+    #     nodeResourceUtilizationThresholds:
+    #       thresholds:
+    #         cpu: 20
+    #         memory: 20
+    #         pods: 20
 
 priorityClassName: system-cluster-critical
 
-nodeSelector: {}
+nodeSelector:
+  doks.digitalocean.com/node-pool: pool-monitoring
 #  foo: bar
 
 affinity: {}

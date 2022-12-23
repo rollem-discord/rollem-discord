@@ -1,12 +1,14 @@
 import { Client } from "discord.js";
 import { Logger, LoggerCategory } from "@bot/logger";
 import { Injectable } from "injection-js";
+import { PromLogger } from "@bot/prom-logger";
 
 /** A base for behaviors to be applied to a discord client. */
 @Injectable()
 export abstract class DiscordBehaviorBase {
   constructor(
     protected readonly client: Client,
+    protected readonly promLogger: PromLogger,
     protected readonly logger: Logger,
   ) { }
   

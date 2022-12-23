@@ -1,5 +1,6 @@
 import { ChangeLog } from "@bot/changelog";
 import { Logger } from "@bot/logger";
+import { HandlerType, PromLogger } from "@bot/prom-logger";
 import { BehaviorContext } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
@@ -12,9 +13,10 @@ export class ChangelogBehavior extends BehaviorBase {
 
   constructor(
     private readonly changelog: ChangeLog,
+    promLogger: PromLogger,
     logger: Logger,
   ) {
-    super(logger);
+    super(promLogger, logger);
   }
 
   public async onPrefixMissing(trigger: Trigger, content: string, context: BehaviorContext): Promise<BehaviorResponse | null> {
@@ -25,8 +27,9 @@ export class ChangelogBehavior extends BehaviorBase {
     if (content.startsWith('changelog') ||
       content.startsWith('change log') ||
       content.startsWith('changes') ||
-      content.startsWith('diff')) {
-
+      content.startsWith('diff')
+    ) {
+      this.promLogger.incHandlersUsed(HandlerType.Changelog);
       return {
         response: this.changelog.changelog,
       };

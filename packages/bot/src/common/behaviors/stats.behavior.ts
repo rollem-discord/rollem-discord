@@ -1,5 +1,6 @@
 import { ChangeLog } from "@bot/changelog";
 import { Logger } from "@bot/logger";
+import { HandlerType, PromLogger } from "@bot/prom-logger";
 import { BehaviorContext } from "@common/behavior-context";
 import { BehaviorResponse } from "@common/behavior-response";
 import { BehaviorBase, Trigger } from "@common/behavior.base";
@@ -12,9 +13,10 @@ import { toPairs } from "lodash";
 export class StatsBehavior extends BehaviorBase {
   constructor(
     private readonly statsProvider: BehaviorStatsBase,
+    promLogger: PromLogger,
     logger: Logger,
   ) {
-    super(logger);
+    super(promLogger, logger);
   }
 
   public label = "stats";
@@ -44,6 +46,8 @@ export class StatsBehavior extends BehaviorBase {
       ];
       const response = contentArray.join('\n');
 
+      this.promLogger.incHandlersUsed(HandlerType.Stats);
+      
       return {
         response: response,
       };

@@ -12,13 +12,18 @@ spec:
       labels:
         app: rollem-prod
     spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-rollem
       containers:
       - name: rollem-shard-18
-        image: lemtzas/rollem-discord:2.8.3
+        image: lemtzas/rollem-discord:2.9.2
         imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8081
         resources:
           requests:
-            cpu: 50m
+            cpu: 25m
             memory: 250M
         env:
         - name: 'reboot'

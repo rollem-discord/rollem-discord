@@ -10,6 +10,7 @@ node_modules/
 #ignore all *-secrets.yaml unless they start with sample-
 *.secrets.yaml
 *-secrets.yaml
+secrets.yaml
 
 # Ignore logs
 *.log

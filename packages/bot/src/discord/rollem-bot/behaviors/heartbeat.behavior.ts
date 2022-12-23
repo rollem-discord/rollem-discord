@@ -5,6 +5,7 @@ import { Config } from "@bot/config";
 import { ChangeLog } from "@bot/changelog";
 import moment from "moment";
 import { Injectable } from "injection-js";
+import { PromLogger } from "@bot/prom-logger";
 
 /**
  * Initializes the system after login and starts the heartbeat.
@@ -15,8 +16,9 @@ export class HeartbeatBehavior extends DiscordBehaviorBase {
     private readonly config: Config,
     private readonly changelog: ChangeLog,
     client: Client,
+    promLogger: PromLogger,
     logger: Logger,
-  ) { super(client, logger); }
+  ) { super(client, promLogger, logger); }
 
   protected async register() {
     this.client.on('ready', async () => {
