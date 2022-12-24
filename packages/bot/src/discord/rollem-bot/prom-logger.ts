@@ -50,7 +50,7 @@ export class PromLogger {
   private readonly eventsProcessed = new client.Counter({
     name: 'rollem_events_processed',
     help: 'A counter for events that rollem has processed. May not include all events.',
-    labelNames: ['activity'],
+    labelNames: ['activity', 'guild_id'],
   });
   private readonly parserUse = new client.Counter({
     name: 'rollem_parser_use',
@@ -80,7 +80,10 @@ export class PromLogger {
     });
   }
 
-  public incEventsProcessed(activity: string) {
-    this.eventsProcessed.inc({ activity });
+  public incEventsProcessed(o: { activity: string, guildId?: string}) {
+    this.eventsProcessed.inc({
+      'activity': o.activity,
+      'guild_id': o.guildId
+    });
   }
 }
