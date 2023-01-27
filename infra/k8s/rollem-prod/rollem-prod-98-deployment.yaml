@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollem-prod-98-deployment
+spec:
+  selector:
+    matchLabels:
+      app: rollem-prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rollem-prod
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-rollem
+      containers:
+      - name: rollem-shard-98
+        image: lemtzas/rollem-discord:2.9.4
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8081
+        resources:
+          requests:
+            cpu: 25m
+            memory: 250M
+        env:
+        - name: 'reboot'
+          value: '2023-01-10'
+        - name: DISCORD_BOT_SHARD_ID
+          value: '98'
+        - name: DISCORD_BOT_SHARD_COUNT
+          value: '112'
+        - name: 'DISCORD_BOT_USER_TOKEN'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod-2
+              key: DISCORD_BOT_USER_TOKEN
+        - name: 'APPINSIGHTS_CONNECTIONSTRING'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod-2
+              key: APPINSIGHTS_CONNECTIONSTRING
+        - name: 'DEFER_TO_CLIENT_IDS'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod-2
+              key: DEFER_TO_CLIENT_IDS
+        - name: 'DB_CONNECTION_STRING'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-prod-2
+              key: DB_CONNECTION_STRING
