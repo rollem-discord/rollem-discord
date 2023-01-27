@@ -11,7 +11,7 @@ spec:
   - name: rollem-events-processed
     rules:
     - alert: RollemProdLacksEvents
-      expr: sum by(shard) (increase(rollem_events_processed{job="default/rollem-prod"}[5m])) < 5
+      expr: sum by(shard) (increase(rollem_events_processed{job="default/rollem-prod"}[5m])) < 1
       for: 1m
       labels:
         namespace: default
@@ -21,7 +21,7 @@ spec:
         summary: Rollem Prod {{ $labels.shard }} is not handling events.
         description: Rollem Prod {{ $labels.shard }} is receiving few events over the last 5 minutes.
     - alert: RollemNextLacksEvents
-      expr: sum by(shard) (increase(rollem_events_processed{job="default/rollem-next"}[5m])) < 5
+      expr: sum by(shard) (increase(rollem_events_processed{job="default/rollem-next"}[5m])) < 1
       for: 1m
       labels:
         namespace: default

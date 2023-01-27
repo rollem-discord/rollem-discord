@@ -27,7 +27,7 @@ spec:
             memory: 250M
         env:
         - name: 'reboot'
-          value: '2022-12-19'
+          value: '2023-01-10'
         - name: DISCORD_BOT_SHARD_ID
           value: '79'
         - name: DISCORD_BOT_SHARD_COUNT
