@@ -5,6 +5,9 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
+  nodeSelector:
+    doks.digitalocean.com/node-pool: pool-monitoring
+
   persistence:
     enabled: true
     existingClaim: 'grafana-pvc'
