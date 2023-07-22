@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: storage-kube-prometheus-stack-grafana-0
+  namespace: monitoring
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeName: pvc-9ddc6696-01b1-4c4e-8c58-09c22ce596fa # claimed by following https://stackoverflow.com/questions/34282704/can-a-pvc-be-bound-to-a-specific-pv

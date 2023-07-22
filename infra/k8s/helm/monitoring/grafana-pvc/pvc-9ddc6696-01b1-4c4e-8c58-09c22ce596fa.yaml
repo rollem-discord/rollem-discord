@@ -1,0 +1,27 @@
+# based on https://github.com/digitalocean/csi-digitalocean/blob/master/examples/kubernetes/pod-single-existing-volume/README.md
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pvc-9ddc6696-01b1-4c4e-8c58-09c22ce596fa
+  annotations:
+    # fake it by indicating this is provisioned dynamically, so the system
+    # works properly
+    pv.kubernetes.io/provisioned-by: dobs.csi.digitalocean.com
+spec:
+  storageClassName: do-block-storage
+  # by default, the volume will be not deleted if you delete the PVC, change to
+  # "Delete" if you wish the volume to be deleted automatically with the PVC
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef: # claimed by following https://stackoverflow.com/questions/34282704/can-a-pvc-be-bound-to-a-specific-pv
+    namespace: monitoring
+    name: storage-kube-prometheus-stack-grafana-0
+  csi:
+    driver: dobs.csi.digitalocean.com
+    fsType: ext4
+    volumeHandle: 8270670d-82af-11ed-bb73-0a58ac142734
+    volumeAttributes:
+      com.digitalocean.csi/noformat: "true"

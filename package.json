@@ -3,34 +3,42 @@
   "private": true,
   "scripts": {
     "lerna": "lerna",
+
     "package": "lerna run package --stream",
     "package:ui": "lerna run package:ui --stream",
     "package:bot": "lerna run package:bot --stream",
     "package:start": "lerna run package:start --stream",
     "package:ui:start": "lerna run package:ui:start --stream",
     "package:bot:start": "lerna run package:bot:start --stream",
+
     "watch": "lerna run watch --stream",
     "watch:ui": "lerna run watch:ui --stream",
     "watch:lang": "lerna run watch:lang --stream",
     "watch:bot": "lerna run watch:bot --stream",
+
     "start": "lerna run start --stream",
     "start:ui": "lerna run start:ui --stream",
     "start:bot": "lerna run start:bot --stream",
+
     "dev": "lerna run dev --stream",
     "dev:ui": "lerna run dev:ui --stream",
     "dev:bot": "lerna run dev:bot --stream",
     "dev:common": "lerna run dev:common --stream",
+
     "build": "lerna run build --stream",
     "build:ui": "lerna run build:ui --stream",
     "build:bot": "lerna run build:bot --stream",
     "build:common": "lerna run build:common --stream",
     "build:lang": "lerna run build:lang --stream",
+
     "bootstrap": "lerna bootstrap",
+
     "publish:info": "lerna ls -l",
     "publish:major": "lerna version major --no-push -y && lerna publish from-package -y",
     "publish:minor": "lerna version minor --no-push -y && lerna publish from-package -y",
     "publish:patch": "lerna version patch --no-push -y && lerna publish from-package -y",
     "publish:prepatch": "lerna version prepatch --no-push -y && lerna publish from-package -y",
+
     "infra:get:recent": "kubectl get pods --sort-by=.status.startTime",
     "infra:prom2:forward": "kubectl port-forward prometheus 9090 -n kube-system",
     "infra:prom:forward": "kubectl port-forward svc/kube-prometheus-stack-prometheus 9090 -n monitoring",
@@ -41,6 +49,7 @@
     "infra:grafana:forward": "kubectl port-forward svc/kube-prometheus-stack-grafana 8080:80 -n monitoring",
     "infra:update-credentials": "doctl kubernetes cluster kubeconfig save rollem-sfo2",
     "infra:update-credentials:old": "doctl kubernetes cluster kubeconfig save rollem-old-sfo2",
+
     "infra:restart:prod": "sh -c 'kubectl rollout restart deployment rollem-prod-${0}-deployment'",
     "infra:restart:next": "sh -c 'kubectl rollout restart deployment rollem-next-${0}-deployment'",
     "infra:replace:next:old": "kubectl replace -f ./infra/k8s/rollem-next/",
@@ -48,6 +57,7 @@
     "infra:replace:ui:old": "kubectl replace -f ./infra/k8s/rollem-ui/",
     "infra:replace:services:old": "kubectl apply -f ./infra/k8s/services/",
     "infra:replace:ingress:old": "kubectl replace -f ./infra/k8s/ingress/",
+
     "infra:apply:cluster-config": "kubectl apply -f ./infra/k8s/cluster-config/",
     "infra:apply:next": "kubectl apply -f ./infra/k8s/rollem-next/",
     "infra:apply:prod": "kubectl apply -f ./infra/k8s/rollem-prod/",
@@ -56,20 +66,30 @@
     "infra:apply:ui": "kubectl apply -f ./infra/k8s/rollem-ui/",
     "infra:apply:services": "kubectl apply -f ./infra/k8s/services/",
     "infra:apply:ingress": "kubectl apply -f ./infra/k8s/ingress/",
+
     "infra:debug:busybox": "kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh",
+
     "infra:delete:evicted": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:error": "kubectl get pods | grep Error | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:unknown": "kubectl get pods | grep ContainerStatusUnknown | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:creating": "kubectl get pods | grep ContainerCreating | awk '{print $1}' | xargs kubectl delete pod",
     "infra:delete:bad": "kubectl get pods | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff | awk '{print $1}' | xargs kubectl delete pod",
-    "infra:prom:restart": "kubectl rollout restart deployment kube-prometheus-stack-operator -n monitoring",
-    "infra:grafana:restart": "kubectl rollout restart deployment kube-prometheus-stack-grafana -n monitoring",
+
+    "infra:prom:restart:old": "kubectl rollout restart deployment kube-prometheus-stack-operator -n monitoring",
+    "infra:grafana:restart": "kubectl rollout restart statefulset kube-prometheus-stack-grafana -n monitoring",
+
     "infra:alert:restart": "kubectl rollout restart statefulset alertmanager-kube-prometheus-stack-alertmanager -n monitoring",
+
     "infra:delete:bad:monitoring": "kubectl get pods -n monitoring | grep -e Evicted -e Error -e ContainerStatusUnknown -e OOMKilled -e ImagePullBackOff -e Completed | awk '{print $1}' | xargs kubectl delete pod -n monitoring",
     "infra:delete:bad:all": "kubectl get pods -A | grep -e Evicted -e Error | awk '{print $1,$2,$4}' | xargs kubectl delete pod $2 -n $1",
+
     "infra:helm:apply:volumes": "kubectl apply -f ./infra/k8s/helm/volumes/",
     "infra:helm:upgrade:monitoring": "helm upgrade kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/values.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/grafana.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/alert-manager.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/scrapers.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/thanos.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/prometheus.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/node-exporter.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/kube-state-metrics.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/prometheus-operator.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack/secrets.yaml --timeout 10m",
     "infra:helm:upgrade:descheduler": "helm upgrade descheduler descheduler/descheduler -n monitoring -f ./infra/k8s/helm/monitoring/descheduler.yaml",
+    
+    "infra:prom:bash": "kubectl exec -it -n monitoring prometheus-kube-prometheus-stack-prometheus-0 -c prometheus -- sh",
+    "infra:prom:purge-wal": "kubectl exec -it -n monitoring prometheus-kube-prometheus-stack-prometheus-0 -c prometheus -- mv wal wal-removed",
+    "infra:prom:restart": "sh -c 'kubectl rollout restart statefulset prometheus-kube-prometheus-stack-prometheus -n monitoring'",
     "postpublish": "git push --tags"
   },
   "dependencies": {

@@ -2,149 +2,18 @@
 ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 ##
 grafana:
-  enabled: true
-  namespaceOverride: ""
-
   nodeSelector:
     doks.digitalocean.com/node-pool: pool-monitoring
 
+  # Based on https://www.digitalocean.com/community/tutorials/how-to-set-up-digitalocean-kubernetes-cluster-monitoring-with-helm-and-prometheus-operator
   persistence:
     enabled: true
-    existingClaim: 'grafana-pvc'
-  ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
-  ##
-  forceDeployDatasources: false
+    existingClaim: pvc-9ddc6696-01b1-4c4e-8c58-09c22ce596fa
+    storageClassName: do-block-storage
+    accessModes: ["ReadWriteOnce"]
+    size: 10Gi
 
-  ## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
-  ##
-  forceDeployDashboards: false
-
-  ## Deploy default dashboards
-  ##
-  defaultDashboardsEnabled: true
-
-  ## Timezone for the default dashboards
-  ## Other options are: browser or a specific timezone, i.e. Europe/Luxembourg
-  ##
-  defaultDashboardsTimezone: utc
-
-  adminPassword: prom-operator
-
-  rbac:
-    ## If true, Grafana PSPs will be created
-    ##
-    pspEnabled: false
-
-  ingress:
-    ## If true, Grafana Ingress will be created
-    ##
-    enabled: false
-
-    ## IngressClassName for Grafana Ingress.
-    ## Should be provided if Ingress is enable.
-    ##
-    # ingressClassName: nginx
-
-    ## Annotations for Grafana Ingress
-    ##
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-
-    ## Labels to be added to the Ingress
-    ##
-    labels: {}
-
-    ## Hostnames.
-    ## Must be provided if Ingress is enable.
-    ##
-    # hosts:
-    #   - grafana.domain.com
-    hosts: []
-
-    ## Path for grafana ingress
-    path: /
-
-    ## TLS configuration for grafana Ingress
-    ## Secret must be manually created in the namespace
-    ##
-    tls: []
-    # - secretName: grafana-general-tls
-    #   hosts:
-    #   - grafana.example.com
-
-  sidecar:
-    dashboards:
-      enabled: true
-      label: grafana_dashboard
-      labelValue: "1"
-
-      ## Annotations for Grafana dashboard configmaps
-      ##
-      annotations: {}
-      multicluster:
-        global:
-          enabled: false
-        etcd:
-          enabled: false
-      provider:
-        allowUiUpdates: false
-    datasources:
-      enabled: true
-      defaultDatasourceEnabled: true
-
-      uid: prometheus
-
-      ## URL of prometheus datasource
-      ##
-      # url: http://prometheus-stack-prometheus:9090/
-
-      # If not defined, will use prometheus.prometheusSpec.scrapeInterval or its default
-      # defaultDatasourceScrapeInterval: 15s
-
-      ## Annotations for Grafana datasource configmaps
-      ##
-      annotations: {}
-
-      ## Create datasource for each Pod of Prometheus StatefulSet;
-      ## this uses headless service `prometheus-operated` which is
-      ## created by Prometheus Operator
-      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/0fee93e12dc7c2ea1218f19ae25ec6b893460590/pkg/prometheus/statefulset.go#L255-L286
-      createPrometheusReplicasDatasources: false
-      label: grafana_datasource
-      labelValue: "1"
-
-      ## Field with internal link pointing to existing data source in Grafana.
-      ## Can be provisioned via additionalDataSources
-      exemplarTraceIdDestinations: {}
-        # datasourceUid: Jaeger
-        # traceIdLabelName: trace_id
-
-  extraConfigmapMounts: []
-  # - name: certs-configmap
-  #   mountPath: /etc/grafana/ssl/
-  #   configMap: certs-configmap
-  #   readOnly: true
-
-  deleteDatasources: []
-  # - name: example-datasource
-  #   orgId: 1
-
-  ## Configure additional grafana datasources (passed through tpl)
-  ## ref: http://docs.grafana.org/administration/provisioning/#datasources
-  additionalDataSources: []
-  # - name: prometheus-sample
-  #   access: proxy
-  #   basicAuth: true
-  #   basicAuthPassword: pass
-  #   basicAuthUser: daco
-  #   editable: false
-  #   jsonData:
-  #       tlsSkipVerify: true
-  #   orgId: 1
-  #   type: prometheus
-  #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
-  #   version: 1
+  useStatefulSet: true
 
   ## Passed to grafana subchart and used by servicemonitor below
   ##
@@ -153,36 +22,3 @@ grafana:
 
     nodeSelector:
       doks.digitalocean.com/node-pool: pool-monitoring
-
-  serviceMonitor:
-    # If true, a ServiceMonitor CRD is created for a prometheus operator
-    # https://github.com/coreos/prometheus-operator
-    #
-    enabled: true
-
-    # Path to use for scraping metrics. Might be different if server.root_url is set
-    # in grafana.ini
-    path: "/metrics"
-
-    #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
-
-    # labels for the ServiceMonitor
-    labels: {}
-
-    # Scrape interval. If not set, the Prometheus default scrape interval is used.
-    #
-    interval: ""
-    scheme: http
-    tlsConfig: {}
-    scrapeTimeout: 30s
-
-    ## RelabelConfigs to apply to samples before scraping
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
-    ##
-    relabelings: []
-    # - sourceLabels: [__meta_kubernetes_pod_node_name]
-    #   separator: ;
-    #   regex: ^(.*)$
-    #   targetLabel: nodename
-    #   replacement: $1
-    #   action: replace
