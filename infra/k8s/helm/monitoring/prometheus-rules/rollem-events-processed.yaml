@@ -6,6 +6,7 @@ metadata:
     prometheus: example
     role: alert-rules
   name: rollem-events-processed
+  namespace: monitoring
 spec:
   groups:
   - name: rollem-events-processed
