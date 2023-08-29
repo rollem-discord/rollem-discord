@@ -3,8 +3,9 @@
 ## ref: https://prometheus.io/docs/alerting/alertmanager/
 ##
 alertmanager:
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-monitoring
+  # seems this may be unacceptable?
+  # nodeSelector:
+  #   doks.digitalocean.com/node-pool: pool-monitoring
 
   config:
     global:
