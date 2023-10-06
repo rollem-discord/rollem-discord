@@ -15,10 +15,10 @@
   "scripts": {
     "clean": "rm -rf ./dist ./.next",
     "dev": "yarn run dev:ui",
-    "dev:ui": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev:ui": "cross-env NODE_OPTIONS='--inspect --openssl-legacy-provider' next dev",
     "build": "yarn run clean && yarn run build:ui",
-    "build:ui": "next build",
-    "start": "next start",
+    "build:ui": "cross-env NODE_OPTIONS='--openssl-legacy-provider' next build",
+    "start": "cross-env next start",
     "package": "docker build -t rollem-ui .",
     "package:start": "docker run -p 3001:3000 --env-file ../../secrets/vscode.env rollem-ui",
     "package:start-remote": "docker run -p 3001:3000 --env-file ../../secrets/vscode.env lemtzas/docker-rollem-ui",
@@ -61,7 +61,7 @@
     "cross-env": "^7.0.3",
     "next-cli": "^1.0.0",
     "typescript": "^4.3.2",
-    "webpack": "^5.40.0"
+    "webpack": "5.88.2"
   },
   "gitHead": "69a321958280a1817ff7567729d87d6b7617d318"
 }
