@@ -75,10 +75,9 @@
     "infra:prom:restart": "sh -c 'kubectl rollout restart statefulset prometheus-kube-prometheus-stack-prometheus -n monitoring'",
     "postpublish": "git push --tags"
   },
-  "dependencies": {
-    "lerna": "^4.0.0"
-  },
-  "devDependencies": {
-    "lerna-update-wizard": "^1.1.2"
-  }
+  "dependencies": {},
+  "devDependencies": {},
+  "workspaces": [
+    "packages/*"
+  ]
 }
