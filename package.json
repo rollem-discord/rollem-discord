@@ -40,7 +40,7 @@
     "publish:prepatch": "lerna version prepatch --no-push -y && lerna publish from-package -y",
 
     "infra:get:recent": "kubectl get pods --sort-by=.status.startTime",
-    "infra:prom2:forward": "kubectl port-forward prometheus 9090 -n kube-system",
+    "infra:prom2:forward": "kubectl port-forward svc/prometheus 9090 -n kube-system",
     "infra:prom:forward": "kubectl port-forward svc/kube-prometheus-stack-prometheus 9090 -n monitoring",
     "infra:grafana": "yarn run infra:grafana:forward && yarn run infra:grafana:open",
     "infra:grafana:open": "start http://localhost:8080",
