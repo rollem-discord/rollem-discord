@@ -14,7 +14,7 @@ prometheus:
       doks.digitalocean.com/node-pool: pool-monitoring
 
     ## How long to retain metrics
-    retention: 120d
+    retention: 30d
 
     ## Maximum size of metrics
     retentionSize: ""
