@@ -40,7 +40,7 @@ function getSortedDocsDataInternal(
   parentRoute: string[] = []
 ): DocsDataTree[] {
   const fileNames = fs.readdirSync(directoryName);
-  // console.log(fileNames);
+  console.log(fileNames);
   return chain(fileNames)
     .map((fileName) => {
       const pathId = fileName.replace(/\.md$/, "");

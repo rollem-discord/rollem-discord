@@ -126,14 +126,12 @@ function SideNavContent() {
   return (
     <>
       <Typography variant="h6">
-        <Link href={"/"}>
-          <a className={classes.homeWrapper}>
+        <Link href={"/"} className={classes.homeWrapper}>
             <img
               className={classes.iconImage}
               src="/images/rollem-transparent.png"
             ></img>
             Rollem&nbsp;Rocks
-          </a>
         </Link>
       </Typography>
       <List>
