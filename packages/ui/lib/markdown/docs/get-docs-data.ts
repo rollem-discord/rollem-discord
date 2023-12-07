@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-import { chain, flatMapDeep, sortBy } from "lodash";
+import _ from "lodash";
 import { inspect } from "util";
 
 
@@ -41,7 +41,7 @@ function getSortedDocsDataInternal(
 ): DocsDataTree[] {
   const fileNames = fs.readdirSync(directoryName);
   console.log(fileNames);
-  return chain(fileNames)
+  return _.chain(fileNames)
     .map((fileName) => {
       const pathId = fileName.replace(/\.md$/, "");
       const fullPath = path.join(directoryName, fileName);
@@ -49,7 +49,7 @@ function getSortedDocsDataInternal(
       const route = [...parentRoute, pathId];
       if (pathStats.isDirectory()) {
         const childDocs = getSortedDocsDataInternal(fullPath, route);
-        const childDocsSorted = sortBy(childDocs, (d) => d.item.nav_order);
+        const childDocsSorted = _.sortBy(childDocs, (d) => d.item.nav_order);
         const indexDoc = tryGetSingleDocData(
           path.join(directoryName, fileName),
           route
@@ -108,13 +108,13 @@ export function tryGetSingleDocData(
 
 export function getAllDocIds() {
   const docData = getSortedDocsData();
-  const flattenedDocData = flatMapDeep(docData);
+  const flattenedDocData = _.flatMapDeep(docData);
   const flat2 = [
-    ...chain(flattenedDocData)
+    ..._.chain(flattenedDocData)
       .map((v) => v?.item)
       .filter((v) => !!v)
       .value(),
-    ...chain(flattenedDocData)
+    ..._.chain(flattenedDocData)
       .flatMap((v) => v?.children)
       .map((v) => v?.item)
       .filter(v => !!v)
