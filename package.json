@@ -75,9 +75,8 @@
     "infra:prom:restart": "sh -c 'kubectl rollout restart statefulset prometheus-kube-prometheus-stack-prometheus -n monitoring'",
     "postpublish": "git push --tags"
   },
-  "dependencies": {},
-  "devDependencies": {},
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "packageManager": "yarn@4.0.2"
 }
