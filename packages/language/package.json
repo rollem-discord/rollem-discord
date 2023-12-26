@@ -107,5 +107,6 @@
     "webpack-cli": "^4.5.0",
     "webpack-shell-plugin-next": "^2.2.2"
   },
-  "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878"
+  "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878",
+  "packageManager": "yarn@4.0.2"
 }

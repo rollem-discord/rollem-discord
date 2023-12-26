@@ -63,5 +63,6 @@
     "typescript": "^4.3.2",
     "webpack": "5.88.2"
   },
-  "gitHead": "69a321958280a1817ff7567729d87d6b7617d318"
+  "gitHead": "69a321958280a1817ff7567729d87d6b7617d318",
+  "packageManager": "yarn@4.0.2"
 }
