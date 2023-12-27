@@ -2,6 +2,11 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "_workspace": "",
+    "bot": "yarn workspace @rollem/bot",
+    "common": "yarn workspace @rollem/common",
+    "language": "yarn workspace @rollem/language",
+    "lang": "yarn language",
     "lerna": "lerna",
     "package": "lerna run package --stream",
     "package:ui": "lerna run package:ui --stream",

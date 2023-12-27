@@ -25,7 +25,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist/umd'),
     filename: 'index.js',
-    library: 'exampleTypescriptPackage',
+    library: '@rollem/common',
     libraryTarget: 'umd',
     globalObject: 'this',
   },

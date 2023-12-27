@@ -1322,8 +1322,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rollem/bot@workspace:packages/bot"
   dependencies:
-    "@rollem/common": "workspace:^"
-    "@rollem/language": "workspace:^"
+    "@rollem/common": "npm:*"
+    "@rollem/language": "npm:*"
     "@types/chai": "npm:^4.2.11"
     "@types/chance": "npm:^1.1.0"
     "@types/express": "npm:^4.17.13"
@@ -1378,7 +1378,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rollem/common@npm:^2.7.0, @rollem/common@workspace:^, @rollem/common@workspace:packages/common":
+"@rollem/common@npm:*, @rollem/common@npm:^2.7.0, @rollem/common@workspace:packages/common":
   version: 0.0.0-use.local
   resolution: "@rollem/common@workspace:packages/common"
   dependencies:
@@ -1436,7 +1436,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rollem/language@npm:^2.7.2, @rollem/language@workspace:^, @rollem/language@workspace:packages/language":
+"@rollem/language@npm:*, @rollem/language@npm:^2.7.2, @rollem/language@workspace:packages/language":
   version: 0.0.0-use.local
   resolution: "@rollem/language@workspace:packages/language"
   dependencies:
