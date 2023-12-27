@@ -80,6 +80,7 @@
   ],
   "packageManager": "yarn@4.0.2",
   "devDependencies": {
-    "nx": "17.2.7"
+    "nx": "17.2.7",
+    "typescript": "^5.3.3"
   }
 }

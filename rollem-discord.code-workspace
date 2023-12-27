@@ -2,16 +2,10 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "packages/language"
 		}
 	],
 	"settings": {
-		"files.exclude": {
-			"node_modules": true
-		},
-		"editor.tabSize": 2,
-		"workbench.editor.wrapTabs": true
+		"typescript.tsdk": ".yarn/sdks/typescript/lib",
+		"typescript.enablePromptUseWorkspaceTsdk": true
 	}
 }
