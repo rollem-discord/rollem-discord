@@ -11,6 +11,8 @@ const config = {
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   plugins: [
     new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
+    new webpack.IgnorePlugin({ resourceRegExp: /^zlib-sync$/, contextRegExp: /discordjs/ }), // optional dependency
+    new webpack.IgnorePlugin({ resourceRegExp: /^stack-chain$/, contextRegExp: /cls-hooked/ }),
     new FilterWarningsPlugin({
       exclude: [
         /the request of a dependency is an expression/,

@@ -1331,7 +1331,7 @@ __metadata:
     "@types/lodash": "npm:^4.14.136"
     "@types/mocha": "npm:^7.0.2"
     "@types/node": "npm:^20.10.5"
-    applicationinsights: "npm:^2.3.6"
+    applicationinsights: "npm:^2.9.1"
     chai: "npm:^3.5.0"
     chance: "npm:^1.1.5"
     copy-webpack-plugin: "npm:^8.1.0"
@@ -1375,6 +1375,7 @@ __metadata:
     webpack-filter-warnings-plugin: "npm:^1.2.1"
     webpack-node-externals: "npm:^3.0.0"
     webpack-shell-plugin-next: "npm:^2.2.2"
+    zlib-sync: "npm:^0.1.9"
   languageName: unknown
   linkType: soft
 
@@ -1392,7 +1393,7 @@ __metadata:
     "@types/node": "npm:^20.10.5"
     "@typescript-eslint/eslint-plugin": "npm:^4.15.0"
     "@typescript-eslint/parser": "npm:^4.15.0"
-    applicationinsights: "npm:^1.0.2"
+    applicationinsights: "npm:^2.9.1"
     chai: "npm:^3.5.0"
     chance: "npm:^1.1.5"
     cross-env: "npm:^7.0.3"
@@ -1450,7 +1451,7 @@ __metadata:
     "@types/node": "npm:^20.10.5"
     "@typescript-eslint/eslint-plugin": "npm:^4.15.0"
     "@typescript-eslint/parser": "npm:^4.15.0"
-    applicationinsights: "npm:^1.0.2"
+    applicationinsights: "npm:^2.9.1"
     chai: "npm:^3.5.0"
     chance: "npm:^1.1.5"
     cross-env: "npm:^7.0.3"
@@ -1511,7 +1512,7 @@ __metadata:
     "@types/lru-cache": "npm:^7.10.10"
     "@types/mocha": "npm:^7.0.2"
     "@types/node": "npm:^20.10.5"
-    applicationinsights: "npm:^2.1.3"
+    applicationinsights: "npm:^2.9.1"
     axios: "npm:1.1.3"
     chai: "npm:^3.5.0"
     chance: "npm:^1.1.5"
@@ -2820,19 +2821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:^1.0.2":
-  version: 1.8.10
-  resolution: "applicationinsights@npm:1.8.10"
-  dependencies:
-    cls-hooked: "npm:^4.2.2"
-    continuation-local-storage: "npm:^3.2.1"
-    diagnostic-channel: "npm:0.3.1"
-    diagnostic-channel-publishers: "npm:0.4.4"
-  checksum: 91c0034634b5af3f22e1131a9f81966125396fa483f9efa05d9720872150e99f470c0fc98a3f4726a0049c891ef4f5d5c9f2a69893151aeb2f58970034b95f2c
-  languageName: node
-  linkType: hard
-
-"applicationinsights@npm:^2.1.3, applicationinsights@npm:^2.3.6":
+"applicationinsights@npm:^2.9.1":
   version: 2.9.1
   resolution: "applicationinsights@npm:2.9.1"
   dependencies:
@@ -5647,30 +5636,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diagnostic-channel-publishers@npm:0.4.4":
-  version: 0.4.4
-  resolution: "diagnostic-channel-publishers@npm:0.4.4"
-  peerDependencies:
-    diagnostic-channel: "*"
-  checksum: 478abed9adaec1825da17c3ae545a2e25e63f15cf9d396c9231a5d24fdafb5cf6324c0ca7338fce8b1318136161d08aa91efe2d89cb34187c2cb8f2873a6ea46
-  languageName: node
-  linkType: hard
-
 "diagnostic-channel-publishers@npm:1.0.7":
   version: 1.0.7
   resolution: "diagnostic-channel-publishers@npm:1.0.7"
   peerDependencies:
     diagnostic-channel: "*"
   checksum: 040c03d1382d95da8b464b9d682ef14f257c3d67f63dfe57738584447be604fc820875384ad0e62bf4126e69249b9d29a6f6032e218a7955436c7dae72d70500
-  languageName: node
-  linkType: hard
-
-"diagnostic-channel@npm:0.3.1":
-  version: 0.3.1
-  resolution: "diagnostic-channel@npm:0.3.1"
-  dependencies:
-    semver: "npm:^5.3.0"
-  checksum: 142f569857e54176a3475cb4d46d823363cf8881a9264590013e53eb679d9aff08cc7eb45e99f9fe136d28591e09dd855e58ad6bff40cb31c7834a8f82a1df0e
   languageName: node
   linkType: hard
 
@@ -11813,7 +11784,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nan@npm:^2.12.1":
+"nan@npm:^2.12.1, nan@npm:^2.18.0":
   version: 2.18.0
   resolution: "nan@npm:2.18.0"
   dependencies:
@@ -18674,6 +18645,16 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zlib-sync@npm:^0.1.9":
+  version: 0.1.9
+  resolution: "zlib-sync@npm:0.1.9"
+  dependencies:
+    nan: "npm:^2.18.0"
+    node-gyp: "npm:latest"
+  checksum: 1c05fdc5140f4c9afb931bfca01fc9f26ddfe242eb5c8c06ffc93b53d5103f0a99e8b8048697446001eb4a92c12febd270bcb4cda3fa3de9bf822e6ba0664902
   languageName: node
   linkType: hard
 

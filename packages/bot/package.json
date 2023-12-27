@@ -18,7 +18,7 @@
     "dev:bot": "cross-env NODE_ENV=development webpack --watch",
     "start": "yarn run start:bot",
     "start:bot": "yarn run webpack:launch",
-    "webpack:launch": "cross-env NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
+    "webpack:launch": "cross-env NODE_ENV=development yarn dlx nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "package": "yarn run package:bot",
     "package:bot": "docker build -t rollem-bot .",
     "package:start": "yarn run package:bot:start",
@@ -63,7 +63,7 @@
     "@types/lodash": "^4.14.136",
     "@types/mocha": "^7.0.2",
     "@types/node": "^20.10.5",
-    "applicationinsights": "^2.3.6",
+    "applicationinsights": "^2.9.1",
     "chai": "^3.5.0",
     "chance": "^1.1.5",
     "del": "^3.0.0",
@@ -104,7 +104,8 @@
     "webpack-cli": "^4.7.2",
     "webpack-filter-warnings-plugin": "^1.2.1",
     "webpack-node-externals": "^3.0.0",
-    "webpack-shell-plugin-next": "^2.2.2"
+    "webpack-shell-plugin-next": "^2.2.2",
+    "zlib-sync": "^0.1.9"
   },
   "license": "MIT",
   "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878",
