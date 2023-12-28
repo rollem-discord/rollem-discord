@@ -98,13 +98,13 @@ export default function NavTop() {
               </Hidden>
               <Tooltip title="Rollem Rocks">
                 <Typography variant="h6">
-                  <Link href={"/"}>
-                    <a className={classes.homeWrapper}>
-                      <img
-                        className={classes.iconImage}
-                        src="/images/rollem-transparent.png"
-                      ></img>
-                    </a>
+                  <Link href={"/"} className={classes.homeWrapper}>
+
+                    <img
+                      className={classes.iconImage}
+                      src="/images/rollem-transparent.png"
+                    ></img>
+
                   </Link>
                 </Typography>
               </Tooltip>

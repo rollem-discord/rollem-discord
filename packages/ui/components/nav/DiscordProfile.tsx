@@ -56,47 +56,41 @@ export function DiscordProfile() {
     const username = data?.discord?.user?.username;
     const discriminator = data?.discord?.user?.discriminator;
 
-    return (
-      <>
-        <Tooltip title={`Account (${username}#${discriminator})`}>
-          <span>
-            <ActiveLink href={`/account`} className={classes.link} activeClassName={classes.activeLink}>
-              <a>
-                <span className={classes.homeWrapper}>
-                  <Avatar
-                    src={`https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`}
-                    className={classes.profileImage}
-                  ></Avatar>
-                </span>
-              </a>
-            </ActiveLink>
-          </span>
-        </Tooltip>
-        <Tooltip title="Settings">
-          <span>
-            <Link href={'/account/settings'}><a><SvgIcon component={Settings}></SvgIcon></a></Link>
-          </span>
-        </Tooltip>
-        <Tooltip title="Logout">
-          <span>
-            <Link href={"/account/logout"}>
-              <a className={classes.link}>
-                <SvgIcon component={ExitToApp}></SvgIcon>
-              </a>
-            </Link>
-          </span>
-        </Tooltip>
-      </>
-    );
+    return <>
+      <Tooltip title={`Account (${username}#${discriminator})`}>
+        <span>
+          <ActiveLink href={`/account`} className={classes.link} activeClassName={classes.activeLink}>
+              <span className={classes.homeWrapper}>
+                <Avatar
+                  src={`https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`}
+                  className={classes.profileImage}
+                ></Avatar>
+              </span>
+          </ActiveLink>
+        </span>
+      </Tooltip>
+      <Tooltip title="Settings">
+        <span>
+          <Link href={'/account/settings'}><SvgIcon component={Settings}></SvgIcon></Link>
+        </span>
+      </Tooltip>
+      <Tooltip title="Logout">
+        <span>
+          <Link href={"/account/logout"} className={classes.link}>
+
+            <SvgIcon component={ExitToApp}></SvgIcon>
+
+          </Link>
+        </span>
+      </Tooltip>
+    </>;
   }
 
   const callback = `${context.baseUrl}/api/auth/discord/callback`;
   const encodedCallback = encodeURIComponent(callback);
   const loginUrl = `https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=${encodedCallback}&response_type=code&scope=identify%20guilds`;
 
-  return (
-    <>
-      <Link href={loginUrl}><a>Login</a></Link>
-    </>
-  );
+  return <>
+    <Link href={loginUrl}>Login</Link>
+  </>;
 }
