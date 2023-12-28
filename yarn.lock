@@ -1375,7 +1375,6 @@ __metadata:
     webpack-filter-warnings-plugin: "npm:^1.2.1"
     webpack-node-externals: "npm:^3.0.0"
     webpack-shell-plugin-next: "npm:^2.2.2"
-    zlib-sync: "npm:^0.1.9"
   languageName: unknown
   linkType: soft
 
@@ -11784,7 +11783,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nan@npm:^2.12.1, nan@npm:^2.18.0":
+"nan@npm:^2.12.1":
   version: 2.18.0
   resolution: "nan@npm:2.18.0"
   dependencies:
@@ -18645,16 +18644,6 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
-  languageName: node
-  linkType: hard
-
-"zlib-sync@npm:^0.1.9":
-  version: 0.1.9
-  resolution: "zlib-sync@npm:0.1.9"
-  dependencies:
-    nan: "npm:^2.18.0"
-    node-gyp: "npm:latest"
-  checksum: 1c05fdc5140f4c9afb931bfca01fc9f26ddfe242eb5c8c06ffc93b53d5103f0a99e8b8048697446001eb4a92c12febd270bcb4cda3fa3de9bf822e6ba0664902
   languageName: node
   linkType: hard
 

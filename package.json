@@ -7,6 +7,8 @@
     "common": "yarn workspace @rollem/common",
     "language": "yarn workspace @rollem/language",
     "lang": "yarn language",
+    "ui": "yarn workspace @rollem/ui",
+    "mastodon": "yarn workspace @rollem/mastodon",
     "lerna": "lerna",
     "package": "lerna run package --stream",
     "package:ui": "lerna run package:ui --stream",
