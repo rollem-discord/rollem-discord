@@ -19,6 +19,16 @@ export class Storage {
     return this.usersRepository.count();
   }
 
+  /** Gets a user's config (if one exists), or returns an empty config. */
+  public async getUserOrUndefined(discordUserId): Promise<User | undefined> {
+    const retrieveById = async () => await this.usersRepository.findOne({where: { discordUserId: discordUserId }});
+    const existingUser = await retrieveById();
+    if (existingUser) { return existingUser; }
+
+    return undefined;
+  }
+
+  /** Gets or creates a user (if none exists). */
   public async getOrCreateUser(discordUserId): Promise<User> {
     const retrieveById = async () => await this.usersRepository.findOne({where: { discordUserId: discordUserId }});
     const existingUser = await retrieveById();

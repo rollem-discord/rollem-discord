@@ -47,6 +47,10 @@ export class StorageBehavior extends BehaviorBase {
         return { response: dumpResponse };
 
       case "forget":
+        if (!context.user?.discordUserId) {
+          return { response: "You are not known." }
+        }
+
         await this.storage.forgetUser(context.user.discordUserId);
         this.promLogger.incHandlersUsed(HandlerType.Storage, StorageHandlerSubtype.Forget);
         return { response: "You are forgotten." };

@@ -33,12 +33,15 @@ export class StandardAdapter extends DiscordBehaviorBase {
   }
 
   /** Called on initialization to register any callbacks with the discord client. */
-  
 
   protected async register() {
     this.client.on('messageCreate', async message => {
       // ignore bots to avoid loops
-      if (message.author.bot) { return; }
+      if (message.author.bot) {
+        if (!this.isTupperBot(message)) {
+          return;
+        }
+      }
 
       // ignore re-delivered messages
       if (this.repliedMessageCache.hasSeenMessageBefore(message, "adapter")) { return; }
@@ -49,13 +52,25 @@ export class StandardAdapter extends DiscordBehaviorBase {
     });
   }
 
+  /** True when the given message has been sent by a known Tupperbox bot. */
+  private isTupperBot(message: Message<boolean>): boolean {
+    return this.config.tupperBotIds.has(message.author.id);
+  }
+
   private async buildContext(message: Message): Promise<BehaviorContext> {
     console.log({event: 'buildContext-1', authorId: message.author.id, content: message.content, timestamp: new Date().toISOString()});
-    let user: DatabaseFailure | User;
-    try {
-      user = await this.storage.getOrCreateUser(message.author.id);
-    } catch (ex) {
-      user = <DatabaseFailure>{ error: (ex as Error).message };
+
+    const isTupperBot = this.isTupperBot(message);
+    let user: DatabaseFailure | User | undefined;
+
+    if (isTupperBot) {
+      user = undefined; // if the caller is a Tupperbox bot, we do not know the user.
+    } else {
+      try {
+        user = await this.storage.getUserOrUndefined(message.author.id);
+      } catch (ex) {
+        user = <DatabaseFailure>{ error: (ex as Error).message };
+      }
     }
 
     const whichParser = this.selectParser(message);
@@ -69,6 +84,9 @@ export class StandardAdapter extends DiscordBehaviorBase {
       },
       messageConfiguredOptions: {
         prefixStyle: PrefixStyle.Unknown,
+      },
+      messageContext: {
+        isTupperBot,
       },
     };
   }
@@ -136,7 +154,14 @@ export class StandardAdapter extends DiscordBehaviorBase {
       // console.log({event: 'handleAll-2', label: behavior.label, context, preparedMessage, behavior, result});
       if (result) {
         this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `${behavior.label}`, message, { result });
-        message.reply(result.response).catch(rejected => this.handleSendRejection(message));
+        let finalResponse = result.response;
+        if (context.messageContext.isTupperBot) {
+          if (!context.user) {
+            finalResponse += '\n(Unidentified Tupperbot. WIP feature)'
+          }
+        }
+
+        message.reply(finalResponse).catch(rejected => this.handleSendRejection(message));
       }
     }
   }

@@ -9,20 +9,23 @@ export interface DatabaseFailure {
 }
 
 /** True if `something` is a DatabaseFailure object. */
-export function isDatabaseFailure(something: DatabaseFailure | object): something is DatabaseFailure {
+export function isDatabaseFailure(something: DatabaseFailure | object | undefined): something is DatabaseFailure {
   return has(something, 'error');
 }
 
 /** The retrieved context for a behavior. */
 export interface BehaviorContext {
   /** The stored user object. */
-  user: User | DatabaseFailure;
+  user: User | DatabaseFailure | undefined;
 
   /** Options configured by setting bot roles. */
   roleConfiguredOptions: RoleConfiguredOptions;
 
   /** Options configured by inspecting the message. */
   messageConfiguredOptions: MessageConfiguredOptions;
+
+  /** Per-message context info. */
+  messageContext: MessageContext;
 }
 
 /** Options configured by setting bot roles. */
@@ -35,6 +38,12 @@ export interface RoleConfiguredOptions {
 export interface MessageConfiguredOptions {
   /** How this message was originally interpreted by the adapter. */
   prefixStyle: PrefixStyle;
+}
+
+/** Context determined per-message, but not configuration. */
+export interface MessageContext {
+  /** True when the message was sent by a tupper-bot. */
+  isTupperBot: boolean;
 }
 
 /** The way this command was initiated */

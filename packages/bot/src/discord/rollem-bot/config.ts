@@ -44,4 +44,7 @@ export class Config {
 
   /** The interval between updating the "Now Playing" message under the bot. */
   public readonly messageInterval = 59 * 1000; // every minute (less a bit, so it will trigger other "every minute" monitors)
+
+  /** Set of IDs known to belong to Tupperbox and similar bots*/
+  public readonly tupperBotIds = new Set(['977073062426058792']);
 }
