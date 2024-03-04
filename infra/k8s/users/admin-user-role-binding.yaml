@@ -1,4 +1,5 @@
-apiVersion: rbac.authorization.k8s.io/v1beta1
+# created referencing https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: admin-user
@@ -9,4 +10,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: admin-user
-  namespace: kube-system
+  namespace: dashboard
