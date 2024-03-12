@@ -18,7 +18,7 @@ defaultRules:
     kubeApiserverBurnrate: true
     kubeApiserverHistogram: true
     kubeApiserverSlos: true
-    kubeControllerManager: true
+    kubeControllerManager: false
     kubelet: true
     kubeProxy: true
     kubePrometheusGeneral: true
@@ -27,7 +27,7 @@ defaultRules:
     kubernetesResources: true
     kubernetesStorage: true
     kubernetesSystem: true
-    kubeSchedulerAlerting: true
+    kubeSchedulerAlerting: false
     kubeSchedulerRecording: true
     kubeStateMetrics: true
     network: true

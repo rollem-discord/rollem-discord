@@ -79,7 +79,7 @@
     "infra:users:apply": "kubectl apply -f ./infra/k8s/users/",
     "infra:dashboard:token": "kubectl -n dashboard create token admin-user",
     "infra:helm:upgrade:dashboard": "helm upgrade -i kubernetes-dashboard k8s-dashboard/kubernetes-dashboard -n dashboard -f ./infra/k8s/helm/dashboard/kubernetes-dashboard.yaml",
-    "infra:helm:upgrade:monitoring": "helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/_index.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/01-defaultRules.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/02-prometheus.yaml --timeout 10m",
+    "infra:helm:upgrade:monitoring": "helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/_index.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/01-defaultRules.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/02-prometheus.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/03-alert-manager.yaml -f ./infra/k8s/helm/monitoring/kube-prometheus-stack-v2/99-secrets.yaml --timeout 10m",
     "infra:helm:upgrade:descheduler": "helm upgrade -i descheduler descheduler/descheduler -n monitoring -f ./infra/k8s/helm/monitoring/descheduler.yaml",
     "infra:prom:bash": "kubectl exec -it -n monitoring prometheus-kube-prometheus-stack-prometheus-0 -c prometheus -- sh",
     "infra:prom:purge-wal": "kubectl exec -it -n monitoring prometheus-kube-prometheus-stack-prometheus-0 -c prometheus -- mv wal wal-removed",

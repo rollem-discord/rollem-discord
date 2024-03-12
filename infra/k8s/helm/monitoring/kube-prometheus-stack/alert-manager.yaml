@@ -40,7 +40,7 @@ alertmanager:
       routes:
       - receiver: 'discord'
         matchers:
-          - alertname =~ "InfoInhibitor|Watchdog"
+          - alertname =~ "Watchdog"
     receivers:
     - name: 'discord'
     templates:
