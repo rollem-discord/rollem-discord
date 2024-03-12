@@ -36,3 +36,4 @@ dist/
 !.yarn/versions
 
 .nx/cache/*
+/generated_values.yaml
