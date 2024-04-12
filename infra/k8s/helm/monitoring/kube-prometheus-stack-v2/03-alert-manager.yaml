@@ -70,6 +70,14 @@ alertmanager:
       repeat_interval: 12h
       receiver: 'discord'
       routes:
+      - receiver: 'robusta'
+        group_by: [ '...' ]
+        group_wait: 1s
+        group_interval: 1s
+        matchers:
+          - severity =~ ".*"
+        repeat_interval: 4h
+        continue: true
       - receiver: 'discord'
         matchers:
           - alertname =~ "Watchdog"
