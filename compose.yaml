@@ -7,6 +7,22 @@ services:
       POSTGRES_PASSWORD: local
       POSTGRES_USER: rollem-dev
       POSTGRES_DB: rollem-dev
+
+  database-persist:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: local
+      POSTGRES_USER: rollem-dev
+      POSTGRES_DB: rollem-dev
+    volumes:
+      - ./database:/var/lib/postgresql
+      
+  rollem:
+    image: lemtzas/rollem-discord
+    environment:
+      DISCORD_BOT_USER_TOKEN: <your bot token goes here>
   # frontend:
   #   image: awesome/webapp
   #   ports:
