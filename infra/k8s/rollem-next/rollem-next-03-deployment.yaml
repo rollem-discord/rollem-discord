@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollem-next-03-deployment
+spec:
+  selector:
+    matchLabels:
+      app: rollem-next
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rollem-next
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: pool-rollem
+      containers:
+      - name: rollem-next-03
+        image: lemtzas/rollem-discord:2.9.6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8081
+        resources:
+          requests:
+            cpu: 75m
+            memory: 300M
+        env:
+        - name: 'reboot'
+          value: '2023-10-09.1'
+        - name: DISCORD_BOT_SHARD_ID
+          value: '3'
+        - name: DISCORD_BOT_SHARD_COUNT
+          value: '4'
+        - name: 'DISCORD_BOT_USER_TOKEN'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-next
+              key: DISCORD_BOT_USER_TOKEN
+        - name: 'APPINSIGHTS_CONNECTIONSTRING'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-next
+              key: APPINSIGHTS_CONNECTIONSTRING
+        - name: 'DEFER_TO_CLIENT_IDS'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-next
+              key: DEFER_TO_CLIENT_IDS
+        - name: 'DB_CONNECTION_STRING'
+          valueFrom:
+            secretKeyRef:
+              name: rollem-next
+              key: DB_CONNECTION_STRING
