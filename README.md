@@ -211,13 +211,22 @@ Summary
 * Set the `DISCORD_BOT_USER_TOKEN` environment variable to your token from [discord's applications page](https://discordapp.com/developers/applications/me).
 * The docker hub will automatically update with the latest commits on `master`.
 
-### Simple Deploy (no storage)
+### ~~Minimal Deploy (no storage)~~
+Not currently possible.
 
 1. Required tools
    1. [Docker](https://www.docker.com/get-started)
-3. Start the bot
+2. Start the bot
    1. Configure the values in `compose.yaml`
-   2. run `docker-compose up rollem` in the root directory
+   2. run `docker-compose up rollem-minimal` in the root directory
+
+## Simple Deploy (no persistence)
+1. Required tools
+   1. [Docker](https://www.docker.com/get-started)
+3. Start the bot
+   1. Configure the values in `compose.yaml` (You will need a bot token from discord)
+   2. run `docker-compose up rollem-database` in the root directory
+
 
 ## Publishing
 
