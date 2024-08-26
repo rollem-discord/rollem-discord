@@ -179,11 +179,6 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
     if (response && shouldReply) {
       lines.push("||" + response + "||");
     }
-    
-
-    this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, lines.toString(), trigger);
-
-    
       this.promLogger.incParserUse(ParserRollType.Spoilered, 'v1');
       this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Spoilered v1, ${logTag}: ${content}`, trigger);
       return lines;
