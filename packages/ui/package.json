@@ -1,6 +1,6 @@
 {
   "name": "@rollem/ui",
-  "version": "2.7.0",
+  "version": "2.10.0",
   "description": "Rollem (UI) - UI deployable",
   "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
   "main": "rollem.js",
