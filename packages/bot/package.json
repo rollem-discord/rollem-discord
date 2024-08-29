@@ -13,7 +13,7 @@
     "watch:bot": "cross-env NODE_ENV=development NODE_OPTIONS=\"--inspect --openssl-legacy-provider\" webpack --watch",
     "build": "yarn run clean && yarn run build:bot",
     "build:bot": "cross-env NODE_ENV=development NODE_OPTIONS=\"--inspect --openssl-legacy-provider\" webpack",
-    "build:dockerfile": "cross-env NODE_ENV=development NODE_OPTIONS=\"--inspect --openssl-legacy-provider\" webpack",
+    "build:dockerfile": "cross-env NODE_ENV=development webpack",
     "dev": "yarn run dev:bot",
     "dev:bot": "cross-env NODE_ENV=development NODE_OPTIONS=\"--inspect --openssl-legacy-provider\" webpack --watch",
     "start": "yarn run start:bot",
