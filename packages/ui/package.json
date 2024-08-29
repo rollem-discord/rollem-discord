@@ -15,7 +15,7 @@
   "scripts": {
     "clean": "rm -rf ./dist ./.next",
     "dev": "yarn run dev:ui",
-    "dev:ui": "NODE_OPTIONS='--inspect' next dev",
+    "dev:ui": "cross-env NODE_OPTIONS=\"--inspect --openssl-legacy-provider\" next dev",
     "build": "yarn run clean && yarn run build:ui",
     "build:ui": "next build",
     "start": "next start",

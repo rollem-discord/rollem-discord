@@ -1,0 +1,5 @@
+# based on https://github.com/yarnpkg/berry/issues/454
+unplugged
+install-state.gz
+cache
+.pnp.js
