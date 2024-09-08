@@ -1,4 +1,5 @@
 - New `s#4d20` syntax, which spoilers roll results
+- Fix for `s#4d20` syntax triggering without being at the start of a line
 
 # **2.9.x**
 - Upgrade discord.js version to 14.7.1
