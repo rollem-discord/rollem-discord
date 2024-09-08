@@ -156,7 +156,7 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
 
 
   protected rollSpoileredV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
-    const match = content.match(/([sS]#)(?:(\d+)#\s*)?(.*)/i);
+    const match = content.match(/^([sS]#)(?:(\d+)#\s*)?(.*)/i);
 
     if (!match) {
       return null;
