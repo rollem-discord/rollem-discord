@@ -86,7 +86,7 @@
     "dotenv": "^9.0.1",
     "express": "^4.17.1",
     "ffmpeg-static": "^4.3.0",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-ext-replace": "^0.3.0",
     "gulp-pegjs": "^0.2.0",
     "gulp-sourcemaps": "^2.6.5",
