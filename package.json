@@ -7,6 +7,8 @@
     "__________________________________________________": "end of notes",
     "____________________pinned____________________": "common commands",
     "sync": "yarn run syncpack",
+    "sync:check": "yarn run sync list-mismatches",
+    "sync:fix": "yarn run sync fix-mismatches --filter '^this-changes-the-default-to-none$'",
     "____________________workspaces (many)____________________": "potential workspace commands. to review",
     "ALL": "yarn workspaces foreach -Atp",
     "BOTS": "yarn workspaces foreach -Rtp --from '{packages/bot,packages/mastodon}'",
