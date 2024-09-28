@@ -1,7 +1,7 @@
 import { inspect } from "util";
 import React, { ReactElement } from "react";
 import ReactMarkdown, { uriTransformer } from "react-markdown";
-import { Components, ReactBaseProps, ReactMarkdownProps } from "react-markdown/src/ast-to-react";
+import { Components, ReactMarkdownProps } from "react-markdown/src/ast-to-react";
 import remarkGfm from "remark-gfm";
 import { first, fromPairs } from "lodash";
 import { Button } from "@mui/material";
@@ -24,7 +24,7 @@ const components: Components = {
     href,
     title,
     ...props
-  }: ReactBaseProps & ReactMarkdownProps & { href: string; title: string }) => {
+  }: ReactMarkdownProps & { href: string; title: string }) => {
     // if the first child of the button is a bold element, make this a CTA button
     if ((first(children) as ReactElement)?.type === "strong") {
       const splitTitle = (title ?? '').split(' ');
