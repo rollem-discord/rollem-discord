@@ -1,3 +1,14 @@
 {
-  "dependencyTypes": ["!local"]
+  "dependencyTypes:note": "Local packages appear to always be 'LocalDependencyMismatch'",
+  "dependencyTypes": ["!local"],
+  
+  "versionGroups": [
+    {
+      "dependencies": ["@types/**"],
+      "dependencyTypes": ["!dev"],
+      "isBanned": true,
+      "label": "@types packages should only be under devDependencies.",
+      "label:source": "https://jamiemason.github.io/syncpack/examples/only-allow-types-in-dev-dependencies/"
+    }
+  ]
 }

@@ -62,14 +62,7 @@
     "@bot": "rollem-dist/rollem-bot",
     "@storage": "rollem-dist/storage/"
   },
-  "dependencies": {
-    "@types/chai": "^4.2.11",
-    "@types/chance": "^1.1.0",
-    "@types/keyv": "^3.1.1",
-    "@types/lodash": "^4.14.170",
-    "@types/mocha": "^8.2.2",
-    "@types/node": "^20.10.5",
-    "applicationinsights": "^2.9.1",
+  "dependencies": {"applicationinsights": "^2.9.1",
     "chai": "^3.5.0",
     "chance": "^1.1.5",
     "del": "^3.0.0",
