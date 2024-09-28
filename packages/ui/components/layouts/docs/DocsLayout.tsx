@@ -5,12 +5,13 @@ import styles from "./DocsLayout.module.scss";
 import NavSide from "../../nav/NavSide";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
 import { Button, Container, Hidden } from "@mui/material";
+import { ReactNode } from "react";
 
 export default function DocsLayout({
   children,
   allDocsData,
 }: {
-  children: unknown;
+  children: ReactNode;
   allDocsData: DocsDataTree[];
 }) {
   return (

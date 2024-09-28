@@ -1851,8 +1851,8 @@ __metadata:
     "@types/lodash": "npm:^4.14.170"
     "@types/node": "npm:^20.10.5"
     "@types/prop-types": "npm:^15.7.13"
-    "@types/react": "npm:^17.0.0"
-    "@types/react-dom": "npm:^17.0.0"
+    "@types/react": "npm:^18.0.0"
+    "@types/react-dom": "npm:^18.0.0"
     cross-env: "npm:^7.0.3"
     date-fns: "npm:^2.22.1"
     discord-oauth2: "npm:^2.6.0"
@@ -2244,12 +2244,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.0":
-  version: 17.0.25
-  resolution: "@types/react-dom@npm:17.0.25"
+"@types/react-dom@npm:^18.0.0":
+  version: 18.3.0
+  resolution: "@types/react-dom@npm:18.3.0"
   dependencies:
-    "@types/react": "npm:^17"
-  checksum: 18a95d4d684cacc697d97ae66e3c8402da2f866c053fa6a5982694aa8eb6229afcefd3bfaaab4175c1b0ef3494c881e4d25e2167aa669bcbbb84114fd02ae5ba
+    "@types/react": "npm:*"
+  checksum: 6c90d2ed72c5a0e440d2c75d99287e4b5df3e7b011838cdc03ae5cd518ab52164d86990e73246b9d812eaf02ec351d74e3b4f5bd325bf341e13bf980392fd53b
   languageName: node
   linkType: hard
 
@@ -2273,14 +2273,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17, @types/react@npm:^17.0.0":
-  version: 17.0.83
-  resolution: "@types/react@npm:17.0.83"
+"@types/react@npm:^18.0.0":
+  version: 18.3.10
+  resolution: "@types/react@npm:18.3.10"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:^0.16"
     csstype: "npm:^3.0.2"
-  checksum: c8f76790190a9df42099f5f78d08dd4095f2da3bd97ff7cce0001d5a97ff3ffb31f703575acf2c457606e0d0b229ca8d1ba0ff459b77a4e44c5ea5154fe3fb4b
+  checksum: f5be1de1b0331c1fdb33d577f4cf7f1b949d4bded5347b2351a537f03c51dade5be115e21b161dcf1b37061954d320f6a0bdf8d7b70e24eda51071fdd614383d
   languageName: node
   linkType: hard
 
@@ -2293,7 +2292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/scheduler@npm:*, @types/scheduler@npm:^0.16":
+"@types/scheduler@npm:*":
   version: 0.16.8
   resolution: "@types/scheduler@npm:0.16.8"
   checksum: f86de504945b8fc41b1f391f847444d542e2e4067cf7e5d9bfeb5d2d2393d3203b1161bc0ef3b1e104d828dabfb60baf06e8d2c27e27ff7e8258e6e618d8c4ec
