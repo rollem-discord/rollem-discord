@@ -29,6 +29,7 @@ dist/
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .pnp.*
 .yarn/*
+!.yarn/install-state.gz
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
