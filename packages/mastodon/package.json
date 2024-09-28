@@ -103,7 +103,7 @@
     "pegjs": "0.10.0",
     "pegjs-loader": "^0.5.6",
     "pg": "^8.6.0",
-    "prom-client": "^13.2.0",
+    "prom-client": "^14.1.0",
     "reflect-metadata": "^0.1.13",
     "ts-loader": "^9.2.2",
     "ts-mocha": "^8.0.0",
