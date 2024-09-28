@@ -1,13 +1,14 @@
 import { User } from '@rollem/common';
 import { IncomingMessage } from 'http';
 import { NextApiRequest } from 'next';
-import { Session, SessionCookieData } from 'next-session/dist/types';
-import { DiscordTokenRequestResult, DiscordUser, DiscordPartialGuild } from './discord-oauth';
+import { SessionCookieData } from 'next-session/dist/types';
+import { DiscordTokenRequestResult } from './discord-oauth';
+import OAuth from 'discord-oauth2';
 
 export interface DiscordSessionData {
   auth: DiscordTokenRequestResult;
-  user: DiscordUser,
-  guilds: DiscordPartialGuild[];
+  user: OAuth.User,
+  guilds: OAuth.PartialGuild[];
   expires_at: Date,
 }
 
