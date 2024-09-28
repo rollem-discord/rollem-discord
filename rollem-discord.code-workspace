@@ -10,7 +10,17 @@
 		"todo-tree.general.revealBehaviour": "start of todo",
 		"todo-tree.regex.regex": "(echo ['\"]|//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
 		"todo-tree.regex.subTagRegex": "",
-		"todo-tree.highlights.enabled": true
+		"todo-tree.highlights.enabled": true,
+		"todo-tree.general.tags": [
+			"BUG",
+			"HACK",
+			"FIXME",
+			"TODO",
+			"XXX",
+			"[ ]",
+			"[x]",
+			"TODO(upgrade)"
+		]
 	},
 	"extensions": {
 		"recommendations": [

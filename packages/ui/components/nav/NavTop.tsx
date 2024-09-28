@@ -87,7 +87,7 @@ export default function NavTop() {
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar className={classes.toolbar}>
-              <Hidden mdUp implementation="css">
+              {/* TODO(upgrade): <Hidden mdUp implementation="css"> */}
                 <IconButton
                   edge="start"
                   className={classes.menuButton}
@@ -97,7 +97,7 @@ export default function NavTop() {
                   size="large">
                   <MenuIcon />
                 </IconButton>
-              </Hidden>
+              {/* TODO(upgrade): </Hidden> */}
               <Tooltip title="Rollem Rocks">
                 <Typography variant="h6">
                   <Link href={"/"} className={classes.homeWrapper}>

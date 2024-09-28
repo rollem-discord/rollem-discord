@@ -90,15 +90,15 @@ export default function NavSide() {
       <SidePanelContext.Consumer>
         {({ mobileDrawerOpen, toggleDrawer }) => (
           <>
-            <Hidden mdDown implementation="css">
+            {/* TODO(upgrade): <Hidden mdDown implementation="css"> */}
               <Drawer anchor="left" variant="permanent" open>
                 <div className={classes.list}>
                   <SideNavContent></SideNavContent>
                 </div>
               </Drawer>
-            </Hidden>
+            {/* TODO(upgrade): </Hidden> */}
 
-            <Hidden mdUp implementation="css">
+            {/* TODO(upgrade): <Hidden mdUp implementation="css"> */}
               <Drawer
                 anchor="left"
                 open={mobileDrawerOpen}
@@ -112,7 +112,7 @@ export default function NavSide() {
                   <SideNavContent></SideNavContent>
                 </div>
               </Drawer>
-            </Hidden>
+            {/* TODO(upgrade): </Hidden> */}
           </>
         )}
       </SidePanelContext.Consumer>
