@@ -73,7 +73,7 @@
     "chai": "^3.5.0",
     "chance": "^1.1.5",
     "del": "^3.0.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.1",
     "dotenv-cli": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-ext-replace": "^0.3.0",
