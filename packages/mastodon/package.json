@@ -112,10 +112,6 @@
     "webpack-node-externals": "^3.0.0",
     "webpack-shell-plugin-next": "^2.2.2"
   },
-  "resolutions": {
-    "node-fetch": "3.0.0-beta.9",
-    "axios": "1.1.3"
-  },
   "license": "MIT",
   "gitHead": "cd8e192db6ec635a13a82c48fb395e8b5731dae6",
   "devDependencies": {

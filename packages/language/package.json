@@ -74,7 +74,7 @@
     "mocha": "^8.4.0",
     "module-alias": "^2.2.0",
     "moment": "^2.22.1",
-    "next-transpile-modules": "^6.3.0",
+    "next-transpile-modules": "^6.4.1",
     "node-cache": "^5.1.0",
     "npm": "^6.3.0",
     "nyc": "^15.0.1",
