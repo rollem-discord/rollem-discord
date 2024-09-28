@@ -2,7 +2,7 @@
   "name": "@rollem/ui",
   "version": "2.7.0",
   "description": "Rollem (UI) - UI deployable",
-  "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
+  "author": "David <npm@davidsharer.com>",
   "main": "rollem.js",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
   "bugs": {

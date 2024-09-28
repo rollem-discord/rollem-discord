@@ -2,7 +2,7 @@
   "name": "@rollem/common",
   "version": "2.7.0",
   "description": "Rollem (Common) - Shared package for Rollem deployables",
-  "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
+  "author": "David <npm@davidsharer.com>",
   "homepage": "https://github.com/rollem-discord/rollem-discord",
   "bugs": {
     "url": "https://github.com/rollem-discord/rollem-discord/issues"
@@ -20,16 +20,16 @@
   "scripts": {
     "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
     "__________________________________________________": "end of notes",
-    ":build": "yarn run build:common",
-    ":build:common": "yarn run build:common:cjs && yarn run build:common:esm && yarn run build:common:umd && yarn run build:common:types",
-    ":build:common:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
-    ":build:common:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
-    ":build:common:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
-    ":build:common:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "build": "yarn run build:common",
+    "build:common": "yarn run build:common:cjs && yarn run build:common:esm && yarn run build:common:umd && yarn run build:common:types",
+    "build:common:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "build:common:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "build:common:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
+    "build:common:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
     ":typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
     ":clean": "node tools/cleanup",
     ":package": "yarn run build && yarn pack",
-    ":test": "mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts dotenv_config_path=../../secrets/vscode.env",
+    ":test": "echo 'TODO: Mocha is broken with yarn berry?' || mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts dotenv_config_path=../../secrets/vscode.env",
     ":old:test:cov": "jest --coverage --no-cache --runInBand",
     ":addscope": "node tools/packagejson name @tomchen/example-typescript-package"
   },

@@ -6,6 +6,15 @@
 	],
 	"settings": {
 		"typescript.tsdk": ".yarn/sdks/typescript/lib",
-		"typescript.enablePromptUseWorkspaceTsdk": true
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+		"todo-tree.general.revealBehaviour": "start of todo",
+		"todo-tree.regex.regex": "(echo ['\"]|//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+		"todo-tree.regex.subTagRegex": "",
+		"todo-tree.highlights.enabled": true
+	},
+	"extensions": {
+		"recommendations": [
+			"gruntfuggly.todo-tree"
+		]
 	}
 }

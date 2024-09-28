@@ -1245,8 +1245,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rollem/bot@workspace:packages/bot"
   dependencies:
-    "@rollem/common": "npm:*"
-    "@rollem/language": "npm:*"
+    "@rollem/common": "workspace:*"
+    "@rollem/language": "workspace:*"
     "@types/chai": "npm:^4.2.11"
     "@types/chance": "npm:^1.1.0"
     "@types/express": "npm:^4.17.13"
@@ -1301,7 +1301,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rollem/common@npm:*, @rollem/common@npm:^2.7.0, @rollem/common@workspace:packages/common":
+"@rollem/common@workspace:*, @rollem/common@workspace:packages/common":
   version: 0.0.0-use.local
   resolution: "@rollem/common@workspace:packages/common"
   dependencies:
@@ -1359,7 +1359,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rollem/language@npm:*, @rollem/language@npm:^2.7.2, @rollem/language@workspace:packages/language":
+"@rollem/language@workspace:*, @rollem/language@workspace:packages/language":
   version: 0.0.0-use.local
   resolution: "@rollem/language@workspace:packages/language"
   dependencies:
@@ -1424,8 +1424,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rollem/mastodon@workspace:packages/mastodon"
   dependencies:
-    "@rollem/common": "npm:^2.7.0"
-    "@rollem/language": "npm:^2.7.2"
+    "@rollem/common": "workspace:*"
+    "@rollem/language": "workspace:*"
     "@types/chai": "npm:^4.2.11"
     "@types/chance": "npm:^1.1.0"
     "@types/express": "npm:^4.17.13"
@@ -1491,7 +1491,7 @@ __metadata:
     "@material-ui/core": "npm:^4.11.4"
     "@material-ui/icons": "npm:^4.11.2"
     "@material-ui/styles": "npm:^4.11.4"
-    "@rollem/common": "npm:^2.7.0"
+    "@rollem/common": "workspace:*"
     "@types/lodash": "npm:^4.14.170"
     "@types/material-ui": "npm:^0.21.8"
     "@types/node": "npm:^20.10.5"

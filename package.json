@@ -8,10 +8,10 @@
     "____________________workspaces (potential?)____________________": "potential workspace commands. to review",
     "?:ws:publish:all": "yarn workspaces foreach --all -pt npm publish `# https://yarnpkg.com/features/workspaces#parallel-execution`",
     "____________________workspaces____________________": "workspace management comments // TODO: Review",
-    ":bot": "yarn workspace @rollem/bot",
-    ":common": "yarn workspace @rollem/common",
-    ":language": "yarn workspace @rollem/language",
-    ":lang": "yarn language",
+    "bot": "yarn workspace @rollem/bot",
+    "common": "yarn workspace @rollem/common",
+    "language": "yarn workspace @rollem/language",
+    "lang": "yarn language",
     ":ui": "yarn workspace @rollem/ui",
     ":mastodon": "yarn workspace @rollem/mastodon",
     ":lerna": "lerna",
@@ -101,6 +101,6 @@
   "packageManager": "yarn@4.0.2",
   "devDependencies": {
     "nx": "17.2.7",
-    ":typescript": "^5.3.3"
+    "typescript": "^5.3.3"
   }
 }
