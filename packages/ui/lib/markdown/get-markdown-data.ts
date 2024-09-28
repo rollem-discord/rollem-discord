@@ -92,12 +92,12 @@ export function tryGetSingleMarkdownData(
   const fileContents = fs.readFileSync(fullFilePath, "utf8");
   const matterResult = matter(fileContents);
 
-  return <MarkdownData>(<undefined>{
+  return {
     id: pathId,
     route: fullRoute,
     fullFilePath: fullFilePath,
     ...(matterResult.data as { date: string; title: string }),
-  });
+  } as unknown as MarkdownData;
 }
 
 export function getAllMarkdownIds() {

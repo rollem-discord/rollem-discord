@@ -98,12 +98,12 @@ export function tryGetSingleDocData(
   const fileContents = fs.readFileSync(fullFilePath, "utf8");
   const matterResult = matter(fileContents);
 
-  return <DocsData>(<undefined>{
+  return {
     id: pathId,
     route: fullRoute,
     fullFilePath: fullFilePath,
     ...(matterResult.data as { date: string; title: string }),
-  });
+  } as undefined as DocsData;
 }
 
 export function getAllDocIds() {
