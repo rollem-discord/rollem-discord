@@ -7,13 +7,17 @@
     "__________________________________________________": "end of notes",
     "____________________workspaces (potential?)____________________": "potential workspace commands. to review",
     "?:ws:publish:all": "yarn workspaces foreach --all -pt npm publish `# https://yarnpkg.com/features/workspaces#parallel-execution`",
-    "____________________workspaces____________________": "workspace management comments // TODO: Review",
+    "____________________workspaces____________________": "workspace management comments",
     "bot": "yarn workspace @rollem/bot",
     "common": "yarn workspace @rollem/common",
     "language": "yarn workspace @rollem/language",
     "lang": "yarn language",
     "ui": "yarn workspace @rollem/ui",
     ":mastodon": "yarn workspace @rollem/mastodon",
+    "____________________dependencies____________________": "dependency management tools",
+    "sync": "syncpack",
+    "syncpack": "syncpack",
+    "____________________old____________________": "workspace management comments // TODO: Review",
     ":lerna": "lerna",
     ":package": "lerna run package --stream",
     ":package:ui": "lerna run package:ui --stream",
@@ -98,9 +102,10 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.5.0",
   "devDependencies": {
     "nx": "17.2.7",
+    "syncpack": "^13.0.0",
     "typescript": "^5.3.3"
   }
 }
