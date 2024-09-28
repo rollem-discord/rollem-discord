@@ -10,7 +10,7 @@
     "____________________workspaces (potential?)____________________": "potential workspace commands. to review",
     "?:ws:publish:all": "yarn workspaces foreach --all -pt npm publish `# https://yarnpkg.com/features/workspaces#parallel-execution`",
     "____________________workspaces____________________": "workspace management shortcuts",
-    "ALL": "yarn workspaces foreach --all ",
+    "ALL": "yarn workspaces foreach --all -pt run",
     "bot": "yarn workspace @rollem/bot",
     "common": "yarn workspace @rollem/common",
     "language": "yarn workspace @rollem/language",
