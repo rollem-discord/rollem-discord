@@ -21,7 +21,7 @@
     "discord": "yarn bot",
     "toot": "yarn mastodon",
     "____________________dependencies____________________": "dependency management tools",
-    "syncpack": "echo 'See https://github.com/JamieMason/syncpack' && syncpack",
+    "syncpack": "echo '################\n#### See https://github.com/JamieMason/syncpack\n################\n' && syncpack",
     "____________________old____________________": "// TODO: Review",
     ":lerna": "lerna",
     ":package": "lerna run package --stream",
