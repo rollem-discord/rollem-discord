@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeOptions } from '@material-ui/core'
+import { createTheme, DeprecatedThemeOptions, adaptV4Theme } from '@mui/material';
 
 export const paletteColorsDark = {
   primary: '#0f4c75',
@@ -16,11 +16,11 @@ export const paletteColorsLight = {
   text: '#050505',
 }
 
-const options = (dark: boolean): ThemeOptions => {
+const options = (dark: boolean): DeprecatedThemeOptions => {
   const paletteColors = dark ? paletteColorsDark : paletteColorsLight
   return {
     palette: {
-      type: dark ? 'dark' : 'light',
+      mode: dark ? 'dark' : 'light',
       primary: {
         main: paletteColors.primary,
       },
@@ -28,5 +28,5 @@ const options = (dark: boolean): ThemeOptions => {
     }
   }
 }
-export const darkTheme = createMuiTheme(options(true))
-export const lightTheme = createMuiTheme(options(false))
+export const darkTheme = createTheme(adaptV4Theme(options(true)))
+export const lightTheme = createTheme(adaptV4Theme(options(false)))

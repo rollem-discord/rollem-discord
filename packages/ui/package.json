@@ -36,12 +36,13 @@
     ":k8s:delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
-    "@material-ui/styles": "^4.11.5",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5",
+    "@mui/material": "^5",
+    "@mui/styles": "^5",
     "@rollem/common": "workspace:*",
     "@types/lodash": "^4.14.170",
-    "@types/material-ui": "^0.21.8",
     "@types/prop-types": "^15.7.13",
     "date-fns": "^2.22.1",
     "discord-oauth2": "^2.6.0",

@@ -1,11 +1,13 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
 import { RollemSessionData } from '@rollem/ui/lib/withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
-import { Avatar, SvgIcon, Tooltip } from '@material-ui/core';
-import { ExitToApp, Settings } from '@material-ui/icons';
+import { Avatar, SvgIcon, Tooltip } from '@mui/material';
+import { ExitToApp, Settings } from '@mui/icons-material';
 import { AppContext } from '@rollem/ui/lib/contexts/request-context';
 import { useContext } from 'react';
 

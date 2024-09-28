@@ -4,7 +4,7 @@ import NavTop from "../../nav/NavTop";
 import styles from "./DocsLayout.module.scss";
 import NavSide from "../../nav/NavSide";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
-import { Button, Container, Hidden } from "@material-ui/core";
+import { Button, Container, Hidden } from "@mui/material";
 
 export default function DocsLayout({
   children,

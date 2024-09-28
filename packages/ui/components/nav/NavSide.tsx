@@ -8,10 +8,10 @@ import {
   ListItemText,
   Theme,
   Typography,
-} from "@material-ui/core";
-import DescriptionIcon from "@material-ui/icons/Description";
-import LockIcon from "@material-ui/icons/Lock";
-import { createStyles, makeStyles } from "@material-ui/styles";
+} from "@mui/material";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LockIcon from "@mui/icons-material/Lock";
+import { createStyles, makeStyles } from "@mui/styles";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
 
 const drawerWidth = '240px';
@@ -86,11 +86,11 @@ export default function NavSide() {
   const classes = useStyles();
 
   return (
-    <nav className={classes.drawer}>
+    (<nav className={classes.drawer}>
       <SidePanelContext.Consumer>
         {({ mobileDrawerOpen, toggleDrawer }) => (
           <>
-            <Hidden smDown implementation="css">
+            <Hidden mdDown implementation="css">
               <Drawer anchor="left" variant="permanent" open>
                 <div className={classes.list}>
                   <SideNavContent></SideNavContent>
@@ -116,7 +116,7 @@ export default function NavSide() {
           </>
         )}
       </SidePanelContext.Consumer>
-    </nav>
+    </nav>)
   );
 }
 

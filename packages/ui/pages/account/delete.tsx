@@ -1,9 +1,26 @@
 import RootLayout from "@rollem/ui/components/layouts/RootLayout";
-import { Card, Grid, CardContent, CardHeader, makeStyles, createStyles, Theme, Avatar, Accordion, AccordionSummary, Typography, AccordionDetails, Tooltip, Link, Button, CardActions } from "@material-ui/core";
+import {
+  Card,
+  Grid,
+  CardContent,
+  CardHeader,
+  Theme,
+  Avatar,
+  Accordion,
+  AccordionSummary,
+  Typography,
+  AccordionDetails,
+  Tooltip,
+  Link,
+  Button,
+  CardActions,
+} from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
 import { RollemSessionData } from "@rollem/ui/lib/withSession";
-import { Cloud, ExpandMore, Web } from '@material-ui/icons';
+import { Cloud, ExpandMore, Web } from '@mui/icons-material';
 import React from "react";
 
 const API_URL = '/api/auth/discord/getData';
@@ -93,8 +110,8 @@ export default function AccountDelete() {
   };
 
   return (
-    <RootLayout>
-      <Grid container justify="center" spacing={3} className={classes.gridWrapper}>
+    (<RootLayout>
+      <Grid container justifyContent="center" spacing={3} className={classes.gridWrapper}>
         <Grid item>
           <Card>
             <CardHeader avatar={
@@ -145,6 +162,6 @@ export default function AccountDelete() {
           </Card>
         </Grid>
       </Grid>
-    </RootLayout>
-  )
+    </RootLayout>)
+  );
 }

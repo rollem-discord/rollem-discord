@@ -4,7 +4,7 @@ import ReactMarkdown, { uriTransformer } from "react-markdown";
 import { Components, ReactBaseProps, ReactMarkdownProps } from "react-markdown/src/ast-to-react";
 import remarkGfm from "remark-gfm";
 import { first, fromPairs } from "lodash";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 function transformLinkUri(relativeBase: string = '/docs/') {
   return function(uri: string) {

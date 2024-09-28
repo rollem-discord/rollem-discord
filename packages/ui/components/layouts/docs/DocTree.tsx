@@ -1,6 +1,8 @@
-import { Button, Collapse, Drawer, Hidden, IconButton, List, ListItem, ListItemText, ListSubheader, Typography } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { Button, Collapse, Drawer, Hidden, IconButton, List, ListItem, ListItemText, ListSubheader, Typography } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { SidePanelContext } from '@rollem/ui/lib/contexts/sidepanel-context';
 import { useState } from 'react';
 import { DocsData, DocsDataTree } from '../../../lib/markdown/docs/get-docs-data';
@@ -27,23 +29,20 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function DocTree({ allDocsData }: { allDocsData: DocsDataTree[] }): JSX.Element {
   const classes = useStyles();
 
-  return (
-    <>
-      <Hidden smDown>
-        <DocTreeListRoot allDocsData={allDocsData}></DocTreeListRoot>
-      </Hidden>
-
-      <Hidden mdUp>
-        <SidePanelContext.Consumer>
-          {({ docsDrawerOpen, toggleDocsDrawer }) => (
-            <Drawer anchor="left" open={docsDrawerOpen} onClose={toggleDocsDrawer(false)}>
-              <DocTreeListRoot allDocsData={allDocsData}></DocTreeListRoot>
-            </Drawer>
-          )}
-        </SidePanelContext.Consumer>
-      </Hidden>
-    </>
-  );
+  return (<>
+    <Hidden mdDown>
+      <DocTreeListRoot allDocsData={allDocsData}></DocTreeListRoot>
+    </Hidden>
+    <Hidden mdUp>
+      <SidePanelContext.Consumer>
+        {({ docsDrawerOpen, toggleDocsDrawer }) => (
+          <Drawer anchor="left" open={docsDrawerOpen} onClose={toggleDocsDrawer(false)}>
+            <DocTreeListRoot allDocsData={allDocsData}></DocTreeListRoot>
+          </Drawer>
+        )}
+      </SidePanelContext.Consumer>
+    </Hidden>
+  </>);
 }
 
 function DocTreeListRoot({ allDocsData }: { allDocsData: DocsDataTree[]}): JSX.Element {

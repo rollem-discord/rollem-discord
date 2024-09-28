@@ -1,11 +1,24 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheets } from '@material-ui/styles'
-import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
+import { ServerStyleSheets } from '@mui/styles'
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+} from '@mui/material/styles';
 import { AppContext } from '../lib/contexts/request-context'
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
 import { theme } from '../lib/theme'
+
+import { purple, green } from '@mui/material/colors';
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 class MyDocument extends Document {
   render() {
