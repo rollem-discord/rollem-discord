@@ -15,7 +15,7 @@
     "language": "yarn workspace @rollem/language",
     "lang": "yarn language",
     "ui": "yarn workspace @rollem/ui",
-    ":mastodon": "yarn workspace @rollem/mastodon",
+    "mastodon": "yarn workspace @rollem/mastodon",
     "____________________dependencies____________________": "dependency management tools",
     "syncpack": "echo 'See https://github.com/JamieMason/syncpack' && syncpack",
     "____________________old____________________": "workspace management comments // TODO: Review",
