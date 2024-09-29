@@ -7,11 +7,11 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6",
-    "@mui/material": "^6",
-    "@mui/styles": "^6",
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
+    "@mui/styles": "^6.1.1",
     "@rollem/common": "workspace:*",
-    "date-fns": "^2.22.1",
+    "date-fns": "^2.30.0",
     "discord-oauth2": "^2.6.0",
     "dotenv-cli": "^4.0.0",
     "eslint-config-next": "^14.2.13",
@@ -36,9 +36,9 @@
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
     "cross-env": "^7.0.3",
     "next-cli": "^1.0.0",
     "typescript": "^5.3.3",

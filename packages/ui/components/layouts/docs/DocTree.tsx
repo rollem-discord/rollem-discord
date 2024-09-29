@@ -1,4 +1,14 @@
-import { Button, Collapse, Drawer, Hidden, IconButton, List, ListItem, ListItemText, ListSubheader, Typography } from '@mui/material';
+import {
+  Button,
+  Collapse,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItemText,
+  ListSubheader,
+  Typography,
+} from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
@@ -7,6 +17,8 @@ import { SidePanelContext } from '@rollem/ui/lib/contexts/sidepanel-context';
 import { useState } from 'react';
 import { DocsData, DocsDataTree } from '../../../lib/markdown/docs/get-docs-data';
 import styles from './DocTree.module.scss';
+
+import ListItemButton from "@mui/material/ListItemButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -102,15 +114,13 @@ function makeTree(treeNode: DocsDataTree, nested: boolean = false): JSX.Element 
   }
 
   const path = '/docs/' + treeNode.item.route.join('/');
-  return (
-    <>
-      <ListItem button component="a" href={path} className={nested ? classes.nested : null}>
-        <ListItemText primary={treeNode.item.title} />
-        {openToggle}
-      </ListItem>
-      {childElements}
-    </>
-  );
+  return (<>
+    <ListItemButton component="a" href={path} className={nested ? classes.nested : null}>
+      <ListItemText primary={treeNode.item.title} />
+      {openToggle}
+    </ListItemButton>
+    {childElements}
+  </>);
 }
 
 function makeEntry(data: DocsData): JSX.Element {
