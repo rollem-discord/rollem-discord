@@ -42,10 +42,10 @@ export default function DocTree({ allDocsData }: { allDocsData: DocsDataTree[] }
   const classes = useStyles();
 
   return (<>
-    {/* TODO(upgrade): <Hidden mdDown> */}
+    <Hidden mdDown>
       <DocTreeListRoot allDocsData={allDocsData}></DocTreeListRoot>
-    {/* TODO(upgrade): </Hidden> */}
-    {/* TODO(upgrade): <Hidden mdUp> */}
+    </Hidden>
+    <Hidden mdUp>
       <SidePanelContext.Consumer>
         {({ docsDrawerOpen, toggleDocsDrawer }) => (
           <Drawer anchor="left" open={docsDrawerOpen} onClose={toggleDocsDrawer(false)}>
@@ -53,7 +53,7 @@ export default function DocTree({ allDocsData }: { allDocsData: DocsDataTree[] }
           </Drawer>
         )}
       </SidePanelContext.Consumer>
-    {/* TODO(upgrade): </Hidden> */}
+    </Hidden>
   </>);
 }
 

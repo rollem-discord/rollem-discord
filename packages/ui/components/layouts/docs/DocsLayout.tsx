@@ -26,7 +26,7 @@ export default function DocsLayout({
             <DocTree allDocsData={allDocsData}></DocTree>
           </div>
           <div className={styles.right}>
-            {/* TODO(upgrade): <Hidden mdUp> */}
+            <Hidden mdUp>
               <SidePanelContext.Consumer>
                 {({ toggleDocsDrawer }) => (
                   <Container maxWidth="xs">
@@ -34,7 +34,7 @@ export default function DocsLayout({
                   </Container>
                 )}
               </SidePanelContext.Consumer>
-            {/* TODO(upgrade): </Hidden> */}
+            </Hidden>
             <main>{children}</main>
           </div>
         </div>
