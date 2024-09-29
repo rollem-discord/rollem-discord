@@ -1,5 +1,11 @@
 {
   "name": "root",
+  "devDependencies": {
+    "nx": "17.2.7",
+    "syncpack": "^13.0.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "yarn@4.5.0",
   "private": true,
   "scripts": {
     "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
@@ -29,7 +35,7 @@
     "toot": "yarn mastodon",
     "____________________dependencies____________________": "dependency management tools",
     "syncpack": "echo '################\n#### See https://github.com/JamieMason/syncpack\n################\n' && syncpack",
-    "____________________old____________________": "// TODO: Review",    
+    "____________________old____________________": "// TODO: Review",
     "?:ws:publish:all": "yarn workspaces foreach --all -pt npm publish `# https://yarnpkg.com/features/workspaces#parallel-execution`",
     ":lerna": "lerna",
     ":package": "lerna run package --stream",
@@ -114,11 +120,5 @@
   },
   "workspaces": [
     "packages/*"
-  ],
-  "packageManager": "yarn@4.5.0",
-  "devDependencies": {
-    "nx": "17.2.7",
-    "syncpack": "^13.0.0",
-    "typescript": "^5.3.3"
-  }
+  ]
 }

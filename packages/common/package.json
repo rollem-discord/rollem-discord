@@ -1,60 +1,8 @@
 {
   "name": "@rollem/common",
-  "version": "2.7.0",
   "description": "Rollem (Common) - Shared package for Rollem deployables",
+  "version": "2.7.0",
   "author": "David <npm@davidsharer.com>",
-  "homepage": "https://github.com/rollem-discord/rollem-discord",
-  "bugs": {
-    "url": "https://github.com/rollem-discord/rollem-discord/issues"
-  },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "umd:main": "dist/umd/index.js",
-  "types": "dist/types/index.d.js",
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
-    "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
-    "____________________note03a____________________": "build = fresh-build",
-    "____________________note03b____________________": "watch = fresh-build -> watch",
-    "____________________note03c____________________": "dev = fresh-build -> watch -> live-update",
-    "____________________note03d____________________": "start = only start",
-    "____________________note04e____________________": "package = fresh build + package",
-    "__________________________________________________": "end of notes",
-    "____________________pinned____________________": "common commands",
-    "build": "yarn run ::common:build",
-    "____________________build____________________": "build-related commands",
-    "::common:clean": "node tools/cleanup",
-    "::common:build": "yarn run ::common:build:cjs && yarn run ::common:build:esm && yarn run ::common:build:umd && yarn run ::common:build:types",
-    "::common:build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
-    "::common:build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
-    "::common:build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
-    "::common:build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
-    "____________________local-run____________________": "commands related to local run",
-    "____________________local-docker-packaging____________________": "commands for running within the docker package",
-    "____________________for-docker____________________": "commands for running within the docker package",
-    "____________________unreviewed____________________": "// TODO: Review",
-    ":typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
-    ":package": "yarn run build && yarn pack",
-    ":test": "echo 'TODO: Mocha is broken with yarn berry?' || mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts dotenv_config_path=../../secrets/vscode.env",
-    ":old:test:cov": "jest --coverage --no-cache --runInBand",
-    ":addscope": "node tools/packagejson name @tomchen/example-typescript-package"
-  },
-  "mocha": {
-    "require": [
-      "ts-node/register",
-      "tsconfig-paths/register"
-    ],
-    "spec": "src/**/*.spec.ts",
-    "extension": [
-      "ts"
-    ]
-  },
   "_moduleAliases": {
     "@root": ".",
     "@language-v1": "rollem-dist/rollem-language-1/",
@@ -62,7 +10,9 @@
     "@bot": "rollem-dist/rollem-bot",
     "@storage": "rollem-dist/storage/"
   },
-  "dependencies": {"applicationinsights": "^2.9.1",
+  "bugs": "https://github.com/rollem-discord/rollem-discord/issues",
+  "dependencies": {
+    "applicationinsights": "^2.9.1",
     "chai": "^3.5.0",
     "chance": "^1.1.5",
     "del": "^3.0.0",
@@ -94,7 +44,6 @@
     "watchify": "^3.9.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
-  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
@@ -110,6 +59,56 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^4.7.2"
   },
+  "files": [
+    "dist"
+  ],
   "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878",
-  "packageManager": "yarn@4.0.2"
+  "homepage": "https://github.com/rollem-discord/rollem-discord",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "mocha": {
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
+    "spec": "src/**/*.spec.ts",
+    "extension": [
+      "ts"
+    ]
+  },
+  "module": "dist/esm/index.js",
+  "packageManager": "yarn@4.0.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
+    "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
+    "____________________note03a____________________": "build = fresh-build",
+    "____________________note03b____________________": "watch = fresh-build -> watch",
+    "____________________note03c____________________": "dev = fresh-build -> watch -> live-update",
+    "____________________note03d____________________": "start = only start",
+    "____________________note04e____________________": "package = fresh build + package",
+    "__________________________________________________": "end of notes",
+    "____________________pinned____________________": "common commands",
+    "build": "yarn run ::common:build",
+    "____________________build____________________": "build-related commands",
+    "::common:clean": "node tools/cleanup",
+    "::common:build": "yarn run ::common:build:cjs && yarn run ::common:build:esm && yarn run ::common:build:umd && yarn run ::common:build:types",
+    "::common:build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "::common:build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "::common:build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
+    "::common:build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "____________________local-run____________________": "commands related to local run",
+    "____________________local-docker-packaging____________________": "commands for running within the docker package",
+    "____________________for-docker____________________": "commands for running within the docker package",
+    "____________________unreviewed____________________": "// TODO: Review",
+    ":typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    ":package": "yarn run build && yarn pack",
+    ":test": "echo 'TODO: Mocha is broken with yarn berry?' || mocha -r dotenv/config -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts dotenv_config_path=../../secrets/vscode.env",
+    ":old:test:cov": "jest --coverage --no-cache --runInBand",
+    ":addscope": "node tools/packagejson name @tomchen/example-typescript-package"
+  },
+  "types": "dist/types/index.d.js",
+  "umd:main": "dist/umd/index.js"
 }

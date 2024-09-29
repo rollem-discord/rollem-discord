@@ -1,68 +1,9 @@
 {
   "name": "@rollem/mastodon",
-  "version": "2.8.8",
   "description": "Rollem (Mastodon Bot) - Bot Deployable",
+  "version": "2.8.8",
   "author": "David <npm@davidsharer.com>",
-  "homepage": "https://github.com/rollem-discord/rollem-discord",
-  "bugs": {
-    "url": "https://github.com/rollem-discord/rollem-discord/issues"
-  },
-  "scripts": {
-    "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
-    "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
-    "____________________note03a____________________": "build = fresh-build",
-    "____________________note03b____________________": "watch = fresh-build -> watch",
-    "____________________note03c____________________": "dev = fresh-build -> watch -> live-update",
-    "____________________note03d____________________": "start = only start",
-    "____________________note04e____________________": "package = fresh build + package",
-    "__________________________________________________": "end of notes",
-    "____________________pinned____________________": "common commands",
-    "watch": "yarn ::mastodon:watch",
-    "build": "yarn run ::mastodon:clean && yarn run ::mastodon:build",
-    "start": "yarn run ::mastodon:start",
-    "____________________build____________________": "build-related commands",
-    "::mastodon:clean": "rm -rf ./dist",
-    "::mastodon:build": "cross-env NODE_ENV=development webpack",
-    "::mastodon:watch": "cross-env NODE_ENV=development webpack --watch",
-    "____________________local-run____________________": "commands related to local run",
-    "::mastodon:start": "cross-env NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
-    "____________________local-docker-packaging____________________": "commands for running within the docker package",
-    "____________________for-docker____________________": "commands for running within the docker package",
-    ":build:dockerfile": "cross-env NODE_ENV=development webpack",
-    ":package": "yarn run package:bot",
-    ":package:bot": "docker build -t rollem-bot .",
-    ":package:start": "yarn run package:bot:start",
-    ":package:bot:start": "docker run --env-file ../../secrets/vscode.env rollem-bot",
-    ":test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
-    ":typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
-    ":package:start:fake": "node -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
-    ":start-for-dockerfile": "node dist/bundle.js",
-    ":old:terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light",
-    ":old:start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
-    ":old:start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
-    ":old:update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
-    ":old:replace-rollem-beta": "kubectl replace -f ../infra/k8s/rollem-beta/",
-    ":old:replace-rollem-prod": "kubectl replace -f ../infra/k8s/rollem-prod/",
-    ":old:delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
-    ":old:forward-grafana": "/bin/bash \\<\\<\\< 'kubectl port-forward $(kubectl get  pods --selector=app=grafana --output=jsonpath=\"{.items..metadata.name}\") 3000'",
-    ":old:start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
-    ":old:start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
-    ":old:build": "gulp build",
-    ":old:watch": "gulp watch"
-  },
-  "files": [
-    "./"
-  ],
-  "mocha": {
-    "require": [
-      "ts-node/register",
-      "tsconfig-paths/register"
-    ],
-    "spec": "src/**/*.spec.ts",
-    "extension": [
-      "ts"
-    ]
-  },
+  "bugs": "https://github.com/rollem-discord/rollem-discord/issues",
   "dependencies": {
     "@rollem/common": "workspace:*",
     "@rollem/language": "workspace:*",
@@ -112,12 +53,69 @@
     "webpack-node-externals": "^3.0.0",
     "webpack-shell-plugin-next": "^2.2.2"
   },
-  "license": "MIT",
-  "gitHead": "cd8e192db6ec635a13a82c48fb395e8b5731dae6",
   "devDependencies": {
     "copy-webpack-plugin": "^8.1.0",
     "cross-env": "^7.0.3",
     "nodemon": "^3.1.7"
   },
-  "packageManager": "yarn@4.0.2"
+  "files": [
+    "./"
+  ],
+  "gitHead": "cd8e192db6ec635a13a82c48fb395e8b5731dae6",
+  "homepage": "https://github.com/rollem-discord/rollem-discord",
+  "license": "MIT",
+  "mocha": {
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
+    "spec": "src/**/*.spec.ts",
+    "extension": [
+      "ts"
+    ]
+  },
+  "packageManager": "yarn@4.0.2",
+  "scripts": {
+    "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
+    "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
+    "____________________note03a____________________": "build = fresh-build",
+    "____________________note03b____________________": "watch = fresh-build -> watch",
+    "____________________note03c____________________": "dev = fresh-build -> watch -> live-update",
+    "____________________note03d____________________": "start = only start",
+    "____________________note04e____________________": "package = fresh build + package",
+    "__________________________________________________": "end of notes",
+    "____________________pinned____________________": "common commands",
+    "watch": "yarn ::mastodon:watch",
+    "build": "yarn run ::mastodon:clean && yarn run ::mastodon:build",
+    "start": "yarn run ::mastodon:start",
+    "____________________build____________________": "build-related commands",
+    "::mastodon:clean": "rm -rf ./dist",
+    "::mastodon:build": "cross-env NODE_ENV=development webpack",
+    "::mastodon:watch": "cross-env NODE_ENV=development webpack --watch",
+    "____________________local-run____________________": "commands related to local run",
+    "::mastodon:start": "cross-env NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
+    "____________________local-docker-packaging____________________": "commands for running within the docker package",
+    "____________________for-docker____________________": "commands for running within the docker package",
+    ":build:dockerfile": "cross-env NODE_ENV=development webpack",
+    ":package": "yarn run package:bot",
+    ":package:bot": "docker build -t rollem-bot .",
+    ":package:start": "yarn run package:bot:start",
+    ":package:bot:start": "docker run --env-file ../../secrets/vscode.env rollem-bot",
+    ":test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
+    ":typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    ":package:start:fake": "node -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
+    ":start-for-dockerfile": "node dist/bundle.js",
+    ":old:terraform": ".\\infra\\terraform\\scripts\\xxx-bash-docker-windows-proxy.sh run -it -v `pwd`infra/terraform/clusters:/app/ -w /app/ hashicorp/terraform:light",
+    ":old:start": "node -r dotenv/config ./rollem-dist/rollem-bot/bot.js dotenv_config_path=./secrets/vscode.env",
+    ":old:start-for-dockerfile": "node rollem-dist/rollem-bot/bot.js",
+    ":old:update-k8s-credentials": "doctl kubernetes cluster kubeconfig save rollem-115-sfo2",
+    ":old:replace-rollem-beta": "kubectl replace -f ../infra/k8s/rollem-beta/",
+    ":old:replace-rollem-prod": "kubectl replace -f ../infra/k8s/rollem-prod/",
+    ":old:delete-evicted-pods": "kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod",
+    ":old:forward-grafana": "/bin/bash \\<\\<\\< 'kubectl port-forward $(kubectl get  pods --selector=app=grafana --output=jsonpath=\"{.items..metadata.name}\") 3000'",
+    ":old:start-sharder": "node -r dotenv/config ./rollem-dist/rollem-bot/sharder.js dotenv_config_path=./secrets/vscode.env",
+    ":old:start-package": "docker run --env-file ./secrets/vscode.env rollem-discord",
+    ":old:build": "gulp build",
+    ":old:watch": "gulp watch"
+  }
 }
