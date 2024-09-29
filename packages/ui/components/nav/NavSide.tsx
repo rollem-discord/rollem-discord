@@ -1,7 +1,7 @@
 import { Drawer, Hidden, Link, List, ListItemIcon, ListItemText, Theme, Typography } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LockIcon from "@mui/icons-material/Lock";
-import { createStyles, makeStyles } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
 
 import ListItemButton from "@mui/material/ListItemButton";
@@ -9,7 +9,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 const drawerWidth = '240px';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     drawer: {
       [theme.breakpoints.up('md')]: {
         width: drawerWidth,

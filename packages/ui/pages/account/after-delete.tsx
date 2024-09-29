@@ -5,22 +5,11 @@ import {
   CardContent,
   CardHeader,
   Theme,
-  Avatar,
-  Accordion,
-  AccordionSummary,
-  Typography,
-  AccordionDetails,
-  Tooltip,
-  Link,
-  Button,
-  CardActions,
 } from "@mui/material";
 import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
 import { RollemSessionData } from "@rollem/ui/lib/withSession";
-import { Cloud, ExpandMore, Web } from '@mui/icons-material';
 import React from "react";
 
 const API_URL = '/api/auth/discord/getData';
@@ -33,7 +22,7 @@ async function fetcher(url) {
 
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     icon: {
       paddingRight: "0.25em",
     },

@@ -1,5 +1,4 @@
 import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,7 +22,7 @@ async function fetcher(url) {
 }
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     homeWrapper: {
       display: "flex",
       flexFlow: "row nowrap",

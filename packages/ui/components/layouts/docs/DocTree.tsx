@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { SidePanelContext } from '@rollem/ui/lib/contexts/sidepanel-context';
@@ -21,7 +20,7 @@ import styles from './DocTree.module.scss';
 import ListItemButton from "@mui/material/ListItemButton";
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     root: {
       width: '100%',
       minHeight: '100%',

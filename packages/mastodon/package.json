@@ -38,7 +38,7 @@
     "pg": "^8.6.0",
     "prom-client": "^14.1.0",
     "reflect-metadata": "^0.1.13",
-    "ts-loader": "^9.2.2",
+    "ts-loader": "^9.5.1",
     "ts-mocha": "^8.0.0",
     "ts-node": "^10.1.0",
     "ts-pegjs": "^0.3.1",

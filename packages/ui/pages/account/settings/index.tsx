@@ -1,7 +1,6 @@
 import RootLayout from "@rollem/ui/components/layouts/RootLayout";
 import { Card, Grid, CardContent, CardHeader, Theme, Avatar } from "@mui/material";
 import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
 import { RollemSessionData } from "@rollem/ui/lib/withSession";
@@ -16,7 +15,7 @@ async function fetcher(url) {
 
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     homeWrapper: {
       display: "flex",
       flexFlow: "row nowrap",
