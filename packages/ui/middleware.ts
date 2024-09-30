@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
 export function middleware() {
+  // TODO: Convert this to use cors.middleware (currently API only) or https://nextjs.org/docs/app/building-your-application/routing/middleware#cors
+
     // retrieve the current response
     const res = NextResponse.next()
 
