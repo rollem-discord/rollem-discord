@@ -2,7 +2,7 @@ import { Theme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
-import { RollemSessionData } from '@rollem/ui/lib/withSession';
+import { RollemSessionData } from '@rollem/ui/lib/api/old.withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { Avatar, SvgIcon, Tooltip } from '@mui/material';

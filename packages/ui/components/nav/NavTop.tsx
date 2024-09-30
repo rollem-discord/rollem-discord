@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
-import { RollemSessionData } from '@rollem/ui/lib/withSession';
+import { RollemSessionData } from '@rollem/ui/lib/api/old.withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { DiscordProfile } from './DiscordProfile';

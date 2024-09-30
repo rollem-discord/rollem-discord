@@ -1,34 +1,37 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { RollemApiRequest, RollemSessionData } from "@rollem/ui/lib/withSession";
-import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
-import { withSession } from "next-session";
+import { RollemSessionData } from "@rollem/ui/lib/api/old.withSession";
+import { storage } from "@rollem/ui/lib/storage";
 import { oauth } from "@rollem/ui/lib/configured-discord-oauth";
+import { withDatabase } from "@rollem/ui/lib/api/database.middleware";
+import { apiHandleErrors } from "@rollem/ui/lib/api/errors.middleware";
+import { withSession, withSessionRequired } from "@rollem/ui/lib/api/session.middleware";
+import { Session } from "next-session/lib/types";
 
-export default withSession(
-  async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
-    await storageInitialize$;
-    // console.log(util.inspect(req, true, null, true));
-    try {
-      const user = await oauth.getUser(req.session.discord.auth.access_token);
-      const guilds = await oauth.getUserGuilds(req.session.discord.auth.access_token);
-      await req.session.commit();
+export default
+  apiHandleErrors(withSession(withSessionRequired(withDatabase(
+    async (req: NextApiRequest, res: NextApiResponse, session: Session<RollemSessionData>) => {
+      // console.log(util.inspect(req, true, null, true));
+      try {
+        const user = await oauth.getUser(session.discord.auth.access_token);
+        const guilds = await oauth.getUserGuilds(session.discord.auth.access_token);
+        await session.commit();
 
-      const userData = await storage.getOrCreateUser(user.id /* discord id */);
+        const userData = await storage.getOrCreateUser(user.id /* discord id */);
 
-      req.session.discord = req.session.discord || {} as any;
-      req.session.discord.auth = req.session.discord.auth;
-      req.session.discord.expires_at = req.session.discord.expires_at;
-      req.session.discord.user = user;
-      req.session.discord.guilds = guilds;
-      req.session.data = req.session.data || {} as any;
-      req.session.data.user = userData;
+        session.discord = session.discord || {} as any;
+        session.discord.auth = session.discord.auth;
+        session.discord.expires_at = session.discord.expires_at;
+        session.discord.user = user;
+        session.discord.guilds = guilds;
+        session.data = session.data || {} as any;
+        session.data.user = userData;
 
-      res.redirect(
-        `/account/summary`
-      );
-    } catch (ex) {
-      console.error(ex);
-      res.status(500);
+        res.redirect(
+          `/account/summary`
+        );
+      } catch (ex) {
+        console.error(ex);
+        return res.status(500).json({"error": { "code": "storage/unknown" }});
+      }
     }
-  }
-);
+  ))));

@@ -1,6 +1,4 @@
 import DiscordOauth2 from "discord-oauth2";
-import { withSession } from "next-session";
-import util from "util";
 
 const config = {
   clientId: process.env.DISCORD_CLIENT_ID,
@@ -14,15 +12,17 @@ import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import {
-  RollemApiRequest,
   RollemSessionData,
-} from "@rollem/ui/lib/withSession";
+} from "@rollem/ui/lib/api/old.withSession";
+import { withDatabase } from "@rollem/ui/lib/api/database.middleware";
+import { apiHandleErrors } from "@rollem/ui/lib/api/errors.middleware";
+import { withSession, withSessionRequired } from "@rollem/ui/lib/api/session.middleware";
+import { Session } from "next-session/lib/types";
 
-export default withSession(
-  async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
+export default
+  apiHandleErrors(withSession(withSessionRequired(withDatabase(
+    async (req: NextApiRequest, res: NextApiResponse, session: Session<RollemSessionData>) => {
     try {
-      await storageInitialize$;
-
       const userCount = await storage.userCount();
 
       const schema =
@@ -31,7 +31,7 @@ export default withSession(
           : "http";
       const reconstructedUri = `${schema}://${req.headers.host}`;
 
-      res
+      return res
         .status(200)
         .json({
           userCount,
@@ -39,7 +39,7 @@ export default withSession(
         });
     } catch (ex) {
       console.error(ex);
-      res.status(500);
+      return res.status(500).json({"error": { "code": "storage/unknown" }});
     }
   }
-);
+))));

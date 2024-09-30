@@ -3,7 +3,7 @@ import { Card, Grid, CardContent, CardHeader, Theme, Avatar } from "@mui/materia
 import makeStyles from '@mui/styles/makeStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
-import { RollemSessionData } from "@rollem/ui/lib/withSession";
+import { RollemSessionData } from "@rollem/ui/lib/api/old.withSession";
 
 const API_URL = '/api/auth/discord/getData';
 

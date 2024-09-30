@@ -1853,9 +1853,11 @@ __metadata:
     "@mui/material": "npm:^6.1.1"
     "@mui/styles": "npm:^6.1.1"
     "@rollem/common": "workspace:*"
+    "@types/cors": "npm:^2.8.17"
     "@types/node": "npm:^20.16.10"
     "@types/react": "npm:^18.3.10"
     "@types/react-dom": "npm:^18.3.0"
+    cors: "npm:^2.8.5"
     cross-env: "npm:^7.0.3"
     date-fns: "npm:^2.30.0"
     discord-oauth2: "npm:^2.6.0"
@@ -1866,7 +1868,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     next: "npm:^14.2.13"
     next-cli: "npm:^1.0.0"
-    next-transpile-modules: "npm:^8.0.0"
+    next-session: "npm:^4.0.5"
     nodemon: "npm:^3.1.7"
     npm-watch: "npm:^0.13.0"
     pg: "npm:^8.6.0"
@@ -1994,6 +1996,15 @@ __metadata:
   version: 1.0.4
   resolution: "@tsconfig/node16@npm:1.0.4"
   checksum: 05f8f2734e266fb1839eb1d57290df1664fe2aa3b0fdd685a9035806daa635f7519bf6d5d9b33f6e69dd545b8c46bd6e2b5c79acb2b1f146e885f7f11a42a5bb
+  languageName: node
+  linkType: hard
+
+"@types/cors@npm:^2.8.17":
+  version: 2.8.17
+  resolution: "@types/cors@npm:2.8.17"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 457364c28c89f3d9ed34800e1de5c6eaaf344d1bb39af122f013322a50bc606eb2aa6f63de4e41a7a08ba7ef454473926c94a830636723da45bf786df032696d
   languageName: node
   linkType: hard
 
@@ -5304,6 +5315,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^0.4.1":
+  version: 0.4.2
+  resolution: "cookie@npm:0.4.2"
+  checksum: beab41fbd7c20175e3a2799ba948c1dcc71ef69f23fe14eeeff59fc09f50c517b0f77098db87dbb4c55da802f9d86ee86cdc1cd3efd87760341551838d53fca2
+  languageName: node
+  linkType: hard
+
 "copy-concurrently@npm:^1.0.0":
   version: 1.0.5
   resolution: "copy-concurrently@npm:1.0.5"
@@ -5370,6 +5388,16 @@ __metadata:
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 90a0e40abbddfd7618f8ccd63a74d88deea94e77d0e8dbbea059fa7ebebb8fbb4e2909667fe26f3a467073de1a542ebe6ae4c73a73745ac5833786759cd906c9
+  languageName: node
+  linkType: hard
+
+"cors@npm:^2.8.5":
+  version: 2.8.5
+  resolution: "cors@npm:2.8.5"
+  dependencies:
+    object-assign: "npm:^4"
+    vary: "npm:^1"
+  checksum: 373702b7999409922da80de4a61938aabba6929aea5b6fd9096fefb9e8342f626c0ebd7507b0e8b0b311380744cc985f27edebc0a26e0ddb784b54e1085de761
   languageName: node
   linkType: hard
 
@@ -6369,7 +6397,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.15.0, enhanced-resolve@npm:^5.7.0":
+"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.15.0":
   version: 5.15.0
   resolution: "enhanced-resolve@npm:5.15.0"
   dependencies:
@@ -12301,7 +12329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.6":
+"nanoid@npm:^3.1.25, nanoid@npm:^3.3.6":
   version: 3.3.7
   resolution: "nanoid@npm:3.3.7"
   bin:
@@ -12357,20 +12385,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-session@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "next-session@npm:4.0.5"
+  dependencies:
+    cookie: "npm:^0.4.1"
+    nanoid: "npm:^3.1.25"
+  checksum: fc01d9de3f770d4a3eb7e5bf5a694f3d3bf5f17bf3ba732829617143275495d96eabe72b376b08de50542d0276b3218a0992bb56869450b76f2d3fdb51db7759
+  languageName: node
+  linkType: hard
+
 "next-tick@npm:1, next-tick@npm:^1.1.0":
   version: 1.1.0
   resolution: "next-tick@npm:1.1.0"
   checksum: 3ba80dd805fcb336b4f52e010992f3e6175869c8d88bf4ff0a81d5d66e6049f89993463b28211613e58a6b7fe93ff5ccbba0da18d4fa574b96289e8f0b577f28
-  languageName: node
-  linkType: hard
-
-"next-transpile-modules@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "next-transpile-modules@npm:8.0.0"
-  dependencies:
-    enhanced-resolve: "npm:^5.7.0"
-    escalade: "npm:^3.1.1"
-  checksum: f5a29b657ad8b29c814267b6ca3e0a5a9e02d381964a3f085867925eac35966e098a3213583336d3501a60eafd0bf6f6333110c041f79f67d0cfd5a5a6ead80c
   languageName: node
   linkType: hard
 
@@ -13105,7 +13133,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-assign@npm:4.X, object-assign@npm:^4.0.1, object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
+"object-assign@npm:4.X, object-assign@npm:^4, object-assign@npm:^4.0.1, object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: 1f4df9945120325d041ccf7b86f31e8bcc14e73d29171e37a7903050e96b81323784ec59f93f102ec635bcf6fa8034ba3ea0a8c7e69fa202b87ae3b6cec5a414
@@ -18162,7 +18190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vary@npm:~1.1.2":
+"vary@npm:^1, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: f15d588d79f3675135ba783c91a4083dcd290a2a5be9fcb6514220a1634e23df116847b1cc51f66bfb0644cf9353b2abb7815ae499bab06e46dd33c1a6bf1f4f

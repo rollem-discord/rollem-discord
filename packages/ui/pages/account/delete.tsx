@@ -13,7 +13,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
-import { RollemSessionData } from "@rollem/ui/lib/withSession";
+import { RollemSessionData } from "@rollem/ui/lib/api/old.withSession";
 import React from "react";
 
 const API_URL = '/api/auth/discord/getData';

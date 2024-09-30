@@ -1,8 +1,7 @@
 import { User } from '@rollem/common';
 import { IncomingMessage } from 'http';
 import { NextApiRequest } from 'next';
-import { SessionCookieData } from 'next-session/dist/types';
-import { DiscordTokenRequestResult } from './discord-oauth';
+import { DiscordTokenRequestResult } from '../discord-oauth';
 import OAuth from 'discord-oauth2';
 
 export interface DiscordSessionData {
@@ -26,7 +25,6 @@ export interface SessionThin {
   commit(): Promise<void>;
   destroy(): Promise<void>;
   isNew: boolean;
-  cookie: SessionCookieData;
 }
 
 export type RollemApiRequest<T> = NextApiRequest & {
