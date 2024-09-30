@@ -49,4 +49,11 @@ module.exports = {
     // Important: return the modified config
     return config
   },
+  experimental: {
+    // Need to disable minification for TypeORM
+    // See https://github.com/typeorm/typeorm/issues/4714
+    // See https://github.com/vercel/next.js/issues/59594
+    // See https://github.com/vercel/next.js/discussions/58182
+    serverMinification: false,
+  }
 };

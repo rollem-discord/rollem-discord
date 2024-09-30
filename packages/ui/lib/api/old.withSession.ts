@@ -15,9 +15,15 @@ export interface RollemData {
   user: User,
 }
 
+export interface SessionError {
+  name: string;
+  message: string;
+};
+
 export interface RollemSessionData {
   discord: DiscordSessionData;
-  data: RollemData,
+  data: RollemData;
+  errors: unknown[];
 }
 
 export interface SessionThin {

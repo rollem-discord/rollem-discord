@@ -239,6 +239,26 @@ export default function AccountSummary() {
                   </pre>
                 </AccordionDetails>
               </Accordion>
+
+              {data?.errors && 
+                <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMore />}
+                    aria-controls="panel5bh-content"
+                    id="panel5bh-header"
+                  >
+                    <Typography className={classes.heading}>
+                      <Tooltip title="Errors"><Cloud className={classes.icon}/></Tooltip>
+                      Errors
+                    </Typography>
+                    <Typography className={classes.secondaryHeading}>Any errors encountered retrieving your data</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails className={classes.accordionDetails}>
+                    <pre>
+                      { JSON.stringify(data?.errors, null, 2) }
+                    </pre>
+                  </AccordionDetails>
+                </Accordion>}
             </CardContent>
             <CardActions >
               <Button variant="contained" color="secondary" href={"/account/delete"}>
