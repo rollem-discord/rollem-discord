@@ -1,8 +1,8 @@
-import { createTheme, responsiveFontSizes, adaptV4Theme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 import { lightBlue, purple } from "@mui/material/colors";
 
 
-export const theme = responsiveFontSizes(createTheme(adaptV4Theme({
+export const theme = responsiveFontSizes(createTheme({
   palette: {
     mode: "dark",
     primary: {
@@ -12,4 +12,4 @@ export const theme = responsiveFontSizes(createTheme(adaptV4Theme({
       main: purple['A700'],
     }
   }
-})));
+}));

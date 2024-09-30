@@ -102,7 +102,7 @@ const asyncCors = expressToNextMiddleware(standardCors);
 
 export async function middleware(req: NextApiRequest, res: NextApiResponse) {
   try {
-    await asyncCors(req, res);
+    // await asyncCors(req, res);
   } catch (e) {
     throw "it broke";
     res.status(500).json({"error": { "code": "cors" }});

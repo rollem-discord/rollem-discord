@@ -1,4 +1,4 @@
-import { createTheme, DeprecatedThemeOptions, adaptV4Theme } from '@mui/material';
+import { createTheme, DeprecatedThemeOptions } from '@mui/material';
 
 export const paletteColorsDark = {
   primary: '#0f4c75',
@@ -28,5 +28,5 @@ const options = (dark: boolean): DeprecatedThemeOptions => {
     }
   }
 }
-export const darkTheme = createTheme(adaptV4Theme(options(true)))
-export const lightTheme = createTheme(adaptV4Theme(options(false)))
+export const darkTheme = createTheme(options(true))
+export const lightTheme = createTheme(options(false))

@@ -19,7 +19,9 @@
 			"XXX",
 			"[ ]",
 			"[x]",
-			"TODO(upgrade)"
+			"TODO(upgrade)",
+			"LATER(MUI)",
+			"LATER"
 		]
 	},
 	"extensions": {

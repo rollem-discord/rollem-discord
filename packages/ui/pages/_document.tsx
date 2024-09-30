@@ -2,20 +2,11 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import { ServerStyleSheets } from '@mui/styles'
 import {
-  createTheme,
-  responsiveFontSizes,
-  ThemeProvider,
   Theme,
-  StyledEngineProvider,
 } from '@mui/material/styles';
-import { AppContext } from '../lib/contexts/request-context'
 import { theme } from '../lib/theme'
 
-import { purple, green } from '@mui/material/colors';
-import { NextPageContext } from 'next';
-
-
-declare module '@mui/styles/defaultTheme' {
+declare module '@mui/styles' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
@@ -68,29 +59,29 @@ class MyDocument extends Document {
 }
 
 // TODO(upgrade): What on earth is this thing doing?
-// MyDocument.getInitialProps = async (ctx: DocumentContext) => {
-//   // Render app and page and get the context of the page with collected side effects.
-//   const sheets = new ServerStyleSheets()
-//   const originalRenderPage = ctx.renderPage
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
+  // Render app and page and get the context of the page with collected side effects.
+  const sheets = new ServerStyleSheets(); // LATER(MUI): to switch to emotion, refer to materialui-makestyles-undoes-custom-css-upon-refresh-in-nextjs https://stackoverflow.com/questions/75401710/material-ui-next-js-13-styles-issues-in-prod https://stackoverflow.com/questions/66089290/ https://blog.logrocket.com/getting-started-mui-next-js/
+  const originalRenderPage = ctx.renderPage;
 
-//   ctx.renderPage = () =>
-//     originalRenderPage({
-//       enhanceApp: App => props => sheets.collect(<App {...props} />)
-//     })
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />)
+    })
 
-//   const initialProps = await Document.getInitialProps(ctx)
+  const initialProps = await Document.getInitialProps(ctx)
 
-//   return {
-//     ...initialProps,
-//     ctx,
-//     // Styles fragment is rendered after the app and page rendering finish.
-//     styles: [
-//       <React.Fragment key="styles">
-//         {initialProps.styles}
-//         {sheets.getStyleElement()}
-//       </React.Fragment>
-//     ]
-//   }
-// }
+  return {
+    ...initialProps,
+    ctx,
+    // Styles fragment is rendered after the app and page rendering finish.
+    styles: [
+      <React.Fragment key="styles">
+        {initialProps.styles}
+        {sheets.getStyleElement()}
+      </React.Fragment>
+    ]
+  }
+}
 
 export default MyDocument
