@@ -24,7 +24,7 @@ export const AppContextProvider: FC<PropsWithChildren> = (props) => {
     console.log({inEffect: context});
   })
 
-  console.log(util.inspect({inMethod: context, props}, true, 5, true));
+  // console.log(util.inspect({inMethod: context, props}, true, 5, true));
 
   return (
     <AppContext.Provider value={context}>
