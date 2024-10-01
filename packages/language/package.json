@@ -95,6 +95,7 @@
     "__________________________________________________": "end of notes",
     "____________________pinned____________________": "common commands",
     "build": "yarn run ::lang:build",
+    "clean": "yarn run ::lang:clean",
     ":watch": "yarn ::lang:watch",
     "____________________build____________________": "build-related commands",
     "::lang:clean": "node tools/cleanup",

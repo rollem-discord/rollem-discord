@@ -95,6 +95,7 @@
     "____________________pinned____________________": "common commands",
     "build": "yarn run ::mastodon:clean && yarn run ::mastodon:build",
     "watch": "yarn ::mastodon:watch",
+    "clean": "yarn run ::mastodon:clean",
     "start": "yarn run ::mastodon:start",
     "package": "yarn run ::mastodon:build && yarn run ::mastodon:package",
     "package:only": "yarn run ::mastodon:package",

@@ -98,6 +98,7 @@
     "__________________________________________________": "end of notes",
     "____________________pinned____________________": "common commands",
     "build": "yarn run ::common:build",
+    "clean": "yarn run ::common:clean",
     "____________________build____________________": "build-related commands",
     "::common:clean": "node tools/cleanup",
     "::common:build": "yarn run ::common:build:cjs && yarn run ::common:build:esm && yarn run ::common:build:umd && yarn run ::common:build:types",

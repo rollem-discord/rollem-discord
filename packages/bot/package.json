@@ -89,6 +89,7 @@
     "____________________pinned____________________": "common commands",
     "build": "yarn run ::bot:clean && yarn run ::bot:build",
     "watch": "yarn ::bot:watch",
+    "clean": "yarn run ::bot:clean",
     "start": "yarn run ::bot:start",
     "package": "yarn run ::bot:build && yarn run ::bot:package",
     "package:only": "yarn run ::bot:package",

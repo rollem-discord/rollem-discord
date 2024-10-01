@@ -12,6 +12,7 @@
     "__________________________________________________": "end of notes",
     "____________________pinned____________________": "common commands",
     "build": "yarn ALL run build",
+    "clean": "yarn ALL run clean",
     "sync": "yarn run syncpack",
     "sync:check": "yarn run sync list-mismatches",
     "sync:fix": "yarn run sync fix-mismatches --filter '^this-changes-the-default-to-none$'",
