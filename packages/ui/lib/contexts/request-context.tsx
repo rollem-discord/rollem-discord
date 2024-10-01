@@ -21,7 +21,7 @@ export const AppContextProvider: FC<PropsWithChildren> = (props) => {
       context.baseUrl = `${protocol}://${window.location.host}`;
     }
 
-    console.log({inEffect: context});
+    // console.log({inEffect: context});
   })
 
   // console.log(util.inspect({inMethod: context, props}, true, 5, true));

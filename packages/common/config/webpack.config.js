@@ -12,9 +12,30 @@ module.exports = {
     __dirname: false,
   },
   plugins: [
-    new IgnorePlugin({ resourceRegExp: /^pg-native$/}),
+    new IgnorePlugin({ resourceRegExp: /^pg-native$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^react-native-sqlite-storage$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^mysql$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^mssql$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^sql.js$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^sqlite3$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^better-sqlite3$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^ioredis$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^redis$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^typeorm-aurora-data-api-driver$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^redis$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^pg-query-stream$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^oracledb$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^mysql2$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^hdb-pool$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^@sap\/hana-client$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^mongodb$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^@google-cloud\/spanner$/}), // typeorm peer dependency
+    new IgnorePlugin({ resourceRegExp: /^supports-color$/}), // debug optional peer dependency?
     new FilterWarningsPlugin({
-      exclude: [/hdb-pool/, /@sap\/hana-client/, /mongodb/, /mssql/, /mysql/, /mysql2/, /oracledb/, /pg/, /pg-query-stream/, /react-native-sqlite-storage/, /redis/, /sqlite3/, /sql.js/, /typeorm-aurora-data-api-driver/]
+      exclude: [
+        // /typeorm.*?peer dependency/,
+        /the request of a dependency is an expression/, // type ORM spams these
+      ],
     }),
     // new CopyPlugin({
     //   patterns: [

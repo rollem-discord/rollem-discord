@@ -47,6 +47,12 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@types/chai": "^4.2.11",
+    "@types/chance": "^1.1.0",
+    "@types/keyv": "^3.1.1",
+    "@types/lodash": "^4.14.170",
+    "@types/mocha": "^8",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "cross-env": "^7.0.3",

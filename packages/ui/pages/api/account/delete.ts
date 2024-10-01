@@ -7,7 +7,7 @@ const config = {
   redirectUri: process.env.DISCORD_REDIRECT_URI,
   db_connection: process.env.DB_CONNECTION_STRING,
 };
-console.log(config);
+console.log("config", config);
 const oauth = new DiscordOauth2(config);
 import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
 

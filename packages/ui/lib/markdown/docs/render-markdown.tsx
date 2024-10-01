@@ -56,7 +56,7 @@ const components: Components = {
 export function renderDocsMarkdown(markdown: string, id?: string[]) {
   const fullRoute = id ? ['/docs', ...id, ''] : ['/docs/'];
   const relativeTo = fullRoute.join('/');
-  console.log({renderMarkdown: id, relativeTo})
+  // console.log({renderMarkdown: id, relativeTo})
   return (
     <ReactMarkdown
       className="markdown"
