@@ -1738,6 +1738,8 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^11.0.0"
     "@commitlint/config-conventional": "npm:^11.0.0"
+    "@types/mocha": "npm:^8"
+    "@types/node": "npm:^18"
     "@typescript-eslint/eslint-plugin": "npm:^4.15.0"
     "@typescript-eslint/parser": "npm:^4.15.0"
     applicationinsights: "npm:^2.9.1"
@@ -2108,6 +2110,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mocha@npm:^8":
+  version: 8.2.3
+  resolution: "@types/mocha@npm:8.2.3"
+  checksum: a0faabd12456a51d2dae4b978b8c053517331ac23aa8874c3a35d95253fa9adfccd78b9f1cdae5cac2501aa1e7c6414ed65dc34c717867d86c09d88fda42a19c
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 20.10.5
   resolution: "@types/node@npm:20.10.5"
@@ -2121,6 +2130,15 @@ __metadata:
   version: 10.17.60
   resolution: "@types/node@npm:10.17.60"
   checksum: 0742294912a6e79786cdee9ed77cff6ee8ff007b55d8e21170fc3e5994ad3a8101fea741898091876f8dc32b0a5ae3d64537b7176799e92da56346028d2cbcd2
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18":
+  version: 18.19.54
+  resolution: "@types/node@npm:18.19.54"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: ea3e2530bb887d4d9c5eb58f0dd16b2af37e4323da2970f3b513403f45db1e0d54ba39b3de838ba7b2d40d38329aeed0bda4a0a39922d006c68aca5ee22e6e46
   languageName: node
   linkType: hard
 
