@@ -1,7 +1,6 @@
 // @ts-check
 
 /** @type {import("syncpack").RcFile} */
-
 const config = {
   // Local packages appear to always be 'LocalDependencyMismatch'
   dependencyTypes: ["!local"],
