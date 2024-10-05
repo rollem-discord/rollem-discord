@@ -9,7 +9,15 @@
 # - https://dev.to/siddharthvenkatesh/docker-setup-for-yarn-workspaces-4pnj
 # - https://github.com/vercel/next.js/discussions/33567
 # - https://xfor.medium.com/yarn-workspaces-and-docker-39e30402b69b
+# - https://docs.docker.com/build/building/multi-stage/
 # - https://stackoverflow.com/questions/49754286/multiple-images-one-dockerfile
+# - https://github.com/yarnpkg/berry/issues/1956
+# - https://gitlab.com/Larry1123/yarn-contrib/-/tree/master/packages/plugin-production-install
+# - https://ismayilkhayredinov.medium.com/orchestrating-and-dockerizing-a-monorepo-with-yarn-3-and-turborepo-e26241a285cb
+# - https://github.com/vercel/next.js/issues/36386
+# - https://depot.dev/docs/languages/node-pnpm-dockerfile
+# - https://www.reddit.com/r/typescript/comments/1ainj58/pnpm_vs_yarn_v4/
+# - https://gist.github.com/vanxh/0c3a62cc6bd6b8aa143c2e278d9e9dfa
 
 ####################################################################################################
 # Notes on running
@@ -19,7 +27,7 @@
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
-FROM base AS deps
+FROM base AS workspace
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
@@ -39,6 +47,12 @@ RUN yarn --version
 RUN yarn install
 RUN yarn build
 
+# TODO: Delete this -- aliasing so the rest of this file makes sense
+FROM workspace AS deps
+FROM workspace AS builder
+
+####################################################################################################
+## I think we can skip this Builder stage?
 # Rebuild the source code only when needed
 # FROM base AS builder
 # WORKDIR /app
@@ -57,34 +71,55 @@ RUN yarn build
 #   else echo "Lockfile not found." && exit 1; \
 #   fi
 
-# # Production image, copy all the files and run next
-# FROM base AS runner
-# WORKDIR /app
+# # ###################################################################################################
+# # # Production image, copy all the files and run next
+# # FROM base AS runner
+# # WORKDIR /app
 
-# ENV NODE_ENV production
-# # Uncomment the following line in case you want to disable telemetry during runtime.
-# # ENV NEXT_TELEMETRY_DISABLED 1
+# # ENV NODE_ENV production
+# # # Uncomment the following line in case you want to disable telemetry during runtime.
+# # # ENV NEXT_TELEMETRY_DISABLED 1
 
-# RUN addgroup --system --gid 1001 nodejs
-# RUN adduser --system --uid 1001 nextjs
+# # RUN addgroup --system --gid 1001 nodejs
+# # RUN adduser --system --uid 1001 nextjs
 
-# COPY --from=builder /app/public ./public
+# # ## Copy Language
+# # COPY --from=builder /app/packages/language/package.json /app/packages/language/package.json
+# # COPY --from=builder /app/packages/language/dist/ /app/packages/language/dist/
 
-# # Set the correct permission for prerender cache
-# RUN mkdir .next
-# RUN chown nextjs:nodejs .next
+# # ## Copy Common
+# # COPY --from=builder /app/packages/common/package.json /app/packages/common/package.json
+# # COPY --from=builder /app/packages/common/dist/ /app/packages/common/dist/
 
-# # Automatically leverage output traces to reduce image size
-# # https://nextjs.org/docs/advanced-features/output-file-tracing
-# COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-# COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# # ## Special nextjs
+# # # Set the correct permission for prerender cache
+# # RUN mkdir .next
+# # RUN chown nextjs:nodejs .next
+# # COPY --from=builder /app/packages/ui/package.json /app/packages/ui/package.json
 
-# USER nextjs
+# # # Automatically leverage output traces to reduce image size
+# # # https://nextjs.org/docs/advanced-features/output-file-tracing
+# # WORKDIR /app/packages/ui/
+# # COPY --from=builder --chown=nextjs:nodejs /app/packages/ui/.next/standalone /app/packages/ui/
+# # COPY --from=builder --chown=nextjs:nodejs /app/packages/ui/.next/static /app/packages/ui/.next/static
 
-# EXPOSE 3000
+# # ## Copy baseline
+# # COPY package.json .
+# # COPY yarn.lock .
+# # COPY .pnp.* .
+# # COPY .yarnrc* .
+# # RUN yarn install --pure-lockfile --non-interactive --production
 
-# ENV PORT 3000
+# # ARG CACHEBUST=1 
+# # RUN echo "$CACHEBUST"
+# # RUN tree -aL 4 .
 
-# # server.js is created by next build from the standalone output
-# # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-# CMD HOSTNAME="0.0.0.0" node server.js
+# # USER nextjs
+
+# # EXPOSE 3000
+
+# # ENV PORT 3000
+
+# # # server.js is created by next build from the standalone output
+# # # https://nextjs.org/docs/pages/api-reference/next-config-js/output
+# # CMD HOSTNAME="0.0.0.0" node server.js
