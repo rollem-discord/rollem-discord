@@ -66,5 +66,6 @@ module.exports = {
   // Standalone required for docker deploy?
   // Source: https://nextjs.org/docs/pages/building-your-application/deploying#docker-image
   // -> https://github.com/vercel/next.js/tree/v14.2.13/examples/with-docker
-  output: "standalone",
+  // TODO: Didn't work for me. Trying without.
+  // output: "standalone",
 };
