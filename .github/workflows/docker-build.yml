@@ -1,9 +1,8 @@
-name: Docker Publish
+name: Docker Build
 
 on:
-  push:
-    tags:
-      - '*'
+  pull_request:
+    branches: [ master ]
 
 env:
   MASTODON_IMAGE_NAME: rollem-mastodon
