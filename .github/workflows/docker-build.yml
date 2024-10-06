@@ -14,11 +14,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Build all images
-        working-directory: .
-        run: docker compose -f workspace.compose.yaml build
+    - name: Build all images
+      working-directory: .
+      run: docker compose -f workspace.compose.yaml build
+
+    - name: Export Image (Discord Bot)
+      working-directory: .
+      run: docker save rollem-discord > /tmp/rollem-discord.tar
+
+    - name: Export Image (Mastodon Bot)
+      working-directory: .
+      run: docker save rollem-mastodon > /tmp/rollem-mastodon.tar
+
+    - name: Export Image (UI)
+      working-directory: .
+      run: docker save rollem-ui > /tmp/rollem-ui.tar
+    
+    - name: Archive Images
+      uses: actions/upload-artifact@v4
+      with:
+        name: images
+        path: /tmp/*.tar
 
 
   # push-bot:
