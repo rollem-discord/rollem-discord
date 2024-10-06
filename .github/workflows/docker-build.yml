@@ -46,7 +46,7 @@ jobs:
 
     - name: Build Image (Discord Bot)
       working-directory: .
-      run: yarn run ::DF --target rollem-bot --label='rollem-discord' -t rollem-discord
+      run: docker build -f workspace.Dockerfile . --target rollem-bot --label='rollem-discord' -t rollem-discord
 
     - name: Export Image (Discord Bot)
       working-directory: .
@@ -66,7 +66,7 @@ jobs:
 
     - name: Build Image (Mastodon Bot)
       working-directory: .
-      run: yarn run ::DF --target rollem-mastodon --label='rollem-mastodon' -t rollem-mastodon
+      run: docker build -f workspace.Dockerfile . --target rollem-mastodon --label='rollem-mastodon' -t rollem-mastodon
 
     - name: Export Image (Mastodon Bot)
       working-directory: .
@@ -86,7 +86,7 @@ jobs:
 
     - name: Build Image (UI)
       working-directory: .
-      run: yarn run ::DF --target rollem-ui --label='rollem-ui' -t rollem-ui
+      run: docker build -f workspace.Dockerfile . --target rollem-ui --label='rollem-ui' -t rollem-ui
 
     - name: Export Image (UI)
       working-directory: .
