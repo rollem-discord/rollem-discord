@@ -4,42 +4,10 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  MASTODON_IMAGE_NAME: rollem-mastodon
-  DISCORD_IMAGE_NAME: rollem-discord
-  UI_IMAGE_NAME: rollem-discord-ui
-
 jobs:
-  build-images:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Build all images
-      working-directory: .
-      run: docker compose -f workspace.compose.yaml build
-
-    - name: Export Image (Discord Bot)
-      working-directory: .
-      run: docker save rollem-discord > /tmp/rollem-discord.tar
-
-    - name: Export Image (Mastodon Bot)
-      working-directory: .
-      run: docker save rollem-mastodon > /tmp/rollem-mastodon.tar
-
-    - name: Export Image (UI)
-      working-directory: .
-      run: docker save rollem-ui > /tmp/rollem-ui.tar
-    
-    - name: Archive Images
-      uses: actions/upload-artifact@v4
-      with:
-        name: images
-        path: /tmp/*.tar
-
   build-image-rollem-discord:
     runs-on: ubuntu-latest
+    name: Containerize (Rollem Discord)
 
     steps:
     - uses: actions/checkout@v2
@@ -60,6 +28,7 @@ jobs:
 
   build-image-rollem-mastodon:
     runs-on: ubuntu-latest
+    name: Containerize (Rollem Mastodon)
 
     steps:
     - uses: actions/checkout@v2
@@ -79,7 +48,8 @@ jobs:
         path: /tmp/rollem-mastodon.tar
 
   build-image-rollem-ui:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-
+    name: Containerize (Rollem UI)
 
     steps:
     - uses: actions/checkout@v2
@@ -98,211 +68,31 @@ jobs:
         name: rollem-ui
         path: /tmp/rollem-ui.tar
 
-
-  # push-bot:
+  # build-images:
   #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'push'
+  #   name: Containerize (All)
 
   #   steps:
-  #     - uses: actions/checkout@v2
+  #   - uses: actions/checkout@v2
 
-  #     - name: Build image
-  #       working-directory: ./packages/bot
-  #       run: docker build . --file Dockerfile --tag image
+  #   - name: Build all images
+  #     working-directory: .
+  #     run: docker compose -f workspace.compose.yaml build
 
-  #     - name: Log into docker hub registry
-  #       working-directory: ./packages/bot
-  #       run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
+  #   - name: Export Image (Discord Bot)
+  #     working-directory: .
+  #     run: docker save rollem-discord > /tmp/rollem-discord.tar
 
-  #     - name: Push image to docker hub registry
-  #       working-directory: ./packages/bot
-  #       run: |
-  #         IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$DISCORD_IMAGE_NAME
-          
-  #         # Change all uppercase to lowercase
-  #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+  #   - name: Export Image (Mastodon Bot)
+  #     working-directory: .
+  #     run: docker save rollem-mastodon > /tmp/rollem-mastodon.tar
 
-  #         # Strip git ref prefix from version
-  #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-  #         # Strip "v" prefix from tag name
-  #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-  #         # Use Docker `latest` tag convention
-  #         [ "$VERSION" == "master" ] && VERSION=latest
-
-  #         echo IMAGE_ID=$IMAGE_ID
-  #         echo VERSION=$VERSION
-
-  #         docker tag image $IMAGE_ID:$VERSION
-  #         docker push $IMAGE_ID:$VERSION
-
-  #     - name: Log into github registry
-  #       working-directory: ./packages/bot
-  #       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-  #     - name: Push image to github
-  #       working-directory: ./packages/bot
-  #       run: |
-  #         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$DISCORD_IMAGE_NAME
-          
-  #         # Change all uppercase to lowercase
-  #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-  #         # Strip git ref prefix from version
-  #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-  #         # Strip "v" prefix from tag name
-  #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-  #         # Use Docker `latest` tag convention
-  #         [ "$VERSION" == "master" ] && VERSION=latest
-
-  #         echo IMAGE_ID=$IMAGE_ID
-  #         echo VERSION=$VERSION
-
-  #         docker tag image $IMAGE_ID:$VERSION
-  #         docker push $IMAGE_ID:$VERSION
-
-  # push-mastodon:
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'push'
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Build image
-  #       working-directory: ./packages/mastodon
-  #       run: docker build . --file Dockerfile --tag image
-
-  #     - name: Log into docker hub registry
-  #       working-directory: ./packages/mastodon
-  #       run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
-
-  #     - name: Push image to docker hub registry
-  #       working-directory: ./packages/mastodon
-  #       run: |
-  #         IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$MASTODON_IMAGE_NAME
-          
-  #         # Change all uppercase to lowercase
-  #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-  #         # Strip git ref prefix from version
-  #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-  #         # Strip "v" prefix from tag name
-  #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-  #         # Use Docker `latest` tag convention
-  #         [ "$VERSION" == "master" ] && VERSION=latest
-
-  #         echo IMAGE_ID=$IMAGE_ID
-  #         echo VERSION=$VERSION
-
-  #         docker tag image $IMAGE_ID:$VERSION
-  #         docker push $IMAGE_ID:$VERSION
-
-  #     - name: Log into github registry
-  #       working-directory: ./packages/mastodon
-  #       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-  #     - name: Push image to github
-  #       working-directory: ./packages/mastodon
-  #       run: |
-  #         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$MASTODON_IMAGE_NAME
-          
-  #         # Change all uppercase to lowercase
-  #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-  #         # Strip git ref prefix from version
-  #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-  #         # Strip "v" prefix from tag name
-  #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-  #         # Use Docker `latest` tag convention
-  #         [ "$VERSION" == "master" ] && VERSION=latest
-
-  #         echo IMAGE_ID=$IMAGE_ID
-  #         echo VERSION=$VERSION
-
-  #         docker tag image $IMAGE_ID:$VERSION
-  #         docker push $IMAGE_ID:$VERSION
-
-  # push-ui:
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'push'
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Build image2
-  #       working-directory: ./packages/ui
-  #       run: docker build . --file Dockerfile --tag image2
-
-  #     - name: Log into docker hub registry
-  #       working-directory: ./packages/ui
-  #       run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
-
-  #     - name: Push image2 to docker hub registry
-  #       working-directory: ./packages/ui
-  #       run: |
-  #         IMAGE_ID=${{ secrets.DOCKER_HUB_USER }}/$UI_IMAGE_NAME
-          
-  #         # Change all uppercase to lowercase
-  #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-  #         # Strip git ref prefix from version
-  #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-  #         # Strip "v" prefix from tag name
-  #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-  #         # Use Docker `latest` tag convention
-  #         [ "$VERSION" == "master" ] && VERSION=latest
-
-  #         echo IMAGE_ID=$IMAGE_ID
-  #         echo VERSION=$VERSION
-
-  #         docker tag image2 $IMAGE_ID:$VERSION
-  #         docker push $IMAGE_ID:$VERSION
-
-  #     - name: Log into github registry
-  #       working-directory: ./packages/ui
-  #       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-  #     - name: Push image2 to github
-  #       working-directory: ./packages/ui
-  #       run: |
-  #         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$UI_IMAGE_NAME
-          
-  #         # Change all uppercase to lowercase
-  #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-  #         # Strip git ref prefix from version
-  #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-  #         # Strip "v" prefix from tag name
-  #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-  #         # Use Docker `latest` tag convention
-  #         [ "$VERSION" == "master" ] && VERSION=latest
-
-  #         echo IMAGE_ID=$IMAGE_ID
-  #         echo VERSION=$VERSION
-
-  #         docker tag image2 $IMAGE_ID:$VERSION
-  #         docker push $IMAGE_ID:$VERSION
-
-  #         mark-as-release:
-  #   name: "Mark as Release"
-  #   runs-on: "ubuntu-latest"
-
-  #   steps:
-  #     - uses: "marvinpinto/action-automatic-releases@v1.2.0"
-  #       with:
-  #         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-  #         prerelease: false
-  #         files: |
-  #           LICENSE.txt
-  #           **/*
+  #   - name: Export Image (UI)
+  #     working-directory: .
+  #     run: docker save rollem-ui > /tmp/rollem-ui.tar
+    
+  #   - name: Archive Images
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: images
+  #       path: /tmp/*.tar
