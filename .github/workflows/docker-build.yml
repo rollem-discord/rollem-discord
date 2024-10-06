@@ -18,7 +18,7 @@ jobs:
 
       - name: Build all images
         working-directory: .
-        run: docker-compose -f workspace.compose.yaml build
+        run: docker compose -f workspace.compose.yaml build
 
 
   # push-bot:
