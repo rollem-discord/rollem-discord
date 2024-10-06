@@ -1,6 +1,6 @@
 services:
   rollem-ui:
-    image: rollem-discord-ui
+    image: rollem-ui
     build:
       context: .
       dockerfile: workspace.Dockerfile
