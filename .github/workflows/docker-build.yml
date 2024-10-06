@@ -10,9 +10,8 @@ env:
   UI_IMAGE_NAME: rollem-discord-ui
 
 jobs:
-  push-new:
+  build-images:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
