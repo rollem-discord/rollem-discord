@@ -48,7 +48,7 @@ jobs:
         path: /tmp/rollem-mastodon.tar
 
   build-image-rollem-ui:
-    runs-on: ubuntu-
+    runs-on: ubuntu-latest
     name: Containerize (Rollem UI)
 
     steps:
