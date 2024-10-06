@@ -1,0 +1,3 @@
+- [ ] Only cross-workspace scripts should contain a colon
+  - https://stackoverflow.com/questions/66670071/from-inside-a-yarn-workspace-subpackage-run-a-root-level-script
+  - https://yarnpkg.com/cli/run#details

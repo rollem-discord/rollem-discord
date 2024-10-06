@@ -1,11 +1,12 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import ActiveLink from '../ActiveLink';
 import Link from 'next/link';
-import { RollemSessionData } from '@rollem/ui/lib/withSession';
+import { RollemSessionData } from '@rollem/ui/lib/api/old.withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
-import { Avatar, SvgIcon, Tooltip } from '@material-ui/core';
-import { ExitToApp, Settings } from '@material-ui/icons';
+import { Avatar, SvgIcon, Tooltip } from '@mui/material';
+import { ExitToApp, Settings } from '@mui/icons-material';
 import { AppContext } from '@rollem/ui/lib/contexts/request-context';
 import { useContext } from 'react';
 
@@ -18,7 +19,7 @@ async function fetcher(url) {
 }
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     homeWrapper: {
       display: "flex",
       flexFlow: "row nowrap",
@@ -56,47 +57,41 @@ export function DiscordProfile() {
     const username = data?.discord?.user?.username;
     const discriminator = data?.discord?.user?.discriminator;
 
-    return (
-      <>
-        <Tooltip title={`Account (${username}#${discriminator})`}>
-          <span>
-            <ActiveLink href={`/account`} className={classes.link} activeClassName={classes.activeLink}>
-              <a>
-                <span className={classes.homeWrapper}>
-                  <Avatar
-                    src={`https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`}
-                    className={classes.profileImage}
-                  ></Avatar>
-                </span>
-              </a>
-            </ActiveLink>
-          </span>
-        </Tooltip>
-        <Tooltip title="Settings">
-          <span>
-            <Link href={'/account/settings'}><a><SvgIcon component={Settings}></SvgIcon></a></Link>
-          </span>
-        </Tooltip>
-        <Tooltip title="Logout">
-          <span>
-            <Link href={"/account/logout"}>
-              <a className={classes.link}>
-                <SvgIcon component={ExitToApp}></SvgIcon>
-              </a>
-            </Link>
-          </span>
-        </Tooltip>
-      </>
-    );
+    return <>
+      <Tooltip title={`Account (${username}#${discriminator})`}>
+        <span>
+          <ActiveLink href={`/account`} className={classes.link} activeClassName={classes.activeLink}>
+              <span className={classes.homeWrapper}>
+                <Avatar
+                  src={`https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`}
+                  className={classes.profileImage}
+                ></Avatar>
+              </span>
+          </ActiveLink>
+        </span>
+      </Tooltip>
+      <Tooltip title="Settings">
+        <span>
+          <Link href={'/account/settings'}><SvgIcon component={Settings}></SvgIcon></Link>
+        </span>
+      </Tooltip>
+      <Tooltip title="Logout">
+        <span>
+          <Link href={"/account/logout"} className={classes.link}>
+
+            <SvgIcon component={ExitToApp}></SvgIcon>
+
+          </Link>
+        </span>
+      </Tooltip>
+    </>;
   }
 
   const callback = `${context.baseUrl}/api/auth/discord/callback`;
   const encodedCallback = encodeURIComponent(callback);
   const loginUrl = `https://discord.com/oauth2/authorize?client_id=240732567744151553&redirect_uri=${encodedCallback}&response_type=code&scope=identify%20guilds`;
 
-  return (
-    <>
-      <Link href={loginUrl}><a>Login</a></Link>
-    </>
-  );
+  return <>
+    <Link href={loginUrl}>Login</Link>
+  </>;
 }

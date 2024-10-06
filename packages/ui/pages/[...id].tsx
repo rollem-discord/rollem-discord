@@ -1,12 +1,5 @@
-import Head from 'next/head'
-import utilStyles from '../styles/utils.module.scss'
-import { GetStaticProps, GetStaticPaths, NextApiResponse, GetServerSideProps } from 'next'
-import { DocsDataTree, getAllDocIds, getDocData, makePropsAllDocData } from '../lib/markdown/docs/get-docs-data'
-import RootLayout from '../components/layouts/RootLayout'
-import { applySession } from 'next-session'
-import { RollemApiRequest, RollemSessionData, RollemIncomingMessage } from '../lib/withSession'
-import { ServerResponse } from 'http'
-import * as util from 'util';
+import { GetServerSideProps } from 'next'
+import { DocsDataTree, getAllDocIds } from '../lib/markdown/docs/get-docs-data'
 
 export default function Post({
   postData,

@@ -1,9 +1,24 @@
 import RootLayout from "@rollem/ui/components/layouts/RootLayout";
-import { Card, Grid, CardContent, CardHeader, makeStyles, createStyles, Theme, Avatar, Accordion, AccordionSummary, Typography, AccordionDetails, Tooltip, CardActions, Button } from "@material-ui/core";
+import {
+  Card,
+  Grid,
+  CardContent,
+  CardHeader,
+  Theme,
+  Avatar,
+  Accordion,
+  AccordionSummary,
+  Typography,
+  AccordionDetails,
+  Tooltip,
+  CardActions,
+  Button,
+} from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
-import { RollemSessionData } from "@rollem/ui/lib/withSession";
-import { Cloud, ExpandMore, Web } from '@material-ui/icons';
+import { RollemSessionData } from "@rollem/ui/lib/api/old.withSession";
+import { Cloud, ExpandMore, Web } from '@mui/icons-material';
 import React from "react";
 
 const API_URL = '/api/auth/discord/getData';
@@ -16,7 +31,7 @@ async function fetcher(url) {
 
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     icon: {
       paddingRight: "0.25em",
     },
@@ -102,8 +117,8 @@ export default function AccountSummary() {
   };
 
   return (
-    <RootLayout>
-      <Grid container justify="center" spacing={3} className={classes.gridWrapper}>
+    (<RootLayout>
+      <Grid container justifyContent="center" spacing={3} className={classes.gridWrapper}>
         <Grid item>
           <Card>
             <CardHeader avatar={
@@ -224,6 +239,26 @@ export default function AccountSummary() {
                   </pre>
                 </AccordionDetails>
               </Accordion>
+
+              {data?.errors && 
+                <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMore />}
+                    aria-controls="panel5bh-content"
+                    id="panel5bh-header"
+                  >
+                    <Typography className={classes.heading}>
+                      <Tooltip title="Errors"><Cloud className={classes.icon}/></Tooltip>
+                      Errors
+                    </Typography>
+                    <Typography className={classes.secondaryHeading}>Any errors encountered retrieving your data</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails className={classes.accordionDetails}>
+                    <pre>
+                      { JSON.stringify(data?.errors, null, 2) }
+                    </pre>
+                  </AccordionDetails>
+                </Accordion>}
             </CardContent>
             <CardActions >
               <Button variant="contained" color="secondary" href={"/account/delete"}>
@@ -233,6 +268,6 @@ export default function AccountSummary() {
           </Card>
         </Grid>
       </Grid>
-    </RootLayout>
-  )
+    </RootLayout>)
+  );
 }

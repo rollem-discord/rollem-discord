@@ -1,15 +1,18 @@
 {
-	// The number of spaces a tab is equal to.
-	"editor.tabSize": 2,
-
-	// Insert spaces when pressing Tab.
-	"editor.insertSpaces": true,
-
-	"jasmineExplorer.config": "spec/support/jasmine.json",
-
-	// When opening a file, `editor.tabSize` and `editor.insertSpaces` will be detected based on the file contents.
-	"editor.detectIndentation": true,
-	"files.exclude": {
-		"**/node_modules/**": true
-	}
+  // The number of spaces a tab is equal to.
+  "editor.tabSize": 2,
+  // Insert spaces when pressing Tab.
+  "editor.insertSpaces": true,
+  "jasmineExplorer.config": "spec/support/jasmine.json",
+  // When opening a file, `editor.tabSize` and `editor.insertSpaces` will be detected based on the file contents.
+  "editor.detectIndentation": true,
+  "files.exclude": {
+    "**/node_modules/**": true
+  },
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

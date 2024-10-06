@@ -1,9 +1,15 @@
 import RootLayout from "@rollem/ui/components/layouts/RootLayout";
-import { Card, Grid, CardContent, CardHeader, makeStyles, createStyles, Theme, Avatar, Accordion, AccordionSummary, Typography, AccordionDetails, Tooltip, Link, Button, CardActions } from "@material-ui/core";
+import {
+  Card,
+  Grid,
+  CardContent,
+  CardHeader,
+  Theme,
+} from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
-import { RollemSessionData } from "@rollem/ui/lib/withSession";
-import { Cloud, ExpandMore, Web } from '@material-ui/icons';
+import { RollemSessionData } from "@rollem/ui/lib/api/old.withSession";
 import React from "react";
 
 const API_URL = '/api/auth/discord/getData';
@@ -16,7 +22,7 @@ async function fetcher(url) {
 
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     icon: {
       paddingRight: "0.25em",
     },
@@ -93,8 +99,8 @@ export default function AccountAfterDelete() {
   };
 
   return (
-    <RootLayout>
-      <Grid container justify="center" spacing={3} className={classes.gridWrapper}>
+    (<RootLayout>
+      <Grid container justifyContent="center" spacing={3} className={classes.gridWrapper}>
         <Grid item>
           <Card>
             <CardHeader title="Account Deleted" subheader="Who are you?"/>
@@ -122,6 +128,6 @@ export default function AccountAfterDelete() {
           </Card>
         </Grid>
       </Grid>
-    </RootLayout>
-  )
+    </RootLayout>)
+  );
 }

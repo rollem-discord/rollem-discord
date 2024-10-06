@@ -1,0 +1,12 @@
+{
+  "name": "Hello, World!",
+  "version": "1.0.0",
+  "manifest_version": 1,
+  "action": {
+    "title": "Hello, World!",
+    "icon": "/images/rollem-transparent.png",
+    "popover": "/",
+    "height": 600,
+    "width": 400
+  }
+}

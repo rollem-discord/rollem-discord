@@ -24,3 +24,16 @@ coverage
 dist/
 
 .yarn-error.log
+
+# yarn modern - "not using zero-installs"
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.nx/cache/*
+/generated_values.yaml

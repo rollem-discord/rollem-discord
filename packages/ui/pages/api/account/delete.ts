@@ -1,5 +1,4 @@
 import DiscordOauth2 from "discord-oauth2";
-import { withSession } from "next-session";
 import util from "util";
 
 const config = {
@@ -8,7 +7,7 @@ const config = {
   redirectUri: process.env.DISCORD_REDIRECT_URI,
   db_connection: process.env.DB_CONNECTION_STRING,
 };
-console.log(config);
+console.log("config", config);
 const oauth = new DiscordOauth2(config);
 import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
 
@@ -16,27 +15,29 @@ import { NextApiRequest, NextApiResponse } from "next";
 import {
   RollemApiRequest,
   RollemSessionData,
-} from "@rollem/ui/lib/withSession";
+} from "@rollem/ui/lib/api/old.withSession";
+import { apiHandleErrors } from "@rollem/ui/lib/api/errors.middleware";
+import { withSession, withSessionRequired } from "@rollem/ui/lib/api/session.middleware";
+import { Session } from "next-session/lib/types";
+import { withDatabase } from "@rollem/ui/lib/api/database.middleware";
 
-export default withSession(
-  async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
-    try {
-      await storageInitialize$;
-      // console.log(util.inspect(req.session, true, null, true));
-      const data = req.session as RollemSessionData;
-      const user = await oauth.getUser(req.session.discord.auth.access_token);
 
-      await storage.forgetUser(user.id /** Discord User ID */)
+export default
+  apiHandleErrors(withSession(withSessionRequired(withDatabase(
+    async (req: NextApiRequest, res: NextApiResponse, session: Session<RollemSessionData>) => {
+      try {
+        // console.log(util.inspect(session, true, null, true));
+        const user = await oauth.getUser(session.discord.auth.access_token);
 
-      await req.session.commit();
-      await req.session.destroy();
+        await storage.forgetUser(user.id /** Discord User ID */)
 
-      res.redirect(
-        `/account/after-delete`
-      );
-    } catch (ex) {
-      console.error(ex);
-      res.status(500);
+        await session.commit();
+        await session.destroy();
+      } catch (ex) {
+        console.error(ex);
+        return res.status(500).json({"error": { "code": "storage/unknown" }});
+      }
+
+      res.redirect(`/account/after-delete`);
     }
-  }
-);
+  ))));

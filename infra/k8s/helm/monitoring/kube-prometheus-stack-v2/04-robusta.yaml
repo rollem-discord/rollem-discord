@@ -1,0 +1,23 @@
+prometheus: # collect rules from all namespaces and ignore label filters
+    ruleNamespaceSelector: {}
+    ruleSelector: {}
+    ruleSelectorNilUsesHelmValues: false
+defaultRules: # those rules are now managed by Robusta
+    rules:
+      alertmanager: false
+      etcd: false
+      configReloaders: false
+      general: false
+      kubeApiserverSlos: false
+      kubeControllerManager: false
+      kubeProxy: false
+      kubernetesApps: false
+      kubernetesResources: false
+      kubernetesStorage: false
+      kubernetesSystem: false
+      kubeSchedulerAlerting: false
+      kubeStateMetrics: false
+      network: false
+      nodeExporterAlerting: false
+      prometheus: false
+      prometheusOperator: false

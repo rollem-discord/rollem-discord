@@ -1,11 +1,16 @@
 import React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheets } from '@material-ui/styles'
-import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
-import { AppContext } from '../lib/contexts/request-context'
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
+import { ServerStyleSheets } from '@mui/styles'
+import {
+  Theme,
+} from '@mui/material/styles';
 import { theme } from '../lib/theme'
+
+declare module '@mui/styles' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 class MyDocument extends Document {
   render() {
@@ -17,6 +22,10 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+          />
+          <link 
+            rel="stylesheet" 
+            href="https://fonts.googleapis.com/icon?family=Material+Icons" 
           />
           <style jsx global>
             {`
@@ -49,10 +58,11 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = async ctx => {
+// TODO(upgrade): What on earth is this thing doing?
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets()
-  const originalRenderPage = ctx.renderPage
+  const sheets = new ServerStyleSheets(); // LATER(MUI): to switch to emotion, refer to materialui-makestyles-undoes-custom-css-upon-refresh-in-nextjs https://stackoverflow.com/questions/75401710/material-ui-next-js-13-styles-issues-in-prod https://stackoverflow.com/questions/66089290/ https://blog.logrocket.com/getting-started-mui-next-js/
+  const originalRenderPage = ctx.renderPage;
 
   ctx.renderPage = () =>
     originalRenderPage({

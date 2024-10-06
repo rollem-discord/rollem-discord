@@ -17,12 +17,12 @@ const ActiveLink = ({ children, activeClassName, ...props }) => {
       : `${props.className} ${childClassName}`
 
   return (
-    <Link href={props.href} {...props}>
+    <Link href={props.href} {...props} legacyBehavior>
       {React.cloneElement(child, {
         className: className || null,
       })}
     </Link>
-  )
+  );
 }
 
 ActiveLink.propTypes = {
