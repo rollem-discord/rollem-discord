@@ -128,10 +128,17 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
   }
 
   protected rollV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+    
+    const rollSpoileredResults = this.rollSpoileredV1(trigger, logTag, content, context, requireDice);
+    if ((rollSpoileredResults?.length ?? 0) > 0) {
+      return rollSpoileredResults;
+    }
+
     const rollManyResults = this.rollManyV1(trigger, logTag, content, context, requireDice);
     if ((rollManyResults?.length ?? 0) > 0) {
       return rollManyResults;
     }
+
 
     const rollGroupedResults = this.rollGroupedV1(trigger, logTag, content, context, requireDice);
     if ((rollGroupedResults?.length ?? 0) > 0) {
@@ -145,6 +152,40 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
 
     return null;
   }
+
+
+
+  protected rollSpoileredV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
+    const match = content.match(/^([sS]#)(?:(\d+)#\s*)?(.*)/i);
+
+    if (!match) {
+      return null;
+    }
+    const diceWithoutSpoiler = match[3] ? match[3] : content;
+
+
+    const lines: string[] = [];
+    const result = this.parsers.v1.tryParse(diceWithoutSpoiler);
+    if (!result) { return null; }
+
+    // don't be too aggressive with the replies
+    const hasEnoughDice = requireDice ? result.dice > 0 : true;
+    const hasPrefix = isKnownPrefix(context.messageConfiguredOptions?.prefixStyle);
+    const shouldReply = hasPrefix || (result.depth > 1 && hasEnoughDice);
+    if (!shouldReply) { return null; }
+
+    const response = this.buildMessage(result, requireDice);
+
+    if (response && shouldReply) {
+      lines.push("||" + response + "||");
+    }
+      this.promLogger.incParserUse(ParserRollType.Spoilered, 'v1');
+      this.logger.trackMessageEvent(LoggerCategory.BehaviorEvent, `Roll Spoilered v1, ${logTag}: ${content}`, trigger);
+      return lines;
+    }
+
+
+
 
   protected rollFortuneV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     const match = content.match(/(?:fortune#\s*)?(.*)/i);
@@ -204,6 +245,8 @@ export abstract class DiceBehaviorBase extends BehaviorBase {
       ...groupedValues,
     ];
   }
+
+
 
   protected rollGroupedV1(trigger: Trigger, logTag: string, content: string, context: BehaviorContext, requireDice: boolean): string[] | null {
     const match = content.match(/(?:(ore|group|groupValue|groupCount|groupSize|groupHeight|groupWidth)#\s*)?(.*)/i);

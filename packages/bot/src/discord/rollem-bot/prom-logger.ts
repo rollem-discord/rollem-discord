@@ -25,6 +25,7 @@ export enum ParserRollType {
   Fortune = 'fortune',
   Grouped = 'grouped',
   ManyInBulk = 'many-in-bulk',
+  Spoilered = "spoilered"
 }
 
 export enum StorageHandlerSubtype {

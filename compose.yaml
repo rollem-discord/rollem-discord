@@ -7,40 +7,30 @@ services:
       POSTGRES_PASSWORD: local
       POSTGRES_USER: rollem-dev
       POSTGRES_DB: rollem-dev
-  # frontend:
-  #   image: awesome/webapp
-  #   ports:
-  #     - "443:8043"
-  #   networks:
-  #     - front-tier
-  #     - back-tier
-  #   configs:
-  #     - httpd-config
-  #   secrets:
-  #     - server-certificate
 
-  # backend:
-  #   image: awesome/database
-  #   volumes:
-  #     - db-data:/etc/data
-  #   networks:
-  #     - back-tier
+  database-persist:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: local
+      POSTGRES_USER: rollem-dev
+      POSTGRES_DB: rollem-dev
+    volumes:
+      - ./database:/var/lib/postgresql
+  
+  # TODO: This uses an old version of rollem. It seems the `latest` tag has not updated
+  rollem-minimal:
+    image: lemtzas/rollem-discord
+    environment:
+      DISCORD_BOT_USER_TOKEN: <your bot token here>
 
-# volumes:
-#   db-data:
-#     driver: flocker
-#     driver_opts:
-#       size: "10GiB"
+  rollem-database:
+    image: lemtzas/rollem-discord:2.9.6
+    depends_on:
+      - database
+    environment:
+      DISCORD_BOT_USER_TOKEN: <your bot token here>
+      DB_CONNECTION_STRING: postgresql://rollem-dev:local@database/rollem-dev
+      DB_DISABLE_SSL: 'true'
 
-# configs:
-#   httpd-config:
-#     external: true
-
-# secrets:
-#   server-certificate:
-#     external: true
-
-# networks:
-#   # The presence of these objects is sufficient to define them
-#   front-tier: {}
-#   back-tier: {}

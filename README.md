@@ -175,8 +175,9 @@ All commands are performed by mentioning `@rollem` in server chat, and without p
 1. You will need [Docker](https://www.docker.com/get-started)
 2. Create database with `docker-compose up database`
 3. Initialize the database
-   1. `cd packages/common` to get to the common code directory
-   2. `yarn run typeorm schema:sync` to sync the TypeORM schema
+      1. `cd packages/common` to get to the common code directory
+      2. `yarn install`
+      3. `yarn run typeorm schema:sync` to sync the TypeORM schema
 
 - You may have to repeat these steps when the schema changes
 - Clear the database with `docker-compose down database` and then `docker-compose up database`
@@ -205,9 +206,27 @@ These are incomplete and are a massive pain on Windows anyway.
 
 ## Deploying the Bot
 
+Summary
 * [rollem-discord on docker hub](https://hub.docker.com/r/lemtzas/rollem-discord/).
 * Set the `DISCORD_BOT_USER_TOKEN` environment variable to your token from [discord's applications page](https://discordapp.com/developers/applications/me).
 * The docker hub will automatically update with the latest commits on `master`.
+
+### ~~Minimal Deploy (no storage)~~
+Not currently possible.
+
+1. Required tools
+   1. [Docker](https://www.docker.com/get-started)
+2. Start the bot
+   1. Configure the values in `compose.yaml`
+   2. run `docker-compose up rollem-minimal` in the root directory
+
+## Simple Deploy (no persistence)
+1. Required tools
+   1. [Docker](https://www.docker.com/get-started)
+3. Start the bot
+   1. Configure the values in `compose.yaml` (You will need a bot token from discord)
+   2. run `docker-compose up rollem-database` in the root directory
+
 
 ## Publishing
 
