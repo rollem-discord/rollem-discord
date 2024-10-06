@@ -82,7 +82,7 @@
       "ts"
     ]
   },
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.5.0",
   "scripts": {
     "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
     "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
@@ -109,7 +109,7 @@
     "::mastodon:start": "cross-env NODE_ENV=development nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "____________________local-docker-packaging____________________": "commands for running within the docker package",
     "::mastodon:package:cleanup": "docker rmi $(docker images --filter=label=org.opencontainers.image.ref.name=rollem/mastodon -aq)",
-    "::mastodon:package": "docker build --label='rollem-mastodon' -t rollem-mastodon .",
+    "::mastodon:package": "yarn run ::DF --target rollem-mastodon --label='rollem-mastodon' -t rollem-mastodon",
     "::mastodon:package:start": "docker run --rm -it --env-file ../../secrets/vscode.env rollem-mastodon",
     "____________________for-docker____________________": "commands for running within the docker package",
     "container:start": "node dist/bundle.js",

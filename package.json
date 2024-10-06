@@ -11,6 +11,7 @@
     "____________________note02____________________": "all commands prefixed with `?:` were collected and may need adjustment + review // TODO: Review",
     "__________________________________________________": "end of notes",
     "____________________pinned____________________": "common commands",
+    "::DF": "docker build -f workspace.Dockerfile .",
     "build": "yarn ALL run build",
     "clean": "yarn ALL run clean",
     "sync": "yarn run syncpack",

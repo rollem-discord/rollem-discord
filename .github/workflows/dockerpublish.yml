@@ -206,7 +206,8 @@ jobs:
 
           docker tag image2 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-  mark-as-release:
+
+          mark-as-release:
     name: "Mark as Release"
     runs-on: "ubuntu-latest"
 

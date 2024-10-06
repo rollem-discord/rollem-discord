@@ -1,0 +1,37 @@
+services:
+  rollem-ui:
+    image: lemtzas/rollem-discord-ui
+    build:
+      context: .
+      dockerfile: workspace.Dockerfile
+      target: rollem-ui
+      args:
+        BUILD_STYLE: global
+
+  rollem-discord:
+    image: lemtzas/rollem-discord
+    build:
+      context: .
+      dockerfile: workspace.Dockerfile
+      target: rollem-bot
+      args:
+        BUILD_STYLE: global
+
+  rollem-mastodon:
+    image: lemtzas/rollem-mastodon
+    build:
+      context: .
+      dockerfile: workspace.Dockerfile
+      target: rollem-mastodon
+      args:
+        BUILD_STYLE: global
+
+# services:
+#   database:
+#     image: postgres
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_PASSWORD: local
+#       POSTGRES_USER: rollem-dev
+#       POSTGRES_DB: rollem-dev

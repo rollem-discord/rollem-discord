@@ -76,7 +76,7 @@
       "ts"
     ]
   },
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.5.0",
   "scripts": {
     "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
     "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
@@ -104,7 +104,7 @@
     "webpack:launch": "cross-env NODE_ENV=development yarn dlx nodemon -r dotenv/config dist/bundle.js dotenv_config_path=../../secrets/vscode.env",
     "____________________local-docker-packaging____________________": "commands for running within the docker package",
     "::bot:package:cleanup": "docker rmi $(docker images --filter=label=org.opencontainers.image.ref.name=rollem/bot -aq)",
-    "::bot:package": "docker build --label='rollem-bot' -t rollem-bot .",
+    "::bot:package": "yarn run ::DF --target rollem-bot --label='rollem-bot' -t rollem-bot",
     "::bot:package:start": "docker run --rm -it --env-file ../../secrets/vscode.env rollem-bot",
     "____________________for-docker____________________": "commands for running within the docker package",
     "container:start": "node dist/bundle.js",
