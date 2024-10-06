@@ -56,7 +56,8 @@ ARG BUILD_STYLE="single"
 
   # Copy yarn support files (see https://gist.github.com/vanxh/0c3a62cc6bd6b8aa143c2e278d9e9dfa)
   COPY .yarn/ ./.yarn
-  COPY package.json .pnp.cjs .yarnrc.yml yarn.lock* ./
+  # COPY package.json .pnp.cjs .yarnrc.yml yarn.lock* ./
+  COPY package.json .yarnrc.yml yarn.lock* ./
 
   # Copy packages
   COPY packages/ packages/
