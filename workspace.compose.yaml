@@ -1,6 +1,6 @@
 services:
   rollem-ui:
-    image: lemtzas/rollem-discord-ui
+    image: rollem-discord-ui
     build:
       context: .
       dockerfile: workspace.Dockerfile
@@ -9,7 +9,7 @@ services:
         BUILD_STYLE: global
 
   rollem-discord:
-    image: lemtzas/rollem-discord
+    image: rollem-discord
     build:
       context: .
       dockerfile: workspace.Dockerfile
@@ -18,7 +18,7 @@ services:
         BUILD_STYLE: global
 
   rollem-mastodon:
-    image: lemtzas/rollem-mastodon
+    image: rollem-mastodon
     build:
       context: .
       dockerfile: workspace.Dockerfile
