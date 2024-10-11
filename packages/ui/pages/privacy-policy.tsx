@@ -1,6 +1,6 @@
 import RootLayout from '../components/layouts/RootLayout';
 import Head from 'next/head';
-import { Button, Card, CardContent } from '@material-ui/core';
+import { Button, Card, CardContent } from '@mui/material';
 
 import styles from '../styles/standard.module.scss';
 import { GetStaticProps } from 'next';

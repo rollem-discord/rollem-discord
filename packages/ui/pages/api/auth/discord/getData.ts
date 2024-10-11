@@ -1,5 +1,4 @@
 import DiscordOauth2 from "discord-oauth2";
-import { withSession } from "next-session";
 import util from "util";
 
 import { storage, storageInitialize$ } from "@rollem/ui/lib/storage";
@@ -8,19 +7,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 import {
   RollemApiRequest,
   RollemSessionData,
-} from "@rollem/ui/lib/withSession";
+} from "@rollem/ui/lib/api/old.withSession";
+import { apiHandleErrors } from "@rollem/ui/lib/api/errors.middleware";
+import { withSession, withSessionRequired } from "@rollem/ui/lib/api/session.middleware";
+import { Session } from "next-session/lib/types";
 
-export default withSession(
-  async (req: RollemApiRequest<RollemSessionData>, res: NextApiResponse) => {
-    try {
-      // console.log(util.inspect(req.session, true, null, true));
-
-      res
-        .status(200)
-        .json(req.session);
-    } catch (ex) {
-      console.error(ex);
-      res.status(500);
-    }
-  }
-);
+export default 
+  apiHandleErrors(withSession(withSessionRequired(
+  async (req: NextApiRequest, res: NextApiResponse, session: Session<RollemSessionData>) => {
+    res
+      .status(200)
+      .json(session);
+  })));

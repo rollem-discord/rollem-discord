@@ -1,15 +1,16 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
-import { RollemSessionData } from '@rollem/ui/lib/withSession';
+import { RollemSessionData } from '@rollem/ui/lib/api/old.withSession';
 import fetch from 'isomorphic-unfetch';
 import useSWR from 'swr';
 import { DiscordProfile } from './DiscordProfile';
-import { Hidden, Tooltip } from '@material-ui/core';
+import { Hidden, Tooltip } from '@mui/material';
 import { SidePanelContext } from '@rollem/ui/lib/contexts/sidepanel-context';
 
 const API_URL = '/api/auth/discord/getData';
@@ -21,7 +22,7 @@ async function fetcher(url) {
 }
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     homeWrapper: {
       display: "flex",
       flexFlow: "row nowrap",
@@ -80,7 +81,7 @@ export default function NavTop() {
   const { data, error } = useSWR<RollemSessionData>(API_URL, fetcher);
 
   return (
-    <SidePanelContext.Consumer>
+    (<SidePanelContext.Consumer>
       {({ toggleDrawer }) => (
         <div className={classes.root}>
           <AppBar position="static">
@@ -92,19 +93,19 @@ export default function NavTop() {
                   onClick={toggleDrawer(true)}
                   color="inherit"
                   aria-label="menu"
-                >
+                  size="large">
                   <MenuIcon />
                 </IconButton>
               </Hidden>
               <Tooltip title="Rollem Rocks">
                 <Typography variant="h6">
-                  <Link href={"/"}>
-                    <a className={classes.homeWrapper}>
-                      <img
-                        className={classes.iconImage}
-                        src="/images/rollem-transparent.png"
-                      ></img>
-                    </a>
+                  <Link href={"/"} className={classes.homeWrapper}>
+
+                    <img
+                      className={classes.iconImage}
+                      src="/images/rollem-transparent.png"
+                    ></img>
+
                   </Link>
                 </Typography>
               </Tooltip>
@@ -114,6 +115,6 @@ export default function NavTop() {
           </AppBar>
         </div>
       )}
-    </SidePanelContext.Consumer>
+    </SidePanelContext.Consumer>)
   );
 }

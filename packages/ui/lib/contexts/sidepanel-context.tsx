@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent, useContext, useEffect, useState } from "react";
+import { createContext, FC, PropsWithChildren, useState } from "react";
 
 export interface SidePanelContextValue extends Record<string, unknown> {
   /** True when the drawer should be open on mobile. */
@@ -23,7 +23,7 @@ export const SidePanelContext = createContext({
   mobileDrawerOpen: false
 } as SidePanelContextValue);
 
-export const SidePanelContextProvider: FunctionComponent = ({ ...props }) => {
+export const SidePanelContextProvider: FC<PropsWithChildren> = (props) => {
   const [state, setState] = useState({
     mobileDrawerOpen: false,
     docsDrawerOpen: false,

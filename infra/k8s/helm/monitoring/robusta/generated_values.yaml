@@ -1,0 +1,33 @@
+globalConfig:
+  signing_key: 12b4ff24-3539-47fd-981e-6a983df80a83
+  account_id: 1fa0c5a7-6cd7-4408-aa03-d3dc5a3958f7
+enablePlatformPlaybooks: true
+runner:
+  sendAdditionalTelemetry: false
+# enabledManagedConfiguration: true # Enable managed alerts
+# kube-prometheus-stack: # those rules are now managed by Robusta
+#   defaultRules:
+#     rules:
+#       alertmanager: false
+#       etcd: false
+#       configReloaders: false
+#       general: false
+#       kubeApiserverSlos: false
+#       kubeControllerManager: false
+#       kubeProxy: false
+#       kubernetesApps: false
+#       kubernetesResources: false
+#       kubernetesStorage: false
+#       kubernetesSystem: false
+#       kubeSchedulerAlerting: false
+#       kubeStateMetrics: false
+#       network: false
+#       nodeExporterAlerting: false
+#       prometheus: false
+#       prometheusOperator: false
+customPlaybooks:
+- triggers:
+  - on_prometheus_alert:
+      alert_name: RollemProdLacksEvents
+  actions:
+  - rollout_restart: {}

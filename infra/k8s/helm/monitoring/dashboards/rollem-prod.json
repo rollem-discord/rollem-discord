@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 53,
+  "id": 28,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -52,6 +52,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -66,6 +67,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -97,7 +99,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "unitScale": true
         },
         "overrides": [
           {
@@ -154,7 +157,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(max_over_time(servers{job=\"default/rollem-next\"}[5m]))",
+          "expr": "sum(max_over_time(rollem_servers{job=\"default/rollem-next\"}[5m]))",
           "legendFormat": "rollem-next",
           "range": true,
           "refId": "A"
@@ -165,7 +168,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(max_over_time(servers{job=\"default/rollem-prod\"}[5m]))",
+          "expr": "sum(max_over_time(rollem_servers{job=\"default/rollem-prod\"}[5m]))",
           "hide": false,
           "legendFormat": "rollem-prod",
           "range": true,
@@ -186,6 +189,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -200,6 +204,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -231,7 +236,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -263,7 +269,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(max_over_time(users{job=\"default/rollem-next\"}[5m]))",
+          "expr": "sum(max_over_time(rollem_users{job=\"default/rollem-next\"}[5m]))",
           "legendFormat": "rollem-next",
           "range": true,
           "refId": "A"
@@ -274,7 +280,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(max_over_time(users{job=\"default/rollem-prod\"}[5m]))",
+          "expr": "sum(max_over_time(rollem_users{job=\"default/rollem-prod\"}[5m]))",
           "hide": false,
           "legendFormat": "rollem-prod",
           "range": true,
@@ -308,6 +314,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -323,6 +330,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -352,7 +360,8 @@
                 "value": 2400
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -386,7 +395,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "max by(shard) (servers{job=\"default/rollem-next\"})",
+          "expr": "max by(shard) (rollem_servers{job=\"default/rollem-next\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -420,6 +429,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -435,6 +445,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -464,7 +475,8 @@
                 "value": 2400
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -498,7 +510,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "max by(shard) (servers{job=\"default/rollem-prod\"})",
+          "expr": "max by(shard) (rollem_servers{job=\"default/rollem-prod\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -545,6 +557,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -558,6 +571,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -587,7 +601,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -659,6 +674,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -672,6 +688,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -701,7 +718,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -755,6 +773,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -768,6 +787,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -798,7 +818,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -852,6 +873,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -865,6 +887,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -894,7 +917,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -966,6 +990,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -979,6 +1004,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1008,7 +1034,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -1080,6 +1107,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1093,6 +1121,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1123,7 +1152,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1224,8 +1254,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1320,8 +1349,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1370,9 +1398,8 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 37,
-  "style": "dark",
+  "refresh": "",
+  "schemaVersion": 39,
   "tags": [
     "rollem"
   ],
@@ -1380,13 +1407,13 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Rollem Prod",
   "uid": "EhNsNkp4z",
-  "version": 15,
+  "version": 7,
   "weekStart": ""
 }

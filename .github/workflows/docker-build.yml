@@ -1,0 +1,98 @@
+name: Docker Build
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-image-rollem-discord:
+    runs-on: ubuntu-latest
+    name: Containerize (Rollem Discord)
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Image (Discord Bot)
+      working-directory: .
+      run: docker build -f workspace.Dockerfile . --target rollem-bot --label='rollem-discord' -t rollem-discord
+
+    - name: Export Image (Discord Bot)
+      working-directory: .
+      run: docker save rollem-discord > /tmp/rollem-discord.tar
+
+    - name: Archive Images
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollem-discord
+        path: /tmp/rollem-discord.tar
+
+  build-image-rollem-mastodon:
+    runs-on: ubuntu-latest
+    name: Containerize (Rollem Mastodon)
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Image (Mastodon Bot)
+      working-directory: .
+      run: docker build -f workspace.Dockerfile . --target rollem-mastodon --label='rollem-mastodon' -t rollem-mastodon
+
+    - name: Export Image (Mastodon Bot)
+      working-directory: .
+      run: docker save rollem-mastodon > /tmp/rollem-mastodon.tar
+
+    - name: Archive Images
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollem-mastodon
+        path: /tmp/rollem-mastodon.tar
+
+  build-image-rollem-ui:
+    runs-on: ubuntu-latest
+    name: Containerize (Rollem UI)
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Image (UI)
+      working-directory: .
+      run: docker build -f workspace.Dockerfile . --target rollem-ui --label='rollem-ui' -t rollem-ui
+
+    - name: Export Image (UI)
+      working-directory: .
+      run: docker save rollem-ui > /tmp/rollem-ui.tar
+
+    - name: Archive Images
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollem-ui
+        path: /tmp/rollem-ui.tar
+
+  # build-images:
+  #   runs-on: ubuntu-latest
+  #   name: Containerize (All)
+
+  #   steps:
+  #   - uses: actions/checkout@v2
+
+  #   - name: Build all images
+  #     working-directory: .
+  #     run: docker compose -f workspace.compose.yaml build
+
+  #   - name: Export Image (Discord Bot)
+  #     working-directory: .
+  #     run: docker save rollem-discord > /tmp/rollem-discord.tar
+
+  #   - name: Export Image (Mastodon Bot)
+  #     working-directory: .
+  #     run: docker save rollem-mastodon > /tmp/rollem-mastodon.tar
+
+  #   - name: Export Image (UI)
+  #     working-directory: .
+  #     run: docker save rollem-ui > /tmp/rollem-ui.tar
+    
+  #   - name: Archive Images
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: images
+  #       path: /tmp/*.tar

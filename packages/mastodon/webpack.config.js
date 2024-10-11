@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const { IgnorePlugin } = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
@@ -10,32 +10,11 @@ const config = {
   target: 'node',
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   plugins: [
-    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
-    new FilterWarningsPlugin({
-      exclude: [
-        /the request of a dependency is an expression/,
-        /mongodb/,
-        /mssql/,
-        /mysql/,
-        /mysql2/,
-        /oracledb/,
-        /pg/,
-        /pg-query-stream/,
-        /react-native-sqlite-storage/,
-        /redis/,
-        /sqlite3/,
-        /sql.js/,
-        /typeorm-aurora-data-api-driver/,
-        /hdb-pool/,
-        /@sap\/hana-client/,
-        /utf-8-validate/,
-        /bufferutil/,
-        /zlib-sync/,
-        /erlpack/,
-        /@opentelemetry/,
-        /applicationinsights-native-metrics/,
-      ],
-    }),
+    new IgnorePlugin({ resourceRegExp: /^bufferutil$/ }), // ws peer dependency
+    new IgnorePlugin({ resourceRegExp: /^utf-8-validate$/ }), // ws peer dependency
+    // new IgnorePlugin({ resourceRegExp: /^debug$/ }), // follow-redirects peer dependency. Breaks if disabled.
+    new FilterWarningsPlugin({ exclude: [ /the request of a dependency is an expression/ ]}), // express produced one
+    new FilterWarningsPlugin({ exclude: [ /debug.*?peer dependency/ ]}), // I blame TypeORM
     // new CopyPlugin({
     //   patterns: [
     //     { from: "**/*", to: "" },

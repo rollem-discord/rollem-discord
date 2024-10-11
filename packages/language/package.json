@@ -1,61 +1,11 @@
 {
   "name": "@rollem/language",
-  "version": "2.7.2",
   "description": "Rollem (Language) - Shared package for a dicebot and parser that supports a variety of roll syntax",
-  "author": "David <npm@davidsharer.com> (http://twitter.com/david_does)",
-  "homepage": "https://github.com/rollem-discord/rollem-discord",
-  "bugs": {
-    "url": "https://github.com/rollem-discord/rollem-discord/issues"
-  },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "umd:main": "dist/umd/index.js",
-  "types": "dist/types/index.d.js",
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "yarn run build:lang",
-    "build:lang": "yarn run build:lang:pegjs && yarn run build:lang:cjs && yarn run build:lang:esm && yarn run build:lang:umd && yarn run build:lang:types",
-    "build:lang:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
-    "build:lang:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
-    "build:lang:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
-    "build:lang:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
-    "build:lang:pegjs": "gulp build-pegjs",
-    "watch": "yarn watch:lang",
-    "watch:lang": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js --watch --progress",
-    "watch:lang:pegjs": "gulp watch-pegjs",
-    "typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
-    "clean": "node tools/cleanup",
-    "package": "yarn run build && yarn pack",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
-    "watch:test": "yarn watch:lang:test",
-    "watch:lang:test": "mocha --recursive --watch -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
-    "test:cov": "jest --coverage --no-cache --runInBand",
-    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
-  },
-  "mocha": {
-    "require": [
-      "ts-node/register",
-      "tsconfig-paths/register"
-    ],
-    "spec": "src/**/*.spec.ts",
-    "files": "src/**/*.spec.ts",
-    "extension": [
-      "ts"
-    ]
-  },
+  "version": "2.7.2",
+  "author": "David <npm@davidsharer.com>",
+  "bugs": "https://github.com/rollem-discord/rollem-discord/issues",
   "dependencies": {
-    "@types/chai": "^4.2.11",
-    "@types/chance": "^1.1.0",
-    "@types/keyv": "^3.1.1",
-    "@types/lodash": "^4.14.136",
-    "@types/mocha": "^8.2.2",
-    "@types/node": "^16.9.1",
-    "applicationinsights": "^1.0.2",
+    "applicationinsights": "^2.9.1",
     "chai": "^3.5.0",
     "chance": "^1.1.5",
     "del": "^3.0.0",
@@ -68,32 +18,36 @@
     "gulp-typescript": "^5.0.0-alpha.3",
     "gulp-watch": "^4.3.11",
     "injection-js": "^2.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mocha": "^8.4.0",
     "module-alias": "^2.2.0",
     "moment": "^2.22.1",
-    "next-transpile-modules": "^6.3.0",
     "node-cache": "^5.1.0",
     "npm": "^6.3.0",
     "nyc": "^15.0.1",
     "pegjs": "0.10.0",
     "pegjs-loader": "^0.5.6",
-    "pg": "^8.3.3",
+    "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
-    "ts-loader": "^9.1.2",
+    "ts-loader": "^9.5.1",
     "ts-mocha": "^8.0.0",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.1.0",
     "ts-pegjs": "^0.3.1",
     "tsconfig-paths": "^3.9.0",
-    "typeorm": "0.3.0-rc.21",
-    "typescript": "^4.6.3",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.3.3",
     "watchify": "^3.9.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
-  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@types/chai": "^4.2.11",
+    "@types/chance": "^1.1.0",
+    "@types/keyv": "^3.1.1",
+    "@types/lodash": "^4.14.170",
+    "@types/mocha": "^8",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "cross-env": "^7.0.3",
@@ -103,9 +57,66 @@
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.0",
     "tslint": "^6.1.3",
-    "webpack": "^5.21.2",
-    "webpack-cli": "^4.5.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^4.7.2",
     "webpack-shell-plugin-next": "^2.2.2"
   },
-  "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878"
+  "files": [
+    "dist"
+  ],
+  "gitHead": "b36c5f893eec7c328f6d00170c24774db3ee6878",
+  "homepage": "https://github.com/rollem-discord/rollem-discord",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "mocha": {
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
+    "spec": "src/**/*.spec.ts",
+    "files": "src/**/*.spec.ts",
+    "extension": [
+      "ts"
+    ]
+  },
+  "module": "dist/esm/index.js",
+  "packageManager": "yarn@4.5.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "____________________note01____________________": "all commands prefixed with `:` need review // TODO: Review",
+    "____________________note02____________________": "all non-pinned commands should be prefixed with `::<scope>:` to avoid cross-workspace build actions",
+    "____________________note03a____________________": "build = fresh-build",
+    "____________________note03b____________________": "watch = fresh-build -> watch",
+    "____________________note03c____________________": "dev = fresh-build -> watch -> live-update",
+    "____________________note03d____________________": "start = only start",
+    "____________________note04e____________________": "package = fresh build + package",
+    "__________________________________________________": "end of notes",
+    "____________________pinned____________________": "common commands",
+    "build": "yarn run ::lang:build",
+    "clean": "yarn run ::lang:clean",
+    ":watch": "yarn ::lang:watch",
+    "____________________build____________________": "build-related commands",
+    "::lang:clean": "node tools/cleanup",
+    "::lang:build": "yarn run ::lang:build:pegjs && yarn run ::lang:build:cjs && yarn run ::lang:build:esm && yarn run ::lang:build:umd && yarn run ::lang:build:types",
+    "::lang:build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "::lang:build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "::lang:build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
+    "::lang:build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "::lang:build:pegjs": "gulp build-pegjs",
+    "____________________local-run____________________": "commands related to local run",
+    "____________________unreviewed____________________": "// TODO: Review",
+    ":::lang:watch": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js --watch --progress",
+    ":::lang:watch:pegjs": "gulp watch-pegjs",
+    ":typeorm": "nodemon -r dotenv/config -r ts-node/register ./node_modules/typeorm/cli.js",
+    ":package": "yarn run build && yarn pack",
+    ":test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
+    ":watch:test": "yarn watch:lang:test",
+    ":watch:lang:test": "mocha --recursive --watch -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
+    ":test:cov": "jest --coverage --no-cache --runInBand",
+    ":addscope": "node tools/packagejson name @tomchen/example-typescript-package"
+  },
+  "types": "dist/types/index.d.js",
+  "umd:main": "dist/umd/index.js"
 }

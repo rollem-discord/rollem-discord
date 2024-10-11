@@ -1,8 +1,9 @@
 import RootLayout from "@rollem/ui/components/layouts/RootLayout";
-import { Card, Grid, CardContent, CardHeader, makeStyles, createStyles, Theme, Avatar } from "@material-ui/core";
+import { Card, Grid, CardContent, CardHeader, Theme, Avatar } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
 import fetch from 'isomorphic-unfetch';
 import useSWR from "swr";
-import { RollemSessionData } from "@rollem/ui/lib/withSession";
+import { RollemSessionData } from "@rollem/ui/lib/api/old.withSession";
 
 const API_URL = '/api/auth/discord/getData';
 
@@ -14,7 +15,7 @@ async function fetcher(url) {
 
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     homeWrapper: {
       display: "flex",
       flexFlow: "row nowrap",
@@ -48,8 +49,8 @@ export default function AccountSummary() {
   const guildCount = data?.discord?.guilds?.length;
 
   return (
-    <RootLayout>
-      <Grid container justify="center" spacing={3} className={classes.gridWrapper}>
+    (<RootLayout>
+      <Grid container justifyContent="center" spacing={3} className={classes.gridWrapper}>
         <Grid item>
           <Card>
             <CardHeader avatar={
@@ -65,6 +66,6 @@ export default function AccountSummary() {
           </Card>
         </Grid>
       </Grid>
-    </RootLayout>
-  )
+    </RootLayout>)
+  );
 }

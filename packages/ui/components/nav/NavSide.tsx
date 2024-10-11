@@ -1,23 +1,15 @@
-import {
-  Drawer,
-  Hidden,
-  Link,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Theme,
-  Typography,
-} from "@material-ui/core";
-import DescriptionIcon from "@material-ui/icons/Description";
-import LockIcon from "@material-ui/icons/Lock";
-import { createStyles, makeStyles } from "@material-ui/styles";
+import { Drawer, Hidden, Link, List, ListItemIcon, ListItemText, Theme, Typography } from "@mui/material";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LockIcon from "@mui/icons-material/Lock";
+import { makeStyles } from "@mui/styles";
 import { SidePanelContext } from "@rollem/ui/lib/contexts/sidepanel-context";
+
+import ListItemButton from "@mui/material/ListItemButton";
 
 const drawerWidth = '240px';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+  ({
     drawer: {
       [theme.breakpoints.up('md')]: {
         width: drawerWidth,
@@ -86,11 +78,11 @@ export default function NavSide() {
   const classes = useStyles();
 
   return (
-    <nav className={classes.drawer}>
+    (<nav className={classes.drawer}>
       <SidePanelContext.Consumer>
         {({ mobileDrawerOpen, toggleDrawer }) => (
           <>
-            <Hidden smDown implementation="css">
+            <Hidden mdDown implementation="css">
               <Drawer anchor="left" variant="permanent" open>
                 <div className={classes.list}>
                   <SideNavContent></SideNavContent>
@@ -116,49 +108,45 @@ export default function NavSide() {
           </>
         )}
       </SidePanelContext.Consumer>
-    </nav>
+    </nav>)
   );
 }
 
 function SideNavContent() {
   const classes = useStyles();
 
-  return (
-    <>
-      <Typography variant="h6">
-        <Link href={"/"}>
-          <a className={classes.homeWrapper}>
-            <img
-              className={classes.iconImage}
-              src="/images/rollem-transparent.png"
-            ></img>
-            Rollem&nbsp;Rocks
-          </a>
-        </Link>
-      </Typography>
-      <List>
-        <ListItem button component="a" href={`/docs`}>
-          <ListItemIcon>
-            <DescriptionIcon></DescriptionIcon>
-          </ListItemIcon>
-          <ListItemText>Docs</ListItemText>
-        </ListItem>
-        <ListItem button component="a" href={`/invite`}>
-          <ListItemIcon>
-            <img
-              className={classes.textImage}
-              src="/images/rollem-transparent.png"
-            />
-          </ListItemIcon>
-          <ListItemText>Invite</ListItemText>
-        </ListItem>
-        <ListItem button component="a" href={`/privacy-policy`}>
-          <ListItemIcon>
-            <LockIcon></LockIcon>
-          </ListItemIcon>
-          <ListItemText>Privacy Policy</ListItemText>
-        </ListItem>
-      </List>
-    </>
-  );
+  return (<>
+    <Typography variant="h6">
+      <Link href={"/"} className={classes.homeWrapper}>
+          <img
+            className={classes.iconImage}
+            src="/images/rollem-transparent.png"
+          ></img>
+          Rollem&nbsp;Rocks
+      </Link>
+    </Typography>
+    <List>
+      <ListItemButton component="a" href={`/docs`}>
+        <ListItemIcon>
+          <DescriptionIcon></DescriptionIcon>
+        </ListItemIcon>
+        <ListItemText>Docs</ListItemText>
+      </ListItemButton>
+      <ListItemButton component="a" href={`/invite`}>
+        <ListItemIcon>
+          <img
+            className={classes.textImage}
+            src="/images/rollem-transparent.png"
+          />
+        </ListItemIcon>
+        <ListItemText>Invite</ListItemText>
+      </ListItemButton>
+      <ListItemButton component="a" href={`/privacy-policy`}>
+        <ListItemIcon>
+          <LockIcon></LockIcon>
+        </ListItemIcon>
+        <ListItemText>Privacy Policy</ListItemText>
+      </ListItemButton>
+    </List>
+  </>);
 }

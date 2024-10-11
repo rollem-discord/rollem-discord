@@ -1,10 +1,10 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
-import { lightBlue, purple } from "@material-ui/core/colors";
+import { createTheme, responsiveFontSizes } from "@mui/material";
+import { lightBlue, purple } from "@mui/material/colors";
 
 
-export const theme = responsiveFontSizes(createMuiTheme({
+export const theme = responsiveFontSizes(createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: {
       main: lightBlue[900],
     },
