@@ -4,6 +4,7 @@ import { NextApiRequest } from 'next';
 import { DiscordTokenRequestResult } from '../discord-oauth';
 import OAuth from 'discord-oauth2';
 
+// TODO: Most of this file can probably be removed
 export interface DiscordSessionData {
   auth: DiscordTokenRequestResult;
   user: OAuth.User,

@@ -30,14 +30,7 @@ module.exports = {
       new IgnorePlugin({ resourceRegExp: /^react-native-sqlite-storage$/}), // typeorm peer dependency
       new IgnorePlugin({ resourceRegExp: /^mysql$/}), // typeorm peer dependency
       new FilterWarningsPlugin({ exclude: [ /the request of a dependency is an expression/ ] }), // type ORM spams these
-      // new IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
     );
-
-    // // https://github.com/typeorm/typeorm/blob/master/docs/faq.md#how-to-use-webpack-for-the-backend
-    // // ignore the drivers you don't want. This is the complete list of all drivers -- remove the suppressions for drivers you want to use.
-    // config.plugins.push(new FilterWarningsPlugin({
-    //   exclude: [/mongodb/, /mssql/, /mysql/, /mysql2/, /oracledb/, /pg/, /pg-query-stream/, /react-native-sqlite-storage/, /redis/, /sqlite3/, /sql.js/, /typeorm-aurora-data-api-driver/]
-    // }))
 
     // console.log(defaultLoaders);
     config.module.rules.push({
