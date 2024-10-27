@@ -6,7 +6,7 @@ on:
 
 jobs:
   job1:
-    uses: ./.github/workflows/partial/docker-build--ui.yml
+    uses: ./.github/workflows/--docker-build--ui.yml
 
   # build-image-rollem-discord:
   #   runs-on: ubuntu-latest
