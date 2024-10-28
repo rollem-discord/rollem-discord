@@ -67,7 +67,7 @@ jobs:
             ghcr.io/rollem-discord/rollem-discord-mastodon
           tags: |
             type=ref,event=pr
-            type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--{{pr}}--sha-{{sha}}
+            type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--pr-${{ github.event.number }}--sha-{{sha}}
           flavor: |
             latest=false
 

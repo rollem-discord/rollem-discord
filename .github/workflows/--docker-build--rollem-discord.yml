@@ -6,7 +6,7 @@ on:
 jobs:
   build-image--rollem-discord:
     runs-on: ubuntu-latest
-    name: Build Discord
+    name: Build (Discord)
 
     steps:
     - uses: actions/checkout@v2
