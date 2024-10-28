@@ -1,4 +1,4 @@
-name: Publish (Discord)
+name: Publish (UI)
 
 on:
   workflow_call:
@@ -8,20 +8,36 @@ on:
         required: true
         type: string
 
+      IMAGE_NAME:
+        description: Name of the image to publish -- like 'ui', 'discord', or 'mastodon'
+        required: true
+        type: string
+
+      BUILD_TARGET_STAGE:
+        description: Name of the dockerfile stage target -- like 'rollem-ui', 'rollem-discord', or 'rollem-mastodon'
+        required: true
+        type: string
+
+      BUILD_DOCKERFILE:
+        description: Name of the dockerfile to build -- defaults to a monolithic multi-stage dockerfile
+        default: 'workspace.Dockerfile'
+        required: true
+        type: string
+
+      BUILD_CONTEXT:
+        description: Context in which to build the dockerfile -- defaults to '.'
+        default: '.'
+        required: true
+        type: string
+
     secrets:
       DOCKER_TOKEN_ROLLEM:
         required: true
 
-env:
-  IMAGE_NAME: discord
-  BUILD_DOCKERFILE: workspace.Dockerfile
-  BUILD_TARGET_STAGE: rollem-discord
-  BUILD_CONTEXT: .
-
 jobs:
   push-image-rollem-ui:
     runs-on: ubuntu-latest
-    name: Publish (Discord)
+    name: Publish (UI)
     env:
       tagging_method_meta_id: 'meta-${{inputs.tagging_method}}'
     steps:
@@ -53,8 +69,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ vars.DOCKER_USER_ROLLEM }}/${{ env.IMAGE_NAME}}
-            ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME}}
+            ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.actor }}/${{ inputs.IMAGE_NAME}}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -68,8 +84,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ vars.DOCKER_USER_ROLLEM }}/${{ env.IMAGE_NAME}}
-            ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME}}
+            ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.actor }}/${{ inputs.IMAGE_NAME}}
           tags: |
             type=ref,event=pr
             type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--pr-${{ github.event.number }}--sha-{{sha}}
@@ -82,8 +98,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ vars.DOCKER_USER_ROLLEM }}/${{ env.IMAGE_NAME}}
-            ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME}}
+            ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.actor }}/${{ inputs.IMAGE_NAME}}
           tags: |
             type=ref,event=branch
             type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--{{branch}}--sha-{{sha}}
@@ -93,9 +109,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ${{ env.BUILD_CONTEXT }}
-          file: ${{ env.BUILD_DOCKERFILE }}
-          target: ${{ env.BUILD_TARGET_STAGE }}
+          context: ${{ inputs.BUILD_CONTEXT }}
+          file: ${{ inputs.BUILD_DOCKERFILE }}
+          target: ${{ inputs.BUILD_TARGET_STAGE }}
           push: true
           tags: ${{ steps[env.tagging_method_meta_id].outputs.tags }}
           labels: ${{ steps[env.tagging_method_meta_id].outputs.labels }}
@@ -105,6 +121,6 @@ jobs:
       # - name: Generate artifact attestation
       #   uses: actions/attest-build-provenance@v1
       #   with:
-      #     subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+      #     subject-name: ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME}}
       #     subject-digest: ${{ steps.push.outputs.digest }}
       #     push-to-registry: true
