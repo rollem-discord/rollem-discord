@@ -2,7 +2,8 @@ name: Docker (PR)
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '*'
 
 jobs:
   # These only produce artifacts
@@ -27,7 +28,7 @@ jobs:
     with:
       IMAGE_NAME: ui
       BUILD_TARGET_STAGE: rollem-ui
-      tagging_method: main
+      tagging_method: commit
 
   discord:
     needs: ui # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
@@ -37,7 +38,7 @@ jobs:
     with:
       IMAGE_NAME: discord
       BUILD_TARGET_STAGE: rollem-bot
-      tagging_method: main
+      tagging_method: commit
 
   mastodon:
     needs: discord # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
@@ -47,4 +48,4 @@ jobs:
     with:
       IMAGE_NAME: mastodon
       BUILD_TARGET_STAGE: rollem-mastodon
-      tagging_method: main
+      tagging_method: commit
