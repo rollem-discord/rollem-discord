@@ -1,0 +1,47 @@
+name: Docker (PR)
+
+on:
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # These only produce artifacts
+  # build-image--rollem-ui:
+  #   uses: ./.github/workflows/--docker-build--rollem-ui.yml
+  # build-image--rollem-discord:
+  #   uses: ./.github/workflows/--docker-build--rollem-discord.yml
+  # build-image--rollem-mastodon:
+  #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
+
+  ui:
+    name: Publish (UI)
+    uses: ./.github/workflows/--docker-build-publish--common.yml
+    secrets: inherit
+    with:
+      IMAGE_NAME: ui
+      BUILD_TARGET_STAGE: rollem-ui
+      tagging_method: pr
+
+  discord:
+    # needs: ui # these can be chained to reduce total-build-minutes by way of cache; uncomment this and add with: build_style: global
+    name: Publish (Discord)
+    uses: ./.github/workflows/--docker-build-publish--common.yml
+    secrets: inherit
+    with:
+      IMAGE_NAME: discord
+      BUILD_TARGET_STAGE: rollem-bot
+      tagging_method: pr
+
+  mastodon:
+    # needs: discord # these can be chained to reduce total-build-minutes by way of cache; uncomment this and add with: build_style: global
+    name: Publish (Mastodon)
+    uses: ./.github/workflows/--docker-build-publish--common.yml
+    secrets: inherit
+    with:
+      IMAGE_NAME: mastodon
+      BUILD_TARGET_STAGE: rollem-mastodon
+      tagging_method: pr

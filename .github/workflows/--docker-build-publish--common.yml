@@ -1,0 +1,135 @@
+name: Publish (UI)
+
+on:
+  workflow_call:
+    inputs:
+      tagging_method:
+        description: 'pr | commit | version-tag'
+        required: true
+        type: string
+        
+      build_style:
+        description: 'single | global -- determines whether the "global" or "single" build paths will be followed -- "global" will be faster overall when building all images on a single machine'
+        default: 'single'
+        type: string
+
+      IMAGE_NAME:
+        description: Name of the image to publish -- like 'ui', 'discord', or 'mastodon'
+        required: true
+        type: string
+
+      BUILD_TARGET_STAGE:
+        description: Name of the dockerfile stage target -- like 'rollem-ui', 'rollem-bot', or 'rollem-mastodon'
+        required: true
+        type: string
+
+      BUILD_DOCKERFILE:
+        description: Name of the dockerfile to build -- defaults to a monolithic multi-stage dockerfile
+        default: 'workspace.Dockerfile'
+        type: string
+
+      BUILD_CONTEXT:
+        description: Context in which to build the dockerfile -- defaults to '.'
+        default: '.'
+        type: string
+
+    secrets:
+      DOCKER_TOKEN_ROLLEM:
+        required: true
+
+jobs:
+  docker-build-publish--common:
+    runs-on: ubuntu-latest
+    name: Publish (${{inputs.IMAGE_NAME}})
+    env:
+      tagging_method_meta_id: 'meta-${{inputs.tagging_method}}'
+    steps:
+      - name: Validate tagging_method
+        if: ${{ ! contains(fromJson('["pr", "commit", "version-tag"]'), inputs.tagging_method) }}
+        run: exit 1 # fails the job
+
+      - name: Validate build_style
+        if: ${{ ! contains(fromJson('["single", "global"]'), inputs.build_style) }}
+        run: exit 1 # fails the job
+
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKER_USER_ROLLEM }}
+          password: ${{ secrets.DOCKER_TOKEN_ROLLEM }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Metadata - Tag as Version
+        if: inputs.tagging_method == 'version-tag'
+        id: meta-version-tag
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME}}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+          flavor: |
+            latest=auto
+
+      - name: Metadata - Tag as PR
+        if: inputs.tagging_method == 'pr'
+        id: meta-pr
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME}}
+          tags: |
+            type=ref,event=pr
+            type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--pr-${{ github.event.number }}--sha-{{sha}}
+          flavor: |
+            latest=false
+
+      - name: Metadata - Tag as Commit
+        if: inputs.tagging_method == 'commit'
+        id: meta-commit
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME}}
+          tags: |
+            type=ref,event=branch
+            type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--{{branch}}--sha-{{sha}}
+          flavor: |
+            latest=false
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ inputs.BUILD_CONTEXT }}
+          file: ${{ inputs.BUILD_DOCKERFILE }}
+          target: ${{ inputs.BUILD_TARGET_STAGE }}
+          push: true
+          tags: ${{ steps[env.tagging_method_meta_id].outputs.tags }}
+          labels: ${{ steps[env.tagging_method_meta_id].outputs.labels }}
+          cache-from: type=gha,scope=${{ inputs.BUILD_DOCKERFILE }}
+          cache-to: type=gha,mode=max,scope=${{ inputs.BUILD_DOCKERFILE }}
+          build-args: |
+            BUILD_STYLE=${{ inputs.build_style }}
+
+      # - name: Generate artifact attestation
+      #   uses: actions/attest-build-provenance@v1
+      #   with:
+      #     subject-name: ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME}}
+      #     subject-digest: ${{ steps.push.outputs.digest }}
+      #     push-to-registry: true
