@@ -44,7 +44,7 @@ jobs:
 
       - name: Metadata - Tag as Version
         if: inputs.tagging_method == 'version-tag'
-        id: meta
+        id: meta-version
         uses: docker/metadata-action@v5
         with:
           images: |
@@ -59,7 +59,7 @@ jobs:
 
       - name: Metadata - Tag as PR
         if: inputs.tagging_method == 'pr'
-        id: meta
+        id: meta-pr
         uses: docker/metadata-action@v5
         with:
           images: |
@@ -73,7 +73,7 @@ jobs:
 
       - name: Metadata - Tag as Commit
         if: inputs.tagging_method == 'commit'
-        id: meta
+        id: meta-commit
         uses: docker/metadata-action@v5
         with:
           images: |
