@@ -68,7 +68,7 @@ jobs:
         with:
           images: |
             ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
-            ghcr.io/${{ github.actor }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME}}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -83,7 +83,7 @@ jobs:
         with:
           images: |
             ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
-            ghcr.io/${{ github.actor }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME}}
           tags: |
             type=ref,event=pr
             type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--pr-${{ github.event.number }}--sha-{{sha}}
@@ -97,7 +97,7 @@ jobs:
         with:
           images: |
             ${{ vars.DOCKER_USER_ROLLEM }}/${{ inputs.IMAGE_NAME}}
-            ghcr.io/${{ github.actor }}/${{ inputs.IMAGE_NAME}}
+            ghcr.io/${{ github.repository_owner }}/${{ inputs.IMAGE_NAME}}
           tags: |
             type=ref,event=branch
             type=raw,value=date-{{date 'YYYY.MM.DD-HH.mm'}}--{{branch}}--sha-{{sha}}
