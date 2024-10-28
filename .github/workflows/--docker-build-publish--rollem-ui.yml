@@ -13,6 +13,9 @@ on:
 
 env:
   IMAGE_NAME: ui
+  BUILD_DOCKERFILE: workspace.Dockerfile
+  BUILD_TARGET_STAGE: rollem-ui
+  BUILD_CONTEXT: .
 
 jobs:
   push-image-rollem-ui:
@@ -87,8 +90,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: workspace.Dockerfile
-          target: ${{ env.IMAGE_NAME }}
+          file: ${{ env.BUILD_DOCKERFILE }}
+          target: ${{ env.BUILD_TARGET_STAGE }}
           # push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps[env.tagging_method_meta_id].outputs.tags }}
           labels: ${{ steps[env.tagging_method_meta_id].outputs.labels }}
