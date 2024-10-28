@@ -8,9 +8,6 @@ on:
         required: true
         type: string
     secrets:
-      DOCKER_USER_ROLLEM:
-        description: 'asdf'
-        required: true
       DOCKER_TOKEN_ROLLEM:
         required: true
 
