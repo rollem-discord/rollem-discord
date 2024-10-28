@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  # These only produce artifacts -- they are always run
+  # These only produce artifacts
   # build-image--rollem-ui:
   #   uses: ./.github/workflows/--docker-build--rollem-ui.yml
   # build-image--rollem-discord:
@@ -13,13 +13,22 @@ jobs:
   # build-image--rollem-mastodon:
   #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
 
-  # These only produce artifacts -- they are only run 
   build-push-image--rollem-ui:
     uses: ./.github/workflows/--docker-build-publish--rollem-ui.yml
     secrets: inherit
     with:
       tagging_method: pr
-  # build-push-image--rollem-discord:
-  #   uses: ./.github/workflows/--docker-build--rollem-discord.yml
-  # build-push-image--rollem-mastodon:
-  #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
+
+  build-push-image--rollem-discord:
+    needs: build-push-image--rollem-ui # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
+    uses: ./.github/workflows/--docker-build-publish--rollem-discord.yml
+    secrets: inherit
+    with:
+      tagging_method: pr
+
+  build-push-image--rollem-mastodon:
+    needs: build-push-image--rollem-discord # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
+    uses: ./.github/workflows/--docker-build-publish--rollem-mastodon.yml
+    secrets: inherit
+    with:
+      tagging_method: pr

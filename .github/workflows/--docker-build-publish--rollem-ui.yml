@@ -1,4 +1,4 @@
-name: Docker Publish (UI)
+name: Publish (UI)
 
 on:
   workflow_call:
@@ -20,7 +20,7 @@ env:
 jobs:
   push-image-rollem-ui:
     runs-on: ubuntu-latest
-    name: Publish (Rollem UI)
+    name: Publish (UI)
     env:
       tagging_method_meta_id: 'meta-${{inputs.tagging_method}}'
     steps:
