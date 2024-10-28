@@ -1,9 +1,8 @@
 name: Docker (PR)
 
 on:
-  push:
-    tags:
-      - '*'
+  pull_request:
+    branches: [ main ]
 
 jobs:
   # These only produce artifacts
