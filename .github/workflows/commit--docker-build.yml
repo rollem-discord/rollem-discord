@@ -15,6 +15,16 @@ jobs:
   # build-image--rollem-mastodon:
   #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
 
+
+  job:
+    runs-on: ubuntu-latest
+    name: Check values
+    steps:
+      - name: Check Values
+        run: |
+          echo "github.event_name = '${{ github.event_name }}'"
+          echo "needs.pr-check.outputs.number = '${{ needs.pr-check.outputs.number }}'"
+
   ui:
     name: Publish (UI)
     uses: ./.github/workflows/--docker-build-publish--common.yml
