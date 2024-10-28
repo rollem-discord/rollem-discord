@@ -7,6 +7,11 @@ on:
         description: 'pr | commit | version-tag'
         required: true
         type: string
+        
+      build_style:
+        description: 'single | global -- determines whether the "global" or "single" build paths will be followed -- "global" will be faster overall when building all images on a single machine'
+        default: 'single'
+        type: string
 
       IMAGE_NAME:
         description: Name of the image to publish -- like 'ui', 'discord', or 'mastodon'
@@ -39,8 +44,12 @@ jobs:
     env:
       tagging_method_meta_id: 'meta-${{inputs.tagging_method}}'
     steps:
-      - name: Validate tagging method
-        if: contains(fromJson('["pr", "commit", "version-tag"]'), github.event.action)
+      - name: Validate tagging_method
+        if: ${{ ! contains(fromJson('["pr", "commit", "version-tag"]'), inputs.tagging_method) }}
+        run: exit 1 # fails the job
+
+      - name: Validate build_style
+        if: ${{ ! contains(fromJson('["single", "global"]'), inputs.build_style) }}
         run: exit 1 # fails the job
 
       - uses: actions/checkout@v2
@@ -116,7 +125,7 @@ jobs:
           cache-from: type=gha,scope=${{ inputs.BUILD_DOCKERFILE }}
           cache-to: type=gha,mode=max,scope=${{ inputs.BUILD_DOCKERFILE }}
           build-args: |
-            BUILD_STYLE=global
+            BUILD_STYLE=${{ inputs.build_style }}
 
       # - name: Generate artifact attestation
       #   uses: actions/attest-build-provenance@v1

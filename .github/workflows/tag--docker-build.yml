@@ -13,13 +13,6 @@ jobs:
   # build-image--rollem-mastodon:
   #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
 
-  # job:
-  #   runs-on: ubuntu-latest
-  #   name: Check values
-  #   steps:
-  #     - name: Check Values
-  #       run: echo "github.repository_owner = '${{ github.repository_owner }}'"
-
   ui:
     name: Publish (UI)
     uses: ./.github/workflows/--docker-build-publish--common.yml
@@ -30,7 +23,7 @@ jobs:
       tagging_method: version-tag
 
   discord:
-    needs: ui # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
+    # needs: ui # these can be chained to reduce total-build-minutes by way of cache; uncomment this and add with: build_style: global
     name: Publish (Discord)
     uses: ./.github/workflows/--docker-build-publish--common.yml
     secrets: inherit
@@ -40,7 +33,7 @@ jobs:
       tagging_method: version-tag
 
   mastodon:
-    needs: discord # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
+    # needs: discord # these can be chained to reduce total-build-minutes by way of cache; uncomment this and add with: build_style: global
     name: Publish (Mastodon)
     uses: ./.github/workflows/--docker-build-publish--common.yml
     secrets: inherit
