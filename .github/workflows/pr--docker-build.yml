@@ -18,7 +18,7 @@ jobs:
     name: Check values
     steps:
       - name: Check Values
-        run: echo "github.actor = '${{ github.actor }}'"
+        run: echo "github.repository_owner = '${{ github.repository_owner }}'"
   # build-push-image--rollem-ui:
   #   uses: ./.github/workflows/--docker-build-publish--common.yml
   #   secrets: inherit
