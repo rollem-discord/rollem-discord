@@ -33,7 +33,7 @@ on:
         required: true
 
 jobs:
-  push-image-rollem-ui:
+  docker-build-publish--common:
     runs-on: ubuntu-latest
     name: Publish (UI)
     env:
