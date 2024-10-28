@@ -18,7 +18,8 @@ jobs:
   push-image-rollem-ui:
     runs-on: ubuntu-latest
     name: Publish (Rollem UI)
-
+    env:
+      tagging_method_meta_id: 'meta-${{inputs.tagging_method}}'
     steps:
       - name: Validate tagging method
         if: contains(fromJson('["pr", "commit", "version-tag"]'), github.event.action)
@@ -89,8 +90,8 @@ jobs:
           file: workspace.Dockerfile
           target: ${{ env.IMAGE_NAME }}
           # push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps['meta-' + inputs.tagging_method].outputs.tags }}
-          labels: ${{ steps['meta-' + inputs.tagging_method].outputs.labels }}
+          tags: ${{ steps[env.tagging_method_meta_id].outputs.tags }}
+          labels: ${{ steps[env.tagging_method_meta_id].outputs.labels }}
 
       # - name: Generate artifact attestation
       #   uses: actions/attest-build-provenance@v1
