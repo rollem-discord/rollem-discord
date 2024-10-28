@@ -1,4 +1,4 @@
-name: Docker (PR)
+name: Docker (Commit)
 
 on:
   push:
