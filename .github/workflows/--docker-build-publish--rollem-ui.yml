@@ -10,8 +10,6 @@ on:
     secrets:
       DOCKER_TOKEN_ROLLEM:
         required: true
-      GITHUB_TOKEN:
-        required: true
 
 env:
   IMAGE_NAME: ui
