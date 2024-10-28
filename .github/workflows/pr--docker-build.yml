@@ -6,12 +6,12 @@ on:
 
 jobs:
   # These only produce artifacts -- they are always run
-  build-image--rollem-ui:
-    uses: ./.github/workflows/--docker-build--rollem-ui.yml
-  build-image--rollem-discord:
-    uses: ./.github/workflows/--docker-build--rollem-discord.yml
-  build-image--rollem-mastodon:
-    uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
+  # build-image--rollem-ui:
+  #   uses: ./.github/workflows/--docker-build--rollem-ui.yml
+  # build-image--rollem-discord:
+  #   uses: ./.github/workflows/--docker-build--rollem-discord.yml
+  # build-image--rollem-mastodon:
+  #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
 
   # These only produce artifacts -- they are only run 
   build-push-image--rollem-ui:
