@@ -1,0 +1,26 @@
+name: Docker Build (Mastodon)
+
+on:
+  workflow_call:
+
+jobs:
+  build-image-rollem-mastodon:
+    runs-on: ubuntu-latest
+    name: Build (Mastodon)
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Image
+      working-directory: .
+      run: docker build -f workspace.Dockerfile . --target rollem-mastodon --label='rollem-mastodon' -t rollem-mastodon
+
+    - name: Export Image
+      working-directory: .
+      run: docker save rollem-mastodon > /tmp/rollem-mastodon.tar
+
+    - name: Archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollem-mastodon
+        path: /tmp/rollem-mastodon.tar

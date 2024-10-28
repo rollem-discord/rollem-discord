@@ -6,20 +6,20 @@ on:
 jobs:
   build-image--rollem-ui:
     runs-on: ubuntu-latest
-    name: Containerize (Rollem UI)
+    name: Build UI
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Build Image (UI)
+    - name: Build Image
       working-directory: .
       run: docker build -f workspace.Dockerfile . --target rollem-ui --label='rollem-ui' -t rollem-ui
 
-    - name: Export Image (UI)
+    - name: Export Image
       working-directory: .
       run: docker save rollem-ui > /tmp/rollem-ui.tar
 
-    - name: Archive Images
+    - name: Archive
       uses: actions/upload-artifact@v4
       with:
         name: rollem-ui

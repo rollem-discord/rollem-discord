@@ -115,7 +115,7 @@ jobs:
       #     push-to-registry: true
 
 
-      
+
   push-image-rollem-ui:
     runs-on: ubuntu-latest
     name: Publish (Rollem UI)

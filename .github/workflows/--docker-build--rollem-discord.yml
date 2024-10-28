@@ -1,0 +1,26 @@
+name: Docker Build (Discord)
+
+on:
+  workflow_call:
+
+jobs:
+  build-image--rollem-discord:
+    runs-on: ubuntu-latest
+    name: Build Discord
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Image
+      working-directory: .
+      run: docker build -f workspace.Dockerfile . --target rollem-bot --label='rollem-discord' -t rollem-discord
+
+    - name: Export Image
+      working-directory: .
+      run: docker save rollem-discord > /tmp/rollem-discord.tar
+
+    - name: Archive
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollem-discord
+        path: /tmp/rollem-discord.tar
