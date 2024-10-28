@@ -21,13 +21,11 @@ on:
       BUILD_DOCKERFILE:
         description: Name of the dockerfile to build -- defaults to a monolithic multi-stage dockerfile
         default: 'workspace.Dockerfile'
-        required: true
         type: string
 
       BUILD_CONTEXT:
         description: Context in which to build the dockerfile -- defaults to '.'
         default: '.'
-        required: true
         type: string
 
     secrets:
