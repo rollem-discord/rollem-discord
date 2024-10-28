@@ -1,6 +1,9 @@
 name: Docker (Commit)
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -15,15 +18,13 @@ jobs:
   # build-image--rollem-mastodon:
   #   uses: ./.github/workflows/--docker-build--rollem-mastodon.yml
 
-
-  job:
-    runs-on: ubuntu-latest
-    name: Check values
-    steps:
-      - name: Check Values
-        run: |
-          echo "github.event_name = '${{ github.event_name }}'"
-          echo "needs.pr-check.outputs.number = '${{ needs.pr-check.outputs.number }}'"
+  # job:
+  #   runs-on: ubuntu-latest
+  #   name: Check values
+  #   steps:
+  #     - name: Check Values
+  #       run: |
+  #         echo "github.event_name = '${{ github.event_name }}'"
 
   ui:
     name: Publish (UI)
