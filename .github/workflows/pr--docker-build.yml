@@ -20,7 +20,7 @@ jobs:
   #     - name: Check Values
   #       run: echo "github.repository_owner = '${{ github.repository_owner }}'"
 
-  build-push-image--rollem-ui:
+  ui:
     name: Publish (UI)
     uses: ./.github/workflows/--docker-build-publish--common.yml
     secrets: inherit
@@ -29,7 +29,7 @@ jobs:
       BUILD_TARGET_STAGE: rollem-ui
       tagging_method: pr
 
-  build-push-image--rollem-discord:
+  discord:
     needs: build-push-image--rollem-ui # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
     name: Publish (Discord)
     uses: ./.github/workflows/--docker-build-publish--common.yml
@@ -39,7 +39,7 @@ jobs:
       BUILD_TARGET_STAGE: rollem-bot
       tagging_method: pr
 
-  build-push-image--rollem-mastodon:
+  mastodon:
     needs: build-push-image--rollem-discord # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
     name: Publish (Mastodon)
     uses: ./.github/workflows/--docker-build-publish--common.yml

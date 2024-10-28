@@ -35,7 +35,7 @@ on:
 jobs:
   docker-build-publish--common:
     runs-on: ubuntu-latest
-    name: Publish (UI)
+    name: Publish (${{inputs.IMAGE_NAME}})
     env:
       tagging_method_meta_id: 'meta-${{inputs.tagging_method}}'
     steps:
