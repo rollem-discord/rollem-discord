@@ -89,12 +89,14 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ${{ env.BUILD_CONTEXT }}
           file: ${{ env.BUILD_DOCKERFILE }}
           target: ${{ env.BUILD_TARGET_STAGE }}
-          # push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: ${{ steps[env.tagging_method_meta_id].outputs.tags }}
           labels: ${{ steps[env.tagging_method_meta_id].outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # - name: Generate artifact attestation
       #   uses: actions/attest-build-provenance@v1
