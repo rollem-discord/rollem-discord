@@ -1,9 +1,6 @@
 name: Docker (Commit)
 
-on:
-  push:
-    branches:
-      - '*'
+on: push
 
 jobs:
   # These only produce artifacts
