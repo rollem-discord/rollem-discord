@@ -30,7 +30,7 @@ jobs:
       tagging_method: pr
 
   discord:
-    needs: build-push-image--rollem-ui # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
+    needs: ui # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
     name: Publish (Discord)
     uses: ./.github/workflows/--docker-build-publish--common.yml
     secrets: inherit
@@ -40,7 +40,7 @@ jobs:
       tagging_method: pr
 
   mastodon:
-    needs: build-push-image--rollem-discord # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
+    needs: discord # these are chained to reduce total-build-minutes by way of cache; remove for shorter overall build duration
     name: Publish (Mastodon)
     uses: ./.github/workflows/--docker-build-publish--common.yml
     secrets: inherit
