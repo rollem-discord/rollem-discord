@@ -6,7 +6,7 @@
 Useful Links (for users):  
 [Website](https://rollem.rocks)
 | [User Guide](https://rollem.rocks/docs)
-| [Changelog](/packages/bot/CHANGELOG.md)
+| [Changelog](CHANGELOG.md)
 | [Get Help (Discord)](https://discord.gg/VhYX9u7)
 
 Add Rollem to your Discord Server (for server admins):  
@@ -30,16 +30,4 @@ You may have both `@rollem-next` and `@rollem` in the same server, but they shou
 
 ---
 
-# Running Locally
-TODO: Overview of dependencies + commands for running locally.
-
-# Development
-TODO: Overview of dev workflow.
-
-# Deployment
-TODO: Overview of packaging + deployment process
-
-# Libraries
-Rollem's engine is packaged as a library that can be used in other projects.
-
-TODO: Instructions on how to do this. Sample project.
+See [rollem-discord](https://github.com/rollem-discord/rollem-discord) for more info.
