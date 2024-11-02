@@ -1,6 +1,0 @@
-releases:
-  "@rollem/bot": minor
-  "@rollem/common": minor
-  "@rollem/language": minor
-  "@rollem/mastodon": minor
-  "@rollem/ui": minor

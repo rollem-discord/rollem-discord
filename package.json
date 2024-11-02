@@ -40,6 +40,7 @@
     "upgrade:ui": "yarn upgrade-interactive-filter @rollem/ui",
     "syncpack": "echo '################\n#### See https://github.com/JamieMason/syncpack \n################\n' && syncpack",
     "____________________publishing____________________": "package publishing tools",
+    "publish--tags-list": "git tag -n --sort=-creatordate --color=always --format '%(color:bold red)%(align:10,right)%(tag)%(end)%(color:reset dim) => %(color:reset)%(creatordate:format-local:%Y-%m-%d) %(color:dim)%(creatordate:format-local:%H:%m)%(color:reset) => %(color:dim blue)%(creatordate:relative)%(color:reset)' --list 'v[0-9]*' | head -n 10",
     "publish--bump-major": "yarn all version -d major",
     "publish--bump-minor": "yarn all version -d minor",
     "publish--bump-patch": "yarn all version -d patch",
