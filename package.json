@@ -38,7 +38,7 @@
     "____________________dependencies____________________": "dependency management tools",
     "outdated:ui": "yarn outdated -w @rollem/ui",
     "upgrade:ui": "yarn upgrade-interactive-filter @rollem/ui",
-    "syncpack": "echo '################\n#### See https://github.com/JamieMason/syncpack\n################\n' && syncpack",
+    "syncpack": "echo '################\n#### See https://github.com/JamieMason/syncpack \n################\n' && syncpack",
     "____________________old____________________": "// TODO: Review",
     "?:ws:publish:all": "yarn workspaces foreach --all -pt npm publish `# https://yarnpkg.com/features/workspaces#parallel-execution`",
     ":lerna": "lerna",
