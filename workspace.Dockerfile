@@ -76,19 +76,19 @@ ARG BUILD_STYLE="single"
 ####################################################################################################
 # rollem-bot.build: Builds ONLY @rollem/bot -- the Discord bot
   FROM workspace.deps AS rollem-bot.build
-  RUN yarn r:bot run build
+  RUN yarn docker:bot run build
 ####################################################################################################
 
 ####################################################################################################
 # rollem-mastodon.build: Builds ONLY @rollem/mastodon -- the Mastodon bot
   FROM workspace.deps AS rollem-mastodon.build
-  RUN yarn r:mastodon run build
+  RUN yarn docker:mastodon run build
 ####################################################################################################
 
 ####################################################################################################
 # rollem-ui.build: Builds ONLY @rollem/ui -- the website
   FROM workspace.deps AS rollem-ui.build
-  RUN yarn r:ui run build
+  RUN yarn docker:ui run build
 ####################################################################################################
 
 ####################################################################################################
