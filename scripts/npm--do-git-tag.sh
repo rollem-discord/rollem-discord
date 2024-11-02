@@ -44,5 +44,8 @@ git tag -a "$GIT_TAG" -m "Tagging release $GIT_TAG"
 
 echo
 echo "PUSHING TAGS TO REPO"
-echo "git push --folow-tags"
-# git push --folow-tags
+echo "git push --follow-tags"
+git push --follow-tags
+
+echo
+echo "FIN"
