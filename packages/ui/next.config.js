@@ -19,6 +19,16 @@ module.exports = {
         permanent: false,
       },
       {
+        source: '/app-directory',
+        destination: 'https://discord.com/application-directory/240732567744151553',
+        permanent: false,
+      },
+      {
+        source: '/app-directory/next',
+        destination: 'https://discord.com/application-directory/840409146738475028',
+        permanent: false,
+      },
+      {
         source: '/get-support',
         destination: 'https://discord.gg/VhYX9u7',
         permanent: false,

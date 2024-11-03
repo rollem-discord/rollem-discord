@@ -25,8 +25,8 @@ Here are some of the things we operate:
 
 - Online: [rollem.rocks website][rollem-on-web]
 - On Discord: [Rollem Support][support-server] server and all the Rollem bots within it
-  - `@rollem #7705` with user id `240732567744151553`
-  - `@rollem-next #6080` with user id `840409146738475028`
+  - [@rollem #7705][rollem-on-discord-prime] with user id `240732567744151553`
+  - [@rollem-next #6080][rollem-on-discord-next] with user id `840409146738475028`
   - `@rollem-dev #4833` with user id `243615627581980672`
 - On Mastodon: [@rollem @botsin.space][rollem-on-mastodon]
 - On Github: [rollem-discord][github]
@@ -186,8 +186,8 @@ Rollem may not be around forever. We'll try to give you some notice if it's plan
 
 [rollem-on-web]: https://rollem.rocks
 [rollem-on-mastodon]: https://botsin.space/@rollem
-[rollem-on-discord-prime]: #TODO
-[rollem-on-discord-next]: #TODO
+[rollem-on-discord-prime]: /app-directory
+[rollem-on-discord-next]: /app-directory/next
 [rollem-on-npm]: https://www.npmjs.com/org/rollem
 [rollem-on-dockerhub]: https://hub.docker.com/u/rollem
 [rollem-on-github-packages]: https://github.com/orgs/rollem-discord/packages
