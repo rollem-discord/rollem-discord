@@ -1814,8 +1814,10 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-markdown: "npm:^6.0.3"
     remark: "npm:^13.0.0"
+    remark-autolink-headings: "npm:6.1.0"
     remark-gfm: "npm:^1.0.0"
     remark-html: "npm:^13.0.1"
+    remark-slug: "npm:6.1.0"
     sass: "npm:^1.79.4"
     swr: "npm:^2.2.5"
     ts-loader: "npm:^9.5.1"
@@ -8037,6 +8039,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"github-slugger@npm:^1.0.0":
+  version: 1.5.0
+  resolution: "github-slugger@npm:1.5.0"
+  checksum: 10c0/116f99732925f939cbfd6f2e57db1aa7e111a460db0d103e3b3f2fce6909d44311663d4542350706cad806345b9892358cc3b153674f88eeae77f43380b3bfca
+  languageName: node
+  linkType: hard
+
 "glob-base@npm:^0.3.0":
   version: 0.3.0
   resolution: "glob-base@npm:0.3.0"
@@ -11489,6 +11498,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mdast-util-to-string@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "mdast-util-to-string@npm:1.1.0"
+  checksum: 10c0/5dad9746ec0839792a8a35f504564e8d2b8c30013652410306c111963d33f1ee7b5477aa64ed77b64e13216363a29395809875ffd80e2031a08614657628a121
+  languageName: node
+  linkType: hard
+
 "mdast-util-to-string@npm:^2.0.0":
   version: 2.0.0
   resolution: "mdast-util-to-string@npm:2.0.0"
@@ -14750,6 +14766,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remark-autolink-headings@npm:6.1.0":
+  version: 6.1.0
+  resolution: "remark-autolink-headings@npm:6.1.0"
+  dependencies:
+    "@types/hast": "npm:^2.0.0"
+    extend: "npm:^3.0.0"
+    unified: "npm:^9.0.0"
+    unist-util-visit: "npm:^2.0.0"
+  checksum: 10c0/0fcc849fb0c2ff8cff648769bc7d4691900a2d92b7068794973285886a073d02f8868eb08cb395ebc1bb59ed23dced02463c36d402ddac191f29a8e46e716858
+  languageName: node
+  linkType: hard
+
 "remark-gfm@npm:^1.0.0":
   version: 1.0.0
   resolution: "remark-gfm@npm:1.0.0"
@@ -14786,6 +14814,17 @@ __metadata:
   dependencies:
     mdast-util-to-hast: "npm:^10.2.0"
   checksum: 10c0/e8261d3922433408632c39f351e923114e4cfeab9ad1f9f8a3501b6f9b8d0456762e4078b58211a80d54d9b14cd14d57a4ce20981c4534eb56c3e17e06d98312
+  languageName: node
+  linkType: hard
+
+"remark-slug@npm:6.1.0":
+  version: 6.1.0
+  resolution: "remark-slug@npm:6.1.0"
+  dependencies:
+    github-slugger: "npm:^1.0.0"
+    mdast-util-to-string: "npm:^1.0.0"
+    unist-util-visit: "npm:^2.0.0"
+  checksum: 10c0/7cc2857936fce9c9c00b9c7d70de46d594cedf93bd8560fd006164dee7aacccdf472654ee35b33f4fb4bd0af882d89998c6d0c9088c2e95702a9fc15ebae002a
   languageName: node
   linkType: hard
 

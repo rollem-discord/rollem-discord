@@ -147,6 +147,12 @@ function SideNavContent() {
         </ListItemIcon>
         <ListItemText>Privacy Policy</ListItemText>
       </ListItemButton>
+        <ListItemButton component="a" href={`/tos`}>
+          <ListItemIcon>
+            <LockIcon></LockIcon>
+          </ListItemIcon>
+          <ListItemText>Terms of Service</ListItemText>
+        </ListItemButton>
     </List>
   </>);
 }

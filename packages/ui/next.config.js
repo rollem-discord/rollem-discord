@@ -18,6 +18,11 @@ module.exports = {
         destination: 'https://discordapp.com/oauth2/authorize?client_id=840409146738475028&scope=bot&permissions=103079282688',
         permanent: false,
       },
+      {
+        source: '/get-support',
+        destination: 'https://discord.gg/VhYX9u7',
+        permanent: false,
+      },
     ];
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {

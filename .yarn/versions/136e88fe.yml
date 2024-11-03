@@ -1,0 +1,6 @@
+releases:
+  "@rollem/bot": patch
+  "@rollem/common": patch
+  "@rollem/language": patch
+  "@rollem/mastodon": patch
+  "@rollem/ui": patch

@@ -2,7 +2,9 @@ import { inspect } from "util";
 import React, { ReactElement } from "react";
 import ReactMarkdown, { uriTransformer } from "react-markdown";
 import { Components, ReactMarkdownProps } from "react-markdown/src/ast-to-react";
+import remarkSlug from "remark-slug";
 import remarkGfm from "remark-gfm";
+import remarkAutolinkHeadings from "remark-autolink-headings"
 import { first, fromPairs } from "lodash";
 import { Button } from "@mui/material";
 
@@ -48,7 +50,7 @@ export function renderMarkdown(markdown: string) {
   return (
     <ReactMarkdown
       className="markdown"
-      plugins={[remarkGfm]}
+      plugins={[remarkSlug, remarkAutolinkHeadings, remarkGfm]}
       children={markdown}
       components={components}
       transformLinkUri={transformLinkUri()}/>
