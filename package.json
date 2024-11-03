@@ -46,6 +46,7 @@
     "v-patch": "yarn all version -d patch",
     "version--apply": "yarn all version apply",
     "version--publish": "yarn all npm publish --otp",
+    "version--git-tag": "yarn exec ./scripts/npm--do-git-tag.sh",
     "____________________ci/cd aliases____________________": "commands used by docker script",
     "docker:ui": "yarn workspaces foreach --recursive --topological --parallel --from packages/ui",
     "docker:bot": "yarn workspaces foreach --recursive --topological --parallel --from packages/bot",
