@@ -143,7 +143,7 @@ ARG BUILD_STYLE="single"
 
   # Env setup
   ARG NODE_ENV
-  ENV NODE_ENV $NODE_ENV
+  ENV NODE_ENV="$NODE_ENV"
   EXPOSE 8080
 
   # Context dump
@@ -167,7 +167,7 @@ ARG BUILD_STYLE="single"
 
   # ONBUILD
   ARG NODE_ENV
-  ENV NODE_ENV $NODE_ENV
+  ENV NODE_ENV="$NODE_ENV"
   
   # Copy the required bundle
   COPY --from=rollem-mastodon.switched.build /app/packages/mastodon/dist ./dist
@@ -204,8 +204,8 @@ ARG BUILD_STYLE="single"
   
   # Env setup
   EXPOSE 3000
-  ENV PORT 3000
-  ENV HOSTNAME "0.0.0.0"
+  ENV PORT=3000
+  ENV HOSTNAME="0.0.0.0"
   
   # Execute within directory
   WORKDIR /app/packages/ui
