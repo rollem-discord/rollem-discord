@@ -47,4 +47,19 @@ describe('rollem-language-1-beta', () => {
     expect(result.depth).to.equal(2);
     expect(result.dice).to.equal(2);
   });
+
+  it('should keep roll order with ns when using ++', () => {
+    // ns rolls are random, so over many trials the unsorted display must not always be sorted descending
+    const parser = new RollemParserV1();
+    let sawUnsorted = false;
+    for (let i = 0; i < 50 && !sawUnsorted; i++) {
+      const result = parser.parse('3d6ns ++ 0');
+      const shown = result.pretties.slice(1, result.pretties.indexOf(']')).split(', ').map(Number);
+      const sorted = [...shown].sort((a, b) => b - a);
+      if (shown.join(',') !== sorted.join(',')) {
+        sawUnsorted = true;
+      }
+    }
+    expect(sawUnsorted).to.equal(true);
+  });
 });

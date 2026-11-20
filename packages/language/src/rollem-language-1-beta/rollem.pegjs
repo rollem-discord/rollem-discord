@@ -68,6 +68,9 @@ Expression
         result.depth = Math.max(result.depth, current.depth + 1);
         result.dice = result.dice + current.dice;
         var symbol = right[i][1];
+        if (symbol !== "++" && symbol !== "--") {
+          delete result.orderedValues;
+        }
         switch (symbol) {
           case "+":
             result.value += current.value;
@@ -83,7 +86,11 @@ Expression
             result.value += current.value * result.values.length;
             result.values = result.values.map(function(val) {
               return val + current.value;})
-            var prettiesArr = result.values.sort((a,b) => a - b).reverse()
+            if (result.orderedValues) {
+              result.orderedValues = result.orderedValues.map(function(val) {
+                return val + current.value; })
+            }
+            var prettiesArr = result.orderedValues || result.values.sort((a,b) => a - b).reverse()
             var joined = "[" + prettiesArr.join(", ") + "]";
             result.pretties = joined + " ⟵ " + result.pretties + " ++ " + current.pretties;
             break;
@@ -91,7 +98,11 @@ Expression
             result.value -= current.value * result.values.length;
             result.values = result.values.map(function(val) {
               return val - current.value; })
-            var prettiesArr = result.values.sort((a,b) => a - b).reverse()
+            if (result.orderedValues) {
+              result.orderedValues = result.orderedValues.map(function(val) {
+                return val - current.value; })
+            }
+            var prettiesArr = result.orderedValues || result.values.sort((a,b) => a - b).reverse()
             var joined = "[" + prettiesArr.join(", ") + "]";
             result.pretties = joined + " ⟵ " + result.pretties + " -- " + current.pretties;
             break;
@@ -110,6 +121,7 @@ Term
         var current = right[i][3];
         result.depth = Math.max(result.depth, current.depth + 1);
         result.dice = result.dice + current.dice;
+        delete result.orderedValues;
         if (right[i][1] === "*") {
           result.value *= current.value;
           result.values = result.values.map(function(val) {
