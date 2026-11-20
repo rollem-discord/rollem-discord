@@ -197,13 +197,18 @@ function makeBasicRoll(left, right, explodeConfiguration, configuration) {
   valuesArr = sortedAugmentedValuesArr.filter(v => v.isKept).map(v => v.value);
   var depth = left ? Math.max(left.depth, right.depth)+1 : right.depth+1;
   var dice = left ? left.value : 1;
-  return {
+  var result = {
       "value": accumulator,
       "values": valuesArr,
       "pretties": pretties,
       "depth": depth,
       "dice": dice
   };
+  // keep roll order for ns rolls so that a following ++/-- can display it unsorted
+  if (noSort) {
+    result.orderedValues = augmentedValuesArr.filter(v => v.isKept).map(v => v.value);
+  }
+  return result;
 }
 
 // This is used to configure how the dice calculations are performed.
